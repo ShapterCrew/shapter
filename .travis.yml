@@ -5,9 +5,9 @@ cache: bundler
 rvm:
   - 2.1.2
 script:
-  - cd shapter_api && RAILS_ENV=test bundle exec rake 
-  - cd FrontApp && grunt build
+  - RAILS_ENV=test bundle exec rake 
 before_script:
+  - cd shapter_api
   - gem install capistrano-rvm -v '0.1.1'
   - gem install delayed_job -v '4.0.2'
   - bundle install
