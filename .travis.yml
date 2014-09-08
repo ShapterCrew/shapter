@@ -1,4 +1,6 @@
 language: ruby
+services:
+  - mongodb
 cache: bundler
 rvm:
   - 2.1.2
