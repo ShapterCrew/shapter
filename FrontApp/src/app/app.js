@@ -14,6 +14,7 @@ angular.module( 'shapter', [
   'shapter.addCampus',
   'shapter.schools',
   'shapter.cgu',
+  'shapter.internships',
   'shapter.sideItem',
 //  'shapter.people',
   'shapter.campusAuthentication', 
