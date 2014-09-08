@@ -1,5 +1,8 @@
 language: ruby
-install: bundle install --without development --deployment
+install: bundle install --without development --deployment 
+cache:
+  directories:
+    - shapter-api/vendor/bundle
 services:
   - mongodb
 cache: bundler
