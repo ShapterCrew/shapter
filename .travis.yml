@@ -1,5 +1,5 @@
 language: ruby
-install: travis_retry bundle install --without development --deployment 
+install: travis_retry cd shapter-api && bundle install --without development --deployment 
 cache: bundler
 services:
   - mongodb

@@ -35,6 +35,10 @@ GIT
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
 
+PATH
+  remote: ./vendor/bundle
+  specs:
+
 GEM
   remote: http://rubygems.org/
   specs:
