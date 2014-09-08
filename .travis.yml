@@ -11,10 +11,7 @@ script:
   - grunt test
 before_install:
   - cd shapter-api
-after_install:
-  - cd ../
 before_script:
-  - cd shapter-api
   - cp config/initializers/secret_token.rb.example config/initializers/secret_token.rb
   - cp config/initializers/aws_credentials.rb.example config/initializers/aws_credentials.rb
   - cp config/initializers/behave_io.rb.example config/initializers/behave_io.rb
