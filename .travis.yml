@@ -9,6 +9,10 @@ script:
   - RAILS_ENV=test bundle exec rake
   - cd ../FrontApp 
   - grunt test
+before_install:
+  - cd shapter-api
+after_install:
+  - cd ../
 before_script:
   - cd shapter-api
   - cp config/initializers/secret_token.rb.example config/initializers/secret_token.rb
