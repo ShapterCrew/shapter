@@ -121,7 +121,11 @@
 
       <!-- }}} -->
 
-      <div class="shapter-well">
+      <div class="shapter-well" ng-show="view == 'map'">
+        <sh-map></sh-map>
+      </div>
+
+      <div class="shapter-well" ng-hide="view == 'map'">
         <div class="list-group">
           <div class="list-group-item clearfix" ng-repeat="item in internshipsList">
           </div>
