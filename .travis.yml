@@ -5,4 +5,5 @@ script:
   - RAILS_ENV=test bundle exec rake 
 before_script:
   - cd shapter-api
+  - gem install capistrano-rvm -v '0.1.1'
   - bundle install
