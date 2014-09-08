@@ -7,6 +7,7 @@ script:
 before_script:
   - cd shapter-api
   - gem install capistrano-rvm -v '0.1.1'
+  - gem install delayed_job -v '4.0.2'
   - bundle install
   - cp config/initializers/aws_credentials.rb.example config/initializers/aws_credentials.rb
   - cp config/initializers/behave_io.rb.example config/initializers/behave_io.rb
