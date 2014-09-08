@@ -1,0 +1,18 @@
+<ul class="nav navbar-nav navbar-right">
+  <li class="dropdown" ng-show="isAuthenticated()" style="z-index: 10000000000000">
+    <a href="" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-cog"></span></a>
+    <ul class="dropdown-menu">
+      <li>
+        <a ng-click="logout()">Déconnexion</a>
+      </li>
+    </ul>
+  </li>
+
+  <li ng-hide="isAuthenticated()">
+    <a ng-click="login()">Connexion</a>
+  </li>
+
+  <li ng-hide="isAuthenticated()">
+    <a ng-click="signup()">Inscription</a>
+  </li>
+</ul>

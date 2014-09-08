@@ -1,0 +1,55 @@
+<sh-header></sh-header>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <h2 class="center" style="margin-bottom: 0px">
+        <span class="text-sun"> {{ AppText.school.all_schools | language }} </span>
+      </h2>
+    </div>
+  </div>
+</div>
+
+<div class="neutral-infos">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8 col-md-offset-2">
+          <div class="h6">{{ AppText.school.select_institution | language }}</div>
+          <div class="form-group">
+            <input class="form-control" ng-model="schoolsFilter" placeholder="{{ AppText.school.browse_campuses | language }}">
+          </div>
+      </div><!-- col -->
+    </div><!-- row -->
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-3 col-sm-4" ng-repeat="school in schools | orderByAccent: 'name' | filter: schoolsFilter" ng-click="schoolNav( school.id )">
+      <div class="school-card" style="position: relative">
+        <h4>{{ school.name }}</h4>
+        <div style="position: absolute; bottom: 0px; margin-bottom: 20px; margin-top: 20px">
+          <ul class="list-inline stats-list" style="margin-bottom: 0px">
+            <li title="étudiants inscrits">
+              <span class="fa fa-user"></span>
+              {{ school.students_count }}
+            </li>
+            <li title="commentaires">
+              <span class="fa fa-comment"></span>
+              {{ school.comments_count }}
+            </li>
+            <li title="diagrammes renseignés">
+              <span class="icomoon-diagram"></span>
+              {{ school.diagrams_count }}
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <span class="center fa fa-spin fa-refresh" ng-show="loadingSchools"></span>
+  <div class="center" style="margin-bottom: 70px; margin-top: 40px">
+    <a class="text-info" ng-hide="loadingSchools" ng-href="#/addCampus">{{ AppText.school.campus_not_in_list | language }}</a>
+  </div>
+</div>
+

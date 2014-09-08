@@ -1,0 +1,103 @@
+<sh-header></sh-header>
+
+<div class="container" ng-show="noSF">
+  <div class="blue-infos" ng-show="initialState && security.isConfirmedStudent()">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+          <h5><span class="text-blue">{{ AppText.signup_funnel.noSF | language }}</span></h5>
+        </div><!-- col -->
+      </div><!-- row -->
+    </div>
+  </div>
+</div>
+
+<div ng-hide="noSF">
+  <div class="container">
+
+    <h1 class="yeah-alert" ng-show="displayThumb">
+      <span class="fa-stack fa-lg">
+        <i class="fa fa-certificate fa-stack-2x text-warning"></i>
+        <i class="fa fa-thumbs-up fa-stack-1x fa-inverse"></i>
+      </span>
+    </h1>
+
+    <h1 class="yeah-alert" ng-show="displayOh">
+      <span class="text-warning">Ohhh !</span>
+    </h1>
+
+    <!--
+    <div class="row main-row" ng-show="initialState">
+      <div class="col-md-6 col-md-offset-3 main-col">
+        <h4 class="light">{{ AppText.signup_funnel.welcome | language }}</h4>
+      </div>
+    </div>
+    -->
+  </div>
+
+  <div class="blue-infos" ng-show="initialState && security.isConfirmedStudent()">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+          <h5><span class="text-blue">{{ AppText.signup_funnel.select_classes | language }}</span></h5>
+        </div><!-- col -->
+      </div><!-- row -->
+    </div>
+  </div>
+
+  <div class="orange-infos" ng-show="initialState && !security.isConfirmedStudent()">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+          <p ng-bind="AppText.contribute.contribute_not_student | language"></p>
+          <a href="#/campusAuthentication" class="btn btn-info">{{ AppText.contribute.go_identify | language }}</a>
+        </div><!-- col -->
+      </div><!-- row -->
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row" ng-show="security.isConfirmedStudent()">
+      <div class="col-md-8 col-md-offset-2" ng-show="initialState">
+        <div class="clearfix">
+          <button class="btn btn-hg btn-info pull-right" ng-click="initialState = false;" ng-hide="loadingItems">Go <span class="glyphicon glyphicon-arrow-right"></span></button>
+        </div>
+      </div><!-- col -->
+    </div><!-- row -->
+    <div class="row main-row" ng-hide="initialState">
+      <div class="col-md-12 main-col questions-col">
+        <div class="row">
+          <div class="col-md-8 col-md-offset-2">
+            <h4 class="text-info">{{ stepName }} <span class="pull-right">{{ step }}&nbsp/&nbsp{{ nb_of_steps }}</span>: </h4>
+            <h6 ng-show="loadingItems"><span class="fa fa-spin fa-refresh"></span></h6>
+
+            <div class="form-group clearfix">
+              <div class="pull-right">
+                <button class="btn btn-info" ng-click="previousStep()" ng-show="step > 1">{{ AppText.system.previous | language }}</button>
+                <button class="btn btn-info" ng-click="nextStep()" ng-hide="step == nb_of_steps">{{ AppText.system.next | language }}</button>
+                <button class="btn btn-success" ng-click="nextStep()" ng-show="step == nb_of_steps">{{ AppText.system.finish | language }}</button>
+              </div>
+            </div>
+
+            <div class="list-group" ng-repeat="item in items | orderByAccent" ng-click="selectItem( item )" ng-hide="loadingItems">
+              <div class="list-group-item" ng-class="{'active': item.current_user_subscribed === true}">
+                <p style="margin-bottom: 0px">
+                  <span class="fa fa-lg" ng-class="{'fa-check-square-o': item.current_user_subscribed === true, 'fa-square-o': item.current_user_subscribed !== true}"></span>
+                  &nbsp{{ item.name }}
+                </p>
+              </div><!-- panel-body -->
+            </div><!-- list-group -->
+
+            <div class="clearfix pull-right" style="margin-bottom: 50px">
+              <button class="btn btn-info" ng-click="previousStep()" ng-show="step > 1">{{ AppText.system.previous | language }}</button>
+              <button class="btn btn-info" ng-click="nextStep()" ng-hide="step == nb_of_steps">{{ AppText.system.next | language }}</button>
+              <button class="btn btn-success" ng-click="nextStep()" ng-show="step == nb_of_steps">{{ AppText.system.finish | language }}</button>
+            </div>
+
+          </div>
+        </div>
+      </div><!-- col -->
+    </div><!-- row -->
+
+  </div><!-- container -->
+</div>

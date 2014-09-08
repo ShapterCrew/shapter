@@ -1,0 +1,85 @@
+<sh-header></sh-header>
+<div class="row main-row">
+  <div class="col-md-12 main-col" style="overflow-x: hidden">
+    <div class="row">
+      <div class="col-md-10 col-md-offset-1">
+        <h1 class="thin"></h1>
+        <div class="row">
+          <div class="col-md-12">
+            <h3 class="thin">{{ AppText.people.find_people | language }}</h3>
+            <span class="fa fa-refresh" ng-show="loadingFriends || loadingAlike"></span>
+          </div>
+          <div class="col-md-12" ng-show="Tag.allStudents.length > 0">
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group">
+                  <h6 ng-bind="AppText.people.looking_for_someone | language"></h6>
+                  <input ng-model="selectedStudent" class="form-control" type="text" placeholder="Tape donc un nom !" typeahead="student as student.name for student in Tag.allStudents | filter: $viewValue | limitTo: 10" typeahead-on-select="navToStudent( $item.id )">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <h6>{{ AppText.people.best_contributors | language }}</h6>
+            <ul class="list-group">
+              <li class="list-group-item" ng-repeat="leader in leaderboard" ng-click="navToStudent( leader.player.reference_id )">
+                <div class="media">
+                  <a class="pull-left">
+                    <img class="media-object thumbnail" src="{{ leader.player.traits.picture }}" alt="zbeuh !" style="margin-bottom: 5px" ng-show="leader.player.traits.picture">
+                  </a>
+                  <div class="media-body">
+                    <p class="media-heading" ng-show="leader.player.traits.name">{{ leader.position }}. {{ leader.player.traits.name }} <span class="badge badge-orange pull-right">{{ leader.score }} {{ AppText.people.swag_points.eng }}</span></p>
+                    <p class="media-heading" ng-hide="leader.player.traits.name">{{ leader.position }}. {{ leader.player.traits.firstname + ' ' + leader.player.traits.lastname }}, {{ leader.score }} {{ AppText.people.swag_points.eng }}</p>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div class="col-md-4">
+            <h6>{{ AppText.people.those_profiles_resemble_you | language }}</h6>
+            <p>{{ AppText.people.throw_an_eye | language }}</p>
+            <ul class="list-group">
+              <li class="list-group-item" ng-repeat="friend in alike | filter : {confirmed_student: 'true'}" ng-click="navToStudent( friend.id )">
+                <div class="media">
+                  <a class="pull-left">
+                    <img class="media-object thumbnail" src="{{ friend.image }}" alt="zbeuh !" ng-show="friend.image" style="margin-bottom: 5px">
+                  </a>
+                  <div class="media-body">
+                    <p class="media-heading">{{ friend.firstname + ' ' + friend.lastname }}</p>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div class="col-md-4" ng-hide="security.currentUser.provider == 'facebook'">
+            <p>{{ AppText.people.associate_your_facebook_account | language }}</p>
+            <div class="form-group" style="margin-top: 20px">
+              <a class="btn btn-lg btn-facebook" ng-click="facebookConnect()">
+                <span class="fa-stack fa-lg">
+                  <i class="fa fa-square fa-stack-2x"></i>
+                  <i class="fa fa-facebook fa-stack-1x text-facebook"></i>
+                </span>
+                {{ AppText.people.facebook_connect | language }}
+              </a>
+            </div>
+          </div>
+          <div class="col-md-4" ng-show="security.currentUser.provider == 'facebook'">
+            <h6>{{ AppText.people.your_facebook_friends_on_shapter | language }}</h6>
+            <ul class="list-group">
+              <li class="list-group-item" ng-repeat="friend in friends | filter: {confirmed_student: true}" ng-click="navToStudent( friend.id )">
+                <div class="media">
+                  <a class="pull-left">
+                    <img class="media-object thumbnail" src="{{ friend.image }}" alt="zbeuh !" style="margin-bottom: 5px">
+                  </a>
+                  <div class="media-body">
+                    <p class="media-heading">{{ friend.firstname + ' ' + friend.lastname }}</p>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

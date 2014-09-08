@@ -1,0 +1,9 @@
+<div class="confirm-alert-overlay" ng-show="confirmAlert.show">
+  <h1 class="confirm-alert" ng-show="confirmAlert.text">
+    <span class="fa-stack fa-lg">
+      <i class="fa fa-certificate fa-stack-2x text-sun">{{ confirmAlert.text | language }}</i>
+      <i class="fa fa-thumbs-up fa-stack-1x fa-inverse"></i>
+    </span>
+  </h1>
+  <img class="img-responsive" style="margin: auto; max-height: 100%" src="{{confirmAlert.img}}" ng-show="confirmAlert.img"/>
+</div>

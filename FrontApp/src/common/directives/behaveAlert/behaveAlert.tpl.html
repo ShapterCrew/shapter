@@ -1,0 +1,9 @@
+<div style="position: absolute;background: #64abff;color: white;padding: 5px;font-weight: bold;top: 66px; right: 5px; max-width: 250px" ng-show="behaveAlert || newBadge || newLevel">
+  {{ behaveAlert }}
+  <div ng-show="newBadge" style="text-align: center">
+    Nouveau badge !<img class="img-responsive thumbnail" width="100" style="margin: auto" src="{{ newBadge.icon }}" title="{{ newBadge.hint }}">
+  </div>
+  <div ng-show="newLevel" style="text-align: center">
+    Level up !<img class="img-responsive thumbnail" width="100" style="margin: auto" src="{{ newLevel.icon }}">{{ newLevel.message }}
+  </div>
+</div>

@@ -1,0 +1,74 @@
+<sh-header></sh-header>
+<div class="row main-row">
+  <div class="col-md-3 main-col">
+    <div class="nav nav-list">
+      <li ng-repeat="step in steps" ng-class="{'active': step == activeStep}" ng-click="selectStep( step )">
+        <a>{{ step.name }}</a>
+      </li>
+    </div>
+  </div>
+
+  <div class="col-md-9 main-col" ng-show="activeStep === null">
+    <h3 class="thin">Constructeur de parcours ( bêta )</h3>
+    <p>Ce module te permet de construire un parcours prévisionnel<p>
+        <p>Pour t'en servir, ajoute des cours à ton panier et aux cours que tu prévois de suivre</p>
+        <p>Puis sélectionne une étape à gauche et clique sur les cases du tableau pour choisir tes cours !</p>
+
+      </div>
+
+      <div class="col-md-9 main-col" ng-show="activeStep !== undefined && activeStep !== null">
+        <div ng-repeat="step in [ activeStep ]">
+          <h3>
+            Mon cursus pour {{ step.name }}&nbsp:
+          </h3>
+          <span ng-show="step.loading" class="fa fa-spin fa-refresh"></span>
+          <table class="table table-bordered">
+            <tr>
+              <th ng-show="step.selectedAltType">
+              </th>
+              <th ng-repeat="tag in step.selectedType.tags | orderByAccent:'name'" ng-click="manageCourseBuilder( tag, {} )" class="text-info">
+                <strong>
+                  {{ tag.name }}
+                </strong>
+              </th>
+            </tr>
+            <tr ng-show="step.selectedAltType" ng-repeat="altTag in step.selectedAltType.tags | orderByAccent:'name'" ng-click="manageCourseBuilder( altTag, {} )">
+              <th class="text-info">
+                <strong>
+                  {{ altTag.name }}
+                </strong>
+              </th>
+              <td ng-repeat="tag in step.selectedType.tags | orderByAccent:'name'" ng-class="{'courseTd': stickersToDisplay( tag, altTag ) > 0 }" ng-click="$event.stopPropagation(); manageCourseBuilder( tag, altTag )">
+
+                <div ng-hide="stickersToDisplay( tag, altTag ) > 0" style="text-align: center">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-plus fa-stack-1x fa-inverse text-emerald"></i>
+                  </span>
+                </div>
+
+                <div class="course-builder-sticker course-builder-sticker-limited" ng-repeat="item in tag.items | displaySticker:altTag | subscribed_selected:hide.subscribedItems | orderByAccent:'name'" ng-class="{'sticker-blue': item.current_user_subscribed, 'sticker-emerald': item.current_user_has_in_constructor}" ng-click="$event.stopPropagation(); manageCourseBuilder( tag, altTag )">
+                  <div class="sticker-heading">  
+                    {{ item.name }}
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </table>
+          <div class="form-group clearfix">
+            <div class="pull-right">
+              <label>Axes du tableau&nbsp:</label>
+              <select ng-options="type.name for type in step.formatedTypes" ng-model="step.selectedType"></select>
+              <select ng-options="type.name for type in step.formatedTypes" ng-model="step.selectedAltType"></select>
+            </div>
+          </div>
+          <div class="form-group clearfix">
+            <div class="pull-right">
+              <label> masquer les cours auxquels je suis déjà inscrit </label>
+              <input type="checkbox" ng-model="hide.subscribedItems"> 
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>

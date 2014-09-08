@@ -1,0 +1,52 @@
+<sh-header></sh-header>
+<div class="row main-row">
+  <div class="col-md-12 main-col">
+    <div class="row">
+      <div class="col-md-10 col-md-offset-1">
+        <div class="form-group">
+          <label>Nom de l'établissement</label>
+          <input class="form-control" ng-model="school" typeahead="schooly as schooly.name for schooly in schools | filter : $viewValue" typeahead-on-select="changeSchool()" ng-blur="changeSchool()">
+          <span ng-show="wrongSchoolName" style="color:red;">Il faut taper le nom d'une école déjà existante !</span>
+        </div>
+        <div class="form-group">
+          <label>Nom de la formation</label>
+          <input class="form-control" ng-model="form.name">
+        </div>
+        <div class="form-group" ng-show="false">
+          <label>Liste de tags définissant la formation: </label>
+          <input type="text" class="form-control" placeholder="Exs: Telecom ParisTech, ULM + Master MVA..." typeahead="tag as tag.name + ' / ' + tag.category for tag in schoolTags | ignoreAccentsFilter | filter: $viewValue | shorterFirstFilter | limitTo: 50" ng-model="formationTag" typeahead-editable="true" typeahead-on-select="addFormationTags()">
+          <span class="tag tag-new" ng-repeat="tag in activeTags">{{ tag.name }} <span class="glyphicon glyphicon-remove" ng-click="removeTag( $index )"</span></span>
+        </div>
+        <div class="form-group">
+          <label>Description du campus: </label>
+          <textarea class="form-control" ng-model="form.description"></textarea>
+        </div>
+        <div class="form-group">
+          <label>Url du site officiel: </label>
+          <input class="form-control" ng-model="form.website_url" placeholder="Commencer par http:// ou https://. Ex : http://www.telecom-paristech.fr" ng-blur="checkUrl()">
+          <span ng-show="wrongUrl" style="color:red;">L'url doit commencer par "http://" ou "https://"</span>
+        </div>
+        <div class="form-group">
+          <label>Crédits Photo</label>
+          <input class="form-control" ng-model="form.image_credits">
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <label>Logo: </label>
+            <input type="file" fileread="form.logo" filename="form.logo_filename">
+          </div>
+          <div class="col-md-6">
+            <label>Photo: </label>
+            <input type="file" fileread="form.image" filename="form.image_filename">
+          </div>
+        </div>
+        <div class="form-group clearfix" style="margin-top: 40px">
+          <div class="pull-right">
+            <button class="btn btn-warning" ng-click="schoolNav()">Annuler</button>
+            <button class="btn btn-success" ng-click="createOrUpdate()" ng-disabled="wrongSchoolName || wrongUrl">Valider</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

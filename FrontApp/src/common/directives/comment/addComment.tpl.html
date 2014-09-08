@@ -1,0 +1,23 @@
+<div class="alert alert-error" ng-repeat="alert in alerts">{{alert.msg}}<span class="glyphicon glyphicon-remove pull-right text-muted" ng-click="removeAlert( $index )"></span></div>
+
+<div class="row">
+  <div class="col-md-12">
+
+    <div class="form-group" ng-show="displayContextField">
+      <input class="form-control" ng-model="item.newComment.context" placeholder="{{ AppText.comment.which_context | language }}" maxlength="150">
+    </div>
+
+    <textarea ng-model="item.newComment.content" class="form-control" sh-auto-focus="displayAddComment" rows="6" placeholder="{{ AppText.addComment.your_comment_here | language }}"></textarea>
+  </div>
+
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="form-group clearfix" style="padding-top: 15px; margin-bottom: 0px">
+      <button ng-disabled="!item.newComment.content.length" ng-click="addNewComment()" class="btn btn-info pull-right" style="margin-left: 10px">{{ AppText.addComment.validate | language }}</button>
+    </div>
+  </div>
+</div>
+
+

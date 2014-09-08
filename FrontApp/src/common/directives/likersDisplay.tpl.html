@@ -1,0 +1,16 @@
+<div ng-show="comment.displayLikers" class="likers">
+  <div class="likers-inner">
+    <span ng-show="comment.loadingLikers" class="fa fa-spin fa-refresh"></span>
+
+    <div style="text-align: left" class="text-blue">Likers:</div> 
+    <div class="media pointer" ng-click="navToStudent( student.id )" ng-repeat="student in comment.likers" ng-show="comment.displayLikers" style="margin-top: 5px">
+      <a class="pull-left">
+        <img class="thumbnail" src="{{ student.image }}" ng-show="student.image" style="width: 30px; margin-bottom: 5px">
+      </a>
+      <div class="media-body" style="text-align: left">
+        <p class="media-heading">{{ student.firstname}} {{ student.lastname }}</p>
+      </div>
+    </div>
+  </div>
+</div>
+

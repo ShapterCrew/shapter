@@ -1,0 +1,27 @@
+<div class="row">
+  <div class="col-md-12">
+    <label>{{ AppText.editDiagram.drag_the_silders | language }}</label>
+  </div>
+  <div class="col-md-3" style="min-height: 120px" ng-repeat="cat in item.temporaryDiag.front_values">
+    <div range-slider min="0" max="100" model-max="cat.value" pin-handle="min" show-values="false" prevent-equal-min-max="true" style="margin-bottom: 20px"></div>
+    <div style="text-align: center">
+      {{ cat.name }}
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <div style="text-align: center" ng-repeat="item in [item]">
+    <sh-diagram diagram="item.temporaryDiag.front_values" width="100" with-text="true"></sh-diagram>
+  </div>
+  </div>
+</div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <div class="form-group clearfix" style="padding-top: 15px; margin-bottom: 0px">
+      <button ng-click="editDiagram()" class="btn btn-success pull-right" style="margin-left: 10px">{{ AppText.editDiagram.edit | language }}</button>
+      <button ng-click="cb()" class="btn btn-warning pull-right" style="margin-left: 10px">{{ AppText.editDiagram.cancel | language }}</button>
+    </div>
+  </div>
+</div>

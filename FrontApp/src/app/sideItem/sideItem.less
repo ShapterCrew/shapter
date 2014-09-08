@@ -1,0 +1,33 @@
+.side-item {
+  z-index: 1000;
+  padding: 30px;
+  border: 1px solid @silver;
+  background-color: mix(@clouds, white, 60%);
+  position: absolute;
+  width: 100%;
+  overflow: scroll;
+  height: calc(~'100% - 62px');
+  @media (min-width: @screen-md-min){
+    width: 50%;
+    left: 50%;
+  }
+  @media (max-width: @screen-sm-max) and (min-width: @screen-sm-min){
+    height: calc(~'100% - 124px');
+  }
+}
+
+.side-item-close {
+  position: fixed;
+  z-index: 1001;
+  //background-color: @clouds;
+  right: 0px;
+  padding-right: 5px;
+  & .btn {
+    padding: 6px 9px;
+  }
+    top: 67px;
+  @media (max-width: @screen-sm-max) and (min-width: @screen-sm-min){
+    top: 134px;
+  }
+}
+

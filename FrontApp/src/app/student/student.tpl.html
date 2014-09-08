@@ -1,0 +1,162 @@
+<sh-header></sh-header>
+
+<div class="container">
+  <div class="row main-row" style="margin-top: 10px">
+    <div class="col-md-12 main-col" style="overflow-x: hidden">
+      <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+
+          <div class="media">
+            <a class="pull-left">
+              <span ng-hide="!!user.image">
+                <img class="media-object thumbnail" src="assets/img/logo_silver_square.png" alt="zbeuh !" ng-hide="user.image" style="width: 70px">
+              </span>
+              <span ng-shiw="!!user.image">
+                <img class="media-object thumbnail" ng-src="{{ user.image }}" alt="zbeuh !" ng-show="user.image" style="width: 70px">
+              </span>
+            </a>
+            <div class="media-body">
+              <h3 class="media-heading">{{ user.login }}</h3>
+            </div>
+          </div>
+
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="media">
+                {{ AppText.profile.level | language }} {{ player.level.rank }}
+                <a class="pull-left">
+                  <img src="{{player.level.icon}}" title="{{player.level.message}}" style="width: 70px">
+                </a>
+
+                <div class="media-body">
+                  <span> {{ player.points }} points swag </span>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6" ng-show="ownProfile()">
+              <label>{{ AppText.profile.next_level | language }}</label>
+              <progressbar class="progress active" value="player.level.progress" type="{{progressBarType}}" style="height: auto;" title="{{progressBarTitle}}">{{player.level.progress}}%</progressbar>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-7">
+              <div class="light">{{ AppText.profile.average_diagram | language }}</div>
+              <div style="text-align: center" ng-repeat="user in [ user ]" ng-show="user.user_diagram">
+                <sh-diagram diagram="user.user_diagram.front_values" width="100" with-text="diagramWithText" ng-show="user.hasDiagram"></sh-diagram>
+                <div ng-hide="user.hasDiagram">
+                  <span ng-show="ownProfile()">{{ AppText.profile.to_get_a_diagram | language }}</span>
+                  <span ng-hide="ownProfile()">{{ user.firstname }} {{ AppText.profile.no_diagram_yet | language }}</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-5">
+              <div class="well">
+
+                <div>
+                  <span class="bold">{{ user.items_count }}</span><span class="light"> {{ AppText.profile.followed_courses | language }}</span>
+                </div>
+
+                <div>
+                  <span class="bold">{{ user.comments_count }}</span><span class="light"> {{ AppText.profile.comment | language }}<span ng-show="user.comments_count > 1">s</span></span>
+                </div>
+
+                <div>
+                  <span class="bold">{{ user.diagrams_count }}</span><span class="light"> {{ AppText.profile.diagram | language }}<span ng-show="user.diagrams_count > 1">s</span></span>
+                </div>
+
+                <div>
+                  <span class="bold">{{ user.comments_likes_count || 0}}</span><span class="light"> Like<span ng-show="user.comments_likes_count > 1">s</span> {{ AppText.profile.recieved | language }}<span ng-show="user.comments_likes_count > 1">s</span></span>
+                </div>
+
+                <div>
+                  <span class="bold">{{ user.comments_dislikes_count || 0}}</span><span class="light"> Dislike<span ng-show="user.comments_dislikes_count > 1">s</span> {{ AppText.profile.recieved | language }}<span ng-show="user.comments_dislikes_count > 1">s</span></span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+
+            <div class="col-md-1 col-xs-3 col-sm-1" ng-repeat="object in badges" style="padding: 0" ng-show="object.badge.icon">
+              <img class="img-responsive" src="{{object.badge.icon}}" title="{{object.badge.hint}}">
+            </div>
+
+            <div class="col-md-12">
+
+              <div ng-click="showLockedBadges = true" ng-show="ownProfile() && !showLockedBadges" class="text-muted">
+                {{ AppText.profile.see_locked_badges | language }}
+              </div>
+
+              <div ng-show="ownProfile() && showLockedBadges">
+
+                <div class="text-muted">
+                  <span ng-click="showLockedBadges = false">{{ AppText.profile.hide | language }}</span>
+                </div>
+
+              </div>
+            </div>
+
+            <div class="col-md-1" ng-repeat="object in lockedBadges" style="padding: 0" ng-show="showLockedBadges">
+              <img class="img-responsive" src="{{object.icon}}" title="{{object.hint}}" style="opacity: 0.4">
+            </div>
+
+
+          </div>
+
+
+          <div class="row" style="margin-top: 50px;">
+            <div class="col-md-12" style="margin-bottom: 100px">
+              <ul class="nav nav-pills" ng-show="user">
+                <li ng-repeat="school in user.schools" ng-class="{'active': display.nav == school.id}" ng-click="display.nav = school.id; loadCourses( school, false, false )"><a><span class="fa fa-refresh " ng-show="school.loading"></span> {{ school.name }} <span ng-hide="school.cursus === undefined">({{ school.cursus | nbOfCourses }})</span></a></li>
+                <li ng-class="{'active': display.nav == 'comments'}" ng-click="loadComments()"><a><span class="fa  fa-refresh" ng-show="loading.comments"></span> {{ AppText.profile.comments | language }} ({{ user.comments_count }}) </a></li>
+                <li ng-class="{'active': display.nav == 'alikeUsers'}" ng-click="loadAlikeUsers()"><a><span class="fa  fa-refresh" ng-show="loading.alike"></span> {{ AppText.profile.similar_profiles | language }}</a></li>
+              </ul>
+
+              <div ng-repeat="school in user.schools" ng-show="display.nav == school.id">
+                <div style="text-align: center">
+                  <button class="btn-success btn" style="margin-top: 30px; min-width: 70%" ng-click="signupFunnelNav( school.id )" ng-show="ownProfile()"><span class="fa fa-mortar-board"></span> {{ AppText.profile.manage_my_course | language }} {{ school.name }}</button>
+                </div>
+                <div ng-repeat="step in school.cursus" ng-show="step.subscribed_items.length > 0">
+                  <h5 ng-bind="step.name"></h3>
+                  <ul class="list-group">
+                    <li ng-repeat="item in step.subscribed_items" class="list-group-item pointer" sh-item-modal="item" items-list="step.subscribed_items">
+                      <span style="margin: 0px 3px;" class="pull-right label label-success" ng-show="item.this_user_has_comment || (ownProfile() === true && item.current_user_comments_count > 0)">{{ AppText.profile.comment | language }} <span class="fa fa-check"></span></span>
+                      <span style="margin: 0px 3px;" class="pull-right label label-orange" ng-show="item.this_user_has_diagram || (ownProfile() === true && item.current_user_has_diagram === true)">{{ AppText.profile.diagram | language }} <span class="fa fa-check"></span></span>
+                      <span style="margin: 0px 3px;" class="label label-info pull-right" ng-show="ownProfile() === false && item.current_user_subscribed === true">{{ AppText.profile.in_common | language }}</span>
+                      {{ item.name }}
+                    </li>
+                  </ul>
+                </div>
+              </div><!-- school -->
+
+              <div ng-show="display.nav == 'comments'">
+                <div class="campus-comment" ng-repeat="comment in comments">
+                  <div sh-comment close="close()" comment="comment" display-course-name="true" current-user="security.currentUser" comments='comments'></div>
+                </div>
+              </div><!-- comments -->
+
+              <div ng-show="display.nav == 'alikeUsers'" style="margin-top: 30px">
+                <ul class="list-group">
+                  <li class="list-group-item" ng-repeat="user in alikeUsers" ng-click="navToStudent( user.id )">
+                    <div class="media">
+                      <a class="pull-left">
+                        <img class="media-object thumbnail" src="{{ user.image }}" ng-show="user.image" style="margin-bottom: 5px">
+                      </a>
+                      <div class="media-body">
+                        <p class="media-heading">{{ user.firstname + ' ' + user.lastname }}</p>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </div><!-- alike users -->
+
+            </div>
+          </div>
+
+        </div><!-- col-8 -->
+      </div>
+    </div><!-- main col -->
+  </div>
+</div><!-- container -->

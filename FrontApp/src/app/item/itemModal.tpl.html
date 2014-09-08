@@ -1,0 +1,129 @@
+<div class="row modal-row" ng-click="close()">
+  <div class="col-md-12" ng-click="close()">
+    <div class="shapter-well center" ng-click="$event.stopPropagation()">
+      <span class="pull-right">
+        <span class="glyphicon glyphicon-remove" ng-click="close()"></span>
+      </span>
+
+      <h3 class="silver-bottom">
+        <span class="text-turquoise">
+          {{ item.name }}
+        </span>
+
+      </h3>
+      <ul class="list-inline stats-list">
+        <li class="h6">
+          <span ng-show="security.isConfirmedStudent()">
+            <span class="fa fa-lg fa-star text-sun" ng-show="item.current_user_has_in_cart" ng-click="item.uncart()"></span>
+            <span class="fa fa-lg fa-star-o" ng-hide="item.current_user_has_in_cart" ng-click="item.cart()"></span>
+            <label ng-class="{'text-sun': item.current_user_has_in_cart}">{{ AppText.item.favourite | language }}</label>
+          </span>
+        </li>
+        <li class="h6">
+          <span ng-show="security.isConfirmedStudent()">
+            <label ng-class="{'text-emerald': item.current_user_subscribed}">{{ AppText.item.followed | language }}</label>
+            <span ng-click="item.unsubscribe()" class="fa fa-check-square-o text-emerald" ng-show="item.current_user_subscribed"></span>
+            <span ng-click="item.subscribe()" class="fa fa-square-o" ng-hide="item.current_user_subscribed"></span>
+          </span>
+        </li>
+        <li class="text-blue h6">
+          <span ng-click="previous()" ng-show="currentIndex > 0" style="margin-right: 10px">
+            <span class="glyphicon glyphicon-arrow-left"></span>
+          </span>
+
+          <span ng-show="numberOfItems > 1">
+            {{ currentIndex + 1 }} / {{  numberOfItems }}
+          </span>
+
+          <span ng-click="next()" ng-show="numberOfItems - currentIndex - 1 > 0" style="margin-left: 10px">
+            <span class="glyphicon glyphicon-arrow-right"></span>
+          </span>
+
+        </li>
+      </ul>
+    </div>
+  </div>
+</div><!-- row -->
+
+
+<div class="row" ng-click="close()">
+  <div class="col-md-6" ng-click="close()">
+    <div class="shapter-well" ng-click="$event.stopPropagation()">
+      <button class="pull-right btn btn-info" ng-click="editDiagramFactory.openModal( item )" ng-show="security.isConfirmedStudent()">Évaluer</button>
+      <div class="lead text-asphalt bold">
+        {{ AppText.item.diagram | language }}
+      </div>
+      <div class="campus-comment center" ng-repeat="item in [item]" style="margin-top: 20px; margin-bottom: 20px" ng-show="item.diagrams_count">
+        <sh-diagram diagram="item.averaged_diagram" width="60" with-text="true"></sh-diagram>
+      </div>
+      <div class="text-muted" ng-hide="item.diagrams_count">{{ AppText.item.no_diagram | language }}</div>
+    </div>
+  </div><!-- col left -->
+
+  <div class="col-md-6" ng-click="close()">
+
+    <div class="shapter-well" style="height: 294px;" ng-click="$event.stopPropagation()">
+
+
+      <div class="lead text-asphalt bold">
+        {{ AppText.item.description | language }} 
+      </div>
+
+      <div style="font-style: italic">{{ item.description }}</div>
+      <div style="font-stule: italic" class="text-muted" ng-hide="item.description.length">{{ AppText.item.no_description | language }}</div>
+
+    </div>
+  </div>
+</div><!-- row -->
+
+
+
+<div class="row" ng-click="close()">
+  <div class="col-md-8" ng-click="close()">
+    <div class="shapter-well" ng-click="$event.stopPropagation()">
+      <button class="pull-right btn btn-info" ng-click="item.displayAddComment = !item.displayAddComment" ng-show="security.isConfirmedStudent()">Commenter</button>
+      <div class="lead text-asphalt bold">
+        {{ AppText.item.comments | language }} 
+      </div>
+
+      <div ng-show="item.displayAddComment">
+        <div id="addComment" sh-add-comment item="item" ng-repeat="item in [ item ]" cb="hideAddComment()"></div>
+      </div>
+
+      <div ng-show="item.comments | hiddenComments" class="orange-infos" style="padding: 20px">
+        <div class="bold">{{ AppText.item.there_are | language }} {{ item.comments | hiddenComments }} {{ AppText.item.hidden_comments | language }}</div>
+        <p>{{ AppText.item.to_see_the_comments | language }}</p>
+        <a href="#/campusAuthentication" class="btn btn-info">{{ AppText.item.i_have_an_email | language }}</a>
+      </div>
+
+      <div class="campus-comment" ng-repeat="comment in item.comments | filter: {content: '!hidden'} | reverse">
+        <div sh-comment close="close()" comment="comment" display-student-name="true" current-user="security.currentUser" comments='item.comments'></div>
+      </div>
+
+      <div class="text-muted" ng-hide="item.comments.length">{{ AppText.item.no_comments | language }}</div>
+    </div>
+  </div><!-- col -->
+
+  <div class="col-md-4" ng-click="close()">
+    <div class="shapter-well" ng-click="$event.stopPropagation()">
+      <div class="lead text-asphalt bold">
+        {{ AppText.item.attending_students | language }} 
+      </div>
+      <ul class="list-unstyled">
+        <li class="student-li" ng-repeat="student in item.subscribers | limitTo: nbDisplayStudents" ng-click="navStudent( student.id )">
+
+          <div class="media pointer">
+            <a class="pull-left">
+              <img class="thumbnail" src="{{ student.image }}" ng-show="student.image" style="width: 30px; margin-bottom: 5px">
+            </a>
+            <div class="media-body">
+              <p class="media-heading">{{ student.firstname }} {{ student.lastname }}</p>
+            </div>
+          </div>
+
+        </li>
+        <li ng-click="nbDisplayStudents = nbDisplayStudents  + 10" ng-show="nbDisplayStudents < item.subscribers.length"><a>{{ AppText.item.show_more | language }}</a></li>
+      </ul>
+    </div>
+  </div>
+</div><!-- row -->

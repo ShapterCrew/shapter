@@ -1,0 +1,54 @@
+<div class="like-module" ng-class="{'panel': (questionPending === true || comment.is_liked == 0 || comment.is_liked === undefined ) && !ownComment() }" style="margin: 0px">
+  <div ng-hide="questionPending">
+    <div ng-class="{'panel-body': questionPending === true || comment.is_liked == 0 || comment.is_liked === undefined}">
+      <div ng-show="comment.is_liked === 0 || comment.is_liked === undefined" style="margin-bottom: 5px">
+        <div ng-hide="ownComment()">
+          <!--<p style="margin-bottom: 0px">Évalue ce commentaire :</p>-->
+          <span class="fa-stack fa-2x" ng-click="onLike('like')">
+            <i class="fa fa-circle fa-stack-2x text-success"></i>
+            <i class="fa fa-thumbs-up fa-stack-1x fa-inverse"></i>
+          </span>
+
+          <span class="fa-stack fa-2x" ng-click="onLike('dislike')">
+            <i class="fa fa-circle fa-stack-2x text-danger"></i>
+            <i class="fa fa-thumbs-down fa-stack-1x fa-inverse"></i>
+          </span>
+        </div><!-- hide if own comment -->
+      </div>
+
+      <div class="progress" style="margin: 0px 0px 0px 0px;" ng-hide="comment.nb_dislikes === 0 && comment.nb_likes === 0">
+        <div class="progress-bar progress-bar-success" ng-style="successBar" style="line-height: 11px">
+          <small ng-show="comment.nb_likes" style="line-height: 11px">{{ comment.nb_likes }}</small>
+        </div>
+        <div class="progress-bar progress-bar-danger" ng-style="dangerBar" style="line-height: 11px">
+          <small ng-show="comment.nb_dislikes" style="line-height: 11px">{{ comment.nb_dislikes }}</small>
+        </div>
+      </div>
+
+
+      <div ng-show="comment.is_liked == 1" class="change-comment-like">
+        <small>
+          Tu es du même avis. <a ng-click="comment.like()" class="text-primary">changer</a>
+        </small>
+      </div>
+      <div ng-show="comment.is_liked == -1" class="change-comment-like">
+        <small>
+          Tu n'es pas du même avis. <a ng-click="comment.dislike()" class="text-primary">changer</a>
+        </small>
+      </div>
+
+      <!--<p style="padding-top: 5px" ng-show="comment.item_commented_by_current_user === false && comment.is_liked == -1">Tu n'es pas d'accord ? Écris un commentaire et donne ton point de vue !</p>-->
+
+    </div>
+  </div>
+  <div ng-show="questionPending">
+    <div class="panel-body">
+      <p> As-tu suivi cet enseignement ?</p>
+    </div><!-- panel body -->
+    <div class="panel-footer clearfix">
+      <button class="btn btn-success" ng-click="onAnswer(true)">Oui</button>
+      <button class="btn btn-default" ng-click="onAnswer(false)">Non</button>
+    </div><!-- panel-footer -->
+  </div>
+</div>
+

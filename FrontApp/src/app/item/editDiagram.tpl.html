@@ -1,0 +1,16 @@
+<div class="modal-content" style="margin-bottom: 20px">
+  <div class="modal-fade">
+    <div class="modal-header modal-header-2">
+      <span class="pull-right glyphicon glyphicon-remove" ng-click="close()"></span>
+      <span class="lead">
+        {{ AppText.item.my_diagram_on | language }} {{item.name}}&nbsp:
+      </span>
+    </div>
+    <div class="modal-body modal-body-1">
+      <div style="margin-top: 20px; margin-bottom: 20px" ng-repeat="item in [ item ]">
+        <div sh-edit-diagram item="item" cb="close()"></div>
+      </div>
+    </div>
+  </div>
+</div><!-- modal-content -->
+

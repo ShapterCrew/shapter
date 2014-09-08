@@ -1,0 +1,125 @@
+<div class="row modal-row" ng-click="close()">
+  <div class="col-md-12" style="margin-bottom: 20px" ng-click="$event.stopPropagation()">
+    <div class="modal-content">
+      <div class="modal-fade">
+        <div class="modal-body">
+          <span class="glyphicon glyphicon-remove pull-right" ng-click="close()"></span>
+          <div class="lead" style="margin-bottom: 0px; text-align: center">
+            <span>{{ tag.name }}</span>
+            <span ng-show="tag.name && altTag.name">
+              <span class="fa-stack">
+                <i class="fa fa-circle fa-stack-2x text-silver"></i>
+                <span class="fa-inverse fa-stack-1x">&amp;</span>
+              </span>
+            </span>
+            <span>{{ altTag.name }}</span>
+          </div>
+        </div><!-- modal-body-->
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4" ng-click="$event.stopPropagation()">
+    <div class="modal-content" style="margin-bottom: 20px">
+      <div class="modal-fade">
+        <div class="modal-body">
+          <div class="lead">
+            Mon panier : 
+          </div>
+
+          <div x-lvl-drop-target="true" x-on-drop="dropped( draggedItem, 'cart' )" style="padding-bottom: 100px">
+            <div class="course-builder-sticker sticker-orange" ng-repeat="item in tag.items" ng-show="item.current_user_has_in_cart === true && isTagged( item, altTag ) === true" x-lvl-draggable="true" draggable-item="item" style="overflow: visible">
+              <div class="sticker-heading">  
+                <div class="pull-right" style="margin-right: 15px">
+                  <div class="dropdown" style="position: absolute; margin-right: 10px">
+                    <span class="caret dropdown-toggle" style="border-top-color: white">
+                    </span>
+                    <ul class="dropdown-menu" >
+                      <li sh-item-modal="item" items-list="[]"><a>Afficher le cours</a></li>
+                    </ul>
+                  </div>
+                </div>
+                {{ item.name }}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-body">
+          <div class="clearfix">
+            <div class="dropdown pull-left">
+              <span class="glyphicon glyphicon-plus text-silver dropdown-toggle" style="margin-bottom: 10px"></span>
+              <ul class="dropdown-menu">
+                <li ng-repeat="item in tag.items | filter: {current_user_has_in_cart: '!true'} | filter: {current_user_has_in_constructor: '!true'} | filter: {current_user_subscribed: '!true'}" ng-click="item.current_user_has_in_cart = true; item.current_user_subscribed = false; item.current_user_has_in_constructor = false" ng-show="isTagged( item, altTag ) === true"><a>{{ item.name }}</a></li>
+              </ul>
+            </div>
+            <div x-lvl-drop-target="true" x-on-drop="dropped( draggedItem, 'all' )" style="widht: 30px; height: 30px" style="display: inline-block">
+              <div class="pull-right clearfix">
+                <div class="fa fa-trash-o"></div>
+              </div>
+            </div>
+          </div>
+
+        </div><!-- modal-body -->
+      </div><!-- modal-fade -->
+    </div><!-- modal-content -->
+
+  </div> <!-- col -->
+  <div class="col-md-4" ng-click="$event.stopPropagation()">
+    <div class="modal-content" style="margin-bottom: 20px">
+      <div class="modal-fade">
+        <div class="modal-body">
+          <div class="lead">
+            Je prévois de suivre : 
+          </div>
+          <div x-lvl-drop-target="true" x-on-drop="dropped( draggedItem, 'in_constructor' )" style="padding-bottom: 100px">
+            <div class="course-builder-sticker sticker-emerald" ng-repeat="item in tag.items" ng-show="isTagged( item, altTag ) === true && item.current_user_has_in_constructor === true" x-lvl-draggable="true" draggable-item="item">
+              <div class="sticker-heading">  
+                <div class="pull-right" style="margin-right: 15px">
+                  <div class="dropdown" style="position: absolute; margin-right: 10px">
+                    <span class="caret dropdown-toggle" style="border-top-color: white">
+                    </span>
+                    <ul class="dropdown-menu" >
+                      <li sh-item-modal="item" items-list="[]"><a>Afficher le cours</a></li>
+                    </ul>
+                  </div>
+                </div>
+                {{ item.name }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div><!-- modal-fade -->
+
+    </div><!-- modal-content -->
+  </div> <!-- col -->
+  <div class="col-md-4" ng-click="$event.stopPropagation()">
+    <div class="modal-content">
+      <div class="modal-fade">
+        <div class="modal-body">
+          <div class="lead">
+            J'ai suivi : 
+          </div>
+          <div x-lvl-drop-target="true" x-on-drop="dropped( draggedItem, 'subscribed' )" style="padding-bottom: 100px">
+
+            <div class="course-builder-sticker sticker-blue" ng-repeat="item in tag.items" ng-show="isTagged( item, altTag ) === true && item.current_user_subscribed === true" x-lvl-draggable="true" draggable-item="item">
+
+              <div class="sticker-heading">  
+                <div class="pull-right" style="margin-right: 15px">
+                  <div class="dropdown" style="position: absolute; margin-right: 10px">
+                    <span class="caret dropdown-toggle" style="border-top-color: white">
+                    </span>
+                    <ul class="dropdown-menu" >
+                      <li sh-item-modal="item" items-list="[]"><a>Afficher le cours</a></li>
+                    </ul>
+                  </div>
+                </div>
+                {{ item.name }}
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div><!-- modal-fade -->
+    </div><!-- modal-content -->
+  </div> <!-- col -->
+</div><!-- row -->

@@ -1,0 +1,52 @@
+<sh-header></sh-header>
+<div class="row main-row">
+  <div class="col-md-10 col-md-offset-1">
+    <h1 class="thin">Montre patte blanche !</h1>
+    <div class="lead">Tu dois être identifié comme étudiant pour accéder aux services de Shapter.</div>
+
+    <alert class="alert alert-danger" ng-repeat="alert in alerts" type="alert.type" ng-show="alert.msg">
+    {{alert.msg | language}}
+    </alert>
+
+    <div class="list-group">
+      <div class="list-group-item">
+        <form name="addAuthForm" class="css-form">
+          <div class="form-group">
+            <label>Ce doit être l'email de ton établissement ou l'email sur lequel tu as reçu une invitation le cas échéant. Si tu ne trouves pas, demande à ton BDE !</label>
+            <input class="form-control" ng-model="newInstitution.email" placeholder="Email de vérification de ton établissement">
+          </div>
+
+          <div class="form-group" ng-show="displayPassword">
+            <input class="form-control" type="password" placeholder="mot de passe associé à l'email" ng-model="newInstitution.password">
+          </div>
+
+          <div class="form-group" ng-show="displayPassword">
+            <label ng-click="security.showForgotPassword()">Mot de passe oublié ?</label>
+          </div>
+
+          <div class="form-group">
+            <p ng-click="showTelecomMsg = true" ng-hide="showTelecomMsg"><small><a>Je suis de Télécom ParisTech et je suis perdu.</a></small></p>
+            <p ng-click="showTelecomMsg = false" ng-show="showTelecomMsg"><small><a>Je suis de Télécom ParisTech et je ne suis plus perdu.</a></small></p>
+            <p style="margin-top: 10px" ng-show="showTelecomMsg"><small>
+              Plusieurs choix :<br>
+              1) Tu avais un compte sur le POUF : ton adresse mail est <strong>login@telecom-paristech.fr</strong>.<br>
+              2) Tu avais un compte sur Shapter : ton adresse mail est celle que tu utilisais dessus.<br>
+              3) non 1) et non 2) : utilise l'adresse mail <strong>prenom.nom@telecom-paristech.fr.</strong><br>
+              4) Ça marche toujours pas ? Écris-nous à teamshapter@gmail.com et on te répond dans la seconde (voire moins).<br>
+              Plus de détails dans <a href="http://shaptercrew.github.io/blog/2014/06/13/linscription-par-un-email-decole/" target="_blank">cet article</a>.
+            </small></p>
+          </div>
+
+          <div class="form-group clearfix">
+            <button type="submit" class="btn btn-success" ng-click="addAutorization()">Recevoir l'email de confirmation</button>
+          </div>
+        </form>
+      </div>
+    </div><!-- list-group -->
+    <div ng-show="( friends | confirmedFacebookFriends ).length">
+      <h6 class="text-muted">Tu as des amis sur Shapter :</h6>
+      <img ng-repeat="friend in friends | confirmedFacebookFriends" src="{{friend.image}}" alt="{friend.firstname}" class="thumbnail" style="margin: 5px; width: 50px; display: inline-block">
+    </div>
+  </div>
+</div>
+

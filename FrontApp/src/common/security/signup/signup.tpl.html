@@ -1,0 +1,65 @@
+<form name="form" novalidate class="login-form">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-fade">
+        <div class="modal-header">
+          <button type="button" class="close" ng-click="cancelSignup()">×</button>
+          <h4>Inscription</h4>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="alert alert-error" ng-show="signupError">
+                {{signupError}}
+              </div>
+            </div>
+            <!--
+            <div class="col-md-12">
+              <h6>Connexion avec Facebook : </h6>
+              <hr>
+            </div>
+            -->
+            <div class="col-md-12">
+              <h6>Inscription à partir d'un email : </h6>
+              <form name="form" novalidate class="login-form">
+                <div class="form-group">
+                  <label>Prénom</label>
+                  <input name="first_name" type="text"  class="form-control" ng-model="user.first_name" sh-auto-focus="true" required>
+                </div>
+                <div class="form-group">
+                  <label>Nom</label>
+                  <input name="last_name" type="text" class="form-control" ng-model="user.last_name" required >
+                </div>
+                <div class="form-group">
+                  <label>Email (ton email d'établissement)</label>
+                  <input name="email" class="form-control" type="email" ng-model="user.email" required>
+                </div>
+                <div class="form-group">
+                  <label>Mot de passe :</label>
+                  <input name="password" type="password" ng-model="user.password" class="form-control" required>
+                </div>
+                <div class="form-group">
+                  <label>Établissement :</label>
+                  <select ng-model="user.school" ng-change="loadGateways(user.school)" ng-options="school.name for school in signupSchools | orderByAccent" class="form-control" name="select" style="cursor: pointer"></select>
+                  <a href="#/contact/" ng-click="cancelSignup()">Mon établissement n'est pas dans la liste</a>
+                </div>
+
+                <div class="form-group" ng-show="user.school">
+                  <label>Programme :</label>
+                  <select ng-model="user.gateway" ng-options="gateway.name for gateway in user.school.gateways | orderByAccent" class="form-control" name="select" style="cursor: pointer" ng-disabled="loadingGateways"></select>
+                  <a href="#/contact/" ng-click="cancelSignup()">Mon programme n'est pas dans la liste</a>
+                </div>
+
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button class="btn btn-primary login" ng-click="signup()" ng-disabled='form.$invalid'>Inscription</button>
+          <button class="btn btn-warning cancel" ng-click="cancelSignup()">Annuler</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

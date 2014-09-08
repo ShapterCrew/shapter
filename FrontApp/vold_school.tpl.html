@@ -1,0 +1,51 @@
+<sh-header></sh-header>
+
+<div class="container">
+  <div class="row">
+
+    <div class="col-md-12">
+      <h3 class="text-sunblood center"> 
+        <img class="media-object thumbnail" src="{{ formation.logo_url }}" style="float: left; width: 80px" ng-show="formation.logo_url && !formation.website_url">
+        Accueil 
+      </h3>
+    </div>
+  </div><!-- row -->
+
+  <div class="row">
+    <div class="col-md-4" ng-repeat="comment in formation.best_comments | limitTo: 3">
+
+      <div class="best-comment">
+        <div class="best-comment-title">{{ comment.item.name }}</div>
+        <p class="quote">"{{ comment.content | commentCut:300:comment.displayAll}}"<span class="text-info" ng-show="comment.content.length > 300 && !comment.displayAll" ng-click="comment.displayAll = true">{{ AppText.comment.display_more | language }}</span><span class="text-info" ng-show="comment.content.length > 300 && comment.displayAll" ng-click="comment.displayAll = false">{{ AppText.comment.hide | language }}</span></p>
+      </div>
+    </div>
+  </div>
+
+</div><!-- container -->
+
+<div class="blue-infos">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <ul class="list-inline stats-list" style="margin-bottom: 0px">
+          <li>
+            <span class="fa fa-user"></span>
+            {{ formation.students_count }} {{ AppText.school.contributors | language }}
+          </li>
+          <li>
+            <span class="fa fa-comment"></span>
+            {{ formation.comments_count }} {{ AppText.school.comments | language }}
+          </li>
+          <li>
+            <span class="icomoon-diagram"></span>
+            {{ formation.diagrams_count }} {{ AppText.school.diagrams | language }} 
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+</div>
+

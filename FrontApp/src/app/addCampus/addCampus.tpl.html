@@ -1,0 +1,48 @@
+<sh-header></sh-header>
+<div class="row main-row">
+  <div class="col-md-12 main-col" style="padding-bottom:120px">
+    <div class="col-md-10 col-md-offset-1">
+      <div class="h1 center">{{ AppText.add_campus.add_your_campus | language }}</div>
+      <div class="lead center">{{ AppText.add_campus.help_others | language }}</div>
+
+      <div style="text-align: center">
+        <img class="img-responsive" src="assets/img/logo_blue_square.png" style="max-width: 200px; margin-left: auto; margin-right: auto">
+      </div>
+
+      <div class="well" style="margin-top: 40px">
+        <ol >
+          <li><p>{{ AppText.add_campus.choose_some_formation | language }}</p> 
+            <span class="text-muted">{{ AppText.add_campus.example | language }}</span>
+          </li>
+          <li><p>{{ AppText.add_campus.find_documentation | language }}</p></li>
+
+          <li>
+            <p>{{ AppText.add_campus.download | language }}</p>
+            <div class="center">
+          <a class="btn btn-bg btn-emerald" href="https://s3-eu-west-1.amazonaws.com/shapter-shared-files/static/Inte%CC%81gration+e%CC%81cole.xls" download><span class="fa fa-download"></span>{{ AppText.add_campus.download_excel | language }}</a>
+            </div>
+          </li>
+          <li>
+            <p>{{ AppText.add_campus.send_it | language }} <span class="text-info">teamshapter@shapter.com</span></p>
+          </li>
+          <li>
+            <p>{{ AppText.add_campus.we_come_back | language }}</p>
+          </li>
+        </ol>
+      </div><!-- well -->
+      <div class="clearfix" style="margin-top: 30px">
+        <a ng-click="showAbout = !showAbout" class="text-info">
+          Pourquoi ajouter mon campus ? 
+        </a>
+      </div>
+
+      <div ng-show="showAbout" style="margin-top: 30px">
+        <div ng-include="'about/about_part.tpl.html'"></div>
+        <div class="center" style="margin-top: 50px">
+          <a class="btn btn-bg btn-emerald" href="https://s3-eu-west-1.amazonaws.com/shapter-shared-files/static/Inte%CC%81gration+e%CC%81cole.xls" download><span class="fa fa-download"></span>Télécharger le modèle excel</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

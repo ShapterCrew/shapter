@@ -1,0 +1,204 @@
+.start-hero {
+  //background-color: rgb(102,204,204);
+  //background-color: mix(@wisteria, white, 50%);
+  background-color: @peter-river;
+}
+
+.feedbacks {
+  background-color: mix(@silver, white, 20%);
+}
+
+.text-start {
+  color: white;
+}
+
+.start-row {
+  height: 100%;
+}
+
+.start-col {
+  background-color: @blue-pastel;
+  //height: calc(~'100% - 80px');
+  height: 100%;
+  display: inline-block;
+  padding-top: 70px;
+}
+
+.btn-facebook {
+  background-color: @blue-pastel;
+  color: white;
+  &:hover {
+  background-color: @blue-pastel-c1;
+  }
+}
+
+.text-facebook {
+  color: @blue-pastel;
+}
+
+.btn-enter {
+  background-color: white;
+  border: 1px solid @silver;
+}
+
+.btn-enter:active,
+.btn-enter:focus,
+.btn-enter:hover {
+  //color: @blue-pastel;
+  color: @wet-asphalt;
+}
+
+.wisteria:hover,
+.wisteria:focus,
+.wisteria:active {
+  background-color: @sun-flower;
+}
+
+#footer {
+  background-color: #2a2d35;
+  width: 100%;
+}
+
+footer p {
+  font-size: 13px;
+}
+
+.sections {
+  text-align: center;
+  margin-top: 30px;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  font-size: 13px;
+}
+
+.sections a {
+  text-decoration: none;
+  font-size: 13px;
+  line-height: 20px;
+  margin: 0 0 10px 30px;
+  font-weight: 200;
+}
+
+.sections p {
+  color: #bdc3c7;
+}
+
+.sections p:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.footer-details {
+  color: #bdc3c7;
+  margin: 40px auto;
+}
+
+.about-details {
+  max-width: 750px;
+}
+
+.team-details .row {
+  text-align: center
+}
+
+.contact-details .row {
+  text-align: center
+}
+.team_pic {
+  height: 80px;
+  border-width:	10px;
+  border-color: rgb(102, 204, 204);
+  border-radius: 3px;
+}
+
+.contact-form {
+  max-width: 400px;
+}
+
+.contact-form input,
+.contact-form textarea {
+  background-color: rgb(245,245,250);
+  margin-top:	5px;
+}
+
+.contact-form input[type="submit"] {
+  float: left;
+  margin-top: 10px;
+  background-color: rgb(245,245,250);
+  color: #2a2d35;
+  padding: 5px 8px;
+  border:	none;
+  border-radius: 3px;
+}
+
+.contact-form input[type="submit"]:hover {
+  background-color: rgb(102, 204, 204);
+}
+
+.contact-form input[type="submit"][disabled]:hover {
+  background-color: rgb(245,245,250);
+}
+
+#contact-form-result {
+  margin-top: 20px;
+}
+
+.credits {
+  border-top: 1px solid #343437;
+  text-align: center;
+}
+
+.copyright-logo {
+  height: 40px;
+  margin-top: 30px;
+  margin-bottom: 15px;
+}
+
+/* trick for sticky footer */
+html {
+  height: 100%;
+  margin: 0;
+}
+body {
+  height: 100%;
+}
+.wrap {
+  display: table;
+  height: 100%;
+  width: 100%;
+}
+
+.block {
+  display: table-row;
+  height: 1px;
+}
+
+.push {
+  height: auto;
+}
+/* end trick for sticky footer */
+
+//animate team photos
+.team-photo-hide {
+  position: absolute;
+  -webkit-transition: 0.4s linear all; /* Chrome */
+  transition: 0.4s linear all;
+  opacity: 0;
+}
+
+.team-photo-hide.team-photo-hide-active {
+  position: absolute;
+  opacity: 1;
+}
+
+.team-photo-show {
+  position: absolute;
+  -webkit-transition: 0.4s linear all; /* Chrome */
+  transition: 0.4s linear all;
+  opacity: 1;
+}
+
+.team-photo-show.team-photo-show-active {
+  position: absolute;
+  opacity: 0;
+}

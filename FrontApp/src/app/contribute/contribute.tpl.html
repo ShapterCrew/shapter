@@ -1,0 +1,113 @@
+<div style="height: 100%; overflow: auto" infinite-scroll="loadMoreItems()" infinite-scroll-distance="1" infinite-scroll-disabled="loading">
+  <sh-header></sh-header>
+
+  <div class="container" >
+    <div class="row main-row">
+      <div class="col-md-12 main-col" style="overflow-x: hidden">
+        <div class="row">
+          <div class="col-md-10 col-md-offset-1">
+            <span ng-show="loading" class="fa fa-spin fa-refresh pull-right"></span>
+            <h1 class="center text-sun" style="margin-bottom: 0px">
+              {{ AppText.contribute.give_a_hand | language }}
+            </h1>
+          </div><!-- col -->
+        </div><!-- row -->
+      </div><!-- col -->
+    </div><!-- row -->
+  </div><!-- container -->
+
+  <div class="emerald-infos" ng-show="security.isConfirmedStudent()">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+          <div class="row">
+            <div class="col-md-6">
+              <p ng-bind="AppText.contribute.contribute_infos | language"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="orange-infos" ng-hide="security.isConfirmedStudent()">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+          <div class="row">
+            <div class="col-md-6">
+              <p ng-bind="AppText.contribute.contribute_not_student | language"></p>
+              <a href="#/campusAuthentication" class="btn btn-info">{{ AppText.contribute.go_identify | language }}</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container" ng-show="security.isConfirmedStudent()">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="row">
+          <div class="col-md-10 col-md-offset-1" ng-show="loading === false && commentPipe.commentable_items.length === 0" style="text-align: center">
+            <div class="well">
+              <p style="margin-top: 50px">{{ AppText.contribute.what_did_you_study | language }}</p>
+              <button class="btn btn-hg btn-orange" ng-click="navSf()">{{ AppText.contribute.fill_in_your_cursus | language }}</button>
+            </div>
+          </div>
+
+          <div class="col-md-10 col-md-offset-1">
+            <div class="shapter-well" ng-repeat="item in commentPipe.commentable_items" style="margin-bottom: 60px">
+
+              <div class="text-muted" ng-hide="item.current_user_comments_count && item.current_user_has_diagram"> {{ AppText.contribute.need_feedback | language }} </div>
+              <div class="pull-right" ng-show="item.current_user_has_diagram && item.current_user_comments_count"><span class="fa fa-check text-emerald fa-3x"></span></div>
+              <div style="margin-bottom: 10px"><span class="bold lead text-dark-blue">{{ item.name }}</span></div>
+
+              <div class="row">
+                <div class="col-md-4">
+                  <div ng-hide="item.current_user_has_diagram">
+                    <div class="center">
+                      <button class="btn btn-info btn-lg center" ng-hide="item.current_user_has_diagram" ng-click="editDiagram( item )" style="width: 100%; margin-bottom: 15px">
+                        <span class="fa-stack fa-2x spin-hover">
+                          <i class="fa fa-certificate fa-stack-2x fa-inverse spin-hover"></i>
+                          <i class="icomoon-diagram fa-stack-1x text-blue spin-hover"></i>
+                        </span>
+                        <div ng-hide="item.current_user_has_diagram" class="bold">{{ AppText.contribute.edit_your_diagram | language }}</div>
+                      </button>
+                    </div>
+                  </div>
+
+                  <div ng-show="item.current_user_has_diagram" ng-repeat="item in [ item ]">
+                    <div style="margin-bottom: 0px">{{ AppText.contribute.averaged_diagram | language }}</div>
+                    <div class="center">
+                      <sh-diagram diagram="item.current_user_diagram.front_values" width="50" with-text="true" ng-click="editDiagram( item )"></sh-diagram>
+                    </div>
+                  </div>
+                </div><!-- col 4 -->
+
+                <div class="col-md-8">
+                  <div class="clearfix">
+                    <div ng-show="item.comments === undefined || ( item.comments | ownComment:security.currentUser.id ).length === 0">
+
+
+                      <div id="addComment" sh-add-comment item="item" ng-repeat="item in [ item ]" cb="" ></div>
+                    </div>
+                    <div class="campus-comment" sh-comment close="close()" display-student-name="true" item="item" comment="comment" comments="item.comments" ng-repeat="comment in item.comments | ownComment:security.currentUser.id" ng-show="item.current_user_comments_count > 0"></div>
+                    <div class="pull-right" ng-show="item.comments_count" ng-click="ItemCommentsModal.openModal( item )">
+                      <label style="cursor: pointer; margin: 0px">{{ AppText.contribute.read_existing_comments | language }}</label>
+                      <span class="fa fa-eye"></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div style="text-align: center; margin-bottom: 30px" ng-show="commentPipe.commentable_items.length && displayButton === true" >
+              <button style="width: 70%;" class="btn btn-lg btn-default" ng-click="loadMoreItems()">{{ AppText.contribute.load_more_suggestions | language }}<span ng-show="loading" class="fa fa-spin fa-refresh"></span></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

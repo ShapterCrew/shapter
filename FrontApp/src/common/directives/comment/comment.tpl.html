@@ -1,0 +1,92 @@
+<div style="padding-right: 10px; margin-bottom: 30px">
+
+
+  <div class="row" style="margin-top: 5px">
+    <div class="col-md-12">
+      <h6 ng-show="displayCourseName" style="margin-top: 0px" sh-item-modal="comment.item">{{ comment.item.name }}<span class="transparent">l</span></h6>
+      <span ng-show="displayCourseName && displayStudentName"> - </span>
+      <h6 ng-show="displayStudentName" class="media-heading" ng-click="navToStudent( comment.author.id )">{{ comment.author.firstname }} {{ comment.author.lastname }}
+        <small class="text-orange" ng-show="comment.is_alien"> {{ AppText.comment.from | language }} 
+          <span ng-repeat="school in comment.alien_schools"> {{ school.name }}
+            <span ng-hide="$last">,</span>
+          </span>
+        </small>
+        <span class="transparent">l</span>
+        <p><small class="text-silver">{{ comment.context }}</small></p>
+      </h6>
+
+      <div><!-- media -->
+        <div class="comment-stuff">
+          <span style="margin-top: 0px">
+
+            <span ng-show="displayCourseName">
+              <span class="badge badge-emerald">{{ comment.created_at | date:'dd/MM/yy'}}</span>
+
+              <div ng-show="ownComment()">
+                <div ng-hide="hideLikes">
+                  <small class="text-muted" ng-click="comment.displayEditComment = true; comment.newContent = comment.content">{{ AppText.comment.edit | language }}</small>
+                  <small class="text-muted"> - </small>
+                  <small class="text-muted pointer" confirmed-click="$event.stopPropagation(); removeComment()" ng-confirm-click="Veux-tu vraiment supprimer ce commentaire ?">{{ AppText.comment.remove | language }}</small>
+                </div>
+              </div>
+            </span>
+
+            <span ng-show="displayStudentName === true">
+              <div class="media pointer">
+                <a class="pull-left">
+                  <img class="media-object thumbnail" src="assets/img/logo_silver_square.png" alt="zbeuh !" ng-hide="comment.author.image" style="width: 70px">
+                  <img class="media-object thumbnail" src="{{ comment.author.image }}" alt="zbeuh !" ng-show="comment.author.image" style="width: 70px">
+                </a>
+                <div class="media-body">
+                  <span class="badge badge-emerald">{{ comment.created_at | date:'dd/MM/yy'}}</span>
+                  <div ng-show="ownComment()">
+                    <small class="text-muted" ng-click="comment.displayEditComment = true; comment.newContent = comment.content">editer</small>
+                    <small class="text-muted"> - </small>
+                    <small class="text-muted pointer" confirmed-click="$event.stopPropagation(); removeComment()" ng-confirm-click="{{ AppText.comment.sure_want_to_delete_it | language }}">{{ AppText.comment.remove | language }}</small>
+                  </div>
+                </div>
+              </div>
+            </span>
+          </span>
+
+          <div class="progress pointer" style="margin: 10px 0px 15px 0px;" ng-show="comment.likers_count > 0 || comment.dislikers_count > 0">
+            <div likers-loader="comment" class="progress-bar progress-bar-success" ng-style="successBar" style="line-height: 11px">
+              <small ng-show="comment.likers_count" style="line-height: 11px">{{ comment.likers_count }}</small>
+              <div ng-include="'directives/likersDisplay.tpl.html'"></div>
+            </div>
+            <div dislikers-loader="comment" class="progress-bar progress-bar-danger" ng-style="dangerBar" style="line-height: 11px">
+              <small ng-show="comment.dislikers_count" style="line-height: 11px">{{ comment.dislikers_count }}</small>
+              <div ng-include="'directives/dislikersDisplay.tpl.html'"></div>
+            </div>
+          </div>
+
+          <div ng-hide="ownComment() || hideLikes || !security.isConfirmedStudent()">
+            <span class="fa-stack fa-2x" ng-click="like()">
+              <i class="fa fa-circle fa-stack-2x" ng-class="{'text-success': comment.current_user_likes == 1, 'text-muted': comment.current_user_likes != 1}"></i>
+              <i class="fa fa-thumbs-up fa-stack-1x fa-inverse"></i>
+            </span>
+
+            <span class="fa-stack fa-2x" ng-click="dislike()">
+              <i class="fa fa-circle fa-stack-2x" ng-class="{'text-danger': comment.current_user_likes == - 1, 'text-muted': comment.current_user_likes != -1}"></i>
+              <i class="fa fa-thumbs-down fa-stack-1x fa-inverse"></i>
+            </span>
+          </div>
+        </div>
+
+
+        <div class="comment-text"><!-- media body -->
+          <div ng-hide="comment.displayEditComment" style="text-align: justify; white-space: pre-line; text-align: justify">{{ comment.content | commentCut:300:comment.displayAll}} <a ng-click="comment.displayAll = true" class="text-info" ng-show="comment.content.length > 300 && !comment.displayAll">... {{ AppText.comment.display_more | language }}</a><a class="text-muted" ng-click="comment.displayAll = false" ng-show="comment.content.length > 300 && comment.displayAll"> {{ AppText.comment.hide | language }}</a></div>
+          <div class="media-body" ng-show="comment.displayEditComment">
+            <textarea ng-model="comment.newContent" rows="8" class="form-control"></textarea>
+            <div class="form-group clearfix" style="margin-top: 30px">
+              <div class="pull-right">
+                <button class="btn btn-sm btn-warning" ng-click="comment.displayEditComment = false">{{ AppText.comment.cancel | language }}</button>
+                <button class="btn btn-sm btn-success" ng-click="comment.edit()">{{ AppText.comment.edit | language }}</button>
+              </div>
+            </div>
+          </div>
+        </div><!-- media-bldy -->
+      </div>
+    </div>
+  </div>
+</div>

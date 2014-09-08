@@ -1,0 +1,104 @@
+<div class="row">
+  <div class="col-md-8">
+    <div class="panel">
+      <div class="panel-heading">
+        <h4 style="margin-bottom: 0px">{{ item.name }}</h4>
+      </div>
+      <!--
+      <div class="panel-body">
+        <div><strong>Mots-clefs associés&nbsp:</strong></div>
+        <button title="{{ tag.name }}" class="btn btn-suggestion btn-sm" ng-class="{'btn-default': isInUrl( tag ) === false, 'btn-sun': isInUrl( tag ) === true}" ng-repeat="tag in item.tags" ng-click="addSuggestedTag( tag )" style="display: inline-block; margin: 3px 2px 0px 2px">
+          <span class="label pull-right" ng-bind="tag.score"></span>
+          {{ tag.name | limitTo: 20 }}
+        </button>
+      </div>
+      -->
+
+      <div class="panel-body" ng-show="item !== null && item.avg_work_score && item.avg_quality_score && item.comments_count > 1" ng-repeat="item in [item]">
+        <div>
+          <strong>Moyenne des évaluations&nbsp: ({{item.comments_count }} évaluations)</strong>
+        </div>
+        <div style="text-align: center">
+          <!--<sh-diagram ng-attr-values="item.values" width="100" with-text="diagramWithText"></sh-diagram>-->
+        </div>
+        <div class="row">
+          <div class="col-md-4">
+            <ul style="padding: 0; width: 100%" class="list-unstyled">
+              <li style="width: 100%" >
+                <span style="width: 50%">
+                  Qualité : 
+                </span>
+                <span class="pull-right" style="width: 50%">
+                  <rating value="normalizeValue( item.avg_quality_score )" max="5" readonly="true" ng-style="{color: invColor( normalizeValue( item.avg_quality_score ))}"></rating>
+                </span>
+              </li>
+              <li style="width: 100%">
+                <span style="width: 50%">
+                  Travail :
+                </span>
+                <span class="pull-right" style="width: 50%">
+                  <rating value="normalizeValue( item.avg_work_score )" max="5" readonly="true" rating-states="ratingStates" ng-style="{color: color( normalizeValue( item.avg_work_score ))}"></rating>
+                </span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div><!-- panle-body -->
+    </div><!-- panel -->
+  </div>
+
+  <div class="modal-body">
+    <div class="scroll-module" ng-hide="item === null">
+
+      <!-- {{{ admin -->
+      <div class="panel" ng-show="security.currentUser.admin === true && Browse.showAdmin">
+        <ul class="list-group">
+          <li class="list-group-item">
+            <p>Modifier {{ item.name }}</p>
+            <div class="form-group">
+              <label>Ajouter un tag</label>
+              <input placeholder="ajouter un tag (un par un <3)" class="form-control" typeahead="tag as tag.name for tag in Tag.getAllTags() | ignoreAccentsFilter | filter: $viewValue | shorterFirstFilter | limitTo: 50"  ng-model="item.newTag"></input>
+
+            </div>
+            <div class="form-group clearfix">
+              <button class="btn btn-sm btn-success" ng-click="item.addNewTag( item.newTag )" ng-disabled=" item.newTag.length === 0 || item.newTag === undefined">Ajouter le tag</button>
+            </div>
+            <div class="form-group">
+              <label>Retirer un tag</label>
+              <input placeholder="retirer un tag (un par un <3)" class="form-control" typeahead="tag as tag.name for tag in item.tags | filter: $viewValue" ng-model="item.tagToBeRemoved"></input>
+            </div>
+            <div class="form-group clearfix">
+              <button class="btn btn-sm btn-success" ng-click="item.removeTag( item.tagToBeRemoved )" ng-disabled=" item.tagToBeRemoved.length === 0 || item.tagToBeRemoved === undefined">Supprimer le tag</button>
+            </div>
+            <div class="form-group clearfix">
+              <button class="btn btn-danger btn-sm pull-right" ng-confirm-click="You sure wanna remove dat shit ?" confirmed-click="deleteItem( item )">Supprimer l'item</button>
+            </div>
+          </li>
+        </ul>
+      </div><!-- panel -->
+      <!-- }}} -->
+
+
+      <div class="panel comments-panel" ng-show="item.comments.length">
+        <ul class="list-group">
+          <li class="list-group-item" ng-repeat="comment in item.comments | orderBy: 'old_dislikers_count - old_likers_count'">
+            <div sh-comment comment="comment" display-student-name="true" current-user="security.currentUser" comments='item.comments'></div>
+          </li>
+        </ul>
+      </div><!-- panel -->
+      <div class="panel">
+        <div class="panel-heading">
+          Ajouter un commentaire <span class="glyphicon glyphicon-heart"></span>
+        </div><!-- panel heading -->
+        <ul class="list-group">
+          <li class="list-group-item">
+            <div sh-add-comment item="item"></div>
+          </li>
+        </ul>
+      </div><!-- panel -->
+    </div><!-- scroll module -->
+  </div><!-- col 8 -->
+  <div class="col--4">
+    lol
+  </div>
+</div><!-- row -->

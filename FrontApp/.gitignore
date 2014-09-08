@@ -1,0 +1,13 @@
+*.sw*
+*~
+build/
+bin/
+node_modules/
+vendor/
+src/app/config/config.js
+dump.rdb
+npm-debug.log
+deploy/my_settings.py
+deploy/my_settings.pyc
+deploy/fabfile.pyc
+

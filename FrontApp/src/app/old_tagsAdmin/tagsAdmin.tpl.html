@@ -1,0 +1,228 @@
+<sh-header></sh-header>
+<div class="row main-row">
+
+  <div class="col-md-2 main-col tags-admin-col-1">
+    <div class="nav nav-list nav-list-vivid">
+      <li ng-class="{'active': nav == 'tagItems'}" ng-click="nav = 'tagItems'"><a>Associer tags et items</a></li>
+      <li ng-class="{'active': nav == 'addStudent'}" ng-click="nav = 'addStudent'"><a>Ajouter des étudiants</a></li>
+      <li ng-class="{'active': nav == 'addItem'}" ng-click="nav = 'addItem'"><a>Créer des items</a></li>
+      <!--<li ng-class="{'active': nav == 'setSignupFunnel'}" ng-click="nav = 'setSignupFunnel'"><a>Gérer les signup funnels</a></li>-->
+      <!--<li ng-class="{'active': nav == 'setConstructorFunnel'}" ng-click="nav = 'setConstructorFunnel'"><a>Gérer les constructor funnels</a></li>-->
+    </div>
+  </div>
+
+
+  <!-- {{{ tagitems -->
+  <div class="col-md-3 main-col" ng-show="nav == 'tagItems'">
+    <h3>Recherche ({{ itemsList.length }}): </h3>
+
+            <input sh-auto-focus="true" type="text" class="form-control" placeholder="+ {{ AppText.browse.add_a_keyword | language }}" typeahead="tag as tag.full_name for tag in getAutocomplete( $input ) | ignoreAccentsFilter | filter: $viewValue | shorterFirstFilter | notAlreadyThere:activeTags | limitTo: 50" ng-model="typedTag" typeahead-editable="false" typeahead-on-select="addTag()" style="margin-top: 20px"></input>
+
+    <tags-input ng-model="activeTags" add-from-autocomplete-only="true" on-tag-added="onTagAdded( $tag )" on-tag-removed="onTagRemoved( $tag )" placeholder="+ ajouter un mot-clef" display-property="name" replace-spaces-with-dashes="false" school-id="-1" min-length="2">
+
+    <auto-complete source="getAutocomplete($query)" min-length=2 max-results-to-show="100"></auto-complete>
+    </tags-input>
+
+    <div class="clearfix">
+      <label class="label label-default pull-left" ng-click="selectAll()">Tout ajouter</label>
+      <label class="label label-default pull-right" ng-click="deselectAll()">Tout retirer</label>
+    </div>
+
+    <div class="nav nav-list">
+      <li ng-repeat="item in itemsList | orderByAccent:'name' " ng-click="selectItem( item )" ng-class="{'active': item.active}">
+        <a>{{ item.name }}</a>
+      </li>
+    </div><!-- nav-list -->
+  </div><!-- col -->
+  <div class="col-md-3 main-col" ng-show="nav =='tagItems'">
+    <h3 class="dropdown"> 
+      Sélection : 
+      <i class="caret dropdown-toggle" ng-show="selectedItems.length > 0"></i>
+      <ul class="dropdown-menu">
+        <li ng-click="deleteAll()"><a>supprimer les items </a></li>
+      </ul>
+    </h3>
+    <div>
+      <label class="label label-default" ng-click="emptySelection()">Vider la sélection</label>
+    </div>
+    <div class="nav nav-list">
+      <li ng-repeat="item in selectedItems | orderByAccent:'name' ">
+        <a>
+          <span class="badge pull-right" ng-click="selectItem( item )">x</span>
+          {{ item.name }}
+        </a>
+      </li>
+    </div>
+  </div>
+  <div class="col-md-3 main-col" ng-show="nav == 'tagItems'">
+    <h3>Intersection :</h3>
+    <div class="tags" ng-show="getIntersection().length > 0">
+      <button class="tag-item" title="{{ tag.name }}" ng-repeat="tag in getIntersection()">
+        <span>{{ tag.name | cutString: 20 }}</span>
+      </button>
+    </div>
+
+
+    <div ng-show="selectedItems.length > 0">
+      <h5>Ajouter un tag à tous les items sélectionnés</h5>
+      <div class="form-group">
+        <label>Ajouter un tag :</label>
+        <input placeholder="ajouter un tag (un par un <3)" class="form-control" typeahead="tag as tag.full_name for tag in Tag.getAllTags() | ignoreAccentsFilter | filter: { full_name  : $viewValue } | shorterFirstFilter | limitTo: 50" typeahead-editable="true" ng-model="newTag"></input>
+      </div>
+      <div class="form-group clearfix">
+        <button class="btn btn-sm btn-success" ng-click="addNewTag( newTag )" ng-disabled="newTag.length === 0 || newTag === undefined">Ajouter le tag</button>
+      </div>
+
+      <div ng-show="getIntersection().length > 0">
+        <h5>Retirer un tag de tous les items sélectionnés</h5>
+        <div class="form-group">
+          <input placeholder="retirer un tag (un par un <3)" class="form-control" typeahead="tag as tag.name for tag in getIntersection() | filter: { name : $viewValue }" ng-model="tagToBeRemoved"></input>
+        </div>
+        <div class="form-group clearfix">
+          <button class="btn btn-sm btn-success" ng-click="removeTag()" ng-disabled="tagToBeRemoved.length === 0 || tagToBeRemoved === undefined">Supprimer le tag</button>
+        </div>
+      </div>
+    </div>
+  </div><!-- col -->
+  <!-- }}} -->
+
+  <!-- {{{ Add students -->
+  <div class="col-md-9 main-col" ng-show="nav == 'addStudent'">
+    <h3>Ajoute des étudiants à la base&nbsp: </h3>
+    <div class="row">
+      <div class="col-md-4">
+        <div class="form-group">
+          <h6>Tags d'établissements :</h6>
+          <div class="tags">
+            <span class="tag-item" ng-repeat="tag in newStudents.schoolTags" title="{{tag.name}}">{{ tag.name | cutString: 20 }}<span ng-click="onTagRemovedNewStudent( $index )" class="glyphicon glyphicon-remove" style="margin-left: 5px"></span></span>
+
+            <div style="margin-right: 3px">
+              <input sh-auto-focus="true" type="text" class="input-in-tags" placeholder="+ ajoute un établissement" typeahead="tag as tag.full_name for tag in Tag.getAllTags() | ignoreAccentsFilter | filter: { full_name : $viewValue } | shorterFirstFilter | limitTo: 50" ng-model="newStudents.typedTag" typeahead-editable="false" typeahead-on-select="addTagNewStudent()"></input>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="col-md-8">
+        <h6>Email des étudiants : </h6>
+        <div class="form-group" ng-repeat="student in newStudents.list">
+          <input class="form-control" type="email" ng-model="student.email"></input>
+        </div>
+        <div class="form-group">
+          <button class="btn btn-sm btn-info" ng-click="addEmail()">+</button>
+        </div>
+        <div class="form-group clearfix">
+          <button class="btn btn-success pull-right" ng-click="addStudents()">Ajouter les étudants</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- }}} -->
+
+  <!-- {{{ addItem -->
+
+  <div class="col-md-9 main-col" ng-show="nav =='addItem'">
+    <h3>Ajoute des items à la base</h3>
+    <div class="row">
+      <div class="col-md-4">
+
+        <h6>Tags à associer: </h6>
+        <div class="tags">
+          <span class="tag-item" ng-repeat="tag in newItems.tags" title="{{tag.name}}">{{ tag.name | cutString: 20 }}<span ng-click="onTagRemovedNewItem( $index )" class="glyphicon glyphicon-remove" style="margin-left: 5px"></span></span>
+
+          <div style="margin-right: 3px">
+            <!--<input sh-auto-focus="true" type="text" class="input-in-tags" placeholder="+ ajoute un mot-clef" typeahead="tag as tag.full_name for tag in Tag.getSchoolTags() | ignoreAccentsFilter | filter: { full_name : $viewValue } | shorterFirstFilter | notAlreadyThere:activeTags | limitTo: 50" ng-model="newItems.typedTag" typeahead-editable="false" typeahead-on-select="addTagNewItem()"></input>-->
+          </div>
+        </div>
+      </div>
+      <div class="col-md-8">
+        <h6>Noms des items à créer: </h6>
+        <div class="form-group" ng-repeat="item in newItems.items">
+          <input class="form-control" ng-model="newItems.items[ $index ].name"></input>
+        </div>
+        <div class="form-group">
+          <button class="btn btn-info btn-sm" ng-click="addSupNewItem()">+</button>
+        </div>
+        <div class="clearfix form-group">
+          <button class="pull-right btn btn-success" ng-click="createItems()">
+            Créer les items
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- }}} -->
+
+  <!-- {{{ signup funnel -->
+  <div class="col-md-9 main-col" ng-show="nav =='setSignupFunnel'">
+    <div class="row">
+      <div class="col-md-12">
+      <h3> Renseigne le signup funnel de {{ signupTag.name }} </h3>
+      <div class="col-md-6">
+        <button class="btn btn-sm btn-info pull-right" ng-click="addSignupStep()" ng-show="signupTag">+ étape</button>
+        <h6>Signup Funnel&nbsp:</h6>
+        <div class="panel" ng-repeat="step in signupFunnel" style="margin-bottom: 40px">
+          <div class="form-group">
+            <input class="form-control" ng-model="step.name" placeholder="Nom de l'étape"></input>
+          </div>
+          <div class="tags">
+            <span class="tag-item" ng-repeat="tag in step.tags" title="{{tag.name}}">{{ tag.name | cutString: 20 }}<span ng-click="onTagRemovedSignupFunnel( $index, step )" class="glyphicon glyphicon-remove" style="margin-left: 5px"></span></span>
+
+            <div style="margin-right: 3px">
+              <!--<input sh-auto-focus="true" type="text" class="input-in-tags" placeholder="+ ajoute un mot-clef" typeahead="tag as tag.full_name for tag in Tag.getSchoolTags() | ignoreAccentsFilter | filter: { full_name : $viewValue } | shorterFirstFilter | limitTo: 50" ng-model="step.typedTag" typeahead-editable="false" typeahead-on-select="addTagSignupFunnel( step )"></input>-->
+            </div>
+          </div>
+          <span class="pull-right text-danger glyphicon glyphicon-remove" ng-confirm-click confirmed-click="signupTag.signupFunnel.splice( signupTag.signupFunnel.indexOf( step ), 1 )"></span>
+        </div>
+        <div class="form-group" ng-show="signupTag">
+          <button class="btn btn-success" ng-click="setTagSignup()"> Valider </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- }}} -->
+
+  <!-- {{{ constructor funnel -->
+  <div class="col-md-9 main-col" ng-show="nav =='setConstructorFunnel'">
+    <div class="row">
+      <div class="col-md-12">
+      <h3> Renseigne le constructor funnel de {{ constructorTag.name }} </h3>
+      <div class="col-md-6">
+        <button class="btn btn-sm btn-info pull-right" ng-click="addConstructorStep()" ng-show="constructorTag">+ étape</button>
+        <h6>Constructor Funnel&nbsp:</h6>
+        <div class="panel" ng-repeat="step in constructorFunnel" style="margin-bottom: 40px">
+          <div class="form-group">
+            <input class="form-control" ng-model="step.name" placeholder="Nom de l'étape"></input>
+          </div>
+          <div class="tags">
+
+            <span class="tag-item" ng-repeat="tag in step.tags" title="{{tag.name}}">{{ tag.name | cutString: 20 }}<span ng-click="onTagRemovedConstructorFunnel( $index, step )" class="glyphicon glyphicon-remove" style="margin-left: 5px"></span></span>
+
+            <div style="margin-right: 3px">
+              <!--<input sh-auto-focus="true" type="text" class="input-in-tags" placeholder="+ ajoute un mot-clef" typeahead="tag as tag.full_name for tag in Tag.getSchoolTags() | ignoreAccentsFilter | filter: { full_name : $viewValue } | shorterFirstFilter | limitTo: 50" ng-model="step.typedTag" typeahead-editable="false" typeahead-on-select="addTagConstructorFunnel( step )"></input>-->
+            </div>
+          </div>
+
+          <span class="pull-right text-danger glyphicon glyphicon-remove" ng-click="constructorFunnel.splice( constructorFunnel.indexOf( step ), 1 )"></span>
+
+          <div class="form-group" style="margin-top: 10px">
+            <label>Axe 1 : </label>
+            <input class="form-control" type="text" ng-model="step.default_types[0]" placeholder="type par défault 1">
+          </div>
+          <div class="form-group">
+            <label>Axe 2 : </label>
+            <input class="form-control" type="text" ng-model="step.default_types[1]" placeholder="type par défault 2">
+          </div>
+        </div>
+        <div class="form-group" ng-show="signupTag">
+          <button class="btn btn-success" ng-click="setTagConstructor()"> Valider </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- }}} -->
+
+</div><!-- row -->

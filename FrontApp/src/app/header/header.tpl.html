@@ -1,0 +1,108 @@
+<nav class="navbar navbar-default navbar-1" role="navigation" style="z-index: 1000">
+  <div class="container">
+
+    <!-- header -->
+    <div class="navbar-header">
+      <a class="navbar-brand" ng-click="schoolsNav()"><img src="assets/img/logo_blanc.png" style="width: 130px"></a>
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" ng-click="isCollapsed = !isCollapsed">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+
+    </div><!-- navbar-header -->
+
+    <div class="navbar-collapse" collapse="isCollapsed">
+      <!-- active school name -->
+      <ul class="nav navbar-nav navbar-center">
+
+        <li ng-show="root.school" class="dropdown">
+          <a class="navbar-school dropdown-toggle">{{ root.school.name }}<span class="caret white-caret"></span></a>
+          <ul class="dropdown-menu" ng-show="security.currentUser.schools.length > 1">
+            <li class="dropdown-header">{{ AppText.header.my_institutions | language }}</li>
+            <li ng-repeat="school in security.currentUser.schools">
+              <a ng-href="#/schools/{{ school.id }}">{{ school.name }}</a>
+            </li>
+            <li><a href="#/campusAuthentication"><small class="fa fa-plus"></small> {{ AppText.header.add_an_authorization | language }}</a></li>
+            <li class="divider"></li>
+            <li class="dropdow-header">{{ AppText.header.others | language }}</li>
+            <li><a href="#/schools">{{ AppText.header.all_institutions | language }}</a></li>
+          </ul>
+        </li>
+
+        <li ng-show="!root.school && security.currentUser.schools.length == 1" ng-click="schoolNav( security.currentUser.schools[0].id )">
+          <a class="navbar-school">
+            {{ security.currentUser.schools[0].name }}
+          </a>
+        </li>
+
+        <li ng-show="!root.school && security.currentUser.schools.length > 1" class="dropdown">
+          <a class="navbar-school dropdown-toggle">
+            {{ AppText.header.choose_a_campus | language }}
+            <span class="caret white-caret"></span>
+          </a>
+          <ul class="dropdown-menu">
+            <li class="dropdown-header">My institutions</li>
+            <li ng-repeat="school in security.currentUser.schools">
+              <a ng-href="#/schools/{{ school.id}}">{{ school.name }}</a>
+            </li>
+            <li class="divider"></li>
+            <li><a href="#/campusAuthentication"><small class="fa fa-plus"></small> {{ AppText.header.add_an_authorization | language }}</a></li>
+          </ul>
+        </li>
+
+      </ul>
+
+      <sh-behave-alert></sh-behave-alert>
+      <sh-confirm-alert></sh-confirm-alert>
+
+      <ul class="nav navbar-nav navbar-right">
+
+        <!-- # arnaque -->
+        <li ng-show="name && !$stateParams.schoolId"><a ng-href="#/student/{{ security.currentUser.id }}">{{ name }}</a></li>
+        <li ng-show="name && $stateParams.schoolId" ng-click="test()"><a ng-href="#/schools/{{ $stateParams.schoolId }}/student/{{ security.currentUser.id }}">{{ name }}</a></li>
+
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle glyphicon glyphicon-cog" data-toggle="dropdown" ></a>
+          <ul class="dropdown-menu">
+            <li ng-show="security.currentUser.admin">
+              <a ng-click="adminNav()">Tags Admin</a>
+            </li>
+            <li class="divider" ng-show="security.currentUser.admin"></li>
+            <li ng-show="security.isAuthenticated()"><a ng-click="campusAuthenticationNav()">{{ AppText.header.my_authorizations | language }}</a></li>
+            <li ng-show="security.isAuthenticated()"><a ng-click="logout()">{{ AppText.header.logout | language }}</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div><!-- collapse -->
+
+  </div>
+</nav>
+
+
+<nav class="navbar navbar-default navbar-2" role="navigation" style="z-index: 100" ng-hide="noSchoolActive()">
+  <div class="container">
+    <ul class="nav navbar-nav navbar-center">
+      <li ng-class="{'active': $state.$current =='school'}" ng-click="home()"><a>Home</a></li>
+      <li ng-class="{'active': $state.$current =='signupFunnel'}" ng-click="sfNav()"><a>{{ AppText.header.my_classes | language }}</a></li>
+      <li ng-class="{'active': $state.$current =='schoolContribute'}" ng-click="contributeNav()"><a>{{ AppText.school.contribute | language }}</a></li>
+      <li ng-class="{'active': $state.$current =='browse'}" ng-click="browseNav()"><a>{{ AppText.header.browse_classes | language }}</a></li>
+      <!--
+      <li class="dropdown">
+        <a class="dropdown-toggle">
+          {{ AppText.header.more | language }}<span class="caret blue-caret"></span>
+        </a>
+        <ul class="dropdown-menu">
+          <li ng-show="security.isConfirmedStudent()" ng-click="profileNav()"><a>{{ AppText.header.me | language }}</a></li>
+          <li ng-click="peopleNav()"><a>{{ AppText.header.people | language }}</a></li>
+        </ul>
+      </li>
+      -->
+
+      <!--
+      <li ng-class="{'active': $state.$current =='internships'}"><a>{{ AppText.header.internships | language }}</a></li>
+      -->
+    </ul>
+  </div>
+</nav>

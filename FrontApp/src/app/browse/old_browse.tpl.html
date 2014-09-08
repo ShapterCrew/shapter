@@ -1,0 +1,184 @@
+<sh-header></sh-header>
+
+<div class="row main-row">
+  <div sh-side-item ng-repeat="item in [ active.item ]" ng-show="active.item"></div>
+
+  <div class="main-col col-md-3 main-col-1" ng-class="{'hidden-xs hidden-sm': !displayTags}">
+    <!--
+    <div class="school">
+      <span class="dropdown">
+        <span ng-click="changeSchool( school.id )">{{ school.name }}</span>
+      </span>
+    </div>
+    -->
+
+    <div class="row visible-xs visible-sm" style="margin: 10px">
+      <div class="col-md-12">
+        <h5 class="thin text-inverse">{{ AppText.browse.look_for_classes | language }} {{ school.name }}</h5>
+      </div>
+
+      <div class="col-md-12 center" ng-hide="activeTags.length < 1">
+        <button ng-click="toggleDisplayTags()" class="btn btn-orange" style="width: 80%">{{ AppText.browse.display_results | language }} <span class="glyphicon glyphicon-arrow-right"></span></button>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="tags" style="overflow: visible">
+
+
+          <span class="tag-item dropdown" ng-repeat="tag in activeTags" title="{{tag.name}}" ng-hide="tag.id == school.id">
+            {{ tag.acronym | cutString: 20 }}
+            <span ng-click="removeTag( tag )" class="glyphicon glyphicon-remove" style="margin-left: 5px"></span>
+          </span>
+
+          <div style="margin-right: 3px; margin-bottom: 10px">
+            <input sh-auto-focus="true" type="text" class="input-in-tags" placeholder="+ {{ AppText.browse.add_a_keyword | language }}" typeahead="tag as tag.full_name for tag in schoolTags | ignoreAccentsFilter | filter: $viewValue | shorterFirstFilter | notAlreadyThere:activeTags | limitTo: 50" ng-model="typedTag" typeahead-editable="false" typeahead-on-select="addTextTag()" style="margin-top: 20px"></input>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-12">
+        <div class="suggestions" ng-show="tagsLoading === false && itemsLoading === false">
+          <div class="text-blue" style="margin-top: 25px" ng-show="( tagsSuggestions | categories).length">{{ AppText.browse.suggested | language }}</div>
+          <span ng-repeat="tag in tagsSuggestions | categories">
+            <p class="text-blue bold" ng-show="tag.displayCategory" style="margin-bottom: 0px;margin-top: 15px">{{ tag.displayCategory }}&nbsp:</p>
+            <span class="tag-item" title="{{ tag.name }}" ng-click="addTag( tag )">{{ tag.acronym | cutString: 20 }}</span>
+          </span>
+        </div>
+      </div><!-- col -->
+    </div><!-- row -->
+  </div><!-- col -->
+
+  <div class="main-col col-md-9 main-col-2" infinite-scroll="loadMoreItems()" infinite-scroll-distance="1" infinite-scroll-disabled="itemsLoading || activeTags.length < 1" ng-class="{'hidden-xs hidden-sm': displayTags}" style="padding-left: 20px" infinite-scroll-immediate-check="true">
+
+    <div class="row visible-xs visible-sm">
+      <div class="col-md-12 center">
+        <button ng-click="toggleDisplayTags()" class="btn btn-info" style="width: 80%"><span class="glyphicon glyphicon-arrow-left"></span>{{ AppText.browse.display_keywords | language }}</button>
+      </div>
+    </div>
+
+    <div class="row" ng-show="alerts.length">
+      <div class="col-md-12" >
+        <alert class="alert alert-info" ng-repeat="alert in alerts" type="alert.type" close="alert.close()" ng-show="alert.msg">
+        {{alert.msg | language}}
+        </alert>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+
+        <ul class="list-inline breadcrumb" style="margin-bottom: 0px; padding-bottom: 0px; padding-left: 0px">
+          <li>
+            <a href="#/schools">{{ AppText.browse.schools | language }}</a>
+          </li>
+          <li>
+            <a ng-click="schoolNav( school.id )">{{ school.name }}</a>
+          </li>
+          <li class="active">
+            <a style="cursor: default">{{ AppText.header.browse | language }}</a>
+          </li>
+        </ul>
+
+        <div class="clearfix" style="margin-top: 0px; margin-bottom: 10px;">
+          <span class="text-blue" ng-show="activeTags.length > 0">
+            {{ activeTags.length }} {{ AppText.browse.keywords | language }} / 
+            <span ng-hide="itemsLoading">
+              {{ nbItems }} {{ AppText.browse.result | language }}
+            </span>
+            <span ng-show="itemsLoading" class="fa fa-spin fa-refresh"></span>
+
+            <span class="fa fa-spin fa-refresh" ng-show="itemsLoading"></span>
+          </span>
+        </div>
+      </div>
+    </div>
+
+
+
+    <div class="row">
+      <div class="col-md-12" ng-hide="activeTags.length > 0">
+        <div class="hidden-sm hidden-xs">
+          <div class="lead text-blue" ng-show="school.constructorFunnel.length">
+            {{ AppText.browse.research_suggestions | language }}
+          </div>
+          <div class="frequent-search" style="margin: 5px" ng-repeat="step in school.constructorFunnel" ng-click="addFrequentSearch( step, school )">{{ step.name }}</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row" ng-hide="nbItems === 0 || activeTags.length < 1 || !arrayDisplay">
+      <div class="col-md-12">
+
+        <table class="table table-hover table-responsive table-bordered" style="margin-top: 20px">
+          <tbody>
+            <tr ng-repeat="item in itemsList" ng-class="{'active': item.open === true}">
+              <td style="vertical-align: top; position: relative" ng-class="{'active': item.id == active.item.id}">
+                <p>
+                  <p class=" item-name">{{ item.name }} &nbsp; <span ng-show="security.isAdmin()" class="text-muted pointer" sh-edit-item-tags-modal="item"><span class="glyphicon glyphicon-pencil"></span></span></p>
+
+
+                  <span class="fa fa-spin fa-refresh text-muted" ng-show="item.loading === true"></span>
+                </p>
+                <!--
+                <dl class="dl-horizontal">
+                  <dt ng-repeat="category in categories | filter: {code: '!school'} | filter: {code: '!item_name'}" ng-show="(item.tags | filter: {category: category.code}).length">{{ category.code }}</dt>
+                  <dd ng-repeat="category in categories | filter: {code: '!school'} | filter: {code: '!item_name'}" ng-show="(item.tags | filter: {category: category.code}).length">
+                    <span class="dropdown" ng-repeat="tag in item.tags | filter: {category: category.code}">
+                      <span class="dropdown-toggle" ng-click="$event.preventDefault()" ng-class="{'text-info': isInUrl(tag)}">{{ tag.name }}<span ng-hide="$last">,</span> </span>
+                      <ul class="dropdown-menu dropdown-menu-right">
+                        <li ng-click="addTag( tag )" ng-hide="isInUrl(tag)"><a>{{ AppText.browse.filter_with | language }} {{ tag.name }}</a></li>
+                        <li ng-click="removeTag( tag )" ng-show="isInUrl(tag)"><a>{{ AppText.browse.remove_from_search | language }} {{ tag.name }}</a></li>
+                      </ul>
+                    </span>
+                  </dd>
+                </dl>
+
+                <ul class="list-unstyled" style="margin-bottom: 0px">
+                  <li>
+                    <i class="icomoon-diagram"></i> {{ item.diagrams_count }} {{ AppText.browse.diagrams | language }} 
+                  </li>
+                  <li>
+                    <span class="fa fa-comments"></span> {{ item.comments_count }} {{ AppText.browse.comments | language }} 
+                  </li>
+                  <li>
+                    <span class="fa fa-file-o" ></span> {{ item.documents_count }} {{ AppText.browse.documents | language }}
+                  </li>
+                </ul>
+                -->
+
+                <button class="btn btn-default" ng-click="activateItem( item )"><span class="fa fa-eye"></span>{{AppText.browse.see | language }} {{ item.comments_count }} {{ AppText.browse.comments | language }}</button>
+
+
+
+              <div class="pull-right" ng-repeat="item in [ item ]">
+                <div style="text-align: center" ng-show="item.diagrams_count">
+                  <sh-diagram diagram="item.averaged_diagram" width="80" with-text="true"></sh-diagram>
+                </div>
+              </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="row" ng-show="itemsList.length == nbItems">
+          <div class="col-md-6 col-md-offset-6">
+            <div class="form-group">
+              <small>{{ AppText.browse.items_missing | language }}</small>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="row" ng-show="batchLoading && itemsList.length">
+      <div class="col-md-12">
+        <div style="text-align: center">
+          <span class="fa fa-spin fa-refresh text-muted"></span>
+        </div>
+      </div>
+    </div><!-- row -->
+  </div>
+</div><!-- row -->

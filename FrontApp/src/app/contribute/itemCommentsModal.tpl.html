@@ -1,0 +1,18 @@
+<div class="modal-content">
+  <div class="modal-fade">
+    <div class="modal-header modal-header-1">
+          <span class="glyphicon glyphicon-remove pull-right" ng-click="close()"></span>
+      <div class="lead">
+        {{ AppText.contribute.comments_on | language }} {{ item.name }}&nbsp:
+      </div>
+    </div>
+    <div class="modal-body modal-body-1">
+      <p>{{ AppText.contribute.your_pov | language }}</p>
+      <div style="margin-bottom: 30px">
+        <div id="addComment" sh-add-comment item="item" ng-repeat="item in [ item ]" cb="close()" ng-hide="item.current_user_comments_count > 0"></div>
+      </div>
+      <div sh-comment item="item" comment="comment" comments="item.comments" ng-repeat="comment in item.comments" display-student-name="true"></div>
+    </div>
+  </div>
+</div>
+

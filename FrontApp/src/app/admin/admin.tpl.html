@@ -1,0 +1,250 @@
+<sh-header></sh-header>
+<div class="row main-row">
+
+  <div class="col-md-2 main-col">
+    <div class="nav nav-list nav-list-vivid">
+      <li ng-class="{'active': nav == 'tagItems'}" ng-click="nav = 'tagItems'"><a>Associer tags et items</a></li>
+      <li ng-class="{'active': nav == 'addStudent'}" ng-click="nav = 'addStudent'"><a>Ajouter des étudiants</a></li>
+      <li ng-class="{'active': nav == 'addItem'}" ng-click="nav = 'addItem'"><a>Créer des items</a></li>
+      <li ng-class="{'active': nav == 'updateItem'}" ng-click="nav = 'updateItem'"><a>Modifier des items</a></li>
+    </div>
+  </div>
+
+  <!-- {{{ tagItems -->
+  <div class="col-md-10 main-col" ng-show="nav == 'tagItems'">
+
+    <div ng-show="step == 1">
+          <h3>Associer tags et items: </h3>
+      <div class="well">
+        <h4>Choisis un établissement: </h4>
+        <select ng-model="tagItemsSchool" ng-options="school as school.name for school in schools | orderByAccent:'name':false" ng-change="selectTagItemsSchool()">
+          <option value="">-- Choisis l'établissement --</option>
+        </select>
+      </div>
+      <div class="well" ng-show="tagItemsSchool">
+        <h4>Ajoute des tags pour chercher des items : </h4>
+        <input type="text" class="form-control" placeholder="+ {{ AppText.browse.add_a_keyword | language }}" typeahead="tag as tag.name + ' / ' + tag.category for tag in schoolTags | ignoreAccentsFilter | filter: $viewValue | shorterFirstFilter | notAlreadyThereName:newItemTags | limitTo: 50" ng-model="tagItemstagToAdd" typeahead-editable="true" typeahead-on-select="addTagItemsTag( tagItemstagToAdd )">
+        <span class="tag tag-new" ng-repeat="tag in activeTags">{{ tag.name }} <span class="glyphicon glyphicon-remove" ng-click="removeTagItemsTag( $index )"</span></span>
+      </div>
+
+      <div class="well" ng-show="activeItems.length">
+        <h4>Sélection des cours: </h4>
+        <div class="row">
+          <div class="col-md-6" ng-repeat="i in [0, 1]">
+            <ul class="list-group">
+              <li class="list-group-item" ng-class="{'active': item.selected == true}" ng-repeat="item in activeItems | congruance:i:2" ng-click="toggleItem( item )">
+                {{ item.name }}
+              </li>
+            </ul>
+          </div><!-- col -->
+        </div><!-- row -->
+      </div><!-- well -->
+
+      <div class="form-group clearfix">
+        <div class="pull-right" ng-show="nbItems > 0">
+          <button class="btn btn-success" ng-click="step = 2" ng-disabled="selectedItems.length === 0">Étape suivante</button>
+        </div>
+      </div>
+
+    </div>
+
+    <div ng-show="step == 2">
+
+      <div class="form-group clearfix">
+        <div ng-show="nbItems > 0">
+          <button class="btn btn-success" ng-click="step = 1">Étape précédente</button>
+        </div>
+      </div>
+
+      <div class="well">
+        <h4>Cours sélectionnés : </h4>
+        <div class="row">
+          <div class="col-md-6" ng-repeat="i in [0, 1]">
+            <ul class="list-group">
+              <li class="list-group-item" ng-repeat="item in selectedItems | congruance:i:2">
+                {{ item.name }}
+              </li>
+            </ul>
+          </div><!-- col -->
+        </div><!-- row -->
+      </div><!-- well -->
+
+      <div ng-show="intersection.length">
+        <h2>Mots-clefs</h2>
+        <div class="well">
+        <h4> À ne pas changer: </h4>
+        <div class="category-edit-group">
+          <span class="tag tag-idle" ng-repeat="tag in intersection"  ng-hide="tagsToBeRemoved.indexOf( tag ) > -1">{{ tag.name }} ( {{ tag.category }} )<span class="glyphicon glyphicon-remove" ng-click="toggleToBeRemoved( tag )"></span></span>
+        </div>
+      </div>
+      <div class="well">
+        <h4> À supprimer : </h4>
+        <div class="category-edit-group">
+          <span class="tag tag-to-be-removed" ng-repeat="tag in intersection"  ng-show="tagsToBeRemoved.indexOf( tag ) > -1">{{ tag.name }} ( {{ tag.category }} ) <span class="glyphicon glyphicon-repeat" ng-click="toggleToBeRemoved( tag )"></span></span>
+        </div>
+      </div>
+
+      <div class="well">
+        <h4> À ajouter : </h4>
+        <div class="category-edit-group" ng-repeat="category in categories | filter: {code: '!school'} | filter: {code: '!item_name'}">
+          <div class="h6">{{ category.code }}</div>
+
+          <select ng-model="category.tagItemsToAdd" ng-options="tag.name as tag.name for tag in schoolTags | filter: {category: category.code} | notAlreadyThereName:newItemTags | orderByAccent: 'name': false" ng-change="addTagItems( category )">
+            <label>Ajoute des mots-clefs pour décrire le cours</label>
+            <option value="">-- choisis dans la liste --</option>
+          </select>
+
+          <p><a class="text-info" ng-click="category.tagItemsMissing = !category.tagItemsMissing">Créer une nouvelle rubrique dans cette catégorie</a></p>
+
+          <div class="list-group" ng-show="category.tagItemsMissing">
+            <div class="list-group-item">
+              <input type="text" class="form-control" placeholder="+ {{ AppText.browse.add_a_keyword | language }}" typeahead="tag.name for tag in schoolTags | filter: {category: category.code} | ignoreAccentsFilter | filter: $viewValue | shorterFirstFilter | limitTo: 50" ng-model="category.tagItemsToAdd" typeahead-editable="true" typeahead-on-select="addTagItems( category )"></input>
+
+              <div class="form-group" style="margin-top: 10px">
+                <button class="btn btn-success" ng-click="addTagItems( category )">Ajouter</button>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <span class="tag" ng-repeat="tag in tagsToBeAdded | filter: {category_id: category.id}" style="margin-right: 10px; margin-bottom: 10px">{{ tag.name }} <span class="glyphicon glyphicon-remove" ng-click="removeTagItemsToBeAdded( tag )"></span> </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <button class="btn btn-success" ng-click="validate()">Valider</button>
+    </div>
+
+    </div><!-- step 2 -->
+
+  </div><!-- col-md-10 -->
+
+  <!-- }}} -->
+
+  <!-- {{{ addStudents -->
+  <div class="col-md-10 main-col" ng-show="nav == 'addStudent'">
+    <h3>Ajouter un étudiant</h3>
+    <div class="form-group">
+      <input class="form-control" ng-model="newStudent.email" type="email" placeholder="email">
+    </div>
+    <div class="form-group">
+          <select ng-model="newStudent.schoolTag" ng-options="school as school.name for school in schools | orderByAccent:'name':false">
+            <option value="">-- Choisis l'établissement --</option>
+          </select>
+    </div>
+    <div class="form-group">
+      <button class="btn btn-success" ng-click="addAuthorization()">Ajouter</button>
+    </div>
+
+  </div>
+  <!-- }}} -->
+
+  <!-- {{{ AddItems -->
+  <div class="col-md-10 main-col" ng-show="nav == 'addItem'">
+    <div class="row">
+      <div class="col-md-12">
+        <h3>Créer des cours</h3>
+
+        <div class="well">
+          <h4>Choisis un établissement: </h4>
+
+          <select ng-model="newItemSchool" ng-options="school as school.name for school in schools | orderByAccent:'name':false" ng-change="selectAddItemsSchool()">
+            <option value="">-- Choisis l'établissement --</option>
+          </select>
+
+        </div>
+
+        <div ng-show="(newItemTags | filter: {code: 'school'}).length && !schoolTagsLoading">
+
+          <div class="well">
+            <h4>Définis une liste de tags: </h4>
+            <div class="category-edit-group" ng-repeat="category in categories | filter: {code: '!school'} | filter: {code: '!item_name'}">
+              <div class="h6">{{ category.code }}</div>
+
+              <select ng-model="category.tagToAdd" ng-options="tag.name as tag.name for tag in schoolTags | filter: {category: category.code} | notAlreadyThereName:newItemTags | orderByAccent: 'name': false" ng-change="addTag( category )">
+                <label>Ajoute des mots-clefs pour décrire le cours</label>
+                <option value="">-- choisis dans la liste --</option>
+              </select>
+
+              <p><a class="text-info" ng-click="category.tagMissing = !category.tagMissing">Créer une nouvelle rubrique dans cette catégorie</a></p>
+
+              <div class="list-group" ng-show="category.tagMissing">
+                <div class="list-group-item">
+                  <input type="text" class="form-control" placeholder="+ {{ AppText.browse.add_a_keyword | language }}" typeahead="tag.name for tag in schoolTags | filter: {category: category.code} | ignoreAccentsFilter | filter: $viewValue | shorterFirstFilter | notAlreadyThereName:newItemTags | limitTo: 50" ng-model="category.tagToAdd" typeahead-editable="true" typeahead-on-select="addTag( category )"></input>
+
+                  <div class="form-group" style="margin-top: 10px">
+                    <button class="btn btn-success" ng-click="addTag( category )">Ajouter</button>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <span class="tag" ng-repeat="tag in newItemTags | filter: {category_id: category.id}" style="margin-right: 10px; margin-bottom: 10px">{{ tag.tag_name }} <span class="glyphicon glyphicon-remove" ng-click="removeTag( tag )"></span> </span>
+              </div>
+            </div>
+          </div>
+
+          <div class="well" style="margin-bottom: 30px">
+            <h4>Définis les noms des cours: </h4>
+            <div class="form-group" ng-repeat="newItem in newItems">
+              <input class="form-control" ng-model="newItem.name">
+            </div>
+            <div class="form-group clearfix">
+              <button class="btn btn-success pull-right" ng-click="addNewItem()">Nouveau champ</button>
+            </div>
+          </div>
+
+          <div class="form-group clearfix" style="margin-top: 30px">
+            <div class="pull-right">
+              <span class="text-success" ng-show="displayNewItemsSuccess"><span class="fa fa-check"></span> Items créés </span>
+              <span class="text-danger" ng-show="displayNewItemsFail"><span class="fa fa-remove"></span> Il y a eu un problème </span>
+              <span ng-show="newItemsLoading" class="fa fa-spin fa-refresh"></span>
+              <button class="btn btn-success" ng-click="createItem()">Créer les cours</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <!-- }}} -->
+
+  <!-- {{{ UpdateItems -->
+  <div class="col-md-10 main-col" ng-show="nav == 'updateItem'">
+    <div class="row">
+      <div class="col-md-12">
+        <h3>Modifier des cours</h3>
+
+        <div class="well">
+          <h4>Choisis un établissement: </h4>
+          <select ng-model="tagItemsSchool" ng-options="school as school.name for school in schools | orderByAccent:'name':false" ng-change="selectTagItemsSchool()">
+            <option value="">-- Choisis l'établissement --</option>
+          </select>
+        </div>
+        <div class="well" ng-show="tagItemsSchool">
+          <h4>Tape le nom de ton/tes cours : </h4>
+          <input type="text" class="form-control" placeholder="Ex: Informatique théorique" typeahead="tag as tag.name + ' / ' + tag.category for tag in schoolTags | ignoreAccentsFilter | filter: $viewValue | shorterFirstFilter | notAlreadyThereName:newItemTags | limitTo: 50" ng-model="tagItemToUpdate" typeahead-editable="true" typeahead-on-select="addItemToUpdate( tagItemToUpdate )">
+          <div ng-show="tagItemsSchool && activeItemsToUpdate.length != 0">
+            <h4>Ajoute les informations sur le(s) cours : </h4>
+            <div style="margin-top: 5px; margin-bottom: 30px" ng-repeat="item in activeItemsToUpdate">
+              <div>
+                <p class="tag tag-new" style="margin-bottom: 0px">{{ item.name }} <span class="glyphicon glyphicon-remove" ng-click="removeItemToUpdate( $index )"</span></p>
+              </div>
+              <label>Description :</label>
+              <textarea class="form-control" ng-model="item.description" placeholder="Tape ou copie la description du cours ici">
+              </textarea>
+            </div>
+            <div class="form-group clearfix">
+              <button class="btn btn-success pull-right" ng-click="updateItems()" ng-show="activeItemsToUpdate.length != 0">Modifier les cours</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+  <!-- }}} -->
+</div>

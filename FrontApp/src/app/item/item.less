@@ -1,0 +1,28 @@
+.grey-comment {
+  background-color: mix(@clouds, white, 80%);
+}
+
+.category-edit-group {
+  padding: 10px; 
+  margin-bottom: 20px; 
+  & .tag {
+    margin-bottom: 10px;
+    &:extend( .btn );
+    .button-variant(@btn-default-color, @blue-pastel, @blue-pastel, @blue-pastel);
+    &.tag-idle {
+    .button-variant(@btn-default-color, @blue-pastel, @blue-pastel, @blue-pastel);
+    }
+    &.tag-new {
+    .button-variant(@btn-default-color, @emerald-pastel, @emerald-pastel, @emerald-pastel);
+    }
+    &.tag-to-be-removed {
+    .button-variant(@btn-default-color, @brand-danger, @brand-danger, @brand-danger);
+    }
+    border-radius: 0px;
+  }
+}
+
+.item-diagram-display {
+  border: 2px dashed @blue-pastel;
+  padding: 20px;
+}

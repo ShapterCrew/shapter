@@ -1,0 +1,762 @@
+/**
+ * This is the main application stylesheet. It should include or import all
+ * stylesheets used throughout the application as this is the only stylesheet in
+ * the Grunt configuration that is automatically processed.
+ */
+
+
+/**
+ * First, we include the Twitter Bootstrap LESS files. Only the ones used in the
+ * project should be imported as the rest are just wasting space.
+ */
+
+// {{{ bootstrap 
+// Core variables and mixins
+@import "../../vendor/bootstrap/less/variables.less";
+@import "../../vendor/bootstrap/less/mixins.less";
+
+// Reset
+@import "../../vendor/bootstrap/less/normalize.less";
+@import "../../vendor/bootstrap/less/print.less";
+
+// Core CSS
+@import "../../vendor/bootstrap/less/scaffolding.less";
+@import "../../vendor/bootstrap/less/type.less";
+@import "../../vendor/bootstrap/less/code.less";
+@import "../../vendor/bootstrap/less/grid.less";
+@import "../../vendor/bootstrap/less/tables.less";
+@import "../../vendor/bootstrap/less/forms.less";
+@import "../../vendor/bootstrap/less/buttons.less";
+
+// Components
+@import "../../vendor/bootstrap/less/component-animations.less";
+@import "../../vendor/bootstrap/less/glyphicons.less";
+@import "../../vendor/bootstrap/less/dropdowns.less";
+@import "../../vendor/bootstrap/less/button-groups.less";
+@import "../../vendor/bootstrap/less/input-groups.less";
+@import "../../vendor/bootstrap/less/navs.less";
+@import "../../vendor/bootstrap/less/navbar.less";
+@import "../../vendor/bootstrap/less/breadcrumbs.less";
+@import "../../vendor/bootstrap/less/pagination.less";
+@import "../../vendor/bootstrap/less/pager.less";
+@import "../../vendor/bootstrap/less/labels.less";
+@import "../../vendor/bootstrap/less/badges.less";
+@import "../../vendor/bootstrap/less/jumbotron.less";
+@import "../../vendor/bootstrap/less/thumbnails.less";
+@import "../../vendor/bootstrap/less/alerts.less";
+@import "../../vendor/bootstrap/less/progress-bars.less";
+@import "../../vendor/bootstrap/less/media.less";
+@import "../../vendor/bootstrap/less/list-group.less";
+@import "../../vendor/bootstrap/less/panels.less";
+@import "../../vendor/bootstrap/less/wells.less";
+@import "../../vendor/bootstrap/less/close.less";
+
+// Components w/ JavaScript
+@import "../../vendor/bootstrap/less/modals.less";
+@import "../../vendor/bootstrap/less/tooltip.less";
+@import "../../vendor/bootstrap/less/popovers.less";
+@import "../../vendor/bootstrap/less/carousel.less";
+
+// Utility classes
+@import "../../vendor/bootstrap/less/utilities.less";
+@import "../../vendor/bootstrap/less/responsive-utilities.less";
+      //}}}
+
+// {{{ flat-ui 
+      //@import '../../externals/Flat-UI-Pro-1.2.4/less/fonts';
+      //@import '../../externals/Flat-UI-Pro-1.2.4/less/icon-font';
+      @import '../../externals/Flat-UI-Pro-1.2.4/less/variables';
+      @import '../../externals/Flat-UI-Pro-1.2.4/less/mixins';
+      @import '../../externals/Flat-UI-Pro-1.2.4/less/scaffolding';
+
+//      @import "../../externals/Flat-UI-Pro-1.2.4/less/modules/type";
+//      @import "../../externals/Flat-UI-Pro-1.2.4/less/modules/code";
+      @import "../../externals/Flat-UI-Pro-1.2.4/less/modules/buttons";
+      @import "../../externals/Flat-UI-Pro-1.2.4/less/modules/button-groups";
+      @import "../../externals/Flat-UI-Pro-1.2.4/less/modules/caret";
+      @import "../../externals/Flat-UI-Pro-1.2.4/less/modules/select";
+      @import "../../externals/Flat-UI-Pro-1.2.4/less/modules/forms";
+      @import "../../externals/Flat-UI-Pro-1.2.4/less/modules/input-icons";
+      @import "../../externals/Flat-UI-Pro-1.2.4/less/modules/input-groups";
+//      @import "../../externals/Flat-UI-Pro-1.2.4/less/modules/file-input";
+//      @import "../../externals/Flat-UI-Pro-1.2.4/less/modules/checkbox-and-radio";
+//      @import "../../externals/Flat-UI-Pro-1.2.4/less/modules/tagsinput";
+      @import "../../externals/Flat-UI-Pro-1.2.4/less/modules/typeahead";
+      @import "../../externals/Flat-UI-Pro-1.2.4/less/modules/progress-bars";
+      @import "../../externals/Flat-UI-Pro-1.2.4/less/modules/slider";
+//      @import "../../externals/Flat-UI-Pro-1.2.4/less/modules/spinner";
+//      @import "../../externals/Flat-UI-Pro-1.2.4/less/modules/datepicker";
+//      @import "../../externals/Flat-UI-Pro-1.2.4/less/modules/pager";
+//      @import "../../externals/Flat-UI-Pro-1.2.4/less/modules/pagination";
+//      @import "../../externals/Flat-UI-Pro-1.2.4/less/modules/tooltip";
+      //@import "../../externals/Flat-UI-Pro-1.2.4/less/modules/dropdown";
+      @import "../../externals/Flat-UI-Pro-1.2.4/less/modules/tables";
+      @import "../../externals/Flat-UI-Pro-1.2.4/less/modules/labels";
+      @import "../../externals/Flat-UI-Pro-1.2.4/less/modules/badges";
+      @import "../../externals/Flat-UI-Pro-1.2.4/less/modules/alerts";
+      @import "../../externals/Flat-UI-Pro-1.2.4/less/modules/bottom";
+      //@import "../../externals/Flat-UI-Pro-1.2.4/less/modules/navs";
+      //@import "../../externals/Flat-UI-Pro-1.2.4/less/modules/navbar";
+//     @import "../../externals/Flat-UI-Pro-1.2.4/less/modules/iconbar";
+//      @import "../../externals/Flat-UI-Pro-1.2.4/less/modules/breadcrumbs";
+//      @import "../../externals/Flat-UI-Pro-1.2.4/less/modules/popover";
+//      @import "../../externals/Flat-UI-Pro-1.2.4/less/modules/dialog";
+//      @import "../../externals/Flat-UI-Pro-1.2.4/less/modules/modals";
+      //@import "../../externals/Flat-UI-Pro-1.2.4/less/modules/switch";
+//      @import "../../externals/Flat-UI-Pro-1.2.4/less/modules/carousel";
+
+      @import '../../externals/Flat-UI-Pro-1.2.4/less/spaces';
+      // }}}
+
+/**
+ * This is our main variables file. We must include it last so we can overwrite any variable
+ * definitions in our imported stylesheets.
+ */
+
+@import 'variables.less';
+@import 'type.less';
+@import 'modal.less';
+@import 'behave.less';
+
+/**
+ * Now that all app-wide styles have been applied, we can load the styles for
+ * all the submodules and components we are using. 
+ *
+ * TODO: In a later version of this boilerplate, I'd like to automate this.
+ */
+
+@import '../../src/common/directives/comment/comment.less';
+@import '../../src/app/header/header.less';
+@import '../../src/app/browse/browse.less';
+@import '../../src/app/schools/schools.less';
+@import '../../src/app/courseBuilder/courseBuilder.less';
+@import '../../src/app/signupFunnel/signupFunnel.less';
+@import '../../src/app/sideItem/sideItem.less';
+@import '../../src/app/admin/admin.less';
+@import '../../src/app/startpage/startpage.less';
+@import '../../src/app/item/item.less';
+@import '../../src/app/student/student.less';
+@import '../../src/app/contribute/contribute.less';
+@import '../../src/common/directives/confirmAlert/confirmAlert.less';
+
+@import 'angular.rangeSlider.less';
+
+html, body{
+  height: 100%;
+  width: 100%;
+  background-color: white;
+  //background-color: #f5f5f5;
+  //background-color:   rgb(238, 238, 238);
+  overflow-x: hidden;
+  //font-family: 'Dosis', sans-serif;
+  font-size: @font-size-base;
+}
+
+.breadcrumb {
+  background-color: transparent;
+}
+
+.breadcrumb .active a {
+ // color: @pink;
+}
+
+.dropdown-toggle {
+  cursor: pointer;
+}
+
+a {
+  cursor:pointer;
+}
+
+.text-default {
+  color: @brand-primary;
+}
+
+[ng-click],
+[data-ng-click],
+[x-ng-click] {
+  cursor: pointer;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.navbar.center .navbar-inner {
+  text-align: center;
+}
+
+.navbar.center .navbar-inner .nav {
+  float: none;
+  display:inline-block;
+}
+
+.navbar {
+  border-radius: 0px;
+  margin-bottom: 0px;
+}
+
+.main-row {
+ // position: absolute; 
+ // top: 0px; 
+ // height: 100%; 
+ // width: 100%; 
+ // margin: 0px; 
+ // padding: 62px 0px 0px 0px;
+ // @media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) {
+  //  padding-top: 122px;
+  //}
+}
+
+.main-col {
+  //padding: 10px 10px 0px 10px;
+  //height: 100%;
+}
+
+.header-col {
+  padding: 0px;
+}
+@brand-secondary: @brand-info;
+
+::-webkit-scrollbar { 
+  //display: none; 
+}
+
+.list-group > .active {
+  //border-radius: 0px;
+  //background-color: @silver;
+  //color: white;
+  //background-color: @sun-flower;
+  background-color: @blue-pastel;
+  color: white;
+  & .badge {
+    color: @brand-success;
+    background-color: white;
+}
+}
+
+.badge-concrete {
+  background-color: @concrete;
+}
+
+
+.change-comment-like {
+  display: none;
+}
+
+.like-module:hover .change-comment-like {
+  display: block;
+}
+
+/*
+.nav-list-vivid > li.browse-back.active > a,
+.nav-list-vivid > li.browse-back.active > a:hover,
+.nav-list-vivid > li.browse-back.active > a:focus {
+background-color: #1abc9c;
+}
+
+  .nav-list-vivid > li.browse-back > a {
+  font-size: 13px;
+  color: #ffffff;
+  background-color: #FFA300;
+  //border-radius: 0;
+}
+
+  .nav-list-vivid > li.browse-back > a:hover,
+  .nav-list-vivid > li.browse-back > a:focus {
+  background-color: @sun-flower;
+}
+
+ */
+.nav li > a {
+  color: @brand-primary;
+  //border-radius: 0px;
+}
+
+.nav li.active > a,
+.nav li.active > a:hover { 
+  color: white;
+  background-color: @brand-info;
+}
+
+.btn {
+  .transition(~"border 0s linear, color 0s linear, background-color 0s linear");
+  //border-radius: 0px !important;
+}
+
+.form-control {
+  border-radius: 0px !important;
+  border: 1px solid @silver;
+}
+
+.badge {
+  //border-radius: 0px;
+}
+
+.text-blue {
+  color: @brand-info;
+}
+
+[ readonly = "readonly" ] > i {
+  cursor: default;
+}
+
+.pointer[ readonly = "readonly" ] > i {
+  cursor: pointer;
+}
+
+.badge-info {
+  background-color: @brand-info;
+}
+
+.badge-pink {
+  background-color: @pink;
+}
+
+.badge-pink {
+  background-color: @emerald-pastel;
+}
+
+.badge-orange {
+  background-color: @orange;
+}
+.badge-wet {
+  background-color: @wet-asphalt;
+}
+.badge-blue {
+  background-color: @green-pastel-c1;
+}
+.badge-silver {
+  background-color: @silver;
+}
+
+.text-sun {
+  color: @sun-flower;
+}
+
+.text-silver {
+  color: @silver;
+}
+
+.text-clouds {
+  color: @clouds;
+}
+
+.text-emerald {
+  color: @emerald !important;
+}
+
+.text-green-pastel {
+  color: @green-pastel;
+}
+
+.text-turquoise {
+  color: @turquoise;
+}
+
+.text-orange {
+  color: @orange-pastel;
+  &:hover {
+    color: mix(@orange-pastel, white, 90%);
+}
+}
+
+.text-concrete {
+  color: @concrete;
+}
+
+.text-asphalt {
+  color: @wet-asphalt;
+}
+
+.text-emerald {
+  color: @emerald;
+}
+
+.btn {
+  padding: 12px 18px;
+}
+
+.text-peter {
+  color: @peter-river;
+}
+
+.text-midnight {
+  color: @midnight-blue;
+}
+
+.btn-pink {
+  .button-variant(@btn-default-color, @pink, @pink, @pink);
+}
+
+.btn-emerald {
+  .button-variant(@btn-default-color, @green-pastel, @green-pastel, @green-pastel);
+}
+
+.btn-clear {
+  .button-variant(@wet-asphalt, white, white, white);
+  border: 0px;
+  &:hover {
+    padding: 11px 17px;
+    border: 1px solid @blue-pastel;
+}
+}
+
+.item-action-row {
+  margin-bottom: 30px;
+  margin-top: 30px;
+}
+
+.btn-active {
+  .button-variant(@btn-default-color, @blue-pastel, @blue-pastel, @blue-pastel);
+  & .fa-stack > .fa-inverse {
+    color: @blue-pastel;
+}
+}
+
+.btn-orange {
+  // font-weight: bold;
+  .button-variant(@btn-default-color, @orange, @orange, @orange);
+}
+
+@orange-silver: mix(@orange, @silver, 80%);
+.btn-orange-silver {
+  font-weight: bold;
+  .button-variant(@btn-default-color, @orange-silver, @orange-silver, @orange-silver);
+}
+
+.text-dark-blue {
+  color: @blue-pastel-d2;
+}
+
+.text-sunblood {
+  color: @sun-blood;
+}
+
+.text-pumpkin {
+  color: mix(@pumpkin, white, 80%);
+}
+
+
+@sun-blood: mix(@sun-pastel, @alizarin, 90%);
+
+//@peter-river: #4CA0FF;
+//@peter-river: #5CA5FD;
+
+@blue-pastel: #64ABFF;  /* Main Primary color */
+@blue-pastel-c2: #97C6FF;
+@blue-pastel-c1: #7DB8FF;
+@blue-pastel-d1: #4B9DFF;
+@blue-pastel-d2: #318FFF;
+
+
+@peter-river: @blue-pastel;
+@belize-hole: @blue-pastel-d1;
+
+@green-pastel: #37B89E;
+@green-pastel-d1: #46A290;
+@green-pastel-d2: #2B8C79;
+@green-pastel-c1: #9FDFD3;
+@green-pastel-c2: #D3F5EE;
+
+@turquoise: @green-pastel;
+
+@sun-pastel: #FFDC4E; /* Main Primary color */
+@color-primary-1: #FFEC9C;
+@color-primary-2: #FFE371;
+@color-primary-3: #EFC726;
+@sun-pastel-d2: #BF9C0D;
+
+@sun-flower: @sun-pastel;
+
+@orange-pastel: #FFB847;  /* Main Primary color */
+@orange-pastel-c2: #FFCA76;
+@orange-pastel-c1: #FFC05D;
+@orange-pastel-d1: #FFAF30;
+@orange-pastel-d2: #F99E0D;
+
+@orange: @orange-pastel;
+
+@pink-pastel: #FF9696;  /* Main Primary color */
+@pink-pastel-c2: #FFC8C8;
+@pink-pastel-c1: #FFAEAE;
+@pink-pastel-d1: #FF7F7F;
+@pink-pastel-d2: #FF6969;
+
+@pink: @pink-pastel;
+
+@emerald-pastel: #5CDF95;/* Main Primary color */
+@emerald-pastel-c2: #85EBB2;
+@emerald-pastel-c1: #6FE5A3;
+@emerald-pastel-d1: #4BD888;
+@emerald-pastel-d2: #3BD17C;
+
+@emerald: @emerald-pastel;
+
+.student-li {
+  &:hover {
+    color: @emerald-pastel;
+}
+}
+
+.center {
+  text-align: center;
+}
+
+.lvl-over {
+  border: 2px dashed black !important;
+}
+
+.lvl-target {
+  background-color: #ddd; 
+  opacity: .5;
+}
+
+[draggable] {
+  cursor: move;
+}
+
+.item-tag {
+  padding: 3px;
+  border: 1px solid @wet-asphalt;
+}
+
+.first-nav > li.active > a {
+  background-color: @sun-pastel !important;
+}
+
+.second-nav > li.active > a {
+  background-color: @emerald-pastel !important;
+}
+
+.label-sun {
+  .label-variant(@sun-pastel, mix(@sun-pastel, white, 90%));
+}
+
+.label-orange {
+  .label-variant(@orange-pastel, mix(@orange-pastel, white, 90%));
+}
+
+.thumbnail {
+  margin-bottom: 5px;
+}
+
+.muted {
+  border-color: @clouds;
+}
+
+.likers {
+  color: @wet-asphalt;
+  position: absolute;
+  z-index: 100000;
+  padding: 30px;
+  min-width: 300px;
+}
+
+.likers-inner {
+  background-color: white;
+  border: 1px solid @blue-pastel;
+  padding: 25px;
+  & p:hover {
+    color: @emerald-pastel;
+}
+}
+
+.transparent {
+  opacity: 0;
+}
+
+.comment {
+  padding: 10px 20px;
+}
+
+.breadcrumb > li.active > a {
+  color: @silver;
+}
+
+.breadcrumb > li > a {
+  color: @emerald-pastel;
+}
+
+.tag {
+  margin: 6px;
+  &:extend( .btn );
+  border-radius: 0px;
+  padding: 9px 14px;
+  .button-variant(@btn-default-color, @blue-pastel, @blue-pastel, @blue-pastel);
+}
+
+@sun-orange: mix(@sun-pastel, @orange, 50%);
+.tag-orange {
+  margin: 6px;
+  &:extend( .btn );
+  border-radius: 0px;
+  padding: 9px 14px;
+  .button-variant(@btn-default-color, @orange, @orange, @orange);
+}
+.well.orange-well {
+  background-color: mix( @clouds, @orange-pastel, 90%);
+}
+
+.well.blue-well {
+  background-color: mix( @clouds, @blue-pastel, 90%);
+}
+
+.well.pink-well {
+  background-color: mix( @clouds, @pink-pastel, 90%);
+}
+
+.well.green-well {
+  background-color: mix( @clouds, @emerald-pastel, 90%);
+}
+
+.well.sun-well {
+  background-color: mix( @clouds, @sun-pastel, 90%);
+}
+
+.neutral-infos {
+  margin-bottom: 30px;
+  margin-top: 30px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  background-color: @clouds;
+  & .h6 {
+    color: @silver;
+  }
+}
+
+.orange-infos {
+  margin-bottom: 30px;
+  margin-top: 30px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  background-color: mix(@orange-pastel, white, 30%);
+  color: mix(@pumpkin, white, 90%);
+}
+
+.emerald-infos {
+  margin-bottom: 30px;
+  margin-top: 30px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  background-color: mix(@emerald-pastel, white, 30%);
+  color: @turquoise;
+}
+
+.sun-infos {
+  margin-bottom: 30px;
+  margin-top: 30px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  background-color: mix(@sun-pastel, white, 30%);
+}
+
+.purple-infos {
+  margin-bottom: 30px;
+  margin-top: 30px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  background-color: mix(@wisteria, white, 20%);
+}
+.carrot-infos {
+  margin-bottom: 30px;
+  margin-top: 30px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  background-color: mix(@carrot, white, 20%);
+}
+.asphalt-infos {
+  margin-bottom: 30px;
+  margin-top: 30px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  background-color: mix(@wet-asphalt, white, 60%);
+  color: white;
+}
+
+.turquoise-infos {
+  margin-bottom: 30px;
+  margin-top: 30px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  background-color: mix(@turquoise, white, 20%);
+  color: @turquoise;
+}
+.pink-infos {
+  margin-bottom: 30px;
+  margin-top: 30px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  background-color: mix(@pink-pastel, white, 30%);
+}
+.blue-infos {
+  margin-bottom: 30px;
+  margin-top: 30px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  background-color: mix(@blue-pastel, white, 30%);
+}
+
+.shapter-well {
+  cursor: default;
+  min-height: 20px;
+  padding: 19px;
+  margin-bottom: 20px;
+  background-color: @well-bg;
+  border: 1px solid @well-border;
+  &.shapter-well-turquoise {
+    background-color: @green-pastel;
+    color: white;
+  }
+  &.shapter-well-sun {
+    background-color: mix(@sun-pastel, white, 30%) !important;
+  }
+}
+
+
+.blue-caret {
+  border-top-color: @blue-pastel;
+}
+
+.white-caret {
+  border-top-color: white;
+}
+
+.btn,
+.list-group-item {
+  border-radius: 0px;
+}
+
+.text-asphalt {
+   color: mix(@wet-asphalt, white, 80%);
+}
+
+.campus-comment {
+  background-color: white;
+  border: 1px solid @silver;
+  padding: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+a {
+  -webkit-transition: 0s;
+  transition: 0s;
+}
+
+.thumbnail {
+  -webkit-transition: 0s;
+  transition: 0s;
+}
+
+h3.silver-bottom {
+  border-bottom: 1px solid @silver;
+  padding-bottom: 15px;
+}
+
+.link-muted {
+  &:extend( .text-muted );
+  &:hover {
+    color: mix(@silver, @clouds, 50%);
+  }
+}
