@@ -12,3 +12,4 @@ before_script:
   - cp config/initializers/secret_token.rb.example config/initializers/secret_token.rb
   - cp config/initializers/aws_credentials.rb.example config/initializers/aws_credentials.rb
   - cp config/initializers/behave_io.rb.example config/initializers/behave_io.rb
+  - cp config/mongoid.yml.example config/mongoid.yml
