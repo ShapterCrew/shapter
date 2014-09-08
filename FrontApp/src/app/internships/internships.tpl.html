@@ -1,1 +1,76 @@
 <sh-header></sh-header>
+<div class="container">
+  <div class="row-main-row">
+
+    <div class="col-md-3">
+      <!-- {{{ side nav 
+        <div class="shapter-well">
+          <ul class="nav browse-nav vertical-nav">
+          </ul>
+        </div>
+        }}} -->
+    </div>
+
+    <div class="col-md-9">
+      <!-- {{{ input -->
+        <div class="shapter-well">
+          <div style="width: 100%;">
+            <span class="glyphicon glyphicon-search"></span>
+            <span ng-repeat="tag in activeTags">
+              <span class="tag-orange">
+                {{ tag.name }}
+                <span class="glyphicon glyphicon-remove" ng-click="$event.stopPropagation();removeTag( tag )"></span>
+              </span>
+              <span ng-hide="$last">{{ AppText.browse.and | language }}</span>
+            </span>
+          </div>
+
+          <!-- input -->
+          <input sh-auto-focus="true" type="text" class="form-control" placeholder="+ {{ AppText.browse.add_a_keyword | language }}" typeahead="tag as tag.full_name for tag in internshipTags | ignoreAccentsFilter | filter: {'full_name': $viewValue} | shorterFirstFilter | notAlreadyThere:activeTags | limitTo: 50" ng-model="typedTag" typeahead-editable="false" typeahead-on-select="addTextTag()" style="margin-top: 20px"></input>
+
+
+          <hr style="margin-top: 15px; margin-bottom: 15px">
+
+          <ul class="list-inline cat-list nav-justified" style="margin-bottom: 0px">
+
+            <!-- some categories -->
+            <li class="dropdown" ng-repeat="cat in (categories | catFilter ).display">
+              <a class="dropdown-toggle" style="white-space: nowrap">{{ AppText.translateCode( cat.code )}}<span class="caret"></span> </a>
+              <ul class="dropdown-menu">
+                <li ng-repeat="tag in tagsSuggestions | filter: {category: cat.code}" ng-click="addTag( tag )"><a>{{ tag.name }}</a></li>
+                <li ng-hide="(tagsSuggestions | filter: {category: cat.code}).length > 0" class="disabled">
+                  <a>
+                    {{ AppText.browse.remove_tags | language }}
+                  </a>
+                </li>
+              </ul>
+            </li>
+
+            <!-- more categories ! -->
+            <li class="dropdown">
+              <a class="dropdown-toggle" style="white-space: nowrap">{{ AppText.browse.more | language }}<span class="caret"></span> </a>
+
+              <ul class="dropdown-menu dropdown-menu-right">
+                <!-- repat remaining categories -->
+                <li ng-repeat="cat in (categories | catFilter).others" ng-show="(tagsSuggestions | filter: { category: cat.code }).length > 0">
+                    <a class="list-in-dropdown-title">{{ AppText.translateCode( cat.code ) }}</a>
+                    <ul class="list-in-dropdown-list">
+                      <li ng-repeat="tag in tagsSuggestions | filter: {category: cat.code}" ng-click="addTag( tag )"><a>{{ tag.name }}</a></li>
+                    </ul>
+                </li>
+
+                <li ng-hide="(tagsSuggestions | filter: {category: cat.code}).length > 0" class="disabled">
+                  <a>
+                    {{ AppText.browse.remove_tags | language }}
+                  </a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+
+        </div><!-- shapter-well -->
+        <!-- }}} -->
+    </div>
+
+  </div>
+</div>
