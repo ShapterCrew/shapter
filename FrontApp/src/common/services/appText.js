@@ -19,6 +19,40 @@ angular.module( 'services.appText', [])
     translateCode: function( code ){
       return $filter( 'language' )( $parse( code )( AppText.categories ));
     },
+    internships: {
+      browse_internships_long: {
+        en: 'Browse inernships whit keywords: the name of the company, the localisation, its field ... Each additional keyword filters the results once more.',
+        fr: 'Cherche des cours en ajoutant des mot-clefs : le nom de l\'entreprise, le lieu, le domaine enseigné ... Chaque mot-clef supplémentaire filtre un peu plus la recherche.'
+      },
+      browse_internships: {
+        en: 'Browse internships',
+        fr: 'Cherche des stages'
+      },
+      internships: {
+        en: 'Internships',
+        fr: 'Stages'
+      },
+      map_view: {
+        en: 'Map view',
+        fr: 'Carte'
+      },
+      list_view: {
+        en: 'List view',
+        fr: 'Liste'
+      },
+      in_favourites: {
+        en: 'in current internships',
+        fr: 'dans les stages en cours'
+      },
+      current_internships: {
+        en: 'Current internships',
+        fr: 'Stages en cours'
+      },
+      all_internships: {
+        en: 'All Internships',
+        fr: 'Tous les stages'
+      }
+    },
     startpage: {
       terms_of_use: {
         en: 'Terms of use',
@@ -156,6 +190,10 @@ angular.module( 'services.appText', [])
       }
     },
     browse: {
+      classes: {
+        en: 'Classes',
+        fr: 'Cours'
+      },
       about: {
         en: 'About',
         fr: 'À propos'
@@ -201,6 +239,10 @@ angular.module( 'services.appText', [])
         fr: 'Tous les cours'
       },
       browse_classes: {
+        en: 'Browse classes',
+        fr: 'Cherche des cours'
+      },
+      browse_classes_long: {
         en: 'Browse classes whit keywords: the name of the course, the category it belongs to, its field ... Each additional keyword filters the results once more.',
         fr: 'Cherche des cours en ajoutant des mot-clefs : le nom du cours, la catégorie à laquelle il appartient, le domaine enseigné ... Chaque mot-clef supplémentaire filtre un peu plus la recherche.'
       },
@@ -305,8 +347,8 @@ angular.module( 'services.appText', [])
         fr: 'Cours'
       },
       look_for_classes : {
-        en: 'Look for classes',
-        fr: 'Chercher des cours'
+        en: 'Classes',
+        fr: 'Cours'
       },
       display_results: {
         en: 'Display Results',
@@ -676,6 +718,10 @@ angular.module( 'services.appText', [])
       }
     },
     header: {
+      classes: {
+        en: 'Classes', 
+        fr: 'Cours'
+      },
       ohters: {
         en: 'Other',
         fr: 'Autres'

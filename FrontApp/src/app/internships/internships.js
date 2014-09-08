@@ -29,5 +29,6 @@ angular.module( 'shapter.internships', [
 }])
 
 .controller('InternshipsCtrl', ['$scope', function( $scope ){
+  $scope.view = 'map';
 }]);
 
