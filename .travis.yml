@@ -1,19 +1,21 @@
 language: ruby
-install: bundle install --without development --deployment 
-cache: bundler
+cache: 
+  directories:
+    - shapter-api/vendor/bundle
+    - FrontApp/vendor
+    - FrontApp/node_modules
 services:
   - mongodb
-cache: bundler
 rvm:
   - 2.1.2
 script:
-  - cd shapter-api && RAILS_ENV=test bundle exec rake && cd ..
-  - cd FrontApp && grunt test
-before_script:
   - cd shapter-api
-    #- gem install capistrano-rvm -v '0.1.1'
-    #- gem install delayed_job -v '4.0.2'
-    #- bundle install
+  - RAILS_ENV=test bundle exec rake
+  - cd ../FrontApp 
+  - grunt test
+before_install:
+  - cd shapter-api
+before_script:
   - cp config/initializers/secret_token.rb.example config/initializers/secret_token.rb
   - cp config/initializers/aws_credentials.rb.example config/initializers/aws_credentials.rb
   - cp config/initializers/behave_io.rb.example config/initializers/behave_io.rb
