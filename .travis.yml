@@ -1,4 +1,5 @@
 language: ruby
+install: bundle install --without development --deployment
 services:
   - mongodb
 cache: bundler
