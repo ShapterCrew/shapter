@@ -676,10 +676,6 @@ angular.module( 'services.appText', [])
       }
     },
     header: {
-      internships: {
-        en: 'Internships',
-        fr: 'Stages'
-      },
       ohters: {
         en: 'Other',
         fr: 'Autres'
