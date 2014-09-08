@@ -1,5 +1,9 @@
 language: ruby
-cache: bundler
+cache: 
+  directories:
+    - shapter-api/vendor/bundle
+    - FrontApp/vendor
+    - FrontApp/node_modules
 services:
   - mongodb
 rvm:
