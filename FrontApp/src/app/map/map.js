@@ -19,13 +19,6 @@ angular.module( 'shapter.maps', [
   $scope.defaults = {
   };
 
-  var redMarker = L.AwesomeMarkers.icon({
-    icon: 'coffee',
-    markerColor: 'red'
-  });
-
-  L.marker([51.941196,4.512291], {icon: redMarker}).addTo(map);
-
   $scope.markers = {
     osloMarker: {
       lat: 59.91,
