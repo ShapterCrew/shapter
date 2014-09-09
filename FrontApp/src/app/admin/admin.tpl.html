@@ -86,10 +86,10 @@
 
       <div class="well">
         <h4> À ajouter : </h4>
-        <div class="category-edit-group" ng-repeat="category in categories | filter: {code: '!school'} | filter: {code: '!item_name'}">
-          <div class="h6">{{ category.code }}</div>
+        <div class="category-edit-group" ng-repeat="category in categories | filter: '!school' | filter: '!item_name'">
+          <div class="h6">{{ category }}</div>
 
-          <select ng-model="category.tagItemsToAdd" ng-options="tag.name as tag.name for tag in schoolTags | filter: {category: category.code} | notAlreadyThereName:newItemTags | orderByAccent: 'name': false" ng-change="addTagItems( category )">
+          <select ng-model="category.tagItemsToAdd" ng-options="tag.name as tag.name for tag in schoolTags | filter: {category: category} | notAlreadyThereName:newItemTags | orderByAccent: 'name': false" ng-change="addTagItems( category )">
             <label>Ajoute des mots-clefs pour décrire le cours</label>
             <option value="">-- choisis dans la liste --</option>
           </select>

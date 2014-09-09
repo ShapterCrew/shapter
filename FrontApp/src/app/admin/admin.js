@@ -29,7 +29,8 @@ angular.module( 'shapter.admin', [
   $scope.Tag = Tag;
   $scope.nav = 'tagItems';
   $scope.schools = schools;
-  $scope.categories = angular.copy( $rootScope.categories );
+  $scope.categories = $rootScope.categories;
+  console.log( $scope.categories );
 
   /* {{{ add students  */
 
@@ -47,8 +48,9 @@ angular.module( 'shapter.admin', [
   $scope.activeItems = [];
   $scope.step = '1';
   $scope.initializeTagItems = function(){
+    $scope.tagItemsToAdd = {};
     angular.forEach( $scope.categories, function( cat ){
-      cat.tagItemsToAdd = null;
+      $scope.tagItemsToAdd.cat = null;
     });
     angular.forEach( $scope.activeItems, function( item ){
       item.selected = false;
@@ -145,14 +147,13 @@ angular.module( 'shapter.admin', [
   }, true );
 
   $scope.addTagItems = function( category ){
-    if( category.tagItemsToAdd.length ){
+    if( tagItemsToAdd.category.length ){
       $scope.tagsToBeAdded.push({
-        name: category.tagItemsToAdd,
-        category_id: category.id,
-        code: category.code
+        name: tagItemsToAdd.category,
+        category: category
       });
-      category.tagItemsToAdd = '';
-      category.tagItemsMissing = false;
+      tagItemsToAdd.category = '';
+      tagItemsMissing.category = false;
     }
   };
 
@@ -172,16 +173,15 @@ angular.module( 'shapter.admin', [
     angular.forEach( $scope.tagsToBeAdded, function( tag ){
       var formatedTag = {
         tag_name: tag.name,
-        category_id: tag.category_id
+        category: tag.category
       };
       tagsToAdd.push( formatedTag );
     });
 
     angular.forEach( $scope.tagsToBeRemoved, function( tag ){
-      var catId = $rootScope.categoriesIndex[ tag.category ].id;
       var formatedTag = {
         tag_name: tag.name,
-        category_id: catId 
+        category: tag.category 
       };
       tagsToRemove.push( formatedTag );
     });
