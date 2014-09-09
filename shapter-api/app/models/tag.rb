@@ -13,7 +13,8 @@ class Tag
   field :custom_diag_dims, type: Array
 
   field :category_code
-  before_save :default_cat_code
+  before_validation :default_cat_code
+  validate :authorized_category_code
 
   #validates_uniqueness_of :name
   validate :type_name_uniqueness
@@ -76,6 +77,21 @@ class Tag
     end
 
     def acceptable_categories
+      [
+       "school",
+       "admin",
+       "option",
+       "other",
+       "item_name",
+       "credits",
+       "department",
+       "choice",
+       "formation",
+       "language",
+       "geo",
+       "teacher",
+       "other",
+      ]
     end
 
   end
@@ -86,6 +102,11 @@ class Tag
   end
 
   protected
+
+  def authorized_category_code
+    errors.add(:base, "invalid category code") unless self.class.acceptable_categories.include? category_code.to_s
+  end
+
   def default_cat_code
     self.category_code ||= "other"
   end

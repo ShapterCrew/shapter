@@ -18,9 +18,9 @@ describe Shapter::V7::ItemTags do
       @i2 = Item.create(name: "i2")
       @i3 = Item.create(name: "i3")
 
-      @c1 = "c1"
-      @c2 = "c2"
-      @c3 = "c3"
+      @c1 = Tag.acceptable_categories[0]
+      @c2 = Tag.acceptable_categories[1]
+      @c3 = Tag.acceptable_categories[2]
 
       @t1 = Tag.create(name: 't1', category_code: @c1)
       @t2 = Tag.create(name: 't2', category_code: @c2)
@@ -41,13 +41,13 @@ describe Shapter::V7::ItemTags do
 
       [@t1,@t2,@t3,@i1,@i2,@i3].each(&:reload)
 
-      expect(@t1.items).to eq [@i1,@i2,@i3]
-      expect(@t2.items).to eq [@i1,@i2,@i3]
-      expect(@t3.items).to eq [@i1,@i2,@i3]
+      expect(@t1.items).to match_array [@i1,@i2,@i3]
+      expect(@t2.items).to match_array [@i1,@i2,@i3]
+      expect(@t3.items).to match_array [@i1,@i2,@i3]
 
-      expect(@i1.tags).to eq [@t1, @t2, @t3]
-      expect(@i2.tags).to eq [@t1, @t2, @t3]
-      expect(@i3.tags).to eq [@t1, @t2, @t3]
+      expect(@i1.tags).to match_array [@t1, @t2, @t3]
+      expect(@i2.tags).to match_array [@t1, @t2, @t3]
+      expect(@i3.tags).to match_array [@t1, @t2, @t3]
 
     end
 
@@ -61,9 +61,9 @@ describe Shapter::V7::ItemTags do
       @i1 = Item.create(name: "i1")
       @i2 = Item.create(name: "i2")
 
-      @t1 = Tag.create(name: 't1', category_code: "c1")
-      @t2 = Tag.create(name: 't2', category_code: "c2")
-      @t3 = Tag.create(name: 't3', category_code: "c3")
+      @t1 = Tag.create(name: 't1', category_code: Tag.acceptable_categories[0])
+      @t2 = Tag.create(name: 't2', category_code: Tag.acceptable_categories[1])
+      @t3 = Tag.create(name: 't3', category_code: Tag.acceptable_categories[2])
 
       @i1.tags << @t1
       @i1.tags << @t2
