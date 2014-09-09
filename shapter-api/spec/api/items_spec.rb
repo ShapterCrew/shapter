@@ -7,11 +7,9 @@ describe Shapter::V7::Items do
     Item.delete_all
     User.delete_all
     Tag.delete_all
-    Category.delete_all
     @user = FactoryGirl.create(:user)
     @item = FactoryGirl.create(:item)
     @item2= FactoryGirl.create(:item)
-    @cat = FactoryGirl.create(:category)
 
     @t1 = Tag.new(name: :t1) ; @t1.save
     @t2 = Tag.new(name: :t2) ; @t2.save
@@ -37,8 +35,8 @@ describe Shapter::V7::Items do
           "baritem",
         ],
         tags: [
-          {category_id: @cat.id, tag_name: "footag"},
-          {category_id: @cat.id, tag_name: "bartag"},
+          {category_code: "admin", tag_name: "footag"},
+          {category_code: "admin", tag_name: "bartag"},
         ]
       }
     end

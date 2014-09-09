@@ -6,7 +6,6 @@ describe Shapter::V7::Users do
     User.delete_all
     Item.delete_all
     Tag.delete_all
-    Category.delete_all
     @user = FactoryGirl.create(:user)
 
     @user2 = FactoryGirl.build(:user)
@@ -81,9 +80,9 @@ describe Shapter::V7::Users do
     end
 
     it "should accept the school_id param" do 
-      cat = Category.find_or_create_by(code: :school)
-      @school1 = Tag.create(name: "school1", category_id: cat.id)
-      @school2 = Tag.create(name: "school2", category_id: cat.id)
+      #cat = Category.find_or_create_by(code: :school)
+      @school1 = Tag.create(name: "school1", category_code: :school)
+      @school2 = Tag.create(name: "school2", category_code: :school)
 
       @i1.tags << @school1 
       @i2.tags << @school2

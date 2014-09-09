@@ -3,11 +3,9 @@ describe Shapter::V7::Schools do
   before(:each) do 
     User.delete_all
     Tag.delete_all
-    Category.delete_all
 
     @t = FactoryGirl.create(:tag)
-    @c = Category.create(code: "school")
-    @t.category = @c ; @t.save
+    @t.category_code = :school ; @t.save
 
     @user = FactoryGirl.create(:user)
     login(@user)

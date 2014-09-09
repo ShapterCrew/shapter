@@ -17,14 +17,13 @@ module Shapter
             requires :item_ids, type: Array, desc: "list of items ids"
             requires :tags, type: Array do 
               requires :tag_name, type: String, desc: "name of the tag"
-              requires :category_id, type: String, desc: "category_id of the tag"
+              requires :category_code, type: String, desc: "category_code of the tag"
             end
           end
           post :add do 
             items = Item.any_in(id: params[:item_ids]) || error!("no item found",418)
             tags = params[:tags].map do |h|
-              cat = Category.find(h[:category_id]) || error!("category #{h[:category_id]} not found", 418)
-              Tag.find_or_create_by(name: h[:tag_name], category_id: cat.id)
+              Tag.find_or_create_by(name: h[:tag_name], category_code: h[:category_code])
             end
 
             items.each do |item|
@@ -51,14 +50,13 @@ module Shapter
             requires :item_ids, type: Array, desc: "list of items ids"
             requires :tags, type: Array do 
               requires :tag_name, type: String, desc: "name of the tag"
-              requires :category_id, type: String, desc: "category_id of the tag"
+              requires :category_code, type: String, desc: "category_code of the tag"
             end
           end
           post :delete do 
             items = Item.any_in(id: params[:item_ids]) || error!("no item found",418)
             tags = params[:tags].map do |h|
-              cat = Category.find(h[:category_id]) || error!("category #{h[:category_id]} not found", 418)
-              Tag.find_or_create_by(name: h[:tag_name], category_id: cat.id)
+              Tag.find_or_create_by(name: h[:tag_name], category_code: h[:category_code])
             end
 
             status = :nothing_changed

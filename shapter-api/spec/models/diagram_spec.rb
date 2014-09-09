@@ -4,7 +4,6 @@ describe Diagram do
   before(:each) do 
     Tag.delete_all
     Item.delete_all
-    Category.delete_all
   end
 
   describe :+ do 
@@ -51,7 +50,7 @@ describe Diagram do
 
     it "should have school tag values when available" do 
       @t = FactoryGirl.create(:tag) 
-      @t.category = Category.create(code: :school)
+      @t.category_code = :school
       @t.custom_diag_dims = [1,2,3]
 
       @i = FactoryGirl.create(:item)

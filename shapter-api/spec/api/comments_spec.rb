@@ -6,6 +6,7 @@ describe Shapter::V7::Comments do
     User.any_instance.stub(:confirmed_student?).and_return(true)
     Item.delete_all
     User.delete_all
+    Tag.delete_all
     @item = FactoryGirl.create(:item)
     @user = FactoryGirl.create(:user)
     @comment = FactoryGirl.build(:comment)

@@ -16,17 +16,12 @@ module Shapter
         desc "search for tag name"
         params do 
           requires :search, type: String, desc: 'required: search string'
-          optional :category_id, type: String, desc: 'optional: category_id to filter with'
           optional :category_code, type: String, desc: 'optional: category_code to filter with'
         end
         post :search do 
 
-          tags = if params[:category_id]
-                   cat_id = BSON::ObjectId.from_string(params[:category_id])
-                   Tag.where(name: /#{params[:search]}/i, category_id: cat_id)
-                 elsif params[:category_code]
-                   cat = Category.find_by(code: params[:category_code])
-                   Tag.where(name: /#{params[:search]}/i, category_id: cat.id)
+          tags = if params[:category_code]
+                   Tag.where(name: /#{params[:search]}/i, category_code: params[:category_code])
                  else
                    Tag.where(name: /#{params[:search]}/i)
                  end
@@ -44,7 +39,7 @@ module Shapter
         }
         params do 
           optional :filter, type: String, desc: "id of the tag to filter with"
-          optional :category_id, type: String, desc: "category_id to filter with"
+          optional :category_code, type: String, desc: "category to filter with"
         end
         post :/ do 
           if params[:filter]
@@ -53,10 +48,8 @@ module Shapter
             tags = Tag.all
           end
 
-          cat_id = BSON::ObjectId.from_string(params[:category_id]) if params[:category_id]
-
-          filtered_tags = if params[:category_id]
-                            tags.select{|t| t.category_id == cat_id}
+          filtered_tags = if params[:category_code]
+                            tags.select{|t| t.category_code == params[:category_code]}
                           else
                             tags
                           end

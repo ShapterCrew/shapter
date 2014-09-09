@@ -4,7 +4,6 @@ describe Shapter::V7::ItemTags do
   before(:each) do 
     Tag.delete_all
     Item.delete_all
-    Category.delete_all
     User.delete_all
     @user = FactoryGirl.create(:user)
     User.any_instance.stub(:shapter_admin).and_return(:true)
@@ -19,20 +18,20 @@ describe Shapter::V7::ItemTags do
       @i2 = Item.create(name: "i2")
       @i3 = Item.create(name: "i3")
 
-      @c1 = Category.create(code: "c1")
-      @c2 = Category.create(code: "c2")
-      @c3 = Category.create(code: "c3")
+      @c1 = "c1"
+      @c2 = "c2"
+      @c3 = "c3"
 
-      @t1 = Tag.create(name: 't1', category_id: @c1.id)
-      @t2 = Tag.create(name: 't2', category_id: @c2.id)
-      @t3 = Tag.create(name: 't3', category_id: @c3.id)
+      @t1 = Tag.create(name: 't1', category_code: @c1)
+      @t2 = Tag.create(name: 't2', category_code: @c2)
+      @t3 = Tag.create(name: 't3', category_code: @c3)
 
     end
 
     it "add a list of tags to a list of items" do 
       item_ids = [@i1,@i2,@i3].map(&:id).map(&:to_s)
       tags  = [@t1,@t2,@t3].map do |tag|
-        {category_id: tag.category_id, tag_name: tag.name}
+        {category_code: tag.category_code, tag_name: tag.name}
       end
       post "items/tags/add", {item_ids: item_ids, tags: tags}
 
@@ -62,13 +61,9 @@ describe Shapter::V7::ItemTags do
       @i1 = Item.create(name: "i1")
       @i2 = Item.create(name: "i2")
 
-      @c1 = Category.create(code: "c1")
-      @c2 = Category.create(code: "c2")
-      @c3 = Category.create(code: "c3")
-
-      @t1 = Tag.create(name: 't1', category_id: @c1.id)
-      @t2 = Tag.create(name: 't2', category_id: @c2.id)
-      @t3 = Tag.create(name: 't3', category_id: @c3.id)
+      @t1 = Tag.create(name: 't1', category_code: "c1")
+      @t2 = Tag.create(name: 't2', category_code: "c2")
+      @t3 = Tag.create(name: 't3', category_code: "c3")
 
       @i1.tags << @t1
       @i1.tags << @t2
@@ -93,7 +88,7 @@ describe Shapter::V7::ItemTags do
       expect(@i2.tags).to eq [@t1, @t2, @t3]
 
       item_ids = [@i1,@i2].map(&:id).map(&:to_s)
-      tags = [@t2,@t3].map{|t| {tag_name: t.name, category_id: t.category_id}}
+      tags = [@t2,@t3].map{|t| {tag_name: t.name, category_code: t.category_code}}
       post "items/tags/delete", {tags: tags, item_ids: item_ids}
 
       h = JSON.parse(response.body)
