@@ -347,7 +347,7 @@ describe Shapter::V7::Items do
         User.any_instance.stub(:shapter_admin).and_return(false)
       end
       it "denies access" do 
-        put "items/#{@item.id}/update", :item => {:name => "new name ", :description => "soooo cool!"}
+        put "items/#{@item.id}/update", :item => {:name => "new name ", :syllabus => "soooo cool!"}
         access_denied(@response).should be true
       end
     end
@@ -360,11 +360,11 @@ describe Shapter::V7::Items do
         new_name = "new name"
         desc = "soooooo cool !"
         new_short_name = "new short name haha"
-        put "items/#{@item.id}/update", :item => {:name => new_name, :description => desc, :short_name => new_short_name}
+        put "items/#{@item.id}/update", :item => {:name => new_name, :syllabus => desc, :short_name => new_short_name}
 
         @item.reload
         @item.name.should == new_name
-        @item.description.should == desc
+        @item.syllabus.should == desc
         @item.short_name.should == new_short_name
 
       end

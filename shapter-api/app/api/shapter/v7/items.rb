@@ -249,10 +249,25 @@ module Shapter
             ok_params = [
               !!(x = params[:item][:name])        ? {name: x}        : {},
               !!(x = params[:item][:syllabus])    ? {syllabus: x}    : {},
+              ( !!(x = params[:item][:syllabus]) and x != @item.syllabus )   ? {syllabus_author: current_user}    : {},
               !!(x = params[:item][:short_name])  ? {short_name: x}  : {},
             ].reduce(&:merge)
 
             @item.update_attributes(ok_params)
+
+            present @item, with: Shapter::Entities::Item, entity_options: entity_options
+          end
+          #}}}
+
+          #{{{ update_syllabus
+          desc "update an item syllabus. This can be done with update, but has less restrictions" 
+          params do 
+            requires :syllabus, type: String, desc: "syllabus"
+          end
+          put :update_syllabus do 
+            error!("forbidden",403) unless (current_user.schools & item.tags.schools).any?
+
+            @item.update_attribute(:syllabus, params[:syllabus])
 
             present @item, with: Shapter::Entities::Item, entity_options: entity_options
           end

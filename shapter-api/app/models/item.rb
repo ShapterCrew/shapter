@@ -13,6 +13,8 @@ class Item
 
   has_and_belongs_to_many :tags
 
+  belongs_to :syllabus_author, class_name: "User", inverse_of: "syllabus_edited_items"
+
   has_and_belongs_to_many :subscribers      , class_name: "User", inverse_of: :items
   has_and_belongs_to_many :interested_users , class_name: "User", inverse_of: :cart_items
   has_and_belongs_to_many :constructor_users, class_name: "User", inverse_of: :constructor_users
