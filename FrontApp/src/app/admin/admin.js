@@ -30,7 +30,6 @@ angular.module( 'shapter.admin', [
   $scope.nav = 'tagItems';
   $scope.schools = schools;
   $scope.categories = $rootScope.categories;
-  console.log( $scope.categories );
 
   /* {{{ add students  */
 
@@ -49,9 +48,6 @@ angular.module( 'shapter.admin', [
   $scope.step = '1';
   $scope.initializeTagItems = function(){
     $scope.tagItemsToAdd = {};
-    angular.forEach( $scope.categories, function( cat ){
-      $scope.tagItemsToAdd.cat = null;
-    });
     angular.forEach( $scope.activeItems, function( item ){
       item.selected = false;
     });
@@ -73,7 +69,7 @@ angular.module( 'shapter.admin', [
     });
   };
 
-  $scope.addItemToUpdate = function(tag){
+  $scope.addItemToUpdate = function( tag ){
     Item.getListFromTags( [tag.id], true ).then( function( response ){
       if (response.number_of_results != 1){
         alert("Tape le nom d'un cours !");
@@ -146,10 +142,10 @@ angular.module( 'shapter.admin', [
 
   }, true );
 
-  $scope.addTagItems = function( category ){
-    if( tagItemsToAdd.category.length ){
+  $scope.addTagItems = function( category, tagName ){
+    if( tagItemsToAdd ){
       $scope.tagsToBeAdded.push({
-        name: tagItemsToAdd.category,
+        name: tagName,
         category: category
       });
       tagItemsToAdd.category = '';
@@ -197,25 +193,16 @@ angular.module( 'shapter.admin', [
   // }}}
 
   // {{{ add Items 
-  var schoolCatId;
-  angular.forEach( $scope.categories, function( cat ){
-    if( cat.code == "school" ){
-      schoolCatId = cat.id;
-    }
-  });
 
   $scope.selectAddItemsSchool = function(){
     $scope.initialize();
-    $scope.newItemTags.push({
-      tag_name: $scope.newItemSchool.name,
-      category_id: schoolCatId,
-      code: 'school' 
-    });
 
     $scope.schoolTagsLoading = true;
     Tag.getSchoolTags( $scope.newItemSchool.id ).then( function( response ){
       $scope.schoolTagsLoading = false;
-      $scope.schoolTags = response.tags;
+      $scope.schoolTags = response.tags.map( function( tag ){
+        tag.category = "other";
+      });
     }, function(){
       $scope.schoolTagsLoading = false;
     });
@@ -230,6 +217,10 @@ angular.module( 'shapter.admin', [
     }
     ];
     $scope.newItemTags = [];
+    $scope.newItemTags.push({
+      tag_name: $scope.newItemSchool.name,
+      category: 'school'
+    });
   };
 
   $scope.addNewItem = function(){
@@ -238,17 +229,14 @@ angular.module( 'shapter.admin', [
     });
   };
 
-  $scope.initialize();
-
-  $scope.addTag = function( category ){
-    if( category.tagToAdd.length ){
+  $scope.addTag = function( category, tagName ){
+    if( !!tagName ){
       $scope.newItemTags.push({
-        tag_name: category.tagToAdd,
-        category_id: category.id,
-        code: category.code
+        tag_name: tagName,
+        category: category
       });
-      category.tagToAdd = '';
-      category.tagMissing = false;
+      tagToAdd = '';
+      tagMissing = false;
     }
   };
 
@@ -259,7 +247,7 @@ angular.module( 'shapter.admin', [
     var idx = $scope.newItemTags.indexOf( tag );
     $scope.newItemTags.splice( idx, 1 );
   };
-  
+
   $scope.updateItems = function() {
     angular.forEach($scope.activeItemsToUpdate, function(item){
       item.edit();

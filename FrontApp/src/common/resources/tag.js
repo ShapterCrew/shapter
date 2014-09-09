@@ -69,7 +69,7 @@ angular.module('resources.tag', [
         }
       };
       return Category.list().then( function(){
-        return Restangular.all('tags').customPOST({ entities: entities, category_code: 'school'});
+        return Restangular.all('tags').customPOST({ entities: entities, category: 'school'});
       });
     },
 
