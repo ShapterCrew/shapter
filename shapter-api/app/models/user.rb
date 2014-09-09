@@ -3,6 +3,7 @@ class User
   include Mongoid::Timestamps
 
   include Facebookable
+  include Skilled
 
   field :firstname, type: String
   field :lastname,  type: String
