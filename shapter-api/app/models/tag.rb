@@ -91,7 +91,6 @@ class Tag
        "language",
        "geo",
        "teacher",
-       "other",
        "skill",
       ]
     end
