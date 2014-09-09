@@ -3,7 +3,7 @@ class Item
   include Mongoid::Timestamps
 
   field :name                  , type: String
-  field :description           , type: String
+  field :syllabus              , type: String
   field :short_name            , type: String
   field :requires_comment_score, type: Integer
 
@@ -24,12 +24,12 @@ class Item
 
     # {{{ merge item t2 into item t1. Tag t2 will be destroyed
     # item2 relations will be added to item1. 
-    # item1 attributes take priority over item2 attributes (name, description...etc)
+    # item1 attributes take priority over item2 attributes (name, syllabus...etc)
     def merge!(item1,item2)
 
       new_attr = {
         :name                 => item1.name.blank?        ? item2.name        : item1.name,
-        :description          => item1.description.blank? ? item2.description : item1.description,
+        :syllabus             => item1.syllabus.blank? ? item2.syllabus : item1.syllabus,
         :short_name           => item1.short_name.blank?  ? item2.short_name  : item1.short_name,
         :tag_ids              => [item1,item2].map(&:tag_ids).reduce(:+).uniq,
         :subscriber_ids       => [item1,item2].map(&:subscriber_ids).reduce(:+).uniq,

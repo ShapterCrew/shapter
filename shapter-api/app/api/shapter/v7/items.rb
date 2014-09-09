@@ -239,7 +239,7 @@ module Shapter
           params do 
             requires :item, type: Hash do 
               optional :name, type: String, desc: "item name"
-              optional :description, type: String, desc: "description"
+              optional :syllabus, type: String, desc: "syllabus"
               optional :short_name, type: String, desc: "short name"
             end
           end
@@ -248,7 +248,7 @@ module Shapter
 
             ok_params = [
               !!(x = params[:item][:name])        ? {name: x}        : {},
-              !!(x = params[:item][:description]) ? {description: x} : {},
+              !!(x = params[:item][:syllabus])    ? {syllabus: x}    : {},
               !!(x = params[:item][:short_name])  ? {short_name: x}  : {},
             ].reduce(&:merge)
 
