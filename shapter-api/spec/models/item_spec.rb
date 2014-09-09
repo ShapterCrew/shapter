@@ -109,4 +109,17 @@ describe Item do
   end
   #}}}
 
+  #{{{ skills 
+  describe :skills do 
+    it 'lists skills' do 
+      t1 =Tag.new(name: :hahaha, category_code: "skill")
+      t2 =Tag.new(name: :hohoho, category_code: "skill")
+      @item.tags << t1
+      @item.tags << t2
+
+      expect(@item.skills).to match_array( [t1,t2])
+    end
+  end
+  #}}}
+
 end

@@ -30,6 +30,7 @@ class Tag
   end
 
   scope :schools, -> { where(category_code: :school) }
+  scope :skills , -> { where(category_code: :skill) }
 
   def cached_students
     Rails.cache.fetch("tagStudents|#{id}|#{updated_at.try(:utc).try(:to_s,:number)}",expires_in: 3.hours) do
@@ -91,6 +92,7 @@ class Tag
        "geo",
        "teacher",
        "other",
+       "skill",
       ]
     end
 

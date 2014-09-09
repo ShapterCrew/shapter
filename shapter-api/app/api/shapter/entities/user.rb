@@ -30,6 +30,8 @@ module Shapter
       expose :comments_count                  , if: lambda { |u,o| o[:entity_options]["user"][:comments_count]}
       expose :items_count                     , if: lambda { |u,o| o[:entity_options]["user"][:items_count]}
       expose :diagrams_count                  , if: lambda { |u,o| o[:entity_options]["user"][:diagrams_count]}
+
+      expose :skills, if: lambda {|u,o| o[:entity_options]["user"][:skills]}
     end
   end
 end

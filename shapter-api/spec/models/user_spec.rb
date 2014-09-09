@@ -3,39 +3,42 @@ require 'spec_helper'
 describe User do
   before(:each) do 
     User.delete_all
+    Item.delete_all
+    Tag.delete_all
     SignupPermission.delete_all
   end
 
+  #{{{ skills
+  describe :skills do 
+    it 'list skills' do 
+      i1 = FactoryGirl.create(:item)
+      i2 = FactoryGirl.create(:item)
+      i3 = FactoryGirl.create(:item)
 
-  #it "should set and validates school using regex" do 
-  #  u = FactoryGirl.build(:user)
-  #  u.schools = []
+      t1 = Tag.new(name: "peinture sur cul", category_code: :skill)
+      t2 = Tag.new(name: "pilotage de caddie", category_code: :skill)
 
-  #  u.valid?.should be false
+      i1.tags << t1
+      i2.tags << t2
+      i3.tags << t2
 
-  #  u.email = 'valid@student.ecp.fr'
-  #  u.save
-  #  u.reload
-  #  u.valid?.should be true
-  #  u.schools.first.name.should == "Centrale Paris"
+      u = User.new(item_ids: [i1,i2,i3].map(&:id))
 
-  #end
+      expect(u.skills).to match_array([
+        {
+          tag_id: t1.id,
+          name: t1.name,
+          power: 1,
+        },
+        {
+          tag_id: t2.id,
+          name: t2.name,
+          power: 2,
+        },
+      ])
+    end
+  end
+  #}}}
 
-  #it "should set and validates school using signup_permission" do 
-  #  u = FactoryGirl.build(:user)
-  #  u.schools = []
-  #  u.firstname = nil
-  #  u.valid?.should be false
-
-  #  SignupPermission.create(email: "foo@bar.com", school_names: ["fooSchool","barSchool"], firstname: 'fname')
-
-  #  u.email = "foo@bar.com"
-
-  #  u.save ; u.reload
-  #  u.valid?.should be true
-  #  u.schools.first.name.should == "fooSchool"
-  #  u.schools.last.name.should == "barSchool"
-  #  u.firstname.should == 'fname'
-  #end
 
 end
