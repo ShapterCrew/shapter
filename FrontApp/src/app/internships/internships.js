@@ -41,12 +41,26 @@ angular.module( 'shapter.internships', [
       company: {
         name: 'Bougyues'
       },
-      start_time: '2014-07-31T08:02:38.930Z',
-      end_time: '2014-09-04T12:48:51.282Z',
+      start_time: '2014-07-31',
+      end_time: '2014-09-04',
       duration: '6',
       year: '2014',
       lat: 39.91,
       lng: 15.75,
+      message: '',
+      focus: false,
+      draggable: false
+    },
+    osloloMarker: {
+      student: {
+        firstname: 'Bob',
+        lastname: 'Haha'
+      },
+      company: {
+        name: 'Ornage'
+      },
+      lat: 59.81,
+      lng: 11.75,
       message: '',
       focus: false,
       draggable: false
