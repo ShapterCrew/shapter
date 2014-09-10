@@ -1040,6 +1040,10 @@ angular.module( 'services.appText', [])
       other: {
         en: 'other',
         fr: 'autre'
+      },
+      skill: {
+        en: 'skill',
+        fr: 'compétence'
       }
     },
     confirmationSent: {

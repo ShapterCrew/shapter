@@ -68,10 +68,9 @@ angular.module('resources.tag', [
           category: true
         }
       };
-  return Category.list().then( function(){
-      var cat_id = $rootScope.categoriesIndex[ 'school' ].id;
-      return Restangular.all('tags').customPOST({ entities: entities, category_id: cat_id});
-  });
+      return Category.list().then( function(){
+        return Restangular.all('tags').customPOST({ entities: entities, category: 'school'});
+      });
     },
 
     getAllTags: function(){
