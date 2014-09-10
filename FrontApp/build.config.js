@@ -83,8 +83,8 @@ module.exports = {
       'externals/faye/browser/faye-browser-min.js',
       'externals/angular-leaflet-directive/dist/angular-leaflet-directive.js',
       'vendor/leaflet/dist/leaflet.js',
-      'vendor/leaflet.markercluster/dist/leaflet.markercluster.js'
-//      'vendor/Leaflet.awesome-markers/dist/leaflet.awesome-markers.js'
+      'vendor/leaflet.markercluster/dist/leaflet.markercluster.js',
+      'vendor/Leaflet.awesome-markers/dist/leaflet.awesome-markers.js'
     ],
     css: [
     ],

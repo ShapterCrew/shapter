@@ -41,6 +41,12 @@ angular.module( 'shapter.maps', [
     angular.forEach( markers, function( element, index ){
       // adds templating whit shMapMessage directive to marker popups templates
       element.message = '<div sh-map-message marker=\"markers[\'' + index + '\']\"></div>';
+      element.icon = {
+        type: 'awesomeMarker',
+        icon: 'graduation-cap',
+        prefix: 'fa',
+        markerColor: 'orange'
+      };
 
       //defines group if not defined
       element.group = element.group ? element.group : 'default';
