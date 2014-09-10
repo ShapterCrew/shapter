@@ -82,7 +82,7 @@ module.exports = {
       'vendor/ng-file-upload/angular-file-upload.js',
       'externals/faye/browser/faye-browser-min.js',
       'vendor/angular-leaflet-directive/dist/angular-leaflet-directive.js',
-      'vendor/leaflet-dist/leaflet.js',
+      'vendor/leaflet/dist/leaflet.js',
       'vendor/leaflet.markercluster/dist/leaflet.markercluster.js'
 //      'vendor/Leaflet.awesome-markers/dist/leaflet.awesome-markers.js'
     ],
