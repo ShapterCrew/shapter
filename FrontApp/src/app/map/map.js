@@ -10,7 +10,10 @@ angular.module( 'shapter.maps', [
   return {
     restrict: 'AE',
     templateUrl: 'map/map.tpl.html',
-    controller: 'MapsCtrl'
+    controller: 'MapsCtrl',
+    scope: {
+      internships: '='
+    }
   };
 }])
 
@@ -38,42 +41,13 @@ angular.module( 'shapter.maps', [
 
 .controller('MapsCtrl', ['$scope', '$compile', '$filter', function( $scope, $compile, $filter ){
 
-  $scope.markers = $filter( 'formatMarkers' )({
-    olsoMarker: {
-      lat: 39.91,
-      lng: 15.75,
-      message: '',
-      focus: false,
-      draggable: false
-    },
-    osloMarker: {
-      lat: 59.91,
-      lng: 10.75,
-      message: '',
-      focus: false,
-      draggable: false
-    }
-  });
-
-  $scope.$on('leafletDirectiveMarker.click', function(e, args) {
-    // Args will contain the marker name and other relevant information
-    console.log("Leaflet Click");
-
-    // hack : I add a template whit the shMapMessage directive in the marker message. Compilation is therefore needed to 'explain angular' that it should consider this as a directive and not simply text
-    var elem = document.getElementsByClassName('leaflet-popup-content');
-    $compile( elem )($scope);
-  });
+  $scope.markers = $filter( 'formatMarkers' )( $scope.internships );
 
   $scope.$on('leafletDirectiveMarker.popupopen', function(e, args) {
     // Args will contain the marker name and other relevant information
-    console.log("Leaflet Popup Open");
+    var elem = document.getElementsByClassName('leaflet-popup-content');
+    $compile( elem )($scope);
   });
-
-  $scope.$on('leafletDirectiveMarker.popupclose', function(e, args) {
-    // Args will contain the marker name and other relevant information
-    console.log("Leaflet Popup Close");
-  });
-
 
 }]);
 

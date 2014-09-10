@@ -30,5 +30,21 @@ angular.module( 'shapter.internships', [
 
 .controller('InternshipsCtrl', ['$scope', function( $scope ){
   $scope.view = 'map';
+  $scope.internships = {
+    olsoMarker: {
+      lat: 39.91,
+      lng: 15.75,
+      message: '',
+      focus: false,
+      draggable: false
+    },
+    osloMarker: {
+      lat: 59.91,
+      lng: 10.75,
+      message: '',
+      focus: false,
+      draggable: false
+    }
+  };
 }]);
 
