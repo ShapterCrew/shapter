@@ -200,9 +200,6 @@ angular.module( 'shapter.admin', [
     $scope.schoolTagsLoading = true;
     Tag.getSchoolTags( $scope.newItemSchool.id ).then( function( response ){
       $scope.schoolTagsLoading = false;
-      $scope.schoolTags = response.tags.map( function( tag ){
-        tag.category = "other";
-      });
     }, function(){
       $scope.schoolTagsLoading = false;
     });
