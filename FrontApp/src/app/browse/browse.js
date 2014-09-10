@@ -37,7 +37,7 @@ angular.module( 'shapter.browse', [
   Analytics.browse();
   $scope.root = $rootScope;
 
-  $scope.categories = $rootScope.categories;
+  $scope.categories = $rootScope.item_categories;
   $scope.schoolTags = schoolTags.tags;
   $scope.schoolTagIndex = schoolTags.index;
 

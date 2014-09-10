@@ -17,23 +17,31 @@ angular.module( 'shapter.maps', [
   };
 }])
 
-// create a directive that replaces the popup content and add its own scope with marker stuff 
+.directive('leafletPopupContent', [function(){
+  return {
+    restrict: 'C',
+    link: function( scope, elem, attr ){
+    }
+  };
+}])
+
+// replaces the marker popup content and add its own scope with marker stuff 
 .directive('shMapMessage', [function(){
   return {
     restrict: 'A',
     templateUrl: 'map/message.tpl.html',
     scope: {
-      marker: '=',
-      markers: '='
+      marker: '='
     }
   };
 }])
 
+  // formats the internships into markers
 .filter('formatMarkers', [function(){
   return function( markers ){
     angular.forEach( markers, function( element, index ){
-      element.message = '<div sh-map-message marker=\"\'' + index + '\'\" markers=\"markers\"></div>';
-      console.log( element );
+      // adds templating whit shMapMessage directive to marker popups templates
+      element.message = '<div sh-map-message marker=\"markers[\'' + index + '\']\"></div>';
     });
     return markers;
   };
@@ -41,10 +49,11 @@ angular.module( 'shapter.maps', [
 
 .controller('MapsCtrl', ['$scope', '$compile', '$filter', function( $scope, $compile, $filter ){
 
+  // formats the internships into markers
   $scope.markers = $filter( 'formatMarkers' )( $scope.internships );
 
   $scope.$on('leafletDirectiveMarker.popupopen', function(e, args) {
-    // Args will contain the marker name and other relevant information
+    // compiles the template messages so that the shMapMessage is recognized by angularjs and scope accessible etc
     var elem = document.getElementsByClassName('leaflet-popup-content');
     $compile( elem )($scope);
   });

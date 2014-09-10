@@ -33,6 +33,13 @@ angular.module( 'shapter.internships', [
   $scope.view = 'map';
   $scope.internships = {
     olsoMarker: {
+      student: {
+        firstname: 'Alex',
+        lastname: 'lolalilaloule'
+      },
+      company: {
+        name: 'Bougyues'
+      },
       lat: 39.91,
       lng: 15.75,
       message: '',
@@ -40,6 +47,13 @@ angular.module( 'shapter.internships', [
       draggable: false
     },
     osloMarker: {
+      student: {
+        firstname: 'Bob',
+        lastname: 'Haha'
+      },
+      company: {
+        name: 'Ornage'
+      },
       lat: 59.91,
       lng: 10.75,
       message: '',
