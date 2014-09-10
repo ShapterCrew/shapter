@@ -68,7 +68,6 @@ describe Comment do
     end
 
     it "shows content if asking user share a school with author" do 
-      @t = FactoryGirl.create(:tag)
       @user.stub(:schools).and_return([@t])
       @user2.stub(:schools).and_return([@t])
       expect(@comment.public_content(@user2)).to eq @comment.content
@@ -79,7 +78,6 @@ describe Comment do
     end
 
     it "shows content when alien is publishing in my campus" do 
-      @t = FactoryGirl.create(:tag)
       @user.stub(:schools).and_return([@t])
       @user2.stub(:schools).and_return([])
       expect(@comment.public_content(@user2)).to eq @comment.content

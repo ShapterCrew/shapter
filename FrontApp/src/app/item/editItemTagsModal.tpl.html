@@ -4,28 +4,28 @@
       <div class="col-md-12">
         <span class="pull-right glyphicon glyphicon-remove" ng-click="close()"></span>
         <h4 ng-bind="item.name"></h4>
-        <div class="category-edit-group" ng-repeat="category in categories | filter: {code: '!school'} | filter: {code: '!item_name'}">
-          <div class="h6">{{ category.code }}</div>
+        <div class="category-edit-group" ng-repeat="category in categories | filter: '!school' | filter: '!item_name'">
+          <div class="h6">{{ category }}</div>
           <div style="margin-bottom: 25px">
 
-            <select ng-model="category.tagToAdd" ng-options="tag as tag.name for tag in schoolTags | filter: {category: category.code} | notAlreadyThere:item.tags | orderByAccent: 'name': false" ng-change="addTag( category, category.tagToAdd )">
+            <select ng-model="tagToAdd" ng-options="tag.name as tag.name for tag in schoolTags | filter: {category: category} | notAlreadyThere:item.tags | orderByAccent: 'name': false" ng-change="addTag( category, tagToAdd )">
               <label>{{ AppText.edit_item.add_your_campus.add_keywords | language }}</label>
               <option value="">-- {{ AppText.edit_item.choose_in_list | language }} --</option>
             </select>
 
-            <p><a class="text-info" ng-click="category.tagMissing = !category.tagMissing">{{ AppText.edit_item.new_category | language }}</a></p>
+            <p><a class="text-info" ng-click="tagMissing = !tagMissing">{{ AppText.edit_item.new_category | language }}</a></p>
 
-            <div class="list-group" ng-show="category.tagMissing">
+            <div class="list-group" ng-show="tagMissing">
               <div class="list-group-item">
-                <input type="text" class="form-control" placeholder="+ {{ AppText.browse.add_a_keyword | language }}" typeahead="tag as tag.name for tag in schoolTags | filter: {category:  category.code} | ignoreAccentsFilter | filter: $viewValue | shorterFirstFilter | notAlreadyThere:item.tags | limitTo: 50" ng-model="category.tagToAdd" typeahead-editable="true" typeahead-on-select="addTag( category, category.tagToAdd )"></input>
+                <input type="text" class="form-control" placeholder="+ {{ AppText.browse.add_a_keyword | language }}" typeahead="tag.name as tag.name for tag in schoolTags | filter: {category:  category} | ignoreAccentsFilter | filter: $viewValue | shorterFirstFilter | notAlreadyThere:item.tags | limitTo: 50" ng-model="tagToAdd" typeahead-editable="true" typeahead-on-select="addTag( category, tagToAdd )"></input>
                 <div class="form-group" style="margin-top: 10px">
-                  <button class="btn btn-success" ng-click="createTag( category, category.tagToAdd )">{{AppText.edit_item.add | language }}</button>
+                  <button class="btn btn-success" ng-click="addTag( category, tagToAdd ); tagToAdd = ''; tagMissing = false">{{AppText.edit_item.add | language }}</button>
                 </div>
               </div>
             </div>
           </div>
 
-          <span class="tag" ng-class="{'tag-new': tag.status == 'new', 'tag-idle': tag.status == 'idle', 'tag-to-be-removed': tag.status == 'toBeRemoved'}" ng-repeat="tag in item.tags | filter: {category: category.code}" style="margin-right: 10px">{{ tag.name }} <span class="glyphicon glyphicon-remove" ng-click="removeTag( tag )"></span> </span>
+          <span class="tag" ng-class="{'tag-new': tag.status == 'new', 'tag-idle': tag.status == 'idle', 'tag-to-be-removed': tag.status == 'toBeRemoved'}" ng-repeat="tag in item.tags | filter: {category: category}" style="margin-right: 10px">{{ tag.name }} <span class="glyphicon glyphicon-remove" ng-click="removeTag( tag )"></span> </span>
 
         </div>
         <div class="form-group clearfix">

@@ -3,13 +3,12 @@ describe Shapter::V7::SchoolsDiagDims do
   before(:each) do 
     User.delete_all
     Tag.delete_all
-    Category.delete_all
 
     @t = FactoryGirl.create(:tag)
     @i = FactoryGirl.create(:item)
 
     @t.items << @i
-    @t.update_attributes(category_id: Category.create(code: "school").id)
+    @t.update_attributes(category: "school")
 
     @user = FactoryGirl.create(:user)
     login(@user)

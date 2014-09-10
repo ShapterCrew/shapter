@@ -65,10 +65,10 @@
 
             <!-- some categories -->
             <li class="dropdown" ng-repeat="cat in (categories | catFilter ).display">
-              <a class="dropdown-toggle" style="white-space: nowrap">{{ AppText.translateCode( cat.code )}}<span class="caret"></span> </a>
+              <a class="dropdown-toggle" style="white-space: nowrap">{{ AppText.translateCode( cat )}}<span class="caret"></span> </a>
               <ul class="dropdown-menu">
-                <li ng-repeat="tag in tagsSuggestions | filter: {category: cat.code}" ng-click="addTag( tag )"><a>{{ tag.name }}</a></li>
-                <li ng-hide="(tagsSuggestions | filter: {category: cat.code}).length > 0" class="disabled">
+                <li ng-repeat="tag in tagsSuggestions | filter: {category: cat}" ng-click="addTag( tag )"><a>{{ tag.name }}</a></li>
+                <li ng-hide="(tagsSuggestions | filter: {category: cat}).length > 0" class="disabled">
                   <a>
                     {{ AppText.browse.remove_tags | language }}
                   </a>
@@ -82,14 +82,14 @@
 
               <ul class="dropdown-menu dropdown-menu-right">
                 <!-- repat remaining categories -->
-                <li ng-repeat="cat in (categories | catFilter).others" ng-show="(tagsSuggestions | filter: { category: cat.code }).length > 0">
-                    <a class="list-in-dropdown-title">{{ AppText.translateCode( cat.code ) }}</a>
+                <li ng-repeat="cat in (categories | catFilter).others" ng-show="(tagsSuggestions | filter: { category: cat }).length > 0">
+                    <a class="list-in-dropdown-title">{{ AppText.translateCode( cat ) }}</a>
                     <ul class="list-in-dropdown-list">
-                      <li ng-repeat="tag in tagsSuggestions | filter: {category: cat.code}" ng-click="addTag( tag )"><a>{{ tag.name }}</a></li>
+                      <li ng-repeat="tag in tagsSuggestions | filter: {category: cat}" ng-click="addTag( tag )"><a>{{ tag.name }}</a></li>
                     </ul>
                 </li>
 
-                <li ng-hide="(tagsSuggestions | filter: {category: cat.code}).length > 0" class="disabled">
+                <li ng-hide="(tagsSuggestions | filter: {category: cat}).length > 0" class="disabled">
                   <a>
                     {{ AppText.browse.remove_tags | language }}
                   </a>
