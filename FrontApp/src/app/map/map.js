@@ -17,14 +17,6 @@ angular.module( 'shapter.maps', [
   };
 }])
 
-.directive('leafletPopupContent', [function(){
-  return {
-    restrict: 'C',
-    link: function( scope, elem, attr ){
-    }
-  };
-}])
-
 // replaces the marker popup content and add its own scope with marker stuff 
 .directive('shMapMessage', [function(){
   return {
@@ -32,8 +24,13 @@ angular.module( 'shapter.maps', [
     templateUrl: 'map/message.tpl.html',
     scope: {
       marker: '='
-    }
+    }, 
+    controller: 'MapMessageCtrl'
   };
+}])
+
+.controller('MapMessageCtrl', ['$scope', '$stateParams', function( $scope, $stateParams ){
+  $scope.$stateParams = $stateParams;
 }])
 
 // formats the internships into markers
@@ -48,7 +45,19 @@ angular.module( 'shapter.maps', [
   };
 }])
 
-.controller('MapsCtrl', ['$scope', '$compile', '$filter', 'leafletData', function( $scope, $compile, $filter, leafletData ){
+.controller('MapsCtrl', ['$scope', '$compile', '$filter', 'leafletData', 'leafletMarkersHelpers', function( $scope, $compile, $filter, leafletData, leafletMarkersHelpers ){
+
+  console.log( leafletMarkersHelpers );
+
+  $scope.$on('$destroy', function () {
+    leafletMarkersHelpers.resetCurrentGroups();
+  });
+
+  $scope.$on('$stateChangeStart', function(){
+    leafletData.getMap().then(function(map) {
+      console.log( map );
+    });
+  });
 
   // formats the internships into markers
   $scope.markers = $filter( 'formatMarkers' )( $scope.internships );
@@ -60,16 +69,16 @@ angular.module( 'shapter.maps', [
   });
 
   /*
-  $scope.layers =  {
-    baselayers: {
-      osm: {
-        name: 'OpenStreetMap',
-        url: 'http://tile.openstreetmap.org/{z}/{x}/{y}.png',
-        type: 'xyz'
-      }
-    }
-  };
-  */
+     $scope.layers =  {
+baselayers: {
+osm: {
+name: 'OpenStreetMap',
+url: 'http://tile.openstreetmap.org/{z}/{x}/{y}.png',
+type: 'xyz'
+}
+}
+};
+*/
 
 }]);
 

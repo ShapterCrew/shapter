@@ -14,8 +14,7 @@
     "angular-ui-utils": "bower-keypress",
     "ng-file-upload": "~1.4.0",
     "angular-upload": "~1.0.11",
-    "leaflet.markercluster": "~0.4.0",
-    "angular-leaflet-directive": "~0.7.8"
+    "leaflet.markercluster": "~0.4.0"
   },
   "dependencies": {}
 }
