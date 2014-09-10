@@ -32,8 +32,13 @@ angular.module( 'directives.addInternshipModal', [])
 }])
 
 .controller( 'AddInternshipModalCtrl', ['$scope', 'Internship', 'currentUser', function($scope, Internship, currentUser ){
+
   $scope.internship = {
     user: currentUser
+  };
+
+  $scope.disabled = function(date, mode) {
+    return ( mode === 'day' && ( date.getDay() === 0 || date.getDay() === 6 ) );
   };
 
   $scope.addInternship = function() {
