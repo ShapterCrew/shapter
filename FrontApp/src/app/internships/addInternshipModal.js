@@ -35,7 +35,6 @@ angular.module( 'directives.addInternshipModal', [])
   $scope.internship = {
     user: currentUser
   };
-  console.log($scope.internship);
 
   $scope.addInternship = function() {
     Internship.create($scope.internship).then(function(response) {
