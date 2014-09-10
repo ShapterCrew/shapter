@@ -199,6 +199,7 @@ angular.module( 'shapter.admin', [
 
     $scope.schoolTagsLoading = true;
     Tag.getSchoolTags( $scope.newItemSchool.id ).then( function( response ){
+      $scope.schoolTags = response.tags;
       $scope.schoolTagsLoading = false;
     }, function(){
       $scope.schoolTagsLoading = false;
