@@ -16,12 +16,12 @@ module Shapter
         desc "search for tag name"
         params do 
           requires :search, type: String, desc: 'required: search string'
-          optional :category_code, type: String, desc: 'optional: category_code to filter with'
+          optional :category, type: String, desc: 'optional: category to filter with'
         end
         post :search do 
 
-          tags = if params[:category_code]
-                   Tag.where(name: /#{params[:search]}/i, category_code: params[:category_code])
+          tags = if params[:category]
+                   Tag.where(name: /#{params[:search]}/i, category: params[:category])
                  else
                    Tag.where(name: /#{params[:search]}/i)
                  end
@@ -39,7 +39,7 @@ module Shapter
         }
         params do 
           optional :filter, type: String, desc: "id of the tag to filter with"
-          optional :category_code, type: String, desc: "category to filter with"
+          optional :category, type: String, desc: "category to filter with"
         end
         post :/ do 
           if params[:filter]
@@ -48,8 +48,8 @@ module Shapter
             tags = Tag.all
           end
 
-          filtered_tags = if params[:category_code]
-                            tags.select{|t| t.category_code == params[:category_code]}
+          filtered_tags = if params[:category]
+                            tags.select{|t| t.category == params[:category]}
                           else
                             tags
                           end
