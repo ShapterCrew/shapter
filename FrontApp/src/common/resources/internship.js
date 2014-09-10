@@ -78,6 +78,10 @@ angular.module('resources.internship', [
     return Restangular.all('internships').customPOST( params, 'filter' );
   };
 
+  Internship.create = function( internship ) {
+    return Restangular.all('internships').customPOST(internship, 'create');
+  };
+
   return Internship;
 }]);
 

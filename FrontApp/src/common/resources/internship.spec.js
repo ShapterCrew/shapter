@@ -151,4 +151,39 @@ describe('Internship', function () {
 
     expect(internships[1].user.name).toEqual("Ulysse Klatzmann");
   }));
+
+  it('should create an internship', inject(function(Internship) {
+    // set up a spy on Restangular, so we test with what parameters it was called, also allow the call to continue
+    spyOn(Restangular, 'all').andCallThrough();
+    httpBackend.expectPOST('/internships/create').respond({success: true});
+
+    var internship = {
+      "name": "Stagiaire qui fout la merde",
+      "description": "C'était un super stage",
+      "company_name": "Shapter",
+      "company_size": "0-49",
+      "begin_date": "Today",
+      "end_date": "Tomorrow",
+      "domain": "Informatique",
+      "position": "Stagiaire développement web",
+      "skills": ["RoR", "AngularJS"],
+      "school": {
+        id: 2,
+        name: "Telecom ParisTech"
+      }
+    };
+
+    var res = false;
+    mockInternship.create(internship).then(function(response) {
+      res = response.success;
+    });
+
+    // handle restangular expectations
+    expect(Restangular.all).toHaveBeenCalledWith('internships');
+    // flush the backend to unproxy the restangular promise
+    httpBackend.flush();
+
+    expect(res).toBe(true);
+  }));
+
 });
