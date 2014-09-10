@@ -12,6 +12,7 @@ angular.module('resources.internship', [
     entities: {
       internship: {
         "name": true,
+        "adress": true,
         "description": true,
         "company_name": true,
         "company_size": true,
