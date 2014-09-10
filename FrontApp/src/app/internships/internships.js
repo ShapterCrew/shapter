@@ -31,15 +31,20 @@ angular.module( 'shapter.internships', [
 .controller('InternshipsCtrl', ['$scope', 'security', function( $scope, security ){
   $scope.security = security;
   $scope.view = 'map';
-  $scope.internships = {
+  $scope.internshipsList = {
     olsoMarker: {
       student: {
+        image: 'http://graph.facebook.com/746309634/picture',
         firstname: 'Alex',
         lastname: 'lolalilaloule'
       },
       company: {
         name: 'Bougyues'
       },
+      start_time: '2014-07-31T08:02:38.930Z',
+      end_time: '2014-09-04T12:48:51.282Z',
+      duration: '6',
+      year: '2014',
       lat: 39.91,
       lng: 15.75,
       message: '',

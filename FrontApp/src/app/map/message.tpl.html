@@ -1,2 +1,14 @@
-<div style="white-space: nowrap"><strong>{{ marker.student.firstname + ' ' + marker.student.lastname }}</strong></div>
-<div>{{ marker.company.name }}</div>
+<div class="media">
+  <a class="pull-left">
+    <img ng-show="marker.student.image" class="thumbnail" style="width: 40px" src='{{ marker.student.image }}'>
+    <img ng-hide="marker.student.image" class="thumbnail" style="width: 40px" src='assets/img/logo_silver_square.png'>
+  </a>
+  <div class="media-body">
+    <div class="media-heading">
+      <strong>{{ marker.student.firstname + ' ' + marker.student.lastname }}</strong>
+    </div>
+    <div>{{ marker.company.name }}</div>
+    <div>{{ marker.duration }} mois en {{ marker.year }}</div> 
+
+  </div><!-- media-body -->
+</div><!-- media -->
