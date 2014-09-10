@@ -28,6 +28,32 @@ module Shapter
       end
       #}}}
 
+      #{{{ filter_internships
+      def filter_internships(ary)
+        Rails.cache.fetch( "filterInternshp|#{ary.sort.join(":")}|#{cache_key_for(Tag,Internship)}", expires_in: 90.minutes ) do 
+          compute_internship_filter(ary)
+        end
+      end
+
+      def compute_internship_filter(ary,active_only=false)
+        if active_only
+          start_date_lt = Date.today
+          end_date_gt = Date.today
+        else
+          start_date_lt=Date.today + 100.years
+          end_date_gt=Date.today - 100.years
+        end
+        return [] if ary.empty?
+        first_tag = Tag.find(ary.first)
+        return [] unless first_tag
+        init = first_tag.internships.gt(end_date: end_date_gt).lt(start_date: start_date_lt)
+        return init if ary.size == 1
+        ary[1..-1].reduce(init) { |aa, tag_id|
+          aa = aa & [Tag.find(tag_id).internships.gt(end_date: end_date_gt).lt(start_date: start_date_lt)]
+        }.sort_by(&natural_sort_by_title)
+      end
+      #}}}
+
       #{{{ dictionnary
       # A bit like reco_tags, but simplified. The goal is to build a dictionnary of acceptable tags
       def dictionnary(tag_id)
@@ -55,7 +81,7 @@ module Shapter
         Rails.cache.fetch( "reco_tags2|#{ary.sort.join(":")}|#{cache_key_for(Tag,Item)}", expires_in: 90.minutes ) do 
           tags_for_item_ids(
             (items =  Tag.any_in(id: ary).map(&tag_to_item_ids).reduce(:&) )
-          )
+        )
           .reduce(Hash.new(0)) { |h,t|
             h[t] += 1
             h
@@ -106,6 +132,15 @@ module Shapter
       def natural_sort
         Proc.new do |item|
           item.name
+          .downcase
+          .gsub(/[à|À|á|Á|ã|Ã|â|Â|ä|Ä]/,"a")
+          .gsub(/[é|É|è|È|ê|Ê|ẽ|Ẽ|ë|Ë]/,'e')
+        end
+      end
+
+      def natural_sort_by_title
+        Proc.new do |internship|
+          internship.title
           .downcase
           .gsub(/[à|À|á|Á|ã|Ã|â|Â|ä|Ä]/,"a")
           .gsub(/[é|É|è|È|ê|Ê|ẽ|Ẽ|ë|Ë]/,'e')

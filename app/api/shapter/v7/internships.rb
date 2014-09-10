@@ -52,6 +52,30 @@ module Shapter
         end
         #}}}
 
+        #{{{ tag filter
+        desc "search for an internship using a list of tags"
+        params do 
+          requires :filter, type: Array, desc: "array of tags to filter with"
+          optional :n_start, type: Integer, desc: "index to start with. default: 0", default: 0
+          optional :n_stop, type: Integer, desc: "index to end with. default: 14. -1 will return the entire list", default: 14
+
+          optional :active_only, type: Boolean, desc: "only internship that are currently active"
+        end
+        post :filter do 
+          nstart = params[:n_start].to_i
+          nstop = params[:n_stop].to_i
+
+          results = if !!params[:active_only]
+                      filter_internships(params[:filter],true )
+                    else
+                      filter_internships(params[:filter])
+                    end
+
+          present :number_of_results, results.size
+          present :items, results[nstart..nstop], with: Shapter::Entities::Internship, entity_options: entity_options
+        end
+        #}}}
+
         namespace ':internship_id' do
           before do 
             params do 
