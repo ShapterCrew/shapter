@@ -468,10 +468,10 @@ angular.module( 'shapter.browse', [
     };
 
     angular.forEach( input, function( cat ){
-      if( cat.code == 'formation' || cat.code == 'choice' || cat.code == 'teacher' || cat.code == 'department' || cat.code == 'admin' ){
+      if( cat == 'formation' || cat == 'choice' || cat == 'teacher' || cat == 'department' || cat == 'admin' || cat == 'skill'){
         out.display.push( cat );
       }
-      else if ( cat.code != 'school' && cat.code != 'item_name'){
+      else if ( cat != 'school' && cat != 'item_name'){
         out.others.push( cat );
       }
     });

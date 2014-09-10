@@ -7,7 +7,6 @@ angular.module('resources.category', [
   var Category = {
 
     list: function(){
-
       var params = {
         entities: {
           category: {
@@ -15,14 +14,9 @@ angular.module('resources.category', [
           }
         }
       };
-
       return Restangular.all('categories').customPOST( params );
     }
-
   };
-
-
-  
 
   return Category;
 }])
@@ -31,10 +25,6 @@ angular.module('resources.category', [
 
   Category.list().then( function( response ){
     $rootScope.categories = response.categories;
-    $rootScope.categoriesIndex = [];
-    angular.forEach( response.categories, function( cat ){
-      $rootScope.categoriesIndex[ cat.code ] = cat;
-    });
   });
 
 }]);
