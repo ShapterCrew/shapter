@@ -12,9 +12,9 @@ class Tag
 
   field :custom_diag_dims, type: Array
 
-  field :category_code
+  field :category
   before_validation :default_cat_code
-  validate :authorized_category_code
+  validate :authorized_category
 
   #validates_uniqueness_of :name
   validate :type_name_uniqueness
@@ -29,8 +29,8 @@ class Tag
     id.to_s
   end
 
-  scope :schools, -> { where(category_code: :school) }
-  scope :skills , -> { where(category_code: :skill) }
+  scope :schools, -> { where(category: :school) }
+  scope :skills , -> { where(category: :skill) }
 
   def cached_students
     Rails.cache.fetch("tagStudents|#{id}|#{updated_at.try(:utc).try(:to_s,:number)}",expires_in: 3.hours) do
@@ -104,16 +104,16 @@ class Tag
 
   protected
 
-  def authorized_category_code
-    errors.add(:base, "invalid category code") unless self.class.acceptable_categories.include? category_code.to_s
+  def authorized_category
+    errors.add(:base, "invalid category code") unless self.class.acceptable_categories.include? category.to_s
   end
 
   def default_cat_code
-    self.category_code ||= "other"
+    self.category ||= "other"
   end
 
   def type_name_uniqueness
-    errors.add(:base, "name/type already taken") if Tag.where(category_code: category_code, name: name).not.where(id: id).exists?
+    errors.add(:base, "name/type already taken") if Tag.where(category: category, name: name).not.where(id: id).exists?
   end
 
   def custom_diag_dims_validator

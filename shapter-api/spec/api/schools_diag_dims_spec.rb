@@ -8,7 +8,7 @@ describe Shapter::V7::SchoolsDiagDims do
     @i = FactoryGirl.create(:item)
 
     @t.items << @i
-    @t.update_attributes(category_code: "school")
+    @t.update_attributes(category: "school")
 
     @user = FactoryGirl.create(:user)
     login(@user)

@@ -74,14 +74,14 @@ module Shapter
           requires :item_names, type: Array, desc: "name of the items to create"
           requires :tags, type: Array do 
             requires :tag_name, type: String, desc: "name of the tag"
-            requires :category_code, type: String, desc: "category code of the tag"
+            requires :category, type: String, desc: "category code of the tag"
           end
         end
         post :create_with_tags do 
           check_user_admin!
 
           tags = params[:tags].map do |tag|
-            Tag.find_or_create_by(name: tag["tag_name"], category_code: params[:category_code])
+            Tag.find_or_create_by(name: tag["tag_name"], category: params[:category])
           end
 
           items = params[:item_names].map do |item_name|
@@ -89,7 +89,7 @@ module Shapter
           end
 
           items.each do |item|
-            special_tag = Tag.find_or_create_by(name: item.name, category_code: "item_name")
+            special_tag = Tag.find_or_create_by(name: item.name, category: "item_name")
             (tags + [special_tag]).each do |tag|
               item.add_to_set(tag_ids: tag.id)
               tag.add_to_set(item_ids: item.id)

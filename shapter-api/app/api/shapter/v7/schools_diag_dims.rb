@@ -15,7 +15,7 @@ module Shapter
               requires :school_id, desc: "id of the school (i.e. id of the school tag)"
             end
             @tag = Tag.find(params[:school_id]) || error!("not found",404)
-            error!("tag is no school",500) unless @tag.category_code == "school"
+            error!("tag is no school",500) unless @tag.category == "school"
           end
 
           namespace :diag_dims do 

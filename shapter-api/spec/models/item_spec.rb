@@ -112,8 +112,8 @@ describe Item do
   #{{{ skills 
   describe :skills do 
     it 'lists skills' do 
-      t1 =Tag.new(name: :hahaha, category_code: "skill")
-      t2 =Tag.new(name: :hohoho, category_code: "skill")
+      t1 =Tag.new(name: :hahaha, category: "skill")
+      t2 =Tag.new(name: :hohoho, category: "skill")
       @item.tags << t1
       @item.tags << t2
 
