@@ -97,7 +97,7 @@ angular.module( 'shapter.admin', [
 
   $scope.updateTagItems = function(){
     $scope.activeItems = [];
-    var tags = [];
+    var tags = [ $scope.tagItemsSchool.id ];
     angular.forEach( $scope.activeTags, function( tag ){
       tags.push( tag.id );
     });
@@ -180,10 +180,18 @@ angular.module( 'shapter.admin', [
     });
 
     if( tagsToAdd.length && item_ids.length ){
-      Item.addTags( item_ids, tagsToAdd );
+      Item.addTags( item_ids, tagsToAdd ).then( function(){
+        alert('tags added');
+      }, function(){
+        alert('error adding tags');
+      });
     }
     if( tagsToRemove.length && item_ids.length ){
-      Item.removeTags( item_ids, tagsToRemove );
+      Item.removeTags( item_ids, tagsToRemove ).then( function(){
+        alert('tags removed');
+      }, function(){
+        alert('error removing tags');
+      });
     }
   };
 
