@@ -47,7 +47,6 @@ angular.module( 'shapter.admin', [
   $scope.activeItems = [];
   $scope.step = '1';
   $scope.initializeTagItems = function(){
-    $scope.tagItemsToAdd = {};
     angular.forEach( $scope.activeItems, function( item ){
       item.selected = false;
     });
@@ -143,13 +142,11 @@ angular.module( 'shapter.admin', [
   }, true );
 
   $scope.addTagItems = function( category, tagName ){
-    if( tagItemsToAdd ){
+    if( tagName ){
       $scope.tagsToBeAdded.push({
         name: tagName,
         category: category
       });
-      tagItemsToAdd.category = '';
-      tagItemsMissing.category = false;
     }
   };
 

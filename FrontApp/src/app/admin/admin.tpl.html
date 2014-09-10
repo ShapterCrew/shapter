@@ -89,7 +89,7 @@
         <div class="category-edit-group" ng-repeat="category in categories | filter: '!school' | filter: '!item_name'">
           <div class="h6">{{ category }}</div>
 
-          <select ng-model="tagItemsToAdd" ng-options="tag.name as tag.name for tag in schoolTags | filter: {category: category} | notAlreadyThereName:newItemTags | orderByAccent: 'name': false" ng-change="addTagItems( category, tagItemsToAdd )">
+          <select ng-model="tagItemsToAdd" ng-options="tag.name as tag.name for tag in schoolTags | filter: {category: category} | notAlreadyThereName:newItemTags | orderByAccent: 'name': false" ng-change="addTagItems( category, tagItemsToAdd ); tagItemsToAdd = '';">
             <label>Ajoute des mots-clefs pour décrire le cours</label>
             <option value="">-- choisis dans la liste --</option>
           </select>
@@ -98,10 +98,10 @@
 
           <div class="list-group" ng-show="tagItemsMissing">
             <div class="list-group-item">
-              <input type="text" class="form-control" placeholder="+ {{ AppText.browse.add_a_keyword | language }}" typeahead="tag.name for tag in schoolTags | filter: {category: category} | ignoreAccentsFilter | filter: $viewValue | shorterFirstFilter | limitTo: 50" ng-model="tagItemsToAdd" typeahead-editable="true" typeahead-on-select="addTagItems( category, tagItemsToAdd )"></input>
+              <input type="text" class="form-control" placeholder="+ {{ AppText.browse.add_a_keyword | language }}" typeahead="tag.name for tag in schoolTags | filter: {category: category} | ignoreAccentsFilter | filter: $viewValue | shorterFirstFilter | limitTo: 50" ng-model="tagItemsToAdd" typeahead-editable="true" typeahead-on-select="addTagItems( category, tagItemsToAdd );"></input>
 
               <div class="form-group" style="margin-top: 10px">
-                <button class="btn btn-success" ng-click="addTagItems( category )">Ajouter</button>
+                <button class="btn btn-success" ng-click="addTagItems( category, tagItemsToAdd ); tagItemsToAdd = ''; tagItemsMissing = false">Ajouter</button>
               </div>
             </div>
           </div>
