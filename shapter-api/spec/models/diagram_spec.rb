@@ -50,7 +50,7 @@ describe Diagram do
 
     it "should have school tag values when available" do 
       @t = FactoryGirl.create(:tag) 
-      @t.category_code = :school
+      @t.category = :school
       @t.custom_diag_dims = [1,2,3]
 
       @i = FactoryGirl.create(:item)

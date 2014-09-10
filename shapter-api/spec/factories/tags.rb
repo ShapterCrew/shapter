@@ -4,6 +4,6 @@ FactoryGirl.define do
   factory :tag do
     name "foo"
     type "footype"
-    category_code "department"
+    category "department"
   end
 end

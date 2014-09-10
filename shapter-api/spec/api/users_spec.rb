@@ -81,8 +81,8 @@ describe Shapter::V7::Users do
 
     it "should accept the school_id param" do 
       #cat = Category.find_or_create_by(code: :school)
-      @school1 = Tag.create(name: "school1", category_code: :school)
-      @school2 = Tag.create(name: "school2", category_code: :school)
+      @school1 = Tag.create(name: "school1", category: :school)
+      @school2 = Tag.create(name: "school2", category: :school)
 
       @i1.tags << @school1 
       @i2.tags << @school2

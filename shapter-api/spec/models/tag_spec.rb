@@ -67,7 +67,7 @@ describe Tag do
       it "new tag should have default category other" do 
         t = Tag.new(name: "choice") ; t.save
         t.reload
-        expect(t.category_code).to eq "other"
+        expect(t.category).to eq "other"
       end
     end
     #}}}
@@ -75,17 +75,17 @@ describe Tag do
     #{{{ name/type uniqueness
     describe :name_uniqueness do 
       before do 
-        @t3 = Tag.new(name: "haha", category_code: "choice") 
+        @t3 = Tag.new(name: "haha", category: "choice") 
         @t3.save
       end
 
       it "allows same name with different categories" do 
-        @t4 = Tag.new(name: "haha", category_code: "admin")
+        @t4 = Tag.new(name: "haha", category: "admin")
         expect(@t4.valid?).to be true
       end
 
       it "does NOT allow same name with same categorie" do 
-        @t4 = Tag.new(name: "haha", category_code: "choice")
+        @t4 = Tag.new(name: "haha", category: "choice")
         expect(@t4.valid?).to be false
       end
 

@@ -35,8 +35,8 @@ describe Shapter::V7::Items do
           "baritem",
         ],
         tags: [
-          {category_code: "admin", tag_name: "footag"},
-          {category_code: "admin", tag_name: "bartag"},
+          {category: "admin", tag_name: "footag"},
+          {category: "admin", tag_name: "bartag"},
         ]
       }
     end

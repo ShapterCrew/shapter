@@ -5,7 +5,7 @@ describe Shapter::V7::Schools do
     Tag.delete_all
 
     @t = FactoryGirl.create(:tag)
-    @t.category_code = :school ; @t.save
+    @t.category = :school ; @t.save
 
     @user = FactoryGirl.create(:user)
     login(@user)

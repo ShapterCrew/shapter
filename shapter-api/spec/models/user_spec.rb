@@ -15,8 +15,8 @@ describe User do
       i2 = FactoryGirl.create(:item)
       i3 = FactoryGirl.create(:item)
 
-      t1 = Tag.new(name: "peinture sur cul", category_code: :skill)
-      t2 = Tag.new(name: "pilotage de caddie", category_code: :skill)
+      t1 = Tag.new(name: "peinture sur cul", category: :skill)
+      t2 = Tag.new(name: "pilotage de caddie", category: :skill)
 
       i1.tags << t1
       i2.tags << t2
