@@ -81,7 +81,7 @@ module Shapter
           check_user_admin!
 
           tags = params[:tags].map do |tag|
-            Tag.find_or_create_by(name: tag["tag_name"], category: params[:category])
+            Tag.find_or_create_by(name: tag["tag_name"], category: tag["category"])
           end
 
           items = params[:item_names].map do |item_name|

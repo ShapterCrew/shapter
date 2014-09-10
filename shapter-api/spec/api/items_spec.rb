@@ -36,7 +36,7 @@ describe Shapter::V7::Items do
         ],
         tags: [
           {category: "admin", tag_name: "footag"},
-          {category: "admin", tag_name: "bartag"},
+          {category: "school", tag_name: "bartag"},
         ]
       }
     end
@@ -75,6 +75,8 @@ describe Shapter::V7::Items do
       it 'creates item with proper tags' do 
         Item.find_by(name: "fooitem").tags.map(&:name).should =~ ["footag","bartag","fooitem"]
         Item.find_by(name: "baritem").tags.map(&:name).should =~ ["footag","bartag","baritem"]
+        Item.find_by(name: "fooitem").tags.map(&:category).should =~ ["item_name","admin","school"]
+        Item.find_by(name: "baritem").tags.map(&:category).should =~ ["item_name","admin","school"]
       end
 
       it 'given tags are properly created/updated' do 
