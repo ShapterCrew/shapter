@@ -23,6 +23,7 @@ class Tag
 
   # Don't forget to update Tag.merge when adding new relations
   has_and_belongs_to_many :items
+  has_and_belongs_to_many :internships
   has_and_belongs_to_many :students, class_name: "User", inverse_of: :schools
 
   def pretty_id
