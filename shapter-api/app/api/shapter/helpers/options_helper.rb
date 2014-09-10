@@ -14,7 +14,6 @@ module Shapter
           "tag"               => (params[:entities]["tag"]               rescue nil )|| {},
           "user"              => (params[:entities]["user"]              rescue nil )|| {},
           "formation_page"    => (params[:entities]["formation_page"]    rescue nil )|| {},
-          "category"          => (params[:entities]["category"]          rescue nil )|| {},
         }
 
         empty_h.merge({:current_user => current_user})

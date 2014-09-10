@@ -54,10 +54,9 @@ angular.module('editItemTags', [])
     var tagsToRemove = [];
 
     angular.forEach( item.tags, function( tag ){
-      var id = tag.category.length ? $rootScope.categoriesIndex[ tag.category ].id : 'other';
       var formatedTag = {
           tag_name: tag.name,
-          category_id: id
+          category: tag.category
       };
       if( tag.status == 'toBeRemoved'){
         tagsToRemove.push( formatedTag );
@@ -66,6 +65,7 @@ angular.module('editItemTags', [])
         tagsToAdd.push( formatedTag );
       }
     });
+
     Item.addTags( item_ids, tagsToAdd );
     Item.removeTags( item_ids, tagsToRemove ).then( function(){
       var newTags = [];
@@ -94,21 +94,13 @@ angular.module('editItemTags', [])
     }
   };
 
-  $scope.createTag = function( category, tagName ){
-    var newTag = {
-      name: tagName,
-      category: category.code,
-      category_id: category.id
-    };
-    $scope.addTag( category, newTag );
-  };
-
-  $scope.addTag = function( category, tag ){
-    category.tagMissing = false;
+  $scope.addTag = function( category, tagName ){
+    var tag = {};
     tag.status = "new";
-    tag.category = category.code;
+    tag.name = tagName;
+    tag.category = category;
     item.tags.push( tag );
-    category.tagToAdd = null;
+    tagName = '';
   };
 
 }])

@@ -7,11 +7,9 @@ describe Shapter::V7::Items do
     Item.delete_all
     User.delete_all
     Tag.delete_all
-    Category.delete_all
     @user = FactoryGirl.create(:user)
     @item = FactoryGirl.create(:item)
     @item2= FactoryGirl.create(:item)
-    @cat = FactoryGirl.create(:category)
 
     @t1 = Tag.new(name: :t1) ; @t1.save
     @t2 = Tag.new(name: :t2) ; @t2.save
@@ -37,8 +35,8 @@ describe Shapter::V7::Items do
           "baritem",
         ],
         tags: [
-          {category_id: @cat.id, tag_name: "footag"},
-          {category_id: @cat.id, tag_name: "bartag"},
+          {category: "admin", tag_name: "footag"},
+          {category: "school", tag_name: "bartag"},
         ]
       }
     end
@@ -77,6 +75,8 @@ describe Shapter::V7::Items do
       it 'creates item with proper tags' do 
         Item.find_by(name: "fooitem").tags.map(&:name).should =~ ["footag","bartag","fooitem"]
         Item.find_by(name: "baritem").tags.map(&:name).should =~ ["footag","bartag","baritem"]
+        Item.find_by(name: "fooitem").tags.map(&:category).should =~ ["item_name","admin","school"]
+        Item.find_by(name: "baritem").tags.map(&:category).should =~ ["item_name","admin","school"]
       end
 
       it 'given tags are properly created/updated' do 

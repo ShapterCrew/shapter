@@ -43,7 +43,7 @@ module Shapter
 
             if params[:school_id]
               school = Tag.find(params[:school_id]) || error!("school not found",404)
-              error!("school_id is no school") unless school.category_code.to_s == "school"
+              error!("school_id is no school") unless school.category.to_s == "school"
 
               r = current_user.items
               .where("tag_ids" => school.id)
