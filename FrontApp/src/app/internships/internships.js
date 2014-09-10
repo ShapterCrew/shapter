@@ -28,7 +28,8 @@ angular.module( 'shapter.internships', [
   });
 }])
 
-.controller('InternshipsCtrl', ['$scope', function( $scope ){
+.controller('InternshipsCtrl', ['$scope', 'security', function( $scope, security ){
   $scope.view = 'map';
+  $scope.security = security;
 }]);
 
