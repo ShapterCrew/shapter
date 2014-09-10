@@ -78,21 +78,7 @@ class Tag
     end
 
     def acceptable_categories
-      [
-       "school",
-       "admin",
-       "option",
-       "other",
-       "item_name",
-       "credits",
-       "department",
-       "choice",
-       "formation",
-       "language",
-       "geo",
-       "teacher",
-       "skill",
-      ]
+      (Item.acceptable_categories + Internship.acceptable_categories).uniq
     end
 
   end

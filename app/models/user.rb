@@ -9,6 +9,8 @@ class User
   field :lastname,  type: String
   field :shapter_admin, type: Boolean
 
+  has_many :internships, class_name: "Internship", inverse_of: :trainee
+
   has_and_belongs_to_many :liked_comments, class_name: "Item", inverse_of: :likers
   has_and_belongs_to_many :disliked_comments, class_name: "Item", inverse_of: :dislikers
 
