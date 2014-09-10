@@ -4,7 +4,7 @@
 set :default_shell, "bash -l"
 
 set :application, 'shapter_api'
-set :repo_url, 'git@github.com:ShapterCrew/shapter-api.git'
+set :repo_url, 'git@github.com:ShapterCrew/shapter.git'
 
 set :user, 'ubuntu'
 set :ssh_options,{
