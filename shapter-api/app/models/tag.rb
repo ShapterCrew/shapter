@@ -12,7 +12,9 @@ class Tag
 
   field :custom_diag_dims, type: Array
 
-  belongs_to :category
+  #belongs_to :category
+  field :category_id
+  field :category
 
   #validates_uniqueness_of :name
   validate :type_name_uniqueness
