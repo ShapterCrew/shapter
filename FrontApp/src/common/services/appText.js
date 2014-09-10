@@ -21,7 +21,7 @@ angular.module( 'services.appText', [])
     },
     internships: {
       browse_internships_long: {
-        en: 'Browse inernships whit keywords: the name of the company, the localisation, its field ... Each additional keyword filters the results once more.',
+        en: 'Browse internships whit keywords: the name of the company, the localisation, its field ... Each additional keyword filters the results once more.',
         fr: 'Cherche des cours en ajoutant des mot-clefs : le nom de l\'entreprise, le lieu, le domaine enseigné ... Chaque mot-clef supplémentaire filtre un peu plus la recherche.'
       },
       browse_internships: {

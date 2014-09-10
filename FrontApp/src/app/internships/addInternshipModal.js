@@ -13,7 +13,7 @@ angular.module( 'directives.addInternshipModal', [])
   };
 })
 
-.directive( 'shAddInternshipModal', ['Internship', function( Internship){
+.directive( 'shAddInternshipModal', ['Internship', 'shAddInternshipModalFactory', function( Internship, shAddInternshipModalFactory){
   return {
     restrict: 'A',
     scope: {
@@ -21,7 +21,6 @@ angular.module( 'directives.addInternshipModal', [])
     },
     link: function( scope, element, attr ) {
       element.bind('click', function (event) {
-        console.log("bite");
         shAddInternshipModalFactory.open();
       });
     }
