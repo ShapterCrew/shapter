@@ -39,7 +39,6 @@ angular.module( 'shapter', [
   'directives.likeComment',
   'directives.addComment',
   'directives.confirmAlert',
-  'directives.addInternshipModal',
   'resources.school',
   'resources.category',
   'resources.formation',

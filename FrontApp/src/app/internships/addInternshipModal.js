@@ -3,7 +3,7 @@ angular.module( 'directives.addInternshipModal', [])
   return {
     open: function() {
       return $modal.open({
-        templateUrl: 'directives/addInternshipModal/internship.tpl.html',
+        templateUrl: 'internships/addInternshipModal.tpl.html',
         controller: 'AddInternshipModalCtrl',
         windowClass: 'show',
         resolve: {
