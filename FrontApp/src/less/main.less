@@ -723,8 +723,9 @@ background-color: #1abc9c;
   min-height: 20px;
   padding: 19px;
   margin-bottom: 20px;
-  background-color: @well-bg;
-  border: 1px solid @well-border;
+  //background-color: @well-bg;
+  background-color: mix(@clouds, white, 50%);
+  border: 1px solid mix(@clouds, white, 90%);
   &.shapter-well-turquoise {
     background-color: @green-pastel;
     color: white;
@@ -737,6 +738,10 @@ background-color: #1abc9c;
 
 .blue-caret {
   border-top-color: @blue-pastel;
+}
+
+.turquoise-caret {
+  border-top-color: @turquoise;
 }
 
 .white-caret {
@@ -754,7 +759,7 @@ background-color: #1abc9c;
 
 .campus-comment {
   background-color: white;
-  border: 1px solid @silver;
+  border: 1px solid @clouds;
   padding: 10px;
   margin-top: 10px;
   margin-bottom: 10px;
