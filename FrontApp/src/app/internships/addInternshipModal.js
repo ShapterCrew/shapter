@@ -1,16 +1,13 @@
-angular.module( 'directives.addInternshipModal', [])
+angular.module( 'directives.addInternshipModal', [
+  'security'
+])
 .factory( 'shAddInternshipModalFactory', function($modal) {
   return {
     open: function(currentUser) {
       return $modal.open({
         templateUrl: 'internships/addInternshipModal.tpl.html',
         controller: 'AddInternshipModalCtrl',
-        windowClass: 'show',
-        resolve: {
-          currentUser: function() {
-            return currentUser;
-          }
-        }
+        windowClass: 'show'
       });
     }
   };
@@ -31,10 +28,10 @@ angular.module( 'directives.addInternshipModal', [])
   };
 }])
 
-.controller( 'AddInternshipModalCtrl', ['$scope', 'Internship', 'currentUser', function($scope, Internship, currentUser ){
+.controller( 'AddInternshipModalCtrl', ['$scope', 'Internship', 'security', function($scope, Internship, security ){
 
   $scope.internship = {
-    user: currentUser
+    user: security.currentUser
   };
 
   $scope.addInternship = function() {

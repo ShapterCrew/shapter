@@ -232,7 +232,7 @@ class User
 
       if perm = SignupPermission.find_by(email: email)
         perm.school_names.each do |school_name|
-          schools << Tag.find_or_create_by(name: school_name)
+          schools << Tag.find_or_create_by(category: :school, name: school_name)
         end
       end
       return schools

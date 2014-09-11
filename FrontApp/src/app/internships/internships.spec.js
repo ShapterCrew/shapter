@@ -3,7 +3,7 @@ describe('AddInternshipModalCtrl Test', function() {
   beforeEach(module('resources.internship'));
   beforeEach(
     module(function($provide) {
-      $provide.provider('currentUser', function() {
+      $provide.provider('security', function() {
         this.$get = function() {
           return {
             currentUser: {

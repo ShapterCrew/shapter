@@ -49,7 +49,7 @@ describe Comment do
   #{{{ likers_count
   describe "likers_count" do 
     it 'returns the number of likers' do 
-      @comment.likers << @user ; puts @comment.save  ; @comment.reload
+      @comment.likers << @user ; @comment.save  ; @comment.reload
       @comment.likers_count.should == 1
     end
   end
