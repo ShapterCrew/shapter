@@ -1,7 +1,7 @@
 language: ruby
 cache: 
   directories:
-    - shapter-api/vendor/bundle
+    - vendor/bundle
     - FrontApp/vendor
     - FrontApp/node_modules
 services:
