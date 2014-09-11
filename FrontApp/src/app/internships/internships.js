@@ -17,15 +17,12 @@ angular.module( 'shapter.internships', [
     },
     data:{ pageTitle: 'Internships' },
     resolve: {
-      authenticatedUser: securityAuthorizationProvider.requireConfirmedUser,
-      internshipTags: ['Tag', function(Tag) {
-        return Tag.getInternshipTags();
-      }]
+      authenticatedUser: securityAuthorizationProvider.requireConfirmedUser
     }
   });
 }])
 
-.controller('InternshipsCtrl', ['$scope', 'security', '$location', 'Internship', 'Tag', 'internshipTags', '$rootScope', '$timeout', function( $scope, security, $location, Internship, Tag, internshipTags, $rootScope, $timeout ){
+.controller('InternshipsCtrl', ['$scope', 'security', '$location', 'Internship', 'Tag', '$rootScope', '$timeout', function( $scope, security, $location, Internship, Tag, $rootScope, $timeout ){
   $scope.security = security;
   $scope.view = 'map';
   $scope.internshipsList = [{
@@ -95,7 +92,7 @@ angular.module( 'shapter.internships', [
   }];
 
   $scope.activeTags = [];
-  $scope.internshipTags = internshipTags;
+  $scope.internshipTags = [];
   //FIXME: what's this?
   $scope.tagsSuggestions = [];
   $scope.categories = $rootScope.categories;
@@ -105,10 +102,36 @@ angular.module( 'shapter.internships', [
     $scope.update();
   };
 
+  // used to convert $location.search into an array
+  toArray = function( obj ){
+    if( toType( obj ) == 'array'){
+      return obj;
+    }
+    else if( toType( obj ) == 'number'){
+      return [ obj ];
+    }
+    else if( toType( obj ) == "string"){
+      return [obj];
+    }
+    else{ 
+      return [];
+    }
+  };
+
   $scope.update = function() {
     $scope.updateScopeTags();
     $scope.loadSuggestedTags();
     $scope.updateInternshipsList();
+  };
+
+  $scope.updateScopeTags = function(){
+    var scopeTags = [];
+
+    angular.forEach( toArray( $location.search().filter ), function( tagId ){
+      scopeTags.push( $scope.schoolTagIndex[ tagId ] );
+    });
+
+    $scope.activeTags = scopeTags;
   };
 
   // loads tags suggestions 
@@ -118,7 +141,6 @@ angular.module( 'shapter.internships', [
     angular.forEach( toArray( $location.search().filter ), function( id ){
       array.push( id );
     });
-    array.push( school.id );
     Tag.getSuggestedTags( array ).then( function( response ){
       $scope.tagsSuggestions = response;
       $scope.tagsLoading = false;
@@ -132,7 +154,6 @@ angular.module( 'shapter.internships', [
     angular.forEach( toArray( $location.search().filter), function( id ){
       array.push( id );
     });
-    array.push( $stateParams.schoolId );
 
     // Call the API to have internships with such tags
     Internship.getListFromTags(array, current_only).then(function(response){

@@ -162,10 +162,6 @@ angular.module('resources.tag', [
          */
     },
 
-    getInternshipTags: function() {
-      return Restangular.all('tags').post('internships');
-    },
-
     setSignupFunnel: function( signupFunnel, tag ){
       return Restangular.one( 'tags', tag.id ).customPUT( {signup_funnel: signupFunnel }, 'signup-funnel');   
     },

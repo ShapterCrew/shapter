@@ -11,17 +11,12 @@ angular.module('resources.internship', [
   var params = {
     entities: {
       internship: {
-        "name": true,
-        "adress": true,
-        "description": true,
-        "company_name": true,
-        "company_size": true,
-        "begin_date": true,
+        "title": true,
+        "start_date": true,
         "end_date": true,
-        "domain": true,
-        "position": true,
-        "skills": true,
-        "school": true
+        "duration": true,
+        "trainee": true,
+        "tags": true
       },
       user: {
         "firstname": true,
@@ -48,20 +43,15 @@ angular.module('resources.internship', [
     return Restangular.one( 'internships', id ).post( params );
   };
 
-  Internship.getListFromTags = function(tags, current_only) {
+  Internship.getListFromTags = function(tags, active_only) {
     var entities = {
       internship: {
-        "name": true,
-        "description": true,
-        "company_name": true,
-        "company_size": true,
-        "begin_date": true,
+        "title": true,
+        "start_date": true,
         "end_date": true,
-        "domain": true,
-        "position": true,
-        "skills": true,
-        "school": true,
-        "user": true
+        "duration": true,
+        "trainee": true,
+        "tags": true
       },
       user: {
         "firstname": true,
@@ -73,7 +63,7 @@ angular.module('resources.internship', [
     var params = {
       entities: entities,
       filter: tags,
-      current_only: current_only
+      active_only: active_only
     };
 
     return Restangular.all('internships').customPOST( params, 'filter' );

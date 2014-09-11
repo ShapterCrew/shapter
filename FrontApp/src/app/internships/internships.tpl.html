@@ -28,7 +28,7 @@
         <ul class="nav browse-nav vertical-nav">
           <li ng-click="nav( null )" ng-class="{'active': !$location.search().nav }"><a>{{ AppText.internships.all_internships | language }}</a></li>
 
-          <li ng-click="nav( 'current' )" ng-class="{'active': $location.search().nav == 'current' }"><a>{{ AppText.internships.current_internships | language }}</a></li>
+          <li ng-click="nav('current')" ng-class="{'active': $location.search().nav == 'current' }"><a>{{ AppText.internships.current_internships | language }}</a></li>
         </ul>
       </div>
       <button class="btn btn-default" sh-add-internship-modal>Add an internship</button>
