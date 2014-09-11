@@ -45,7 +45,7 @@ angular.module( 'shapter.maps', [
         type: 'awesomeMarker',
         icon: 'graduation-cap',
         prefix: 'fa',
-        markerColor: 'orange'
+        markerColor: 'green'
       };
 
       //defines group if not defined

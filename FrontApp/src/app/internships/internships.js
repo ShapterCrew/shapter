@@ -76,6 +76,21 @@ angular.module( 'shapter.internships', [
     company: {
       name: 'Ornage'
     },
+    lat: 53.81,
+    lng: 19.75,
+    message: '',
+    focus: false,
+    draggable: false
+  },
+  {
+    student: {
+      id: '53fc8eaf4d61632d1a111400',
+      firstname: 'Bob',
+      lastname: 'Haha'
+    },
+    company: {
+      name: 'Ornage'
+    },
     lat: 59.91,
     lng: 10.75,
     message: '',

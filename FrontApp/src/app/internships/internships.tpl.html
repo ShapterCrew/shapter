@@ -2,27 +2,20 @@
 <div class="container">
   <div class="row">
     <div class="col-md-12">
-      <h2 class="text-sun center">
+      <h2 class="text-sun" style="margin: 20px">
         <span class="fa fa-search"></span> 
         {{ AppText.internships.browse_internships | language }}
+          <small><span class="fa fa-question-circle" ng-click="displayInfos = ! displayInfos"></span></small>
       </h2>
     </div>
   </div>
 </div>
-<div class="asphalt-infos">
+<div class="asphalt-infos" ng-show="displayInfos">
   <div class="container">
     <div class="row">
       <div class="col-md-8">
         <p ng-bind="AppText.internships.browse_internships_long | language"></p>
       </div>
-      <button sh-add-internship-modal current-user="security.currentUser">Add an internship</button>
-      <!--
-      <div class="col-md-6 hidden-sm">
-        <div class="center">
-          <img class="img-repsonsive" style="width: 150px" src="assets/img/logo_white_square.png">
-        </div>
-      </div>
-      -->
     </div>
   </div>
 </div>
@@ -38,6 +31,7 @@
           <li ng-click="nav( 'current' )" ng-class="{'active': $location.search().nav == 'current' }"><a>{{ AppText.internships.current_internships | language }}</a></li>
         </ul>
       </div>
+      <button class="btn btn-default" sh-add-internship-modal current-user="security.currentUser">Add an internship</button>
       <!-- }}} -->
     </div>
 
@@ -59,13 +53,11 @@
         <input sh-auto-focus="true" type="text" class="form-control" placeholder="+ {{ AppText.browse.add_a_keyword | language }}" typeahead="tag as tag.full_name for tag in internshipTags | ignoreAccentsFilter | filter: {'full_name': $viewValue} | shorterFirstFilter | notAlreadyThere:activeTags | limitTo: 50" ng-model="typedTag" typeahead-editable="false" typeahead-on-select="addTextTag()" style="margin-top: 20px"></input>
 
 
-        <hr style="margin-top: 15px; margin-bottom: 15px">
-
-        <ul class="list-inline cat-list nav-justified" style="margin-bottom: 0px">
+        <ul class="list-inline cat-list nav-justified" style="margin-bottom: 0px; margin-top: 20px">
 
           <!-- some categories -->
           <li class="dropdown" ng-repeat="cat in (categories | catFilter ).display">
-            <a class="dropdown-toggle" style="white-space: nowrap">{{ AppText.translateCode( cat.code )}}<span class="caret"></span> </a>
+            <a class="dropdown-toggle" style="white-space: nowrap">{{ AppText.translateCode( cat.code )}}<span class="caret turquoise-caret"></span> </a>
             <ul class="dropdown-menu">
               <li ng-repeat="tag in tagsSuggestions | filter: {category: cat.code}" ng-click="addTag( tag )"><a>{{ tag.name }}</a></li>
               <li ng-hide="(tagsSuggestions | filter: {category: cat.code}).length > 0" class="disabled">
@@ -78,9 +70,9 @@
 
           <!-- more categories ! -->
           <li class="dropdown">
-            <a class="dropdown-toggle" style="white-space: nowrap">{{ AppText.browse.more | language }}<span class="caret"></span> </a>
+            <a class="dropdown-toggle" style="white-space: nowrap">{{ AppText.browse.more | language }}<span class="caret turquoise-caret"></span> </a>
 
-            <ul class="dropdown-menu dropdown-menu-right">
+            <ul class="dropdown-menu">
               <!-- repat remaining categories -->
               <li ng-repeat="cat in (categories | catFilter).others" ng-show="(tagsSuggestions | filter: { category: cat.code }).length > 0">
                 <a class="list-in-dropdown-title">{{ AppText.translateCode( cat.code ) }}</a>

@@ -197,8 +197,9 @@ angular.module('shapter.item', [
   $scope.close = $modalInstance.close;
 }])
 
-.controller('itemModalCtrl', ['$scope', 'item', 'itemsList', 'loadMoreItems',  'numberOfItems', '$window', '$modalInstance', '$location', '$q', 'Item', 'Analytics', 'security', 'editDiagramFactory', '$upload', '$http', 'AppText', 'itemFactory', '$stateParams', function($scope, item, itemsList, loadMoreItems, numberOfItems, $window, $modalInstance, $location, $q, Item, Analytics, security, editDiagramFactory, $upload, $http, AppText, itemFactory, $stateParams ) {
+.controller('itemModalCtrl', ['$scope', 'item', 'itemsList', 'loadMoreItems',  'numberOfItems', '$window', '$modalInstance', '$location', '$q', 'Item', 'Analytics', 'security', 'editDiagramFactory', '$upload', '$http', 'AppText', 'itemFactory', '$stateParams', '$rootScope', function($scope, item, itemsList, loadMoreItems, numberOfItems, $window, $modalInstance, $location, $q, Item, Analytics, security, editDiagramFactory, $upload, $http, AppText, itemFactory, $stateParams, $rootScope ) {
 
+  $scope.$rootScope = $rootScope;
   item.open = true;
   $scope.AppText = AppText;
   $scope.displayUploadDocument = false;
