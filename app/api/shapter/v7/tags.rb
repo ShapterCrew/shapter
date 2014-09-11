@@ -38,15 +38,15 @@ module Shapter
                                NOTE
         }
         params do 
-          optional :filter, type: String, desc: "id of the tag to filter with"
+          requires :filter, type: String, desc: "id of the tag to filter with"
           optional :category, type: String, desc: "category to filter with"
         end
         post :/ do 
-          if params[:filter]
+          #if params[:filter]
             tags = dictionnary(params[:filter])
-          else
-            tags = Tag.all
-          end
+          #else
+          #  tags = Tag.all
+          #end
 
           filtered_tags = if params[:category]
                             tags.select{|t| t.category == params[:category]}

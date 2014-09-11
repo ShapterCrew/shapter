@@ -40,7 +40,7 @@ describe Shapter::V7::SchoolsDiagDims do
         tags_by_ids: [@t.id],
         tags_by_name_cat: (@tags = [
           {tag_name: "Dauphine", tag_category: "school"},
-          {tag_name: "dresseur", tag_category: "job"},
+          {tag_name: "dresseur", tag_category: "position"},
         ]),
       }
 

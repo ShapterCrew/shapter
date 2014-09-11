@@ -958,8 +958,8 @@ angular.module( 'services.appText', [])
         fr: 'Quelques étudiants de'
       },
       they_love_it: {
-        en: 'What they love: ',
-        fr: 'Coups de coeur des étudiants : '
+        en: 'What they love',
+        fr: 'Coups de coeur des étudiants'
       },
       browse_all_courses: {
         en: 'Browse courses by keywords in',

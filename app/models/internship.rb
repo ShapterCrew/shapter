@@ -38,7 +38,7 @@ class Internship
         "company",
         "company_size",
         "domain",
-        "job",
+        "position",
       ]
     end
   end
