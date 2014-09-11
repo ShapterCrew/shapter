@@ -37,10 +37,6 @@ angular.module( 'directives.addInternshipModal', [])
     user: currentUser
   };
 
-  $scope.disabled = function(date, mode) {
-    return ( mode === 'day' && ( date.getDay() === 0 || date.getDay() === 6 ) );
-  };
-
   $scope.addInternship = function() {
     Internship.create($scope.internship).then(function(response) {
       $scope.internship = {};

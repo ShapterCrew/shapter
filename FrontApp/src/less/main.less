@@ -423,6 +423,11 @@ background-color: #1abc9c;
   .button-variant(@btn-default-color, @orange, @orange, @orange);
 }
 
+.btn-sun {
+  // font-weight: bold;
+  .button-variant(@btn-default-color, @sun-pastel, @sun-pastel, @sun-pastel);
+}
+
 @orange-silver: mix(@orange, @silver, 80%);
 .btn-orange-silver {
   font-weight: bold;
@@ -785,4 +790,25 @@ h3.silver-bottom {
   &:hover {
     color: mix(@silver, @clouds, 50%);
   }
+}
+
+a.text-muted:hover {
+  color: lighten(@silver, 8%);
+}
+
+ul.dropdown-menu[datepicker-popup-wrap] {
+
+    & li[ng-show="showButtonBar"] {
+     // display: none;
+    }
+    & th[ng-show="showWeekNumbers"],
+    & td[ng-show="showWeekNumbers"] {
+    //  visibility: hidden;
+    }
+    & button {
+      &.btn.btn-default.btn-sm {
+        background-color: white;
+        color: @wet-asphalt;
+      }
+    }
 }
