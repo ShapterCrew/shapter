@@ -54,11 +54,6 @@ describe Shapter::V7::Tags do
         access_denied(@response).should be false
       end
 
-      it "list all tags withoug params" do 
-        post "tags"
-        JSON.parse(response.body).map{|h| h["id"]}.map(&:to_s).should =~ Tag.all.map(&:id).map(&:to_s)
-      end
-
       context "when filter param is provided" do 
         it "filters when <filter> param is provided" do 
           post "tags", :filter => @schooltag1.id
