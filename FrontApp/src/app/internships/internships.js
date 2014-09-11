@@ -28,57 +28,60 @@ angular.module( 'shapter.internships', [
   });
 }])
 
-.controller('InternshipsCtrl', ['$scope', 'security', function( $scope, security ){
+.controller('InternshipsCtrl', ['$scope', 'security', '$timeout', function( $scope, security, $timeout ){
   $scope.security = security;
   $scope.view = 'map';
-  $scope.internshipsList = {
-    olsoMarker: {
-      student: {
-        image: 'http://graph.facebook.com/746309634/picture',
-        firstname: 'Alex',
-        lastname: 'lolalilaloule'
-      },
-      company: {
-        name: 'Bougyues'
-      },
-      start_time: '2014-07-31',
-      end_time: '2014-09-04',
-      duration: '6',
-      year: '2014',
-      lat: 39.91,
-      lng: 15.75,
-      message: '',
-      focus: false,
-      draggable: false
+  $scope.internshipsList = {};
+  $scope.internshipsList = [{
+    student: {
+      id: '53fc8eaf4d61632d1a111400',
+      image: 'http://graph.facebook.com/746309634/picture',
+      firstname: 'Alex',
+      lastname: 'lolalilaloule'
     },
-    osloloMarker: {
-      student: {
-        firstname: 'Bob',
-        lastname: 'Haha'
-      },
-      company: {
-        name: 'Ornage'
-      },
-      lat: 59.81,
-      lng: 11.75,
-      message: '',
-      focus: false,
-      draggable: false
+    company: {
+      name: 'Bougyues'
     },
-    osloMarker: {
-      student: {
-        firstname: 'Bob',
-        lastname: 'Haha'
-      },
-      company: {
-        name: 'Ornage'
-      },
-      lat: 59.91,
-      lng: 10.75,
-      message: '',
-      focus: false,
-      draggable: false
-    }
-  };
+    start_time: '2014-07-31',
+    end_time: '2014-09-04',
+    duration: '6',
+    year: '2014',
+    lat: 39.91,
+    lng: 15.75,
+    message: '',
+    focus: false,
+    draggable: false
+  },
+  {
+    student: {
+      id: '53fc8eaf4d61632d1a111400',
+      firstname: 'Bob',
+      lastname: 'Haha'
+    },
+    company: {
+      name: 'Ornage'
+    },
+    lat: 59.81,
+    lng: 11.75,
+    message: '',
+    focus: false,
+    draggable: false
+  },
+  {
+    student: {
+      id: '53fc8eaf4d61632d1a111400',
+      firstname: 'Bob',
+      lastname: 'Haha'
+    },
+    company: {
+      name: 'Ornage'
+    },
+    lat: 59.91,
+    lng: 10.75,
+    message: '',
+    focus: false,
+    draggable: false
+  }];
+
 }]);
 
