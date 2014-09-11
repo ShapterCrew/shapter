@@ -20,6 +20,10 @@ class Internship
     (end_date - start_date).to_i
   end
 
+  def skills
+    tags.skills
+  end
+
   def pretty_id
     id.to_s
   end
