@@ -187,10 +187,6 @@ angular.module( 'shapter.schools', [
     $scope.formation.typicalUsers = response.typical_users;
   });
 
-  $scope.schoolNav = function(){
-    $location.path('/schools/' + $stateParams.schoolId );
-  };
-
   $scope.secondFormationId = function(){
     return !!$stateParams.formationId;
   };
