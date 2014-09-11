@@ -9,6 +9,24 @@ describe Shapter::V7::SchoolsDiagDims do
     @user = FactoryGirl.create(:user)
     User.any_instance.stub(:confirmed_student?).and_return(true)
     login(@user)
+
+    @intern = FactoryGirl.create(:internship)
+    @intern2= FactoryGirl.create(:internship)
+
+    @intern.trainee = @user
+    @intern2.trainee = @user
+
+    @t1 = Tag.new(name: :t1) ; @t1.save
+    @t2 = Tag.new(name: :t2) ; @t2.save
+    @t3 = Tag.new(name: :t3) ; @t3.save
+
+    @intern.tags << @t1 ; @intern.tags << @t2
+    @intern2.tags << @t1; @intern2.tags << @t3
+    @intern.save
+    @intern2.save
+
+    @intern.reload
+    @intern2.reload
   end
 
   #{{{ create
@@ -29,6 +47,7 @@ describe Shapter::V7::SchoolsDiagDims do
     end
 
     it "should create with proper attributes" do 
+      Internship.delete_all
       expect(Internship.count).to eq 0
       post "/internships/create" , @myparams 
       expect(Internship.count).to eq 1
@@ -41,6 +60,38 @@ describe Shapter::V7::SchoolsDiagDims do
 
     end
 
+  end
+  #}}}
+
+  # {{{ filter
+  describe :filter do 
+
+    context "when logged in" do 
+      before do 
+        login(@user)
+      end
+      it "should filter properly" do 
+        @intern.update_attributes(start_date: Date.yesterday, end_date: Date.tomorrow) # en cours
+        @intern2.update_attributes(start_date: Date.today + 3, end_date: Date.today + 5) # dans le futur
+
+        post "internships/filter", {filter: [@t1.id.to_s]}
+        a = JSON.parse(response.body)
+        a["internships"].map{|h| h["id"]}.should =~ [@intern.id, @intern2.id].map(&:to_s)
+
+        post "internships/filter", {filter: [@t1.id.to_s], active_only: true}
+        a = JSON.parse(response.body)
+        a["internships"].map{|h| h["id"]}.should =~ [@intern.id].map(&:to_s)
+
+        post "internships/filter", {filter: [@t1.id.to_s,@t3.id.to_s]}
+        a = JSON.parse(response.body)
+        a["internships"].map{|h| h["id"]}.should =~ [@intern2.id].map(&:to_s)
+
+        post "internships/filter", {filter: [@t1.id.to_s,"hahahalol"]}
+        a = JSON.parse(response.body)
+        a["internships"].blank?.should be true
+      end
+
+    end
   end
   #}}}
 

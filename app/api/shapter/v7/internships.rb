@@ -1,6 +1,7 @@
 module Shapter
   module V7
     class Internships < Grape::API
+      helpers Shapter::Helpers::FilterHelper
       format :json
 
       before do 
@@ -45,6 +46,7 @@ module Shapter
           )
 
           if i.save
+            i.tags.each(&:touch)
             present i, with: Shapter::Entities::Internship, entity_options: entity_options
           else
             error!(i.errors.messages)
@@ -72,7 +74,7 @@ module Shapter
                     end
 
           present :number_of_results, results.size
-          present :items, results[nstart..nstop], with: Shapter::Entities::Internship, entity_options: entity_options
+          present :internships, results[nstart..nstop], with: Shapter::Entities::Internship, entity_options: entity_options
         end
         #}}}
 

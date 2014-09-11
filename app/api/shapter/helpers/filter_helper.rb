@@ -29,13 +29,13 @@ module Shapter
       #}}}
 
       #{{{ filter_internships
-      def filter_internships(ary)
-        Rails.cache.fetch( "filterInternshp|#{ary.sort.join(":")}|#{cache_key_for(Tag,Internship)}", expires_in: 90.minutes ) do 
-          compute_internship_filter(ary)
+      def filter_internships(ary,active_only=false)
+        Rails.cache.fetch( "filterInternshp|#{active_only}|#{ary.sort.join(":")}|#{cache_key_for(Tag,Internship)}", expires_in: 90.minutes ) do 
+          compute_internship_filter(ary,active_only)
         end
       end
 
-      def compute_internship_filter(ary,active_only=false)
+      def compute_internship_filter(ary,active_only)
         if active_only
           start_date_lt = Date.today
           end_date_gt = Date.today
@@ -48,8 +48,9 @@ module Shapter
         return [] unless first_tag
         init = first_tag.internships.gt(end_date: end_date_gt).lt(start_date: start_date_lt)
         return init if ary.size == 1
+        #byebug
         ary[1..-1].reduce(init) { |aa, tag_id|
-          aa = aa & [Tag.find(tag_id).internships.gt(end_date: end_date_gt).lt(start_date: start_date_lt)]
+          aa = aa & ( Tag.find(tag_id).internships.gt(end_date: end_date_gt).lt(start_date: start_date_lt) rescue []) #rescue is to catch wrong tag ids
         }.sort_by(&natural_sort_by_title)
       end
       #}}}
