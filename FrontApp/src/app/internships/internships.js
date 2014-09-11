@@ -94,7 +94,6 @@ angular.module( 'shapter.internships', [
     draggable: false
   }];
 
-}]);
   $scope.activeTags = [];
   $scope.internshipTags = internshipTags;
   //FIXME: what's this?

@@ -33,7 +33,6 @@ angular.module( 'directives.addInternshipModal', [
   $scope.internship = {
     user: security.currentUser
   };
-  console.log($scope.internship);
 
   $scope.disabled = function(date, mode) {
     return ( mode === 'day' && ( date.getDay() === 0 || date.getDay() === 6 ) );
