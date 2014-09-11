@@ -74,7 +74,7 @@
       @import "../../externals/Flat-UI-Pro-1.2.4/less/modules/buttons";
       @import "../../externals/Flat-UI-Pro-1.2.4/less/modules/button-groups";
       @import "../../externals/Flat-UI-Pro-1.2.4/less/modules/caret";
-      @import "../../externals/Flat-UI-Pro-1.2.4/less/modules/select";
+//      @import "../../externals/Flat-UI-Pro-1.2.4/less/modules/select";
       @import "../../externals/Flat-UI-Pro-1.2.4/less/modules/forms";
       @import "../../externals/Flat-UI-Pro-1.2.4/less/modules/input-icons";
       @import "../../externals/Flat-UI-Pro-1.2.4/less/modules/input-groups";
@@ -119,6 +119,7 @@
 @import 'behave.less';
 @import 'leaflet.less';
 @import 'awesomeMarkers.less';
+@import 'leaflet.markercluster.less';
 
 /**
  * Now that all app-wide styles have been applied, we can load the styles for
@@ -127,6 +128,7 @@
  * TODO: In a later version of this boilerplate, I'd like to automate this.
  */
 
+@import '../../src/app/map/map.less';
 @import '../../src/common/directives/comment/comment.less';
 @import '../../src/app/header/header.less';
 @import '../../src/app/browse/browse.less';
@@ -721,8 +723,9 @@ background-color: #1abc9c;
   min-height: 20px;
   padding: 19px;
   margin-bottom: 20px;
-  background-color: @well-bg;
-  border: 1px solid @well-border;
+  //background-color: @well-bg;
+  background-color: mix(@clouds, white, 50%);
+  border: 1px solid mix(@clouds, white, 90%);
   &.shapter-well-turquoise {
     background-color: @green-pastel;
     color: white;
@@ -735,6 +738,10 @@ background-color: #1abc9c;
 
 .blue-caret {
   border-top-color: @blue-pastel;
+}
+
+.turquoise-caret {
+  border-top-color: @turquoise;
 }
 
 .white-caret {
@@ -752,7 +759,7 @@ background-color: #1abc9c;
 
 .campus-comment {
   background-color: white;
-  border: 1px solid @silver;
+  border: 1px solid @clouds;
   padding: 10px;
   margin-top: 10px;
   margin-bottom: 10px;

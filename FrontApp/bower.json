@@ -13,10 +13,9 @@
     "angular-rangeslider": "~0.0.7",
     "angular-ui-utils": "bower-keypress",
     "ng-file-upload": "~1.4.0",
-    "angular-upload": "~1.0.11"
+    "angular-upload": "~1.0.11",
+    "leaflet.markercluster": "~0.4.0",
+    "Leaflet.awesome-markers": "~2.0.2"
   },
-  "dependencies": {
-    "angular-bootstrap-switch": "~0.3.0",
-    "angular-leaflet-directive": "~0.7.8"
-  }
+  "dependencies": {}
 }

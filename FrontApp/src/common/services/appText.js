@@ -22,7 +22,7 @@ angular.module( 'services.appText', [])
     internships: {
       browse_internships_long: {
         en: 'Browse internships whit keywords: the name of the company, the localisation, its field ... Each additional keyword filters the results once more.',
-        fr: 'Cherche des cours en ajoutant des mot-clefs : le nom de l\'entreprise, le lieu, le domaine enseigné ... Chaque mot-clef supplémentaire filtre un peu plus la recherche.'
+        fr: 'Cherche parmi les stages effectués par les anciens en ajoutant des mot-clefs : le nom de l\'entreprise, le lieu, le domaine enseigné ... Chaque mot-clef supplémentaire filtre un peu plus la recherche.'
       },
       browse_internships: {
         en: 'Browse internships',
@@ -568,6 +568,10 @@ angular.module( 'services.appText', [])
       }
     },
     item: {
+      characteristics: {
+        en: 'Characteristics: ',
+        fr: 'Caractéristiques :'
+      },
       i_have_an_email: {
         en: 'Identify',
         fr: 'M\'identifier'
@@ -893,6 +897,14 @@ angular.module( 'services.appText', [])
       }
     },
     school: {
+      browse_internships_by_keywords: {
+        en: 'Browse by keywords trough all internships',
+        fr: 'Chercher par mots-clefs parmi tous les stages'
+      },
+      where_do_they_internship: {
+        en: 'Where do they internship ?',
+        fr: 'Où sont-ils en stage ?'
+      },
       campus_not_in_list: {
         en: 'My campus is not in the list',
         fr: 'Mon campus n\'est pas dans la liste'
@@ -946,12 +958,12 @@ angular.module( 'services.appText', [])
         fr: 'Quelques étudiants de'
       },
       they_love_it: {
-        en: 'They love it: ',
-        fr: 'Coups de coeur : '
+        en: 'What they love: ',
+        fr: 'Coups de coeur des étudiants : '
       },
       browse_all_courses: {
-        en: 'Browse all the courses from',
-        fr: 'Parcourir toutes les formations de'
+        en: 'Browse courses by keywords in',
+        fr: 'Chercher des formations par mot-clefs à'
       },
       photo_credits: {
         en: 'Photo credits',
@@ -1040,56 +1052,56 @@ angular.module( 'services.appText', [])
     },
     categories: {
       school: {
-        en: 'school',
+        en: 'School',
         fr: 'Établissement'
       },
       formation: {
-        en: 'program',
-        fr: 'formation'
+        en: 'Program',
+        fr: 'Formation'
       },
       choice: {
-        en: 'elective category',
-        fr: 'choix'
+        en: 'Elective category',
+        fr: 'Choix'
       },
       option: {
-        en: 'option',
-        fr: 'option'
+        en: 'Option',
+        fr: 'Option'
       },
       credits: {
         en: 'ECTS',
         fr: 'ECTS'
       },
       language: {
-        en: 'language',
-        fr: 'language'
+        en: 'Language',
+        fr: 'Language'
       },
       geo: {
-        en: 'localistation',
-        fr: 'localisation'
+        en: 'Localistation',
+        fr: 'Localisation'
       },
       teacher: {
-        en: 'teacher',
-        fr: 'professeur'
+        en: 'Teacher',
+        fr: 'Professeur'
       },
       department: {
-        en: 'department',
-        fr: 'département'
+        en: 'Department',
+        fr: 'Département'
       },
       item_name: {
-        en: 'name',
-        fr: 'nom'
+        en: 'Name',
+        fr: 'Nom'
       },
       admin: {
-        en: 'admin',
-        fr: 'admin'
+        en: 'Admin',
+        fr: 'Admin'
       },
       other: {
-        en: 'other',
-        fr: 'autre'
+        en: 'Other',
+        fr: 'Autre'
       },
       skill: {
-        en: 'skill',
-        fr: 'compétence'
+        en: 'Skill',
+        fr: 'Compétence'
       }
     },
     confirmationSent: {

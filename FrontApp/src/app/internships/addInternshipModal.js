@@ -29,10 +29,15 @@ angular.module( 'directives.addInternshipModal', [
 }])
 
 .controller( 'AddInternshipModalCtrl', ['$scope', 'Internship', 'security', function($scope, Internship, security ){
+
   $scope.internship = {
     user: security.currentUser
   };
   console.log($scope.internship);
+
+  $scope.disabled = function(date, mode) {
+    return ( mode === 'day' && ( date.getDay() === 0 || date.getDay() === 6 ) );
+  };
 
   $scope.addInternship = function() {
     Internship.create($scope.internship).then(function(response) {

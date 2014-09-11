@@ -68,7 +68,7 @@ angular.module('resources.tag', [
           category: true
         }
       };
-      return Category.list().then( function(){
+      return Category.for_items().then( function(){
         return Restangular.all('tags').customPOST({ entities: entities, category: 'school'});
       });
     },

@@ -6,74 +6,68 @@ angular.module( 'shapter.maps', [
   'services.appText'
 ])
 
+// directive for the map
 .directive('shMap', [function(){
   return {
     restrict: 'AE',
     templateUrl: 'map/map.tpl.html',
-    controller: 'MapsCtrl'
+    controller: 'MapsCtrl',
+    scope: {
+      internships: '='
+    }
   };
 }])
 
-// create a directive that replaces the popup content and add its own scope with marker stuff 
+// replaces the marker popup content and add its own scope with marker stuff 
 .directive('shMapMessage', [function(){
   return {
     restrict: 'A',
     templateUrl: 'map/message.tpl.html',
     scope: {
-      marker: '=',
-      markers: '='
-    }
+      marker: '='
+    }, 
+    controller: 'MapMessageCtrl'
   };
 }])
 
+// the controller for the marker message box
+.controller('MapMessageCtrl', ['$scope', '$stateParams', function( $scope, $stateParams ){
+  $scope.$stateParams = $stateParams;
+}])
+
+// formats the internships into markers
 .filter('formatMarkers', [function(){
   return function( markers ){
     angular.forEach( markers, function( element, index ){
-      element.message = '<div sh-map-message marker=\"\'' + index + '\'\" markers=\"markers\"></div>';
-      console.log( element );
+      // adds templating whit shMapMessage directive to marker popups templates
+      element.message = '<div sh-map-message marker=\"markers[\'' + index + '\']\"></div>';
+      element.icon = {
+        type: 'awesomeMarker',
+        icon: 'graduation-cap',
+        prefix: 'fa',
+        markerColor: 'green'
+      };
+
+      //defines group if not defined
+      element.group = element.group ? element.group : 'default';
     });
     return markers;
   };
 }])
 
-.controller('MapsCtrl', ['$scope', '$compile', '$filter', function( $scope, $compile, $filter ){
-
-  $scope.markers = $filter( 'formatMarkers' )({
-    olsoMarker: {
-      lat: 39.91,
-      lng: 15.75,
-      message: '',
-      focus: false,
-      draggable: false
-    },
-    osloMarker: {
-      lat: 59.91,
-      lng: 10.75,
-      message: '',
-      focus: false,
-      draggable: false
-    }
+//controller for the map
+.controller('MapsCtrl', ['$scope', '$compile', '$filter', 'leafletData', 'leafletMarkersHelpers', function( $scope, $compile, $filter, leafletData, leafletMarkersHelpers ){
+  // custom method added to reset groups. Otherwise the markers are not shown.
+  $scope.$on('$destroy', function () {
+    leafletMarkersHelpers.resetCurrentGroups();
   });
 
-  $scope.$on('leafletDirectiveMarker.click', function(e, args) {
-    // Args will contain the marker name and other relevant information
-    console.log("Leaflet Click");
+  // formats the internships into markers
+  $scope.markers = $filter( 'formatMarkers' )( $scope.internships );
 
-    // hack : I add a template whit the shMapMessage directive in the marker message. Compilation is therefore needed to 'explain angular' that it should consider this as a directive and not simply text
+  // compiles the template messages so that the shMapMessage is recognized by angularjs and scope accessible etc
+  $scope.$on('leafletDirectiveMarker.popupopen', function(e, args) {
     var elem = document.getElementsByClassName('leaflet-popup-content');
     $compile( elem )($scope);
   });
-
-  $scope.$on('leafletDirectiveMarker.popupopen', function(e, args) {
-    // Args will contain the marker name and other relevant information
-    console.log("Leaflet Popup Open");
-  });
-
-  $scope.$on('leafletDirectiveMarker.popupclose', function(e, args) {
-    // Args will contain the marker name and other relevant information
-    console.log("Leaflet Popup Close");
-  });
-
-
 }]);
-

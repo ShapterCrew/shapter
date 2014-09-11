@@ -473,13 +473,15 @@ td.active .item-name {
 
 .cat-list > li > a {
   padding: 10px;
-  color: @wet-asphalt;
+  color: @turquoise;
   -webkit-transition: 0s;
   transition: 0s;
 }
 
 .cat-list .dropdown:hover .dropdown-menu {
-  display: block;
+   @media (min-width: @screen-sm-min) {
+    display: block;
+   }
 }
 
 .cat-list .dropdown-menu {
@@ -498,13 +500,13 @@ td.active .item-name {
 
 .nav.browse-nav li.active a,
 .nav.browse-nav li.active:hover a,
- {
-  background-color: @turquoise;
+{
+  background-color: @emerald;
   color: white;
 }
 .nav.browse-nav li:hover a {
-  background-color: @silver;
   color: white;
+  background-color: @emerald;
 }
 
 a.list-in-dropdown-title {
@@ -513,7 +515,7 @@ a.list-in-dropdown-title {
   cursor: default;
   &:hover {
     background-color: transparent !important;
-  }
+}
 }
 
 
@@ -531,9 +533,9 @@ ul.list-in-dropdown-list {
     line-height: @line-height-base;
     color: @dropdown-link-color;
     white-space: nowrap; // prevent links from randomly breaking onto new lines
-  }
-  & > li:hover {
-    color: @dropdown-link-hover-color;
-    background-color: @dropdown-link-hover-bg;
-  }
+}
+& > li:hover {
+  color: @dropdown-link-hover-color;
+  background-color: @dropdown-link-hover-bg;
+}
 }

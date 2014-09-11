@@ -25,9 +25,76 @@ angular.module( 'shapter.internships', [
   });
 }])
 
-.controller('InternshipsCtrl', ['$scope', 'security', '$location', 'Internship', 'Tag', 'internshipTags', '$rootScope', function( $scope, security, $location, Internship, Tag, internshipTags, $rootScope ){
-  $scope.view = 'map';
+.controller('InternshipsCtrl', ['$scope', 'security', '$location', 'Internship', 'Tag', 'internshipTags', '$rootScope', '$timeout', function( $scope, security, $location, Internship, Tag, internshipTags, $rootScope, $timeout ){
   $scope.security = security;
+  $scope.view = 'map';
+  $scope.internshipsList = [{
+    student: {
+      id: '53fc8eaf4d61632d1a111400',
+      image: 'http://graph.facebook.com/746309634/picture',
+      firstname: 'Alex',
+      lastname: 'lolalilaloule'
+    },
+    company: {
+      name: 'Bougyues'
+    },
+    start_time: '2014-07-31',
+    end_time: '2014-09-04',
+    duration: '6',
+    year: '2014',
+    lat: 39.91,
+    lng: 15.75,
+    message: '',
+    focus: false,
+    draggable: false
+  },
+  {
+    student: {
+      id: '53fc8eaf4d61632d1a111400',
+      firstname: 'Bob',
+      lastname: 'Haha'
+    },
+    company: {
+      name: 'Ornage'
+    },
+    lat: 59.81,
+    lng: 11.75,
+    message: '',
+    focus: false,
+    draggable: false
+  },
+  {
+    student: {
+      id: '53fc8eaf4d61632d1a111400',
+      firstname: 'Bob',
+      lastname: 'Haha'
+    },
+    company: {
+      name: 'Ornage'
+    },
+    lat: 53.81,
+    lng: 19.75,
+    message: '',
+    focus: false,
+    draggable: false
+  },
+  {
+    student: {
+      id: '53fc8eaf4d61632d1a111400',
+      firstname: 'Bob',
+      lastname: 'Haha'
+    },
+    company: {
+      name: 'Ornage'
+    },
+    lat: 59.91,
+    lng: 10.75,
+    message: '',
+    focus: false,
+    draggable: false
+  }];
+
+}]);
   $scope.activeTags = [];
   $scope.internshipTags = internshipTags;
   //FIXME: what's this?
