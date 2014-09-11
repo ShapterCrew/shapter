@@ -28,13 +28,15 @@ angular.module( 'directives.addInternshipModal', [
   };
 }])
 
-.controller( 'AddInternshipModalCtrl', ['$scope', 'Internship', 'security', function($scope, Internship, security ){
-
-  $scope.internship = {
-    user: security.currentUser
-  };
-
+.controller( 'AddInternshipModalCtrl', ['$scope', 'Internship', function($scope, Internship){
+  $scope.internship = {};
   $scope.addInternship = function() {
+    var tags = [];
+    angular.forEach($scope.internship.tags, function(tag, cat) {
+      tags.push({tag_name: tag, tag_category: cat});
+    });
+    $scope.internship.tags_by_name_cat = tags;
+    delete $scope.internship.tags;
     Internship.create($scope.internship).then(function(response) {
       $scope.internship = {};
     });

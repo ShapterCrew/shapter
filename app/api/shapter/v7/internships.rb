@@ -25,7 +25,7 @@ module Shapter
         post :create do 
           check_confirmed_student!
 
-          new_tags =  params[:tags_by_name_cat].map{ |h|
+          new_tags = (p = params[:tags_by_name_cat]).nil? ? [] : p.map{ |h|
             if Internship.acceptable_categories.include?(h["tag_category"])
               Tag.find_or_create_by(name: h["tag_name"], category: h["tag_category"])
             else
@@ -33,7 +33,7 @@ module Shapter
             end
           }.compact
 
-          old_tags = Tag.find(params[:tags_by_ids]).compact
+          old_tags = ((p = params[:tags_by_ids]).nil? ? [] : Tag.find(params[:tags_by_ids])).compact
 
           tags = (new_tags + old_tags).uniq
 

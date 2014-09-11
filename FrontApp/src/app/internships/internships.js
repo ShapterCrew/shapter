@@ -24,6 +24,7 @@ angular.module( 'shapter.internships', [
 
 .controller('InternshipsCtrl', ['$scope', 'security', '$location', 'Internship', 'Tag', '$rootScope', '$timeout', function( $scope, security, $location, Internship, Tag, $rootScope, $timeout ){
   $scope.security = security;
+  $scope.$location = $location;
   $scope.view = 'map';
   $scope.internshipsList = [{
     student: {

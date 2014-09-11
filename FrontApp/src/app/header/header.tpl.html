@@ -17,38 +17,21 @@
       <!-- active school name -->
       <ul class="nav navbar-nav navbar-center">
 
-        <li ng-show="root.school" class="dropdown">
-          <a class="navbar-school dropdown-toggle">{{ root.school.name }}<span class="caret white-caret"></span></a>
-          <ul class="dropdown-menu" ng-show="security.currentUser.schools.length > 1">
+        <li class="dropdown">
+          <a class="navbar-school dropdown-toggle">
+            <span ng-show="root.school">{{ root.school.name }}</span>
+            <span ng-hide="root.school">{{ AppText.header.choose_a_campus | language }}</span>
+            <span class="caret white-caret"></span>
+          </a>
+          <ul class="dropdown-menu">
             <li class="dropdown-header">{{ AppText.header.my_institutions | language }}</li>
-            <li ng-repeat="school in security.currentUser.schools">
+            <li ng-repeat="school in security.currentUser.schools" ng-show="security.currentUser.schools.length > 0">
               <a ng-href="#/schools/{{ school.id }}">{{ school.name }}</a>
             </li>
             <li><a href="#/campusAuthentication"><small class="fa fa-plus"></small> {{ AppText.header.add_an_authorization | language }}</a></li>
             <li class="divider"></li>
             <li class="dropdow-header">{{ AppText.header.others | language }}</li>
             <li><a href="#/schools">{{ AppText.header.all_institutions | language }}</a></li>
-          </ul>
-        </li>
-
-        <li ng-show="!root.school && security.currentUser.schools.length == 1" ng-click="schoolNav( security.currentUser.schools[0].id )">
-          <a class="navbar-school">
-            {{ security.currentUser.schools[0].name }}
-          </a>
-        </li>
-
-        <li ng-show="!root.school && security.currentUser.schools.length > 1" class="dropdown">
-          <a class="navbar-school dropdown-toggle">
-            {{ AppText.header.choose_a_campus | language }}
-            <span class="caret white-caret"></span>
-          </a>
-          <ul class="dropdown-menu">
-            <li class="dropdown-header">My institutions</li>
-            <li ng-repeat="school in security.currentUser.schools">
-              <a ng-href="#/schools/{{ school.id}}">{{ school.name }}</a>
-            </li>
-            <li class="divider"></li>
-            <li><a href="#/campusAuthentication"><small class="fa fa-plus"></small> {{ AppText.header.add_an_authorization | language }}</a></li>
           </ul>
         </li>
 
