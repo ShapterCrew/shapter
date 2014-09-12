@@ -28,10 +28,8 @@ angular.module( 'shapter.internships', [
   $scope.view = 'map';
   $scope.activeTags = [];
   $scope.internshipTags = [];
-  $scope.categories = $rootScope.internship_categories;
-
-  //FIXME: what's this?
   $scope.tagsSuggestions = [];
+  $scope.categories = $rootScope.internship_categories;
   
   $scope.nav = function( state ) {
     $location.search('nav', state).search('filter', null);
