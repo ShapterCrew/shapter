@@ -1,5 +1,6 @@
 angular.module( 'directives.addInternshipModal', [
-  'security'
+  'security',
+  'ui.router'
 ])
 .factory( 'shAddInternshipModalFactory', function($modal) {
   return {
@@ -28,7 +29,7 @@ angular.module( 'directives.addInternshipModal', [
   };
 }])
 
-.controller( 'AddInternshipModalCtrl', ['$scope', 'Internship', function($scope, Internship){
+.controller( 'AddInternshipModalCtrl', ['$scope', 'Internship', '$stateParams', function($scope, Internship, $stateParams){
   $scope.internship = {};
   $scope.addInternship = function() {
     var tags = [];
@@ -36,6 +37,7 @@ angular.module( 'directives.addInternshipModal', [
       tags.push({tag_name: tag, tag_category: cat});
     });
     $scope.internship.tags_by_name_cat = tags;
+    $scope.internship.tags_by_ids = [ $stateParams.schoolId ];
     delete $scope.internship.tags;
     Internship.create($scope.internship).then(function(response) {
       $scope.internship = {};

@@ -1,11 +1,11 @@
 <div class="media">
   <a class="pull-left">
-    <img ng-show="marker.student.image" class="thumbnail" style="width: 40px" src='{{ marker.student.image }}'>
-    <img ng-hide="marker.student.image" class="thumbnail" style="width: 40px" src='assets/img/logo_silver_square.png'>
+    <img ng-show="marker.trainee.image" class="thumbnail" style="width: 40px" src='{{ marker.trainee.image }}'>
+    <img ng-hide="marker.trainee.image" class="thumbnail" style="width: 40px" src='assets/img/logo_silver_square.png'>
   </a>
   <div class="media-body">
     <div class="media-heading">
-      <strong><a class="text-default" href="#/schools/{{ $stateParams.schoolId }}/student/{{ marker.student.id }}"><span class="text-blue">{{ marker.student.firstname + ' ' + marker.student.lastname }}</span></a></strong>
+      <strong><a class="text-default" href="#/schools/{{ $stateParams.schoolId }}/student/{{ marker.trainee.id }}"><span class="text-blue">{{ marker.trainee.firstname + ' ' + marker.trainee.lastname }}</span></a></strong>
     </div>
     <div><strong>{{ marker.company.name }}</strong></div>
     <div>6 mois de juin 2013 à novembre 2013</div> 
