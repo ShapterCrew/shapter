@@ -94,9 +94,8 @@ angular.module( 'shapter.internships', [
 
   $scope.activeTags = [];
   $scope.internshipTags = [];
-  //FIXME: what's this?
   $scope.tagsSuggestions = [];
-  $scope.categories = $rootScope.categories;
+  $scope.categories = $rootScope.internship_categories;
   
   $scope.nav = function( state ) {
     $location.search('nav', state).search('filter', null);
@@ -245,12 +244,7 @@ angular.module( 'shapter.internships', [
     };
 
     angular.forEach( input, function( cat ){
-      if( cat == 'formation' || cat == 'choice' || cat == 'teacher' || cat == 'department' || cat == 'admin' || cat == 'skill'){
-        out.display.push( cat );
-      }
-      else if ( cat != 'school' && cat != 'item_name'){
-        out.others.push( cat );
-      }
+      out.display.push( cat );
     });
 
     return out;

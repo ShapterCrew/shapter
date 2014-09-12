@@ -55,11 +55,11 @@
         <ul class="list-inline cat-list nav-justified" style="margin-bottom: 0px; margin-top: 20px">
 
           <!-- some categories -->
-          <li class="dropdown" ng-repeat="cat in (categories | catFilter ).display">
-            <a class="dropdown-toggle" style="white-space: nowrap">{{ AppText.translateCode( cat.code )}}<span class="caret turquoise-caret"></span> </a>
+          <li class="dropdown" ng-repeat="cat in categories">
+            <a class="dropdown-toggle" style="white-space: nowrap">{{ AppText.translateCode( cat )}}<span class="caret turquoise-caret"></span> </a>
             <ul class="dropdown-menu">
-              <li ng-repeat="tag in tagsSuggestions | filter: {category: cat.code}" ng-click="addTag( tag )"><a>{{ tag.name }}</a></li>
-              <li ng-hide="(tagsSuggestions | filter: {category: cat.code}).length > 0" class="disabled">
+              <li ng-repeat="tag in tagsSuggestions | filter: {category: cat}" ng-click="addTag( tag )"><a>{{ tag.name }}</a></li>
+              <li ng-hide="(tagsSuggestions | filter: {category: cat}).length > 0" class="disabled">
                 <a>
                   {{ AppText.browse.remove_tags | language }}
                 </a>

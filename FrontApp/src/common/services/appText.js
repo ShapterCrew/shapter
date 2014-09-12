@@ -1076,7 +1076,7 @@ angular.module( 'services.appText', [])
         fr: 'Language'
       },
       geo: {
-        en: 'Localistation',
+        en: 'Location',
         fr: 'Localisation'
       },
       teacher: {
