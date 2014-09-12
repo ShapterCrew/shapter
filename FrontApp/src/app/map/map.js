@@ -13,7 +13,7 @@ angular.module( 'shapter.maps', [
     templateUrl: 'map/map.tpl.html',
     controller: 'MapsCtrl',
     scope: {
-      internships: '='
+      internshipsList: '='
     }
   };
 }])
@@ -37,33 +37,43 @@ angular.module( 'shapter.maps', [
 
 // formats the internships into markers
 .filter('formatMarkers', [function(){
-  return function( markers ){
-    angular.forEach( markers, function( element, index ){
+  return function( internships ){
+    angular.forEach( internships, function( marker, index ){
       // adds templating whit shMapMessage directive to marker popups templates
-      element.message = '<div sh-map-message marker=\"markers[\'' + index + '\']\"></div>';
-      element.icon = {
+      marker.message = '<div sh-map-message marker=\"markers[\'' + index + '\']\"></div>';
+      marker.icon = {
         type: 'awesomeMarker',
         icon: 'graduation-cap',
         prefix: 'fa',
         markerColor: 'green'
       };
 
+      // TODO: remove those
+      marker.lat = 39.12;
+      marker.lng = 15.75;
+      marker.focus = false;
+      marker.draggable = false;
+
       //defines group if not defined
-      element.group = element.group ? element.group : 'default';
+      marker.group = marker.group ? marker.group : 'default';
     });
-    return markers;
+    return internships;
   };
 }])
 
 //controller for the map
-.controller('MapsCtrl', ['$scope', '$compile', '$filter', 'leafletData', 'leafletMarkersHelpers', function( $scope, $compile, $filter, leafletData, leafletMarkersHelpers ){
+.controller('MapsCtrl', ['$scope', '$compile', '$filter', 'leafletMarkersHelpers', function( $scope, $compile, $filter, leafletMarkersHelpers ){
   // custom method added to reset groups. Otherwise the markers are not shown.
   $scope.$on('$destroy', function () {
     leafletMarkersHelpers.resetCurrentGroups();
   });
 
   // formats the internships into markers
-  $scope.markers = $filter( 'formatMarkers' )( $scope.internships );
+  $scope.$watch( function(){
+    return $scope.internshipsList;
+  }, function(){
+    $scope.markers = $filter( 'formatMarkers' )( $scope.internshipsList );
+  }, true);
 
   // compiles the template messages so that the shMapMessage is recognized by angularjs and scope accessible etc
   $scope.$on('leafletDirectiveMarker.popupopen', function(e, args) {
