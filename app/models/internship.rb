@@ -34,7 +34,6 @@ class Internship
         "skill",
         "school",
         "geo",
-        "internship_name",
         "company",
         "company_size",
         "domain",

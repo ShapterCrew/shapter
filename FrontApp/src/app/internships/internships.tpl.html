@@ -55,7 +55,7 @@
         <ul class="list-inline cat-list nav-justified" style="margin-bottom: 0px; margin-top: 20px">
 
           <!-- some categories -->
-          <li class="dropdown" ng-repeat="cat in categories">
+          <li class="dropdown" ng-repeat="cat in (categories | internshipsCatFilter ).display">
             <a class="dropdown-toggle" style="white-space: nowrap">{{ AppText.translateCode( cat )}}<span class="caret turquoise-caret"></span> </a>
             <ul class="dropdown-menu">
               <li ng-repeat="tag in tagsSuggestions | filter: {category: cat}" ng-click="addTag( tag )"><a>{{ tag.name }}</a></li>
@@ -73,8 +73,8 @@
 
             <ul class="dropdown-menu">
               <!-- repat remaining categories -->
-              <li ng-repeat="cat in (categories | catFilter).others" ng-show="(tagsSuggestions | filter: { category: cat.code }).length > 0">
-                <a class="list-in-dropdown-title">{{ AppText.translateCode( cat.code ) }}</a>
+              <li ng-repeat="cat in (categories | internshipsCatFilter).others" ng-show="(tagsSuggestions | filter: { category: cat }).length > 0">
+                <a class="list-in-dropdown-title">{{ AppText.translateCode( cat ) }}</a>
                 <ul class="list-in-dropdown-list">
                   <li ng-repeat="tag in tagsSuggestions | filter: {category: cat.code}" ng-click="addTag( tag )"><a>{{ tag.name }}</a></li>
                 </ul>
@@ -116,7 +116,7 @@
       <!-- }}} -->
 
       <div class="shapter-well" ng-show="view == 'map'">
-        <sh-map internships="internshipsList"></sh-map>
+        <sh-map internships-list="internshipsList"></sh-map>
       </div>
 
       <!--

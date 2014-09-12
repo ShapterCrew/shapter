@@ -1102,6 +1102,26 @@ angular.module( 'services.appText', [])
       skill: {
         en: 'Skill',
         fr: 'Compétence'
+      },
+      internship_name: {
+        en: 'Name',
+        fr: 'Nom'
+      },
+      company_size: {
+        en: 'Company size',
+        fr: 'Taille de l\'entreprise'
+      },
+      position: {
+        en: 'Position',
+        fr: 'Poste'
+      },
+      domain: {
+        en: 'Domain',
+        fr: 'Domaine'
+      },
+      company: {
+        en: 'Company',
+        fr: 'Entreprise'
       }
     },
     confirmationSent: {

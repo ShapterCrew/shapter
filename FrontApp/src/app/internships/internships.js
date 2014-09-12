@@ -22,76 +22,10 @@ angular.module( 'shapter.internships', [
   });
 }])
 
-.controller('InternshipsCtrl', ['$scope', 'security', '$location', 'Internship', 'Tag', '$rootScope', '$timeout', function( $scope, security, $location, Internship, Tag, $rootScope, $timeout ){
+.controller('InternshipsCtrl', ['$scope', 'security', '$location', 'Internship', 'Tag', '$rootScope', '$timeout', '$stateParams', function( $scope, security, $location, Internship, Tag, $rootScope, $timeout, $stateParams ){
   $scope.security = security;
   $scope.$location = $location;
   $scope.view = 'map';
-  $scope.internshipsList = [{
-    student: {
-      id: '53fc8eaf4d61632d1a111400',
-      image: 'http://graph.facebook.com/746309634/picture',
-      firstname: 'Alex',
-      lastname: 'lolalilaloule'
-    },
-    company: {
-      name: 'Bougyues'
-    },
-    start_time: '2014-07-31',
-    end_time: '2014-09-04',
-    duration: '6',
-    year: '2014',
-    lat: 39.91,
-    lng: 15.75,
-    message: '',
-    focus: false,
-    draggable: false
-  },
-  {
-    student: {
-      id: '53fc8eaf4d61632d1a111400',
-      firstname: 'Bob',
-      lastname: 'Haha'
-    },
-    company: {
-      name: 'Ornage'
-    },
-    lat: 59.81,
-    lng: 11.75,
-    message: '',
-    focus: false,
-    draggable: false
-  },
-  {
-    student: {
-      id: '53fc8eaf4d61632d1a111400',
-      firstname: 'Bob',
-      lastname: 'Haha'
-    },
-    company: {
-      name: 'Ornage'
-    },
-    lat: 53.81,
-    lng: 19.75,
-    message: '',
-    focus: false,
-    draggable: false
-  },
-  {
-    student: {
-      id: '53fc8eaf4d61632d1a111400',
-      firstname: 'Bob',
-      lastname: 'Haha'
-    },
-    company: {
-      name: 'Ornage'
-    },
-    lat: 59.91,
-    lng: 10.75,
-    message: '',
-    focus: false,
-    draggable: false
-  }];
-
   $scope.activeTags = [];
   $scope.internshipTags = [];
   $scope.tagsSuggestions = [];
@@ -149,9 +83,9 @@ angular.module( 'shapter.internships', [
 
   $scope.updateInternshipsList = function() {
     var current_only = $location.search().nav == "current";
-    var array = [];
+    var array = [ $stateParams.schoolId ];
     // Initialize tags with filter param in url
-    angular.forEach( toArray( $location.search().filter), function( id ){
+    angular.forEach( toArray( $location.search().filter ), function( id ){
       array.push( id );
     });
 
@@ -236,7 +170,7 @@ angular.module( 'shapter.internships', [
   };
 }])
 
-.filter('catFilter', [function(){
+.filter('internshipsCatFilter', [function(){
   return function( input ){
     var out = {
       display: [],
@@ -244,7 +178,12 @@ angular.module( 'shapter.internships', [
     };
 
     angular.forEach( input, function( cat ){
-      out.display.push( cat );
+      if( cat == 'skill' || cat == 'geo' || cat == 'company' || cat == 'domain'){
+        out.display.push( cat );
+      }
+      else if ( cat != 'school' && cat != 'internship_name'){
+        out.others.push( cat );
+      }
     });
 
     return out;
