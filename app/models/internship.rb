@@ -26,6 +26,14 @@ class Internship
     tags.skills
   end
 
+  def long
+    location.first
+  end
+
+  def lat
+    location.last
+  end
+
   def pretty_id
     id.to_s
   end

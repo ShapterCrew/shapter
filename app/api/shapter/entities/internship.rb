@@ -8,6 +8,9 @@ module Shapter
       expose :end_date, if: lambda {|i,o| o[:entity_options]["internship"][:end_date] }
       expose :duration, as: :duration_in_days, if: lambda{|i,o| o[:entity_options]["internship"][:duration_in_days] }
       expose :tags, using: Shapter::Entities::Tag, if: lambda {|i,o| o[:entity_options]["internship"][:tags]}
+      expose :address, if: lambda{|i,o| o[:entity_options]["internship"][:address]}
+      expose :lat, if: lambda{|i,o| o[:entity_options]["internship"][:lat]}
+      expose :long, if: lambda{|i,o| o[:entity_options]["internship"][:long]}
     end
   end
 end
