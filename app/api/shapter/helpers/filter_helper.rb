@@ -26,7 +26,7 @@ module Shapter
 
       # To perform a collaborative filtering based on tag->item->tag path, klass=Item.
       def reco_tags(ary,category,klass)
-        Rails.cache.fetch( "recoTags|#{category}|#{klass}|#{ary.sort.join(":")}|#{cache_key_for(Tag,klass)}", expires_in: 90.minutes ) do 
+        Rails.cache.fetch( "RecoTags|#{category}|#{klass}|#{ary.sort.join(":")}|#{cache_key_for(Tag,klass)}", expires_in: 90.minutes ) do 
           tags_for_klass_ids(
             (klass_instances_ids =  klass.all_in("tag_ids" => ary ).only(:id)).map(&:id), klass, category, ary
         )
