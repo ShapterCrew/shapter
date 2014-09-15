@@ -58,9 +58,14 @@
               <a class="dropdown-toggle" style="white-space: nowrap" ng-mouseover="getSuggestedTags( cat )">{{ AppText.translateCode( cat )}}<span class="caret"></span> </a>
               <ul class="dropdown-menu">
                 <li ng-repeat="tag in tagsSuggestions[ cat ]" ng-click="addTag( tag )"><a>{{ tag.name }}</a></li>
-                <li ng-hide="tagsSuggestions[ cat ].length > 0" class="disabled">
+                <li ng-show="tagsSuggestions[ cat ] === []" class="disabled">
                   <a>
                     {{ AppText.browse.remove_tags | language }}
+                  </a>
+                </li>
+                <li ng-show="tagsSuggestions[ cat ] == 'loading'" class="disabled">
+                  <a>
+                    <span class="fa fa-spin"></span>{{ AppText.system.loading | language }}
                   </a>
                 </li>
               </ul>

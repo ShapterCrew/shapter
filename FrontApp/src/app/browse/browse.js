@@ -201,18 +201,22 @@ angular.module( 'shapter.browse', [
 
   // loads tags suggestions 
   $scope.getSuggestedTags = function( category ){
-    console.log( 'lol' );
     if( $scope.tagsSuggestions[ category ] === undefined ){
-      $scope.tagsSuggestions[ category ] = [];
+      $scope.tagsSuggestions[ category ] = 'loading';
       var array = [];
       angular.forEach( toArray( $location.search().filter ), function( id ){
-        array.push( id );
+        if( !!id ){
+          array.push( id );
+        }
       });
       array.push( $stateParams.schoolId );
 
       Tag.getSuggestedTags( array, 'item', 200, category ).then( function( response ){
-        console.log( response );
+        console.log( response.recommended_tags );
         $scope.tagsSuggestions[ category ] = response.recommended_tags;
+      }, function(){
+        console.log( 'error' );
+        $scope.tagsSuggestions[ category ] = [];
       });
     }
   };
