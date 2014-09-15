@@ -57,15 +57,15 @@
             <li class="dropdown" ng-repeat="cat in (categories | catFilter ).display">
               <a class="dropdown-toggle" style="white-space: nowrap" ng-mouseover="getSuggestedTags( cat )">{{ AppText.translateCode( cat )}}<span class="caret"></span> </a>
               <ul class="dropdown-menu">
-                <li ng-repeat="tag in tagsSuggestions[ cat ]" ng-click="addTag( tag )"><a>{{ tag.name }}</a></li>
-                <li ng-show="tagsSuggestions[ cat ] === []" class="disabled">
+                <li ng-hide="tagsSuggestions[ cat ] === undefined || tagsSuggestions[ cat ] == 'loading'" ng-repeat="tag in tagsSuggestions[ cat ]" ng-click="addTag( tag )"><a>{{ tag.name }}</a></li>
+                <li ng-show="tagsSuggestions[cat] !== undefined && tagsSuggestions[ cat ].length === 0" class="disabled">
                   <a>
                     {{ AppText.browse.remove_tags | language }}
                   </a>
                 </li>
                 <li ng-show="tagsSuggestions[ cat ] == 'loading'" class="disabled">
                   <a>
-                    <span class="fa fa-spin"></span>{{ AppText.system.loading | language }}
+                    <span class="fa fa-refresh fa-spin"></span>
                   </a>
                 </li>
               </ul>
@@ -73,18 +73,18 @@
 
             <!-- more categories ! -->
             <li class="dropdown">
-              <a class="dropdown-toggle" style="white-space: nowrap">{{ AppText.browse.more | language }}<span class="caret"></span> </a>
+              <a class="dropdown-toggle" style="white-space: nowrap" ng-mouseover="getRemainingCatSuggestions()">{{ AppText.browse.more | language }}<span class="caret"></span></a>
 
               <ul class="dropdown-menu dropdown-menu-right">
                 <!-- repat remaining categories -->
-                <li ng-repeat="cat in (categories | catFilter).others" ng-show="tagsSuggestions[ cat ].length > 0">
+                <li ng-repeat="cat in (categories | catFilter).others" ng-show="tagsSuggestions[ cat ].length > 0 && tagsSuggestions[ cat ] != 'loading'">
                     <a class="list-in-dropdown-title">{{ AppText.translateCode( cat ) }}</a>
                     <ul class="list-in-dropdown-list">
                       <li ng-repeat="tag in tagsSuggestions[ cat ]" ng-click="addTag( tag )"><a>{{ tag.name }}</a></li>
                     </ul>
                 </li>
 
-                <li ng-hide="tagsSuggestions[ cat ].length > 0" class="disabled">
+                <li class="disabled">
                   <a>
                     {{ AppText.browse.remove_tags | language }}
                   </a>

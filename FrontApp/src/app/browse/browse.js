@@ -212,13 +212,18 @@ angular.module( 'shapter.browse', [
       array.push( $stateParams.schoolId );
 
       Tag.getSuggestedTags( array, 'item', 200, category ).then( function( response ){
-        console.log( response.recommended_tags );
         $scope.tagsSuggestions[ category ] = response.recommended_tags;
       }, function(){
         console.log( 'error' );
         $scope.tagsSuggestions[ category ] = [];
       });
     }
+  };
+
+  $scope.getRemainingCatSuggestions = function(){
+    angular.forEach( $filter( 'catFilter')( $scope.categories ).others, function( cat ){
+      $scope.getSuggestedTags( cat );
+    });
   };
 
   // load filtered items
