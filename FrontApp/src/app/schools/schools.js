@@ -128,9 +128,9 @@ angular.module( 'shapter.schools', [
 }])
 
 
-.controller('FormationCtrl', [ '$scope', 'Tag', 'security', '$location', 'formation', '$stateParams', 'school', 'Formation', 'AppText', 'Analytics', 'Internship', function( $scope, Tag, security, $location, formation, $stateParams, school, Formation, AppText, Analytics, Internship){
+.controller('FormationCtrl', [ '$scope', 'Tag', 'security', '$location', 'formation', '$stateParams', 'school', 'Formation', 'AppText', 'Analytics', 'Internship', 'shAddInternshipModalFactory', function( $scope, Tag, security, $location, formation, $stateParams, school, Formation, AppText, Analytics, Internship, shAddInternshipModalFactory){
 
-
+  $scope.shAddInternshipModalFactory = shAddInternshipModalFactory;
   $scope.internshipsList = [{
     student: {
       id: '53fc8eaf4d61632d1a111400',
