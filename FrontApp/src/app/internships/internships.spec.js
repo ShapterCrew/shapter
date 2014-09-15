@@ -4,6 +4,14 @@ describe('AddInternshipModal Test', function() {
     module('directives.addInternshipModal');
     module('services.appText');
     module(function( $provide ){
+      $provide.provider('Tag', function () { 
+        this.$get = function () {
+          return {
+            typeahead: function(){
+            }
+          };
+        };
+      });
       $provide.provider('$modalInstance', function () { 
         this.$get = function () {
           return {

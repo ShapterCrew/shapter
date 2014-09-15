@@ -23,6 +23,7 @@ angular.module( 'shapter.internships', [
 }])
 
 .controller('InternshipsCtrl', ['$scope', 'security', '$location', 'Internship', 'Tag', '$rootScope', '$timeout', '$stateParams', 'shAddInternshipModalFactory', function( $scope, security, $location, Internship, Tag, $rootScope, $timeout, $stateParams, shAddInternshipModalFactory ){
+
   $scope.shAddInternshipModalFactory = shAddInternshipModalFactory;
   $scope.security = security;
   $scope.$location = $location;
@@ -31,7 +32,7 @@ angular.module( 'shapter.internships', [
   $scope.internshipTags = [];
   $scope.tagsSuggestions = {};
   $scope.categories = $rootScope.internship_categories;
-  
+
   $scope.nav = function( state ) {
     $location.search('nav', state).search('filter', null);
     $scope.update();
@@ -169,6 +170,7 @@ angular.module( 'shapter.internships', [
 
   $scope.addTextTag = function() {
     $scope.addTag( $scope.typedTag );
+    $scope.typedTag = null;
   };
 
   $scope.update();

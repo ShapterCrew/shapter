@@ -52,7 +52,7 @@ angular.module( 'shapter.maps', [
       };
 
       //defines group if not defined
-      internship.group = internship.group ? internship.group : 'default';
+      internship.group = 'default';
     });
     return internships;
   };

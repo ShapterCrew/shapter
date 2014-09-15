@@ -26,12 +26,18 @@ angular.module( 'directives.addInternshipModal', [
   };
 }])
 
-.controller( 'AddInternshipModalCtrl', ['$scope', 'Internship', '$stateParams', 'Map', '$filter', '$modalInstance', 'AppText', '$rootScope', function($scope, Internship, $stateParams, Map, $filter, $modalInstance, AppText, $rootScope ){
+.controller( 'AddInternshipModalCtrl', ['$scope', 'Internship', '$stateParams', 'Map', '$filter', '$modalInstance', 'AppText', '$rootScope', 'Tag', function($scope, Internship, $stateParams, Map, $filter, $modalInstance, AppText, $rootScope, Tag ){
 
   $scope.AppText = AppText;
   $scope.internship = {};
   $scope.internship.schoolId = $stateParams.schoolId;
   $scope.close = $modalInstance.close;
+
+  $scope.getCompaniesTypeahead = function( string ){
+    return Tag.typeahead( string, [], 'internship', 30, 'company').then( function( response ){
+      return response.tags;
+    });
+  };
 
   $scope.getFormatedAdresses = function( string ){
     $scope.loadingAddresses = true;
@@ -61,7 +67,7 @@ angular.module( 'directives.addInternshipModal', [
     });
 
     angular.forEach( internship.address.address_components, function( component ){
-      if( component.types[0] != 'street_number' && component.types[0] != 'route' ){
+      if( component.types[0] != 'street_number' && component.types[0] != 'route' && component.types[0] != 'postal_code'){
         tags.push({
           tag_category: 'geo',
           tag_name: component.long_name
