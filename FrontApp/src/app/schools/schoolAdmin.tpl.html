@@ -4,20 +4,6 @@
     <div class="row">
       <div class="col-md-10 col-md-offset-1">
         <div class="form-group">
-          <label>Nom de l'établissement</label>
-          <input class="form-control" ng-model="school" typeahead="schooly as schooly.name for schooly in schools | filter : $viewValue" typeahead-on-select="changeSchool()" ng-blur="changeSchool()">
-          <span ng-show="wrongSchoolName" style="color:red;">Il faut taper le nom d'une école déjà existante !</span>
-        </div>
-        <div class="form-group">
-          <label>Nom de la formation</label>
-          <input class="form-control" ng-model="form.name">
-        </div>
-        <div class="form-group" ng-show="false">
-          <label>Liste de tags définissant la formation: </label>
-          <input type="text" class="form-control" placeholder="Exs: Telecom ParisTech, ULM + Master MVA..." typeahead="tag as tag.name + ' / ' + tag.category for tag in schoolTags | ignoreAccentsFilter | filter: $viewValue | shorterFirstFilter | limitTo: 50" ng-model="formationTag" typeahead-editable="true" typeahead-on-select="addFormationTags()">
-          <span class="tag tag-new" ng-repeat="tag in activeTags">{{ tag.name }} <span class="glyphicon glyphicon-remove" ng-click="removeTag( $index )"</span></span>
-        </div>
-        <div class="form-group">
           <label>Description du campus: </label>
           <textarea class="form-control" ng-model="form.description"></textarea>
         </div>
