@@ -20,6 +20,12 @@ module Shapter
         empty_h.merge({:current_user => current_user})
       end
 
+      def permit_params(h,ary)
+        ary.map { |attr|
+          h[attr] ? {attr => h[attr]} : {}
+        }.reduce({}, &:merge)
+      end
+
     end
   end
 end

@@ -68,6 +68,18 @@ describe Shapter::V7::SchoolsDiagDims do
   end
   #}}}
 
+  #{{{ update
+  describe :update do 
+    it "should update" do 
+      title = "montitre"
+      expect(@intern.title).to_not eq title
+      put "internships/#{@intern.id}", {title: title}
+      @intern.reload
+      expect(@intern.title).to eq title
+    end
+  end
+  #}}}
+
   # {{{ filter
   describe :filter do 
 
