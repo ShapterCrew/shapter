@@ -16,6 +16,47 @@ angular.module('resources.tag', [
 
   var Tag = {
 
+    typeahead: function( string, tag_ids, context, limit, category_filter ){
+      var params = {
+        search_string: string,
+        selected_tags: tag_ids,
+        context: context,
+        limit: limit,
+        entities: {
+          tag: {
+            name: true,
+            category: true
+          }
+        }
+      };
+
+      if ( !!category_filter ){
+        params.category_filter = category_filter;
+      }
+
+      return Restangular.all( 'tags' ).customPOST( params, 'typeahead' );
+    },
+
+    getSuggestedTags: function( tag_ids, context, limit, category_filter ){
+      var params = {
+        selected_tags: tag_ids,
+        context: context,
+        limit: limit,
+        entities: {
+          tag: {
+            name: true,
+            category: true
+          }
+        }
+      };
+
+      if ( !!category_filter ){
+        params.category_filter = category_filter;
+      }
+
+      return Restangular.all( 'tags' ).customPOST( params, 'suggested' );
+    },
+
     get: function( id ){
       var params = {
         entities: {
@@ -193,26 +234,6 @@ angular.module('resources.tag', [
       });
       var tagName = toType( tag ) == 'object' ? tag.name : tag;
       return Restangular.all( 'tags' ).all( 'batch_tag' ).post({'tag_name': tagName, 'item_ids_list': item_ids_list});
-    },
-
-    getSuggestedTags: function( tags ) {
-      var entities = {
-        tag: {
-          name: true,
-          category: true,
-          short_name: true
-        }
-      };
-      return Restangular.all('tags/suggested').post({entities: entities, selected_tags: tags, ignore_user: true}).then(function(response){
-        // format tags to be used in app
-        angular.forEach( response.recommended_tags, function( tag ){
-          tag.category = tag.category ? tag.category : "autres";
-          tag.acronym = tag.short_name ? tag.short_name : tag.name;
-          tag.full_name = tag.short_name ? tag.short_name + " : " + tag.name : tag.name;
-        });
-        tagsSuggestions = response.recommended_tags;
-        return tagsSuggestions;
-      });
     },
 
     updateTag: function( tag, newName ){

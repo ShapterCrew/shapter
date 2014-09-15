@@ -46,7 +46,7 @@
           </div>
 
           <!-- input -->
-          <input sh-auto-focus="true" type="text" class="form-control" placeholder="+ {{ AppText.browse.add_a_keyword | language }}" typeahead="tag as tag.full_name for tag in schoolTags | ignoreAccentsFilter | filter: {'full_name': $viewValue} | shorterFirstFilter | notAlreadyThere:activeTags | limitTo: 50" ng-model="typedTag" typeahead-editable="false" typeahead-on-select="addTextTag()" style="margin-top: 20px"></input>
+          <input sh-auto-focus="true" type="text" class="form-control" placeholder="+ {{ AppText.browse.add_a_keyword | language }}" typeahead="tag as tag.name for tag in getTypeahead( $viewValue ) | limitTo: 50" typeahead-min-length="3" ng-model="typedTag" typeahead-editable="false" typeahead-on-select="addTextTag()" style="margin-top: 20px"></input>
 
 
           <hr style="margin-top: 15px; margin-bottom: 15px">
@@ -55,10 +55,10 @@
 
             <!-- some categories -->
             <li class="dropdown" ng-repeat="cat in (categories | catFilter ).display">
-              <a class="dropdown-toggle" style="white-space: nowrap">{{ AppText.translateCode( cat )}}<span class="caret"></span> </a>
+              <a class="dropdown-toggle" style="white-space: nowrap" ng-mouseover="getSuggestedTags( cat )">{{ AppText.translateCode( cat )}}<span class="caret"></span> </a>
               <ul class="dropdown-menu">
-                <li ng-repeat="tag in tagsSuggestions | filter: {category: cat}" ng-click="addTag( tag )"><a>{{ tag.name }}</a></li>
-                <li ng-hide="(tagsSuggestions | filter: {category: cat}).length > 0" class="disabled">
+                <li ng-repeat="tag in tagsSuggestions[ cat ]" ng-click="addTag( tag )"><a>{{ tag.name }}</a></li>
+                <li ng-hide="tagsSuggestions[ cat ].length > 0" class="disabled">
                   <a>
                     {{ AppText.browse.remove_tags | language }}
                   </a>
@@ -72,14 +72,14 @@
 
               <ul class="dropdown-menu dropdown-menu-right">
                 <!-- repat remaining categories -->
-                <li ng-repeat="cat in (categories | catFilter).others" ng-show="(tagsSuggestions | filter: { category: cat }).length > 0">
+                <li ng-repeat="cat in (categories | catFilter).others" ng-show="tagsSuggestions[ cat ].length > 0">
                     <a class="list-in-dropdown-title">{{ AppText.translateCode( cat ) }}</a>
                     <ul class="list-in-dropdown-list">
-                      <li ng-repeat="tag in tagsSuggestions | filter: {category: cat}" ng-click="addTag( tag )"><a>{{ tag.name }}</a></li>
+                      <li ng-repeat="tag in tagsSuggestions[ cat ]" ng-click="addTag( tag )"><a>{{ tag.name }}</a></li>
                     </ul>
                 </li>
 
-                <li ng-hide="(tagsSuggestions | filter: {category: cat}).length > 0" class="disabled">
+                <li ng-hide="tagsSuggestions[ cat ].length > 0" class="disabled">
                   <a>
                     {{ AppText.browse.remove_tags | language }}
                   </a>
