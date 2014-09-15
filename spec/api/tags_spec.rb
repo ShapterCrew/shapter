@@ -45,10 +45,23 @@ describe Shapter::V7::Tags do
 
     it 'finds all tags with provided search string' do 
       post '/tags/typeahead', @params.merge(search_string: 'my School')
-      h = JSON.parse(@response.body)
+      ids = JSON.parse(@response.body)["tags"].map{|h| h["id"]}
+      expect(ids).to match_array([@t1,@t2].map(&:id).map(&:to_s))
+
+      post '/tags/typeahead', @params.merge(search_string: ' School  admin')
+      ids = JSON.parse(@response.body)["tags"].map{|h| h["id"]}
+      expect(ids).to match_array([@t1].map(&:id).map(&:to_s))
+
+      post '/tags/typeahead', @params.merge(search_string: 'moijoijy School')
+      ids = JSON.parse(@response.body)["tags"].map{|h| h["id"]}
+      expect(ids).to match_array([].map(&:id).map(&:to_s))
+
     end
 
     it "finds tags of specified category, if category is specified" do 
+      post '/tags/typeahead', @params.merge(search_string: 'my School', category_filter: 'admin')
+      ids = JSON.parse(@response.body)["tags"].map{|h| h["id"]}
+      expect(ids).to match_array([@t1].map(&:id).map(&:to_s))
     end
   end
   #}}}

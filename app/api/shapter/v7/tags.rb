@@ -34,7 +34,7 @@ module Shapter
 
           resp = reco_tags(params[:selected_tags],params[:category_filter],klass).where(autocomplete: /#{Autocomplete.normalize(params[:search_string])}/)
 
-          present :recommended_tags, resp, using: Shapter::Entities::Tag, entity_options: entity_options
+          present :tags, resp, with: Shapter::Entities::Tag, entity_options: entity_options
         end
         #}}}
 
