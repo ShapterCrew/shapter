@@ -29,7 +29,7 @@ angular.module( 'shapter.internships', [
   $scope.view = 'map';
   $scope.activeTags = [];
   $scope.internshipTags = [];
-  $scope.tagsSuggestions = [];
+  $scope.tagsSuggestions = {};
   $scope.categories = $rootScope.internship_categories;
   
   $scope.nav = function( state ) {
@@ -55,7 +55,6 @@ angular.module( 'shapter.internships', [
 
   $scope.update = function() {
     $scope.updateScopeTags();
-    $scope.loadSuggestedTags();
     $scope.updateInternshipsList();
   };
 
@@ -71,21 +70,37 @@ angular.module( 'shapter.internships', [
   $scope.updateScopeTags = function(){
     var scopeTags = [];
     angular.forEach( toArray( $location.search().filter ), function( tagId ){
-      scopeTags.push( $scope.schoolTagIndex[ tagId ] );
+      Tag.get( tagId ).then( function( tag ){
+        scopeTags.push( tag );
+      });
     });
     $scope.activeTags = scopeTags;
   };
 
-  // loads tags suggestions 
-  $scope.loadSuggestedTags = function(){
-    $scope.tagsLoading = true;
-    var array = [];
-    angular.forEach( toArray( $location.search().filter ), function( id ){
-      array.push( id );
-    });
-    Tag.getSuggestedTags( array ).then( function( response ){
-      $scope.tagsSuggestions = response;
-      $scope.tagsLoading = false;
+  // retrieves tag suggestions
+  $scope.getSuggestedTags = function( category ){
+    if( $scope.tagsSuggestions[ category ] === undefined ){
+      $scope.tagsSuggestions[ category ] = 'loading';
+      var array = [];
+      angular.forEach( toArray( $location.search().filter ), function( id ){
+        if( !!id ){
+          array.push( id );
+        }
+      });
+      array.push( $stateParams.schoolId );
+
+      Tag.getSuggestedTags( array, 'internship', 200, category ).then( function( response ){
+        $scope.tagsSuggestions[ category ] = response.recommended_tags;
+      }, function(){
+        console.log( 'error' );
+        $scope.tagsSuggestions[ category ] = [];
+      });
+    }
+  };
+
+  $scope.getRemainingCatSuggestions = function(){
+    angular.forEach( $filter( 'internshipsCatFilter')( $scope.categories ).others, function( cat ){
+      $scope.getSuggestedTags( cat );
     });
   };
 
@@ -116,8 +131,12 @@ angular.module( 'shapter.internships', [
     return out;
   };
 
+  // detect user input in tags-input
   $scope.onTagAdded = function( tag ){
-    if( $scope.isInUrl(tag) === false && $scope.schoolTagIndex[ tag.id ] && tag.id != $stateParams.schoolId ){
+    if( $scope.isInUrl(tag) === false && tag.id != $stateParams.schoolId ){
+      $scope.nbItems = 0;
+      $scope.itemsList = [];
+
       var newFilters = toArray( $location.search().filter ) || [];
       newFilters.push( tag.id );
       $location.search( 'filter', newFilters );
