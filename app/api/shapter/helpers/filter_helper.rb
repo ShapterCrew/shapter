@@ -46,7 +46,7 @@ module Shapter
               else
                 ts
               end
-        res.not.any_in(id: initial_ary)
+        res
       end
 
       def cache_key_for(*args)
