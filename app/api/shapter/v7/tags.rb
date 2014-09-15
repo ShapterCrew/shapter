@@ -36,9 +36,9 @@ module Shapter
                      reco_tags(params[:selected_tags],params[:category_filter],klass)
                    else
                      if params[:category_filter]
-                       Tag.where(category: params[:category_filter])
+                       Tag.where(category: params[:category_filter]).not.where("#{klass.to_s.downcase}_ids" => nil)
                      else
-                       Tag
+                       Tag.not.where("#{klass.to_s.downcase}_ids" => nil)
                      end
                    end
 
