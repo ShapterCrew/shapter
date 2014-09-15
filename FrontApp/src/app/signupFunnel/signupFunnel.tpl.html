@@ -1,11 +1,11 @@
 <sh-header></sh-header>
 
-<div class="container" ng-show="noSF">
-  <div class="emerald-infos" ng-show="initialState && security.isConfirmedStudent()">
+<div class="emerald-infos" ng-show="initialState && security.isConfirmedStudent() && noSF">
+  <div class="container">
     <div class="container">
       <div class="row">
         <div class="col-md-8 col-md-offset-2">
-          <h5><span class="text-blue">{{ AppText.signup_funnel.noSF | language }}</span></h5>
+          <h6><span>{{ AppText.signup_funnel.noSF | language }}</span></h6>
         </div><!-- col -->
       </div><!-- row -->
     </div>

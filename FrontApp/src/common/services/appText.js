@@ -20,6 +20,10 @@ angular.module( 'services.appText', [])
       return $filter( 'language' )( $parse( code )( AppText.categories ));
     },
     internships: {
+      _in: {
+        en: 'in',
+        fr: 'à'
+      },
       browse_internships_long: {
         en: 'Browse internships whit keywords: the name of the company, the localisation, its field ... Each additional keyword filters the results once more.',
         fr: 'Cherche parmi les stages effectués par les anciens en ajoutant des mot-clefs : le nom de l\'entreprise, le lieu, le domaine enseigné ... Chaque mot-clef supplémentaire filtre un peu plus la recherche.'
@@ -29,8 +33,8 @@ angular.module( 'services.appText', [])
         fr: 'Cherche des stages'
       },
       internships: {
-        en: 'Internships',
-        fr: 'Stages'
+        en: 'internships',
+        fr: 'stages'
       },
       map_view: {
         en: 'Map view',
@@ -41,8 +45,8 @@ angular.module( 'services.appText', [])
         fr: 'Liste'
       },
       in_favourites: {
-        en: 'in current internships',
-        fr: 'dans les stages en cours'
+        en: 'current internships',
+        fr: 'stages en cours'
       },
       current_internships: {
         en: 'Current internships',
@@ -568,6 +572,14 @@ angular.module( 'services.appText', [])
       }
     },
     item: {
+      comment: {
+        en: 'Leave a comment!',
+        fr: 'Laisse un commentaire !'
+      },
+      hide_comment: {
+        en: 'hide',
+        fr: 'masquer'
+      },
       characteristics: {
         en: 'Characteristics: ',
         fr: 'Caractéristiques :'

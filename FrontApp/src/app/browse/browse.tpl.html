@@ -1,7 +1,5 @@
 <div style="height: 100%; overflow: auto" infinite-scroll="loadMoreItems()" infinite-scroll-distance="1" infinite-scroll-disabled="itemsLoading" infinite-scroll-immediate-check="true">
-
   <sh-header></sh-header>
-
   <div class="container">
     <div class="row">
       <div class="col-md-12">
@@ -24,7 +22,7 @@
   </div>
 
   <div class="container" style="margin-bottom: 500px">
-    <div class="row main-row">
+    <div class="row">
 
       <div class="col-md-3">
         <div class="shapter-well">
@@ -33,7 +31,6 @@
             <li ng-click="nav('favourites')" ng-class="{'active': $location.search().nav == 'favourites' }"><a><span class="fa fa-star-o"></span> {{ AppText.browse.favourite_classes | language }}</a></li>
           </ul>
         </div>
-
       </div><!-- col -->
 
       <div class="col-md-9">
@@ -146,12 +143,10 @@
               <div class="pull-right">
               </div>
               -->
-
             </div>
           </div>
-
         </div><!-- shapter-well -->
-      </div>
+      </div><!-- col -->
     </div><!-- row -->
   </div><!-- container -->
 </div><!-- infinite scroll -->

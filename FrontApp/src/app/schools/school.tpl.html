@@ -54,12 +54,14 @@
   <div class="row">
     <div class="col-md-12">
 
+      <!--
       <div ng-show="formation.description">
         <div class="shapter-well" style="font-style: italic">
           <div class="lead bold text-asphalt" style="margin: 25px 0px 5px 0px">{{ AppText.browse.about | language }}</div>
           {{ formation.description | commentCut:400:formation.displayAll }} <a class="text-blue" ng-click="formation.displayAll = true" ng-show="formation.description.length > 400 && !formation.displayAll"> ... {{ AppText.comment.display_more | language }}</a><a class="text-blue" ng-click="formation.displayAll = false" ng-show="formation.description.length > 400 && formation.displayAll">{{ AppText.comment.hide | language }}</a>
         </div>
       </div>
+      -->
 
       <div class="row">
         <div class="col-md-4">
@@ -103,10 +105,10 @@
           <div class="shapter-well">
             <div class="lead bold text-asphalt" style="margin: 25px 0px 5px 0px">{{ AppText.school.where_do_they_internship | language }}</div>
             <sh-map internships="internshipsList"></sh-map>
-            <p><a class="text-info" href="#/schools/{{ school.id }}/internships">{{ AppText.school.browse_internships_by_keywords | language }} <small class="fa fa-arrow-right"></small></a></p>
+            <p style="margin-top: 20px"><a class="text-info" href="#/schools/{{ school.id }}/internships">{{ AppText.school.browse_internships_by_keywords | language }} <small class="fa fa-arrow-right"></small></a></p>
           </div>
           <div class="shapter-well">
-            <div class="lead bold text-asphalt" style="margin: 25px 0px 5px 0px">{{ AppText.school.they_love_it | language }} <span class="fa fa-heart-o"></span> </div>
+            <div class="lead bold text-asphalt" style="margin: 25px 0px 5px 0px">{{ AppText.school.they_love_it | language }}</div>
             <div class="campus-comment" sh-comment hide-likes="false" close="" comment="comment" display-course-name="true" current-user="security.currentUser" comments='comments' ng-repeat="comment in formation.best_comments | limitTo: 6"></div>
             <a ng-click="browseNavFromFormation()" class="text-info">{{ AppText.school.browse_all_courses | language }} {{ formation.name }} <small class="fa fa-arrow-right"></small></a>
           </div>

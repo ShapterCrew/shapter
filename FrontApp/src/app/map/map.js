@@ -48,12 +48,6 @@ angular.module( 'shapter.maps', [
         markerColor: 'green'
       };
 
-      // TODO: remove those
-      marker.lat = 39.12;
-      marker.lng = 15.75;
-      marker.focus = false;
-      marker.draggable = false;
-
       //defines group if not defined
       marker.group = marker.group ? marker.group : 'default';
     });
@@ -63,7 +57,8 @@ angular.module( 'shapter.maps', [
 
 //controller for the map
 .controller('MapsCtrl', ['$scope', '$compile', '$filter', 'leafletMarkersHelpers', function( $scope, $compile, $filter, leafletMarkersHelpers ){
-  // custom method added to reset groups. Otherwise the markers are not shown.
+
+  // custom method added to reset groups. Otherwise the markers are not displayed.
   $scope.$on('$destroy', function () {
     leafletMarkersHelpers.resetCurrentGroups();
   });
@@ -80,4 +75,5 @@ angular.module( 'shapter.maps', [
     var elem = document.getElementsByClassName('leaflet-popup-content');
     $compile( elem )($scope);
   });
+
 }]);

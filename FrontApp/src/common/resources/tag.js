@@ -203,7 +203,7 @@ angular.module('resources.tag', [
           short_name: true
         }
       };
-      return Restangular.all('tags/suggested').post({entities: entities, selected_tags: tags, ignore_user: true}).then(function(response){
+      return Restangular.all('tags/suggested').post({entities: entities, selected_tags: tags, ignore_user: true, limit: 200}).then(function(response){
         // format tags to be used in app
         angular.forEach( response.recommended_tags, function( tag ){
           tag.category = tag.category ? tag.category : "autres";

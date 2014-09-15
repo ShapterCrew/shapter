@@ -20,7 +20,7 @@
   </div>
 </div>
 <div class="container">
-  <div class="row-main-row">
+  <div class="row">
 
     <div class="col-md-3">
       <!-- {{{ side nav -->
@@ -95,8 +95,9 @@
       <p class="center bold" style="margin-bottom: 0px">
         <span ng-hide="batchLoading">
           {{ nbInternships }} 
-          {{ AppText.internships.internships | language }}
+          <span ng-hide="$location.search().nav === 'current'">{{ AppText.internships.internships | language }}</span>
           <span ng-show="$location.search().nav === 'current'">{{ AppText.internships.in_favourites | language }}</span>
+          {{ AppText.internships._in | language }} {{ school.name }}
         </span>
         <span ng-show="batchLoading"><span class="fa fa-refresh fa-spin"></span></span>
       </p>
