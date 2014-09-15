@@ -20,6 +20,14 @@ angular.module( 'services.appText', [])
       return $filter( 'language' )( $parse( code )( AppText.categories ));
     },
     internships: {
+      from: {
+        en: 'from',
+        fr: 'du'
+      },
+      to: {
+        en: 'to',
+        fr: 'au'
+      },
       country: {
         en: 'Country',
         fr: 'Pays'

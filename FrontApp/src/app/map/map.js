@@ -13,7 +13,9 @@ angular.module( 'shapter.maps', [
     templateUrl: 'map/map.tpl.html',
     controller: 'MapsCtrl',
     scope: {
-      internshipsList: '='
+      internshipsList: '=',
+      onNew: '&',
+      onInternshipCreated: '&'
     }
   };
 }])
@@ -31,25 +33,26 @@ angular.module( 'shapter.maps', [
 }])
 
 // the controller for the marker message box
-.controller('MapMessageCtrl', ['$scope', '$stateParams', function( $scope, $stateParams ){
+.controller('MapMessageCtrl', ['$scope', '$stateParams', 'AppText', function( $scope, $stateParams, AppText ){
+  $scope.AppText = AppText;
   $scope.$stateParams = $stateParams;
 }])
 
 // formats the internships into markers
 .filter('formatMarkers', [function(){
   return function( internships ){
-    angular.forEach( internships, function( marker, index ){
+    angular.forEach( internships, function( internship, index ){
       // adds templating whit shMapMessage directive to marker popups templates
-      marker.message = '<div sh-map-message marker=\"markers[\'' + index + '\']\"></div>';
-      marker.icon = {
+      internship.message = '<div sh-map-message marker=\"markers[\'' + index + '\']\"></div>';
+      internship.icon = {
         type: 'awesomeMarker',
         icon: 'graduation-cap',
-        prefix: 'fa',
-        markerColor: 'green'
+        prefix: 'fa'
+        //markerColor: 'green'
       };
 
       //defines group if not defined
-      marker.group = marker.group ? marker.group : 'default';
+      internship.group = internship.group ? internship.group : 'default';
     });
     return internships;
   };
@@ -61,6 +64,10 @@ angular.module( 'shapter.maps', [
   // custom method added to reset groups. Otherwise the markers are not displayed.
   $scope.$on('$destroy', function () {
     leafletMarkersHelpers.resetCurrentGroups();
+  });
+
+  $scope.$on('InternshipCreated', function(){
+    $scope.onInternshipCreated();
   });
 
   // formats the internships into markers

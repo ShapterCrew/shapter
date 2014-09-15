@@ -101,7 +101,7 @@
         </span>
         <span ng-show="batchLoading"><span class="fa fa-refresh fa-spin"></span></span>
       </p>
-      <p class="center"><small class="text-muted" ng-bind="AppText.browse.posessing_keywords | language"></small>
+      <p ng-show="activeTags.length" class="center"><small class="text-muted" ng-bind="AppText.browse.posessing_keywords | language"></small>
       </p>
 
       <!--
@@ -117,7 +117,7 @@
       <!-- }}} -->
 
       <div class="shapter-well" ng-show="view == 'map'">
-        <sh-map internships-list="internshipsList"></sh-map>
+        <sh-map internships-list="internshipsList" on-new="shAddInternshipModalFactory.open()" on-internship-created="update()"></sh-map>
       </div>
 
       <!--

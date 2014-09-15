@@ -38,7 +38,6 @@ angular.module( 'shapter.browse', [
   $scope.root = $rootScope;
 
   $scope.categories = $rootScope.item_categories;
-  console.log($scope.categories);
   $scope.schoolTags = schoolTags.tags;
   $scope.schoolTagIndex = schoolTags.index;
 

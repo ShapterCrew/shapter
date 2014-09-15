@@ -22,7 +22,8 @@ angular.module( 'shapter.internships', [
   });
 }])
 
-.controller('InternshipsCtrl', ['$scope', 'security', '$location', 'Internship', 'Tag', '$rootScope', '$timeout', '$stateParams', function( $scope, security, $location, Internship, Tag, $rootScope, $timeout, $stateParams ){
+.controller('InternshipsCtrl', ['$scope', 'security', '$location', 'Internship', 'Tag', '$rootScope', '$timeout', '$stateParams', 'shAddInternshipModalFactory', function( $scope, security, $location, Internship, Tag, $rootScope, $timeout, $stateParams, shAddInternshipModalFactory ){
+  $scope.shAddInternshipModalFactory = shAddInternshipModalFactory;
   $scope.security = security;
   $scope.$location = $location;
   $scope.view = 'map';
@@ -58,13 +59,20 @@ angular.module( 'shapter.internships', [
     $scope.updateInternshipsList();
   };
 
+  $scope.$watch( function(){
+    return $location.search().filter;
+  }, function( newVal, oldVal ){
+    if( oldVal != newVal ){
+      $scope.update();
+    }
+  }, true);
+
+  // fetches the name of the tags in url
   $scope.updateScopeTags = function(){
     var scopeTags = [];
-
     angular.forEach( toArray( $location.search().filter ), function( tagId ){
       scopeTags.push( $scope.schoolTagIndex[ tagId ] );
     });
-
     $scope.activeTags = scopeTags;
   };
 
@@ -81,6 +89,7 @@ angular.module( 'shapter.internships', [
     });
   };
 
+  // load internships to be displayed
   $scope.updateInternshipsList = function() {
     var current_only = $location.search().nav == "current";
     var array = [ $stateParams.schoolId ];
@@ -134,10 +143,11 @@ angular.module( 'shapter.internships', [
   $scope.addTextTag = function() {
     $scope.addTag($scope.typedTag);
   };
+
+  $scope.update();
 }])
 
 .filter('categories', [ 'orderByFilter', function( orderByFilter ){
-
   orderByBestScore = function( array ){
     var bestScore = function( array ){
       return array.reduce( function(last, now ){

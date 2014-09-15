@@ -51,12 +51,19 @@ angular.module('resources.internship', [
         "end_date": true,
         "duration": true,
         "trainee": true,
-        "tags": true
+        "tags": true,
+        "lat": true,
+        "lng": true
+
       },
       user: {
         "firstname": true,
         "lastname": true,
         "image": true
+      },
+      tag: {
+        name: true,
+        category: true
       }
     };
 

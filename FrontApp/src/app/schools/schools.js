@@ -131,7 +131,8 @@ angular.module( 'shapter.schools', [
 }])
 
 
-.controller('FormationCtrl', [ '$scope', 'Tag', 'security', '$location', 'formation', '$stateParams', 'school', 'Formation', 'AppText', 'Analytics', function( $scope, Tag, security, $location, formation, $stateParams, school, Formation, AppText, Analytics){
+.controller('FormationCtrl', [ '$scope', 'Tag', 'security', '$location', 'formation', '$stateParams', 'school', 'Formation', 'AppText', 'Analytics', 'Internship', function( $scope, Tag, security, $location, formation, $stateParams, school, Formation, AppText, Analytics, Internship){
+
 
   $scope.internshipsList = [{
     student: {
@@ -224,8 +225,13 @@ angular.module( 'shapter.schools', [
   $scope.departmentsLimit = 8;
   $scope.formationsLimit = 8;
 
+
   var tag_ids = $stateParams.formationId ? [ $stateParams.formationId ] : [];
   tag_ids.push( $stateParams.schoolId );
+
+    Internship.getListFromTags( tag_ids, true).then(function(response){
+      $scope.internshipsList = response.internships;
+    });
 
   Formation.subFormations( tag_ids ).then( function( response ){
     $scope.formation.sub_choices = response.sub_choices;

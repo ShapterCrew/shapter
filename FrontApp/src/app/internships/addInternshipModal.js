@@ -5,8 +5,8 @@ angular.module( 'directives.addInternshipModal', [
 
 .factory( 'shAddInternshipModalFactory', function($modal) {
   return {
-    open: function(currentUser) {
-      return $modal.open({
+    open: function() {
+      var modal =  $modal.open({
         templateUrl: 'internships/addInternshipModal.tpl.html',
         controller: 'AddInternshipModalCtrl',
         windowClass: 'show'
@@ -18,19 +18,15 @@ angular.module( 'directives.addInternshipModal', [
 .directive( 'shAddInternshipModal', ['Internship', 'shAddInternshipModalFactory', function( Internship, shAddInternshipModalFactory){
   return {
     restrict: 'A',
-    scope: {
-      currentUser: '='
-    },
     link: function( scope, element, attr ) {
-      var currentUser = scope.currentUser;
       element.bind('click', function (event) {
-        shAddInternshipModalFactory.open(currentUser);
+        shAddInternshipModalFactory.open();
       });
     }
   };
 }])
 
-.controller( 'AddInternshipModalCtrl', ['$scope', 'Internship', '$stateParams', 'Map', '$filter', '$modalInstance', 'AppText', function($scope, Internship, $stateParams, Map, $filter, $modalInstance, AppText ){
+.controller( 'AddInternshipModalCtrl', ['$scope', 'Internship', '$stateParams', 'Map', '$filter', '$modalInstance', 'AppText', '$rootScope', function($scope, Internship, $stateParams, Map, $filter, $modalInstance, AppText, $rootScope ){
 
   $scope.AppText = AppText;
   $scope.internship = {};
@@ -48,9 +44,11 @@ angular.module( 'directives.addInternshipModal', [
   $scope.addInternship = function() {
     Internship.create($filter( 'formatInternshipToPost' )($scope.internship)).then(function(response) {
       $scope.internship = {};
+      $rootScope.$broadcast( 'InternshipCreated' );
       $scope.close();
     });
   };
+
 }])
 
 .filter('formatInternshipToPost', function(){
@@ -59,7 +57,7 @@ angular.module( 'directives.addInternshipModal', [
 
     var tags = [];
     angular.forEach( internship.tags, function(tag, cat) {
-      tags.push({tag_name: tag, tag_category: cat});
+      tags.push({tag_category: cat, tag_name: tag });
     });
 
     angular.forEach( internship.address.address_components, function( component ){
@@ -74,7 +72,6 @@ angular.module( 'directives.addInternshipModal', [
     out.title = internship.title;
     out.start_date = internship.start_date;
     out.end_date = internship.end_date;
-
 
     out.location = {
       formatted_address: internship.address.formatted_address,

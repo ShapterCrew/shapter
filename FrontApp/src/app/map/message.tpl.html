@@ -7,8 +7,12 @@
     <div class="media-heading">
       <strong><a class="text-default" href="#/schools/{{ $stateParams.schoolId }}/student/{{ marker.trainee.id }}"><span class="text-blue">{{ marker.trainee.firstname + ' ' + marker.trainee.lastname }}</span></a></strong>
     </div>
-    <div><strong>{{ marker.company.name }}</strong></div>
-    <div>6 mois de juin 2013 à novembre 2013</div> 
+    <div><strong>
+        <span ng-repeat="tag in marker.tags | filter: {category: 'company'}">
+          {{ tag.name }}
+        </span>
+    </strong></div>
+    <div>{{ AppText.internships.from | language }} <span class="text-emerald">{{ marker.start_date | date: 'dd/MM/yyyy'}}</span> {{ AppText.internships.to | language }} <span class="text-emerald">{{ marker.end_date | date: 'dd/MM/yyyy'}}</span></div> 
 
   </div><!-- media-body -->
 </div><!-- media -->
