@@ -63,7 +63,7 @@ module Shapter
 
           resp = reco_tags(params[:selected_tags],params[:category_filter],klass).not.any_in(id: params[:selected_tags]).asc(:name).take(params[:limit])
 
-          present :recommended_tags, resp, using: Shapter::Entities::Tag, entity_options: entity_options
+          present :recommended_tags, resp, with: Shapter::Entities::Tag, entity_options: entity_options
 
         end
         # }}}
