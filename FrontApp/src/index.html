@@ -4,6 +4,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-control" content="no-cache">
     
     <meta property="fb:app_id" content="213583302154494">
     <meta property="og:site_name" content="Shapter">
@@ -28,10 +29,10 @@
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 
     <!-- compiled CSS --><% styles.forEach( function ( file ) { %>
-    <link rel="stylesheet" type="text/css" href="<%= file %>?52" /><% }); %>
+    <link rel="stylesheet" type="text/css" href="<%= file %>?v=10.0" /><% }); %>
 
     <!-- compiled JavaScript --><% scripts.forEach( function ( file ) { %>
-    <script type="text/javascript" src="<%= file %>?52"></script><% }); %>
+    <script type="text/javascript" src="<%= file %>?10.0"></script><% }); %>
 
     <!-- should be in a "run" module in analytics ressources, but the snippet code is rejected by grunt jshint task -->
     <script type="text/javascript">(function(e,b){if(!b.__SV){var
