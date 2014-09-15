@@ -40,6 +40,7 @@ angular.module( 'shapter', [
   'directives.addComment',
   'directives.confirmAlert',
   'directives.addInternshipModal',
+  'resources.map',
   'resources.school',
   'resources.category',
   'resources.formation',
