@@ -54,6 +54,15 @@ angular.module( 'shapter.internships', [
     }
   };
 
+  $scope.onCreated = function(){
+    if( toArray( $location.search().filter ).length > 0 ){
+      $location.search('filter', null);
+    }
+    else {
+      update();
+    }
+  };
+
   $scope.update = function() {
     $scope.updateScopeTags();
     $scope.updateInternshipsList();

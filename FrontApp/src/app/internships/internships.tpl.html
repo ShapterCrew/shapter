@@ -97,7 +97,7 @@
       <!-- }}} -->
 
       <!-- {{{ results -->
-      <p class="center bold" style="margin-bottom: 0px">
+      <p class="center bold">
         <span ng-hide="batchLoading">
           {{ nbInternships }} 
           <span ng-hide="$location.search().nav === 'current'">{{ AppText.internships.internships | language }}</span>
@@ -110,7 +110,7 @@
       </p>
 
       <div class="shapter-well" ng-show="view == 'map'">
-        <sh-map internships-list="internshipsList" on-new="shAddInternshipModalFactory.open()" on-internship-created="update()"></sh-map>
+        <sh-map internships-list="internshipsList" on-new="shAddInternshipModalFactory.open()" on-internship-created="onCreated()"></sh-map>
       </div>
 
       <!--

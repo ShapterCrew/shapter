@@ -20,6 +20,10 @@ angular.module( 'services.appText', [])
       return $filter( 'language' )( $parse( code )( AppText.categories ));
     },
     internships: {
+      school_context: {
+        en: 'I did the internship for: ',
+        fr: 'J\'ai fait ce stage avec : '
+      },
       from: {
         en: 'from',
         fr: 'du'

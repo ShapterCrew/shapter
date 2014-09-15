@@ -52,14 +52,25 @@ angular.module( 'shapter.maps', [
       };
 
       //defines group if not defined
-      internship.group = 'default';
+      //      internship.group = 'default';
     });
     return internships;
   };
 }])
 
 //controller for the map
-.controller('MapsCtrl', ['$scope', '$compile', '$filter', 'leafletMarkersHelpers', function( $scope, $compile, $filter, leafletMarkersHelpers ){
+.controller('MapsCtrl', ['$scope', '$compile', '$filter', 'leafletMarkersHelpers', 'security', '$stateParams', function( $scope, $compile, $filter, leafletMarkersHelpers, security, $stateParams ){
+
+  $scope.isOneOfMySchools = function(){
+    var id = $stateParams.schoolId;
+    var out = false;
+    angular.forEach( security.currentUser.schools, function( school ){
+      if( school.id == id ){
+        out = true;
+      }
+    });
+    return out;
+  };
 
   // custom method added to reset groups. Otherwise the markers are not displayed.
   $scope.$on('$destroy', function () {

@@ -4,6 +4,15 @@ describe('AddInternshipModal Test', function() {
     module('directives.addInternshipModal');
     module('services.appText');
     module(function( $provide ){
+      $provide.provider('School', function () { 
+        this.$get = function ( $q ) {
+          return {
+            index: function(){
+              return $q.when({});
+            }
+          };
+        };
+      });
       $provide.provider('Tag', function () { 
         this.$get = function () {
           return {
