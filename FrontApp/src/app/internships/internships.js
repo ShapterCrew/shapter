@@ -59,7 +59,7 @@ angular.module( 'shapter.internships', [
       $location.search('filter', null);
     }
     else {
-      update();
+      $scope.update();
     }
   };
 
