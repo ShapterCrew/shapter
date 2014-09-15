@@ -109,18 +109,6 @@
       <p ng-show="activeTags.length" class="center"><small class="text-muted" ng-bind="AppText.browse.posessing_keywords | language"></small>
       </p>
 
-      <!--
-      <div class="clearfix">
-        <div class="pull-right">
-          <span class="label"  ng-class="{'label-info': view == 'map', 'label-default': view != 'map'}" ng-click="view = 'map'">{{ AppText.internships.map_view | language }}</span>
-
-          <span class="label" ng-class="{'label-info': view == 'list', 'label-default': view != 'list'}" ng-click="view = 'list'">{{ AppText.internships.list_view | language }}</span>
-        </div>
-      </div>
-      -->
-
-      <!-- }}} -->
-
       <div class="shapter-well" ng-show="view == 'map'">
         <sh-map internships-list="internshipsList" on-new="shAddInternshipModalFactory.open()" on-internship-created="update()"></sh-map>
       </div>
