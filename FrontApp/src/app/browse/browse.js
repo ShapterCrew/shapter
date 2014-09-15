@@ -22,9 +22,6 @@ angular.module( 'shapter.browse', [
     data:{ pageTitle: 'Parcourir' },
     resolve: {
       authenticatedUser: securityAuthorizationProvider.requireConfirmedUser,
-      schoolTags: ['Tag', '$stateParams', function( Tag, $stateParams ){
-        return Tag.getSchoolTags( $stateParams.schoolId );
-      }],
       school: ['Tag', '$stateParams', function( Tag, $stateParams ){
         return Tag.get( $stateParams.schoolId );
       }]
@@ -32,14 +29,12 @@ angular.module( 'shapter.browse', [
   });
 }])
 
-.controller( 'BrowseCtrl', [ '$scope', '$location', 'Item', 'Tag', '$q', '$filter', 'filterFilter', 'security', 'Analytics', '$rootScope', 'AppText', 'editDiagramFactory', 'ItemCommentsModal', '$document', '$stateParams', 'school', 'schoolTags', function BrowserCtrl( $scope, $location, Item, Tag, $q, $filter, filterFilter, security, Analytics, $rootScope, AppText, editDiagramFactory, ItemCommentsModal, $document, $stateParams, school, schoolTags ) {
+.controller( 'BrowseCtrl', [ '$scope', '$location', 'Item', 'Tag', '$q', '$filter', 'filterFilter', 'security', 'Analytics', '$rootScope', 'AppText', 'editDiagramFactory', 'ItemCommentsModal', '$document', '$stateParams', 'school', function BrowserCtrl( $scope, $location, Item, Tag, $q, $filter, filterFilter, security, Analytics, $rootScope, AppText, editDiagramFactory, ItemCommentsModal, $document, $stateParams, school ) {
 
   Analytics.browse();
   $scope.root = $rootScope;
 
   $scope.categories = $rootScope.item_categories;
-  $scope.schoolTags = schoolTags.tags;
-  $scope.schoolTagIndex = schoolTags.index;
 
   $scope.school = school;
   $scope.ItemCommentsModal = ItemCommentsModal;
@@ -49,6 +44,7 @@ angular.module( 'shapter.browse', [
   $scope.security = security;
   $scope.$location = $location;
 
+  $scope.tagsSuggestions = {};
   $scope.displayTags = true;
   $scope.itemsLoading = false;
   $scope.batchLoading = false;
@@ -79,6 +75,12 @@ angular.module( 'shapter.browse', [
     Analytics.smallScreenToggleTagDisplay();
   };
 
+  $scope.getTypeahead = function( string ){
+    var tag_ids = [ $stateParams.schoolId ];
+    return Tag.typeahead( string, tag_ids, 'item', 30, null ).then( function( response ){
+      return response.tags;
+    });
+  };
 
   // check type of an object
   toType = function( obj ) {
@@ -140,10 +142,8 @@ angular.module( 'shapter.browse', [
   };
 
   // detect user input in tags-input
-  // activeItem is set to null if it doesn't posess the new tag
   $scope.onTagAdded = function( tag ){
-    if( $scope.isInUrl(tag) === false && $scope.schoolTagIndex[ tag.id ] && tag.id != $stateParams.schoolId ){
-
+    if( $scope.isInUrl(tag) === false && tag.id != $stateParams.schoolId ){
       $scope.nbItems = 0;
       $scope.itemsList = [];
 
@@ -186,32 +186,43 @@ angular.module( 'shapter.browse', [
     }
   }, true);
 
-  var schoolTag;
   $scope.update = function(){
     // initializes data
-    $scope.active.item = null;
     $scope.itemsList = [];
     $scope.nbItems = 0;
     $scope.batchesLoaded = [];
+    $scope.tagsSuggestions = {};
 
     // loads data
     $scope.updateScopeTags();
-    $scope.loadSuggestedTags();
     $scope.loadFilteredItems();
 
   };
 
   // loads tags suggestions 
-  $scope.loadSuggestedTags = function(){
-    $scope.tagsLoading = true;
-    var array = [];
-    angular.forEach( toArray( $location.search().filter ), function( id ){
-      array.push( id );
-    });
-    array.push( school.id );
-    Tag.getSuggestedTags( array ).then( function( response ){
-      $scope.tagsSuggestions = response;
-      $scope.tagsLoading = false;
+  $scope.getSuggestedTags = function( category ){
+    if( $scope.tagsSuggestions[ category ] === undefined ){
+      $scope.tagsSuggestions[ category ] = 'loading';
+      var array = [];
+      angular.forEach( toArray( $location.search().filter ), function( id ){
+        if( !!id ){
+          array.push( id );
+        }
+      });
+      array.push( $stateParams.schoolId );
+
+      Tag.getSuggestedTags( array, 'item', 200, category ).then( function( response ){
+        $scope.tagsSuggestions[ category ] = response.recommended_tags;
+      }, function(){
+        console.log( 'error' );
+        $scope.tagsSuggestions[ category ] = [];
+      });
+    }
+  };
+
+  $scope.getRemainingCatSuggestions = function(){
+    angular.forEach( $filter( 'catFilter')( $scope.categories ).others, function( cat ){
+      $scope.getSuggestedTags( cat );
     });
   };
 
@@ -266,23 +277,14 @@ angular.module( 'shapter.browse', [
 
 
   // match url tags id and scope tags 
-  // if an id is present in url but not present in users tags (school tags), it is removed
   $scope.updateScopeTags = function(){
-    var urlTagIds = [];
     var scopeTags = [];
-
     angular.forEach( toArray( $location.search().filter ), function( tagId ){
-      if( $scope.schoolTagIndex[ tagId ] ){
-        urlTagIds.push( tagId );
-        scopeTags.push( $scope.schoolTagIndex[ tagId ] );
-      }
+      Tag.get( tagId ).then( function( tag ){
+        scopeTags.push( tag );
+      });
     });
-
     $scope.activeTags = scopeTags;
-
-    if( urlTagIds.length < toArray( $location.search().filter ).length){
-      $location.search('filter', urlTagIds);
-    }
   };
 
   // add or remove Suggested Tag

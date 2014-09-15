@@ -17,14 +17,21 @@ angular.module( 'shapter.admin', [
     data:{ pageTitle: 'Admin' },
     resolve: {
       authenticatedUser: securityAuthorizationProvider.requireAdminUser,
-      schools: ['Tag', function( Tag ){
-        return Tag.getSchools();
+      schools: ['School', function( School ){
+        return School.index();
       }]
     }
   });
 }])
 
 .controller('AdminCtrl', [ '$scope', '$rootScope', 'schools', 'Tag', 'Item', '$filter', 'User', function( $scope, $rootScope, schools, Tag, Item, $filter, User){
+
+  $scope.getTypeahead = function( string, schoolId ){
+    var tag_ids = [ schoolId ];
+    return Tag.typeahead( string, tag_ids, 'item', 30, null ).then( function( response ){
+      return response.tags;
+    });
+  };
 
   $scope.Tag = Tag;
   $scope.nav = 'tagItems';
@@ -59,13 +66,7 @@ angular.module( 'shapter.admin', [
 
   $scope.selectTagItemsSchool = function(){
     $scope.initializeTagItems();
-    $scope.schoolTagsLoading = true;
-    Tag.getSchoolTags( $scope.tagItemsSchool.id ).then( function( response ){
-      $scope.schoolTagsLoading = false;
-      $scope.schoolTags = response.tags;
-    }, function(){
-      $scope.schoolTagsLoading = false;
-    });
+    // $scope.tagItemsSchool.id
   };
 
   $scope.addItemToUpdate = function( tag ){
@@ -201,14 +202,7 @@ angular.module( 'shapter.admin', [
 
   $scope.selectAddItemsSchool = function(){
     $scope.initialize();
-
-    $scope.schoolTagsLoading = true;
-    Tag.getSchoolTags( $scope.newItemSchool.id ).then( function( response ){
-      $scope.schoolTags = response.tags;
-      $scope.schoolTagsLoading = false;
-    }, function(){
-      $scope.schoolTagsLoading = false;
-    });
+    //$scope.newItemSchool.id
   };
 
   $scope.initialize = function(){
@@ -264,7 +258,6 @@ angular.module( 'shapter.admin', [
     $scope.displayNewItemsSuccess = false;
     $scope.displayNewItemsFail = false;
     return Item.createTaggedItems( $scope.newItems, $scope.newItemTags ).then( function(){
-      Tag.loadSchoolTags( $scope.newItemSchool.id );
       $scope.newItemsLoading = false;
       $scope.displayNewItemsSuccess = true;
       $scope.displayNewItemsFail = false;

@@ -24,7 +24,7 @@ module Shapter
         end
         post :filter do 
           nstart = params[:n_start].to_i
-          nstop = params[:n_stop].to_i
+          nstop  = params[:n_stop].to_i
 
           f = if !!params[:quality_filter]
                 quality_filter(params[:filter])

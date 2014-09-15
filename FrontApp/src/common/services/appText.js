@@ -1096,6 +1096,10 @@ angular.module( 'services.appText', [])
       cancel: {
         en: 'Cancel',
         fr: 'Annuler'
+      },
+      loading: {
+        en: 'loading',
+        fr: 'chargement'
       }
     },
     categories: {

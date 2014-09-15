@@ -37,9 +37,6 @@ angular.module( 'shapter.schools', [
       }],
       school: ['Tag', '$stateParams', function( Tag, $stateParams ){
         return Tag.get( $stateParams.schoolId );
-      }],
-      schools: ['Tag', function( Tag ){
-        return Tag.getSchools();
       }]
     }
   }).state( 'formation', {
@@ -284,53 +281,12 @@ angular.module( 'shapter.schools', [
 
 }])
 
-.controller('SchoolPageAdminCtrl', ['$scope', 'formation', 'school', 'schools', 'Formation', 'Tag', function( $scope, formation, school, schools, Formation, Tag ){
-  $scope.schools = schools;
+.controller('SchoolPageAdminCtrl', ['$scope', 'formation', 'school', 'Formation', '$stateParams', function( $scope, formation, school, Formation, $stateParams ){
   $scope.school = school;
   $scope.activeTags = [school];
 
-  var selectTagsSchools = function() {
-    Tag.getSchoolTags( $scope.school.id ).then(function(response){
-      $scope.schoolTags = response.tags;
-    });
-  };
-
-  $scope.changeSchool = function() {
-    if (angular.isDefined($scope.school.id)) {
-      $scope.wrongSchoolName = false;
-      Formation.formations( [$scope.school.id] ).then(function(response) {
-        formation = response;
-        $scope.activeTags = [$scope.school];
-        $scope.form = {
-          name: $scope.school.name,
-          description: formation.description,
-          website_url: formation.website_url,
-          image_credits: formation.image_credits
-        };
-      });
-      selectTagsSchools();
-    }
-    else {
-      $scope.wrongSchoolName = true;
-      $scope.form = {
-      };
-    }
-  };
-
-  $scope.changeSchool();
-  selectTagsSchools();
-
   $scope.checkUrl = function() {
     $scope.wrongUrl = $scope.form.website_url && $scope.form.website_url.substring(0, 3) != "htt";
-  };
-
-  $scope.addFormationTags = function() {
-    $scope.activeTags.push( $scope.formationTag );
-    $scope.formationTag = null;
-  };
-
-  $scope.removeTag = function( index ){
-    $scope.activeTags.splice( index, 1 );
   };
 
   $scope.createOrUpdate = function() {
@@ -338,28 +294,10 @@ angular.module( 'shapter.schools', [
     angular.forEach($scope.activeTags, function(value) {
       tag_ids.push(value.id);
     });
+
     $scope.form.tag_ids = tag_ids;
     Formation.createOrUpdate($scope.form).then(function(response) {
       alert("La formation " + response.name + " a bien été enregistrée !");
     });
   };
-}])
-
-.filter('schoolNotThere', [function(){
-  return function( schools, alreadyThere){
-    var out = [];
-    angular.forEach( schools, function( school ){
-      here = false;
-      angular.forEach( alreadyThere, function( thereSchools ){
-        if( school.id == thereSchools.id ){
-          here = true;
-        }
-      });
-      if( here === false ){
-        out.push( school );
-      }
-    });
-    return out;
-  };
 }]);
-
