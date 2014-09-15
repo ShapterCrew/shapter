@@ -100,6 +100,42 @@ module Shapter
           end
           #}}}
 
+          #{{{ update
+          desc "update internship"
+          params do 
+            optional :title, desc: "internship title"
+            optional :start_date, type: Date, desc: "starting date"
+            optional :location, type: Hash do 
+              requires :lat, type: Float, desc: "gps latitude"
+              requires :lng, type: Float, desc: "gps longitude"
+              requires :formatted_address, type: String, desc: "formatted address"
+            end
+            optional :end_date, type: Date, desc: "ending date"
+            optional :tags_by_ids, type: Array, desc: "directly pass the ids of known tags to associate"
+            optional :tags_by_name_cat, type: Array, desc: "find or create tags by name/category" do 
+              requires :tag_name, desc: "name of the tag"
+              requires :tag_category, desc: "tag category"
+            end
+          end
+          put do 
+            permitted = [
+              :title,
+              :start_date,
+              :location,
+              :end_date,
+              :tags_by_ids,
+              :tags_by_name_cat,
+            ]
+
+            if @internship.update_attributes(permit_params(params,permitted))
+              present @internship, with: Shapter::Entities::Internship, entity_options: entity_options
+            else
+              error!
+            end
+
+          end
+          #}}}
+
         end
 
       end

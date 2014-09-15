@@ -38,9 +38,9 @@ describe Shapter::V7::SchoolsDiagDims do
         start_date: (@start_date = Date.today),
         end_date: (@end_date = Date.today + 3),
         location: {
-          formated_address: "haha",
+          formatted_address: "haha",
           lat: 2.35,
-          long: 48.85,
+          lng: 48.85,
         },
         tags_by_ids: [@t.id],
         tags_by_name_cat: (@tags = [
@@ -65,6 +65,18 @@ describe Shapter::V7::SchoolsDiagDims do
 
     end
 
+  end
+  #}}}
+
+  #{{{ update
+  describe :update do 
+    it "should update" do 
+      title = "montitre"
+      expect(@intern.title).to_not eq title
+      put "internships/#{@intern.id}", {title: title}
+      @intern.reload
+      expect(@intern.title).to eq title
+    end
   end
   #}}}
 
