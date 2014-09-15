@@ -34,6 +34,7 @@ angular.module( 'directives.addInternshipModal', [
 
   $scope.AppText = AppText;
   $scope.internship = {};
+  $scope.internship.schoolId = $stateParams.schoolId;
   $scope.close = $modalInstance.close;
 
   $scope.getFormatedAdresses = function( string ){
@@ -54,6 +55,7 @@ angular.module( 'directives.addInternshipModal', [
 
 .filter('formatInternshipToPost', function(){
   return function( internship ){
+    var out = {};
 
     var tags = [];
     angular.forEach( internship.tags, function(tag, cat) {
@@ -69,15 +71,20 @@ angular.module( 'directives.addInternshipModal', [
       }
     });
 
-    internship.location = {
+    out.title = internship.title;
+    out.start_date = internship.start_date;
+    out.end_date = internship.end_date;
+
+
+    out.location = {
       formatted_address: internship.address.formatted_address,
       lat: internship.address.geometry.location.lat,
       lng: internship.address.geometry.location.lng
     };
 
-    internship.tags_by_name_cat = tags;
-    internship.tags_by_ids = [ internship.schoolId ];
+    out.tags_by_name_cat = tags;
+    out.tags_by_ids = [ internship.schoolId ];
 
-    return internship;
+    return out;
   };
 });
