@@ -1,0 +1,127 @@
+<sh-header></sh-header>
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <h2 class="text-sun" style="margin: 20px">
+        <span class="fa fa-search"></span> 
+        {{ AppText.internships.browse_internships | language }}
+          <small><span class="fa fa-question-circle" ng-click="displayInfos = ! displayInfos"></span></small>
+      </h2>
+    </div>
+  </div>
+</div>
+<div class="asphalt-infos" ng-show="displayInfos">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8">
+        <p ng-bind="AppText.internships.browse_internships_long | language"></p>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <div class="row">
+
+    <div class="col-md-3">
+      <!-- {{{ side nav -->
+      <div class="shapter-well">
+        <ul class="nav browse-nav vertical-nav">
+          <li ng-click="nav( null )" ng-class="{'active': !$location.search().nav }"><a>{{ AppText.internships.all_internships | language }}</a></li>
+
+          <li ng-click="nav('current')" ng-class="{'active': $location.search().nav == 'current' }"><a>{{ AppText.internships.current_internships | language }}</a></li>
+        </ul>
+      </div>
+      <!-- }}} -->
+    </div>
+
+    <div class="col-md-9">
+      <!-- {{{ input -->
+      <div class="shapter-well">
+        <div style="width: 100%;">
+          <span class="glyphicon glyphicon-search"></span>
+          <span ng-repeat="tag in activeTags">
+            <span class="tag-orange">
+              {{ tag.name }}
+              <span class="glyphicon glyphicon-remove" ng-click="$event.stopPropagation();removeTag( tag )"></span>
+            </span>
+            <span ng-hide="$last">{{ AppText.browse.and | language }}</span>
+          </span>
+        </div>
+
+        <!-- input -->
+        <input sh-auto-focus="true" type="text" class="form-control" placeholder="+ {{ AppText.browse.add_a_keyword | language }}" typeahead="tag as tag.name for tag in getTypeahead( $viewValue )" ng-model="typedTag" typeahead-min-length=3 typeahead-editable="false" typeahead-on-select="addTextTag()" style="margin-top: 20px"></input>
+
+
+        <ul class="list-inline cat-list nav-justified" style="margin-bottom: 0px; margin-top: 20px">
+
+            <!-- some categories -->
+            <li class="dropdown" ng-repeat="cat in (categories | internshipsCatFilter ).display">
+              <a class="dropdown-toggle" style="white-space: nowrap" ng-mouseover="getSuggestedTags( cat )">{{ AppText.translateCode( cat )}}<span class="caret turquoise-caret"></span> </a>
+              <ul class="dropdown-menu">
+                <li ng-hide="tagsSuggestions[ cat ] === undefined || tagsSuggestions[ cat ] == 'loading'" ng-repeat="tag in tagsSuggestions[ cat ]" ng-click="addTag( tag )"><a>{{ tag.name }}</a></li>
+                <li ng-show="tagsSuggestions[cat] !== undefined && tagsSuggestions[ cat ].length === 0" class="disabled">
+                  <a>
+                    {{ AppText.browse.remove_tags | language }}
+                  </a>
+                </li>
+                <li ng-show="tagsSuggestions[ cat ] == 'loading'" class="disabled">
+                  <a>
+                    <span class="fa fa-refresh fa-spin"></span>
+                  </a>
+                </li>
+              </ul>
+            </li>
+
+            <!-- more categories ! -->
+            <li class="dropdown">
+              <a class="dropdown-toggle" style="white-space: nowrap" ng-mouseover="getRemainingCatSuggestions()">{{ AppText.browse.more | language }}<span class="caret turquoise-caret"></span></a>
+
+              <ul class="dropdown-menu">
+                <!-- repat remaining categories -->
+                <li ng-repeat="cat in (categories | internshipsCatFilter).others" ng-show="tagsSuggestions[ cat ].length > 0 && tagsSuggestions[ cat ] != 'loading'">
+                    <a class="list-in-dropdown-title">{{ AppText.translateCode( cat ) }}</a>
+                    <ul class="list-in-dropdown-list">
+                      <li ng-repeat="tag in tagsSuggestions[ cat ]" ng-click="addTag( tag )"><a>{{ tag.name }}</a></li>
+                    </ul>
+                </li>
+
+                <li class="disabled">
+                  <a>
+                    {{ AppText.browse.remove_tags | language }}
+                  </a>
+                </li>
+              </ul>
+            </li>
+        </ul>
+      </div><!-- shapter-well -->
+      <!-- }}} -->
+
+      <!-- {{{ results -->
+      <p class="center bold">
+        <span ng-hide="batchLoading">
+          {{ nbInternships }} 
+          <span ng-hide="$location.search().nav === 'current'">{{ AppText.internships.internships | language }}</span>
+          <span ng-show="$location.search().nav === 'current'">{{ AppText.internships.in_favourites | language }}</span>
+          {{ AppText.internships._in | language }} {{ school.name }}
+        </span>
+        <span ng-show="batchLoading"><span class="fa fa-refresh fa-spin"></span></span>
+      </p>
+      <p ng-show="activeTags.length" class="center"><small class="text-muted" ng-bind="AppText.browse.posessing_keywords | language"></small>
+      </p>
+
+      <div class="shapter-well" ng-show="view == 'map'">
+        <sh-map internships-list="internshipsList" on-new="shAddInternshipModalFactory.open()" on-internship-created="onCreated()"></sh-map>
+      </div>
+
+      <!--
+      <div class="shapter-well" ng-hide="view == 'map'">
+        <div class="list-group">
+          <div class="list-group-item clearfix" ng-repeat="item in internshipsList">
+          </div>
+        </div>
+      </div>
+      -->
+
+    </div><!-- col -->
+  </div><!-- row -->
+</div><!-- container -->

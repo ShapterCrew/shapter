@@ -34,7 +34,7 @@ angular.module( 'shapter.browse', [
   Analytics.browse();
   $scope.root = $rootScope;
 
-  $scope.categories = $rootScope.categories;
+  $scope.categories = $rootScope.item_categories;
 
   $scope.school = school;
   $scope.ItemCommentsModal = ItemCommentsModal;
