@@ -3,7 +3,17 @@ describe('AddInternshipModal Test', function() {
   beforeEach(function(){
     module('directives.addInternshipModal');
     module('services.appText');
+    module('resources.analytics');
     module(function( $provide ){
+      $provide.provider('Analytics', function () { 
+        this.$get = function ( $q ) {
+          return {
+            addInternshipModule: function(){
+              return $q.when({});
+            }
+          };
+        };
+      });
       $provide.provider('School', function () { 
         this.$get = function ( $q ) {
           return {

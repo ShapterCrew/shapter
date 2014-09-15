@@ -59,7 +59,7 @@ angular.module( 'shapter.maps', [
 }])
 
 //controller for the map
-.controller('MapsCtrl', ['$scope', '$compile', '$filter', 'leafletMarkersHelpers', 'security', '$stateParams', function( $scope, $compile, $filter, leafletMarkersHelpers, security, $stateParams ){
+.controller('MapsCtrl', ['$scope', '$compile', '$filter', 'leafletMarkersHelpers', 'security', '$stateParams', 'Analytics', function( $scope, $compile, $filter, leafletMarkersHelpers, security, $stateParams, Analytics ){
 
   $scope.isOneOfMySchools = function(){
     var id = $stateParams.schoolId;
@@ -71,6 +71,11 @@ angular.module( 'shapter.maps', [
     });
     return out;
   };
+
+  //Show the popup on marker click
+  $scope.$on('leafletDirectiveMap.popupopen', function(event, data){
+    Analytics.openMapMarker(); 
+  });
 
   // custom method added to reset groups. Otherwise the markers are not displayed.
   $scope.$on('$destroy', function () {

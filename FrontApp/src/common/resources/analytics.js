@@ -420,10 +420,29 @@ angular.module('resources.analytics', [])
 
     addCampusPage: function(){
       mixpanel.track("Add Campus Page");
+    },
+
+    internships: function(){
+      mixpanel.track("Internships");
+    },
+
+    addInternshipModule: function(){
+      mixpanel.track("Add Internship Module");
+    },
+
+    internshipCreated: function(){
+      mixpanel.track('Internship Created');
+    },
+
+    changeNav: function( state ){
+      mixpanel.track('ChangeNav', {
+        state: state
+      });
+    },
+
+    openMapMarker: function(){
+      mixpanel.track('Open Map Marker');
     }
-
-
-
 
   };
 

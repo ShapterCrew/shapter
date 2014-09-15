@@ -26,8 +26,9 @@ angular.module( 'directives.addInternshipModal', [
   };
 }])
 
-.controller( 'AddInternshipModalCtrl', ['$scope', 'Internship', '$stateParams', 'Map', '$filter', '$modalInstance', 'AppText', '$rootScope', 'Tag', function($scope, Internship, $stateParams, Map, $filter, $modalInstance, AppText, $rootScope, Tag ){
+.controller( 'AddInternshipModalCtrl', ['$scope', 'Internship', '$stateParams', 'Map', '$filter', '$modalInstance', 'AppText', '$rootScope', 'Tag', 'Analytics', function($scope, Internship, $stateParams, Map, $filter, $modalInstance, AppText, $rootScope, Tag, Analytics ){
 
+  Analytics.addInternshipModule();
   $scope.AppText = AppText;
   $scope.internship = {};
   $scope.internship.schoolId = $stateParams.schoolId;
@@ -52,6 +53,7 @@ angular.module( 'directives.addInternshipModal', [
       $scope.internship = {};
       $rootScope.$broadcast( 'InternshipCreated' );
       $scope.close();
+      Analytics.internshipCreated();
     });
   };
 
