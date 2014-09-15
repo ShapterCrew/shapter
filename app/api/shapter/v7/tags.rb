@@ -38,15 +38,16 @@ module Shapter
                                NOTE
         }
         params do 
-          requires :filter, type: String, desc: "id of the tag to filter with"
+          optional :filter, type: String, desc: "id of the tag to filter with"
           optional :category, type: String, desc: "category to filter with"
         end
         post :/ do 
-          #if params[:filter]
-            tags = dictionnary(params[:filter])
-          #else
-          #  tags = Tag.all
-          #end
+          error!("I can't to this, I'm a teapot. (also, please provide at least a category or filter)",418) if ( params[:filter].nil? and params[:category].nil?)
+          if params[:filter]
+           tags = dictionnary(params[:filter])
+          else
+            tags = Tag.all
+          end
 
           filtered_tags = if params[:category]
                             tags.select{|t| t.category == params[:category]}
@@ -65,7 +66,7 @@ module Shapter
         }
         params do 
           requires :selected_tags, type: Array, desc: "Array of tags"
-          optional :limit, type: Integer, desc: "Limit the max number of results", default: 40
+          optional :limit, type: Integer, desc: "Limit the max number of results (default 40)", default: 40
         end
 
         post :suggested do 

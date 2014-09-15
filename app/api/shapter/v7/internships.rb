@@ -15,6 +15,11 @@ module Shapter
         params do 
           requires :title, desc: "internship title"
           requires :start_date, type: Date, desc: "starting date"
+          requires :location, type: Hash do 
+            requires :lat, type: Float, desc: "gps latitude"
+            requires :long, type: Float, desc: "gps longitude"
+            requires :formated_address, type: String, desc: "formatted address"
+          end
           requires :end_date, type: Date, desc: "ending date"
           optional :tags_by_ids, type: Array, desc: "directly pass the ids of known tags to associate"
           optional :tags_by_name_cat, type: Array, desc: "find or create tags by name/category" do 
@@ -42,7 +47,9 @@ module Shapter
             title: params[:title],
             start_date: params[:start_date],
             end_date: params[:end_date],
-            tags: tags
+            address: params[:location][:formated_address],
+            location: [params[:location][:long], params[:location][:lat]],
+            tags: tags,
           )
 
           if i.save
