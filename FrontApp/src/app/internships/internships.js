@@ -57,6 +57,7 @@ angular.module( 'shapter.internships', [
   $scope.update = function() {
     $scope.updateScopeTags();
     $scope.updateInternshipsList();
+    $scope.tagsSuggestions = {};
   };
 
   $scope.getTypeahead = function( string ){
@@ -97,6 +98,7 @@ angular.module( 'shapter.internships', [
         }
       });
       array.push( $stateParams.schoolId );
+      console.log( array );
 
       Tag.getSuggestedTags( array, 'internship', 200, category ).then( function( response ){
         $scope.tagsSuggestions[ category ] = response.recommended_tags;
