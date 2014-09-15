@@ -1,74 +1,74 @@
-<div class="modal-content">
-  <div class="modal-body">
-    <div class="row">
-      <div class="col-md-12">
-        <div class="lead bold text-asphalt">
-          Ajoute ton stage !
-        </div>
-        <form name="signupForm" class="css-form">
-          <div class="form-group">
-            <label>Intitulé du stage</label>
-            <input sh-auto-focus="true" name="fname" type="text" ng-model="internship.title" class="form-control" required>
-          </div>
-          <div class="form-group">
-            <label>Adresse</label>
-            <input typeahead-editable="false" typeahead="address as address.formatted_address for address in getFormatedAdresses( $viewValue )" name="faddress" typeahead-loading="loadingAddresses" type="text" ng-model="internship.address" class="form-control" required>
-          </div>
-          <!--
-          <div class="form-group">
-            <label>Description</label>
-            <input name="fdescription" type="text" ng-model="internship.description" class="form-control" required>
-          </div>
-          -->
-          <div class="form-group">
-            <label>Nom de l'entreprise</label>
-            <input name="fname" type="text" ng-model="internship.tags.company_name" class="form-control" required>
-          </div>
-          <!--
-          <div class="form-group">
-            <label>Taille de l'entreprise</label>
-            <input name="fname" type="text" ng-model="internship.company_size" class="form-control" required>
-          </div>
-          -->
-          <div>
-            <div class="form-group" style="position: relative; display: inline-block; vertical-align: top; margin: 10px">
-              <label>Date de début</label>
-              <p class="input-group">
-                <input name="fstart" type="text" show-weeks="false" show-button-bar="false" datepicker-popup="dd/MM/yyyy" ng-model="internship.start_date" is-open="openedBegin" ng-required="true" close-text="Close" editable="false"/>
-              </p>
+<div class="row">
+  <div class="col-md-8 col-md-offset-2">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="lead bold text-sun center">
+              {{ AppText.internships.add_yours | language }} 
             </div>
+            <form name="addInternshipForm" class="css-form" novalidate>
+              <div class="form-group">
+                <label>{{ AppText.internships.internship_title | language }}</label>
+                <input sh-auto-focus="true" name="fname" type="text" ng-model="internship.title" class="form-control" ng-required="true" required>
+              </div>
 
-            <div class="form-group" style="position: relative; display: inline-block; vertical-align: top; margin: 10px">
-              <label>Date de fin</label>
-              <p class="input-group">
-                <input name="fend" type="text" show-weeks="false" show-button-bar="false" datepicker-popup="dd/MM/yyyy" ng-model="internship.end_date" is-open="openedEnd" ng-required="true" close-text="Close" editable="false"/>
-              </p>
+              <div class="form-group">
+                <label>{{ AppText.internships.address | language }}</label>
+                <input typeahead-editable="false" typeahead="address as address.formatted_address for address in getFormatedAdresses( $viewValue )" name="faddress" typeahead-loading="loadingAddresses" type="text" ng-model="internship.address" class="form-control" required>
+              </div>
+              <!--
+              <div class="form-group">
+                <label>Description</label>
+                <input name="fdescription" type="text" ng-model="internship.description" class="form-control" required>
+              </div>
+              -->
+              <div class="form-group">
+                <label>{{ AppText.internships.company | language }}</label>
+                <input name="fname" type="text" ng-model="internship.tags.company_name" class="form-control" required>
+              </div>
+              <!--
+              <div class="form-group">
+                <label>Taille de l'entreprise</label>
+                <input name="fname" type="text" ng-model="internship.company_size" class="form-control" required>
+              </div>
+              -->
+              <div>
+                <div class="form-group" style="position: relative; display: inline-block; vertical-align: top; margin: 10px">
+                  <label>{{ AppText.internships.start_date | language }}</label>
+                  <p class="input-group">
+                    <input class="form-control" name="fstart" type="text" show-weeks="false" show-button-bar="false" datepicker-popup="dd/MM/yyyy" ng-model="internship.start_date" is-open="openedBegin" ng-required="true" close-text="Close" editable="false" required/>
+                  </p>
+                </div>
+
+                <div class="form-group" style="position: relative; display: inline-block; vertical-align: top; margin: 10px">
+                  <label>{{ AppText.internships.end_date | language }}</label>
+                  <p class="input-group">
+                    <input class="form-control" name="fend" type="text" show-weeks="false" show-button-bar="false" datepicker-popup="dd/MM/yyyy" ng-model="internship.end_date" is-open="openedEnd" ng-required="true" close-text="Close" editable="false" required/>
+                  </p>
+                </div>
+              </div>
+              <!--
+              <div class="form-group">
+                <label>Domaine</label>
+                <input name="fname" type="text" ng-model="internship.domain" class="form-control" required>
+              </div>
+              <div class="form-group">
+                <label>Poste</label>
+                <input name="fname" type="text" ng-model="internship.position" class="form-control" required>
+              </div>
+              <div class="form-group">
+                <label>Compétences développées</label>
+                <input name="fname" type="text" ng-model="internship.skills" class="form-control" required>
+              </div>
+              -->
+            <div class="form-group">
+              <button type="submit" class="btn btn-success" ng-click="addInternship()" ng-disabled="addInternshipForm.$invalid">{{ AppText.system.validate | language }}</button>
             </div>
+            </form>
           </div>
-          <!--
-          <div class="form-group">
-            <label>Domaine</label>
-            <input name="fname" type="text" ng-model="internship.domain" class="form-control" required>
-          </div>
-          <div class="form-group">
-            <label>Poste</label>
-            <input name="fname" type="text" ng-model="internship.position" class="form-control" required>
-          </div>
-          <div class="form-group">
-            <label>Compétences développées</label>
-            <input name="fname" type="text" ng-model="internship.skills" class="form-control" required>
-          </div>
-          <div class="form-group">
-            <label>Dans le cadre de l'école :</label>
-            <input name="fname" type="text" ng-model="internship.school" class="form-control" required>
-          </div>
-          -->
-        </form>
-        <div class="form-group">
-          <button class="btn btn-success" ng-click="addInternship()">Valider</button>
         </div>
       </div>
-    </div>
+    </div><!-- modal-content -->
   </div>
-</div><!-- modal-content -->
-
+</div>

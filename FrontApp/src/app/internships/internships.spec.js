@@ -2,6 +2,7 @@ describe('AddInternshipModal Test', function() {
 
   beforeEach(function(){
     module('directives.addInternshipModal');
+    module('services.appText');
     module(function( $provide ){
       $provide.provider('$modalInstance', function () { 
         this.$get = function () {
@@ -38,6 +39,8 @@ describe('AddInternshipModal Test', function() {
 
     var not_formatted_internship = {
       title: 'sample title',
+      start_date: 'lol',
+      end_date: 'haha',
       schoolId: '1234',
       tags: {
         company_name: 'Shapter'
@@ -77,13 +80,23 @@ describe('AddInternshipModal Test', function() {
       }
     };
 
-
     /* --------------------------------- */
     it('should have a title', inject( function( $filter ){
       var formatInternshipToPost = $filter( 'formatInternshipToPost' );
       expect( formatInternshipToPost( not_formatted_internship ).title).toEqual( 'sample title' );
     }));
 
+    /* --------------------------------- */
+    it('should have a start_date', inject( function( $filter ){
+      var formatInternshipToPost = $filter( 'formatInternshipToPost' );
+      expect( formatInternshipToPost( not_formatted_internship ).start_date).not.toBe( undefined );
+    }));
+
+    /* --------------------------------- */
+    it('should have a end_date', inject( function( $filter ){
+      var formatInternshipToPost = $filter( 'formatInternshipToPost' );
+      expect( formatInternshipToPost( not_formatted_internship ).end_date).not.toBe( undefined );
+    }));
 
     /* --------------------------------- */
     it('should format locations', inject( function( $filter ){
@@ -96,21 +109,16 @@ describe('AddInternshipModal Test', function() {
       expect( formatInternshipToPost( not_formatted_internship ).location).toEqual( expected_location );
     }));
 
-
-
     /* --------------------------------- */
     it('should have school tag in tags_by_ids', inject( function( $filter ){
       var formatInternshipToPost = $filter( 'formatInternshipToPost' );
-
       expect( formatInternshipToPost( not_formatted_internship ).tags_by_ids).toContain( '1234' );
-
     }));
 
     /* --------------------------------- */
     it('should format tags by name cat', inject( function( $filter ){
-
       var formatInternshipToPost = $filter( 'formatInternshipToPost' );
-     var  expected_tags_by_name_cat = [{
+      var  expected_tags_by_name_cat = [{
         tag_name: 'Shapter',
         tag_category: 'company_name'
       },
@@ -122,27 +130,22 @@ describe('AddInternshipModal Test', function() {
         tag_category: 'geo',
         tag_name: 'France'
       }];
-
       expect( formatInternshipToPost( not_formatted_internship ).tags_by_name_cat).toEqual( expected_tags_by_name_cat );
     }));
   });
 
   describe('AddInternshipModalController', function(){
-
     var $stateParams;
-
-
     beforeEach( inject (function( $injector ){
       $stateParams = $injector.get( '$stateParams' );
     }));
-
 
     /* --------------------------------- */
     it('should have an user and an addInternship function in the scope', inject(function($rootScope, $controller) {
       var scope = $rootScope.$new();
       var ctrl = $controller('AddInternshipModalCtrl', {$scope: scope});
-
       expect(angular.isFunction(scope.addInternship)).toBe(true);
     }));
+
   });
 });

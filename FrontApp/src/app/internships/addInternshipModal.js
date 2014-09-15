@@ -2,6 +2,7 @@ angular.module( 'directives.addInternshipModal', [
   'security',
   'ui.router'
 ])
+
 .factory( 'shAddInternshipModalFactory', function($modal) {
   return {
     open: function(currentUser) {
@@ -29,10 +30,11 @@ angular.module( 'directives.addInternshipModal', [
   };
 }])
 
-.controller( 'AddInternshipModalCtrl', ['$scope', 'Internship', '$stateParams', 'Map', '$filter', '$modalInstance', function($scope, Internship, $stateParams, Map, $filter, $modalInstance ){
+.controller( 'AddInternshipModalCtrl', ['$scope', 'Internship', '$stateParams', 'Map', '$filter', '$modalInstance', 'AppText', function($scope, Internship, $stateParams, Map, $filter, $modalInstance, AppText ){
+
+  $scope.AppText = AppText;
   $scope.internship = {};
   $scope.close = $modalInstance.close;
-  Map.getFormatedAdresses( '35 rue de la république' );
 
   $scope.getFormatedAdresses = function( string ){
     $scope.loadingAddresses = true;
@@ -43,7 +45,6 @@ angular.module( 'directives.addInternshipModal', [
   };
 
   $scope.addInternship = function() {
-
     Internship.create($filter( 'formatInternshipToPost' )($scope.internship)).then(function(response) {
       $scope.internship = {};
       $scope.close();
@@ -53,7 +54,6 @@ angular.module( 'directives.addInternshipModal', [
 
 .filter('formatInternshipToPost', function(){
   return function( internship ){
-    var out = {};
 
     var tags = [];
     angular.forEach( internship.tags, function(tag, cat) {
@@ -69,15 +69,15 @@ angular.module( 'directives.addInternshipModal', [
       }
     });
 
-    out.title = internship.title;
-    out.location = {
+    internship.location = {
       formatted_address: internship.address.formatted_address,
       lat: internship.address.geometry.location.lat,
       lng: internship.address.geometry.location.lng
     };
-    out.tags_by_name_cat = tags;
-    out.tags_by_ids = [ internship.schoolId ];
 
-    return out;
+    internship.tags_by_name_cat = tags;
+    internship.tags_by_ids = [ internship.schoolId ];
+
+    return internship;
   };
 });

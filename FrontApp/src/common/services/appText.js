@@ -20,6 +20,34 @@ angular.module( 'services.appText', [])
       return $filter( 'language' )( $parse( code )( AppText.categories ));
     },
     internships: {
+      country: {
+        en: 'Country',
+        fr: 'Pays'
+      },
+      add_yours: {
+        en: 'Add your internship!',
+        fr: 'Ajoute ton stage !'
+      },
+      internship_title: {
+        en: 'Internship title',
+        fr: 'Nom du stage'
+      },
+      address: {
+        en: 'Address',
+        fr: 'Adresse'
+      },
+      company: {
+        en: 'Company',
+        fr: 'Entreprise'
+      },
+      start_date: {
+        en: 'Start date',
+        fr: 'Date de début'
+      },
+      end_date: {
+        en: 'End date',
+        fr: 'Date de fin'
+      },
       _in: {
         en: 'in',
         fr: 'à'
