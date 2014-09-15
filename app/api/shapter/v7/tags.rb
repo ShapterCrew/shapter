@@ -61,7 +61,12 @@ module Shapter
                     error!("Please pass 'item' or 'internship' to determine wether you are you looking for internships-related tags, or item-related tags") 
                   end
 
-          resp = reco_tags(params[:selected_tags],params[:category_filter],klass).not.any_in(id: params[:selected_tags]).asc(:name).take(params[:limit])
+          r = reco_tags(params[:selected_tags],params[:category_filter],klass)
+          resp = if r.any?
+                   r.not.any_in(id: params[:selected_tags]).asc(:autocomplete).take(params[:limit])
+                 else
+                   []
+                 end
 
           present :recommended_tags, resp, with: Shapter::Entities::Tag, entity_options: entity_options
 
