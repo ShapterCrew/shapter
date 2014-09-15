@@ -22,6 +22,23 @@ module Shapter
       end
       #}}}
 
+      #{{{ filter_internships
+      def filter_internships(ary,active_only=false)
+        Rails.cache.fetch( "filterIntrnshp|#{active_only}|#{ary.sort.join(":")}|#{cache_key_for(Tag,Internship)}", expires_in: 90.minutes ) do 
+          compute_internship_filter(ary,active_only).sort_by(&natural_sort)
+        end
+      end
+
+      def compute_internship_filter(ary,active_only)
+        all = Internship.all_in("tag_ids" => ary)
+        if active_only
+          all.gte(end_date: Date.today).lte(start_date: Date.today)
+        else
+          all
+        end
+      end
+      #}}}
+
       ##{{{ reco_tags
 
       # To perform a collaborative filtering based on tag->item->tag path, klass=Item.

@@ -7,6 +7,8 @@ class Internship
   field :address
   field :location
 
+  include Autocomplete
+
   has_and_belongs_to_many :tags
   belongs_to :trainee, class_name: "User", inverse_of: :internships
 
@@ -20,6 +22,10 @@ class Internship
 
   def duration
     (end_date - start_date).to_i
+  end
+
+  def name
+    title
   end
 
   def skills
