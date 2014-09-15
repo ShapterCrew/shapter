@@ -58,10 +58,18 @@ angular.module( 'shapter.internships', [
     $scope.updateInternshipsList();
   };
 
+  $scope.getTypeahead = function( string ){
+    var tag_ids = [ $stateParams.schoolId ];
+    return Tag.typeahead( string, tag_ids, 'internship', 30, null ).then( function( response ){
+      return response.tags;
+    });
+  };
+
   $scope.$watch( function(){
     return $location.search().filter;
   }, function( newVal, oldVal ){
     if( oldVal != newVal ){
+      console.log( 'lol' );
       $scope.update();
     }
   }, true);
@@ -160,7 +168,7 @@ angular.module( 'shapter.internships', [
   };
 
   $scope.addTextTag = function() {
-    $scope.addTag($scope.typedTag);
+    $scope.addTag( $scope.typedTag );
   };
 
   $scope.update();
