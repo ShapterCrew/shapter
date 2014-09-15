@@ -1,5 +1,6 @@
 class Internship
   include Mongoid::Document
+  include Mongoid::Timestamps
 
   field :title
   field :start_date, type: Date
