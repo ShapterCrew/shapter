@@ -12,49 +12,29 @@ module Shapter
 
       namespace :tags do 
 
-        #{{{ search
-        desc "search for tag name"
+        #{{{ typeahead
+        desc "enter at least 3 characters and find the tags that match the search string. input parameters work as for the tags/suggested route"
         params do 
-          requires :search, type: String, desc: 'required: search string'
-          optional :category, type: String, desc: 'optional: category to filter with'
+          requires :selected_tags, type: Array, desc: "Array of pre-selected tag ids."
+          requires :context, type: String, desc: "Please pass 'item' or 'internship' to determine wether you are you looking for internships-related tags, or item-related tags"
+          requires :search_string, type: String, desc: "The string to search with"
+          optional :limit, type: Integer, desc: "Limit the max number of results (default 100)", default: 100
+          optional :category_filter, type: String, desc: "only tags of this category will be selected"
         end
-        post :search do 
+        post :typeahead do 
+          error!("please provide at least 3 characters") if params[:search_string].size < 3
 
-          tags = if params[:category]
-                   Tag.where(name: /#{params[:search]}/i, category: params[:category])
-                 else
-                   Tag.where(name: /#{params[:search]}/i)
-                 end
-          present :tags, tags, with: Shapter::Entities::Tag, entity_options: entity_options
-        end
-        #}}}
+          klass = if params[:context] == "item" 
+                    Item
+                  elsif params[:context] == "internship"
+                    Internship
+                  else
+                    error!("Please pass 'item' or 'internship' to determine wether you are you looking for internships-related tags, or item-related tags") 
+                  end
 
-        # index {{{
-        desc "get all tags", { :notes => <<-NOTE
-        Useful to build an exhaustive dictionnary of tags
+          resp = reco_tags(params[:selected_tags],params[:category_filter],klass).where(autocomplete: /#{Autocomplete.normalize(params[:search_string])}/).asc(:name).take(params[:limit])
 
-        A <filter> parameter can be passed to build a dictionnary based on some school.
-        If specified, then all the tags will have at least one item that is tagged by the school.
-                               NOTE
-        }
-        params do 
-          optional :filter, type: String, desc: "id of the tag to filter with"
-          optional :category, type: String, desc: "category to filter with"
-        end
-        post :/ do 
-          if params[:filter]
-            tags = dictionnary(params[:filter])
-          else
-            tags = Tag.all
-          end
-
-          filtered_tags = if params[:category]
-                            tags.select{|t| t.category == params[:category]}
-                          else
-                            tags
-                          end
-
-          present filtered_tags, with: Shapter::Entities::Tag, entity_options: entity_options
+          present :tags, resp, with: Shapter::Entities::Tag, entity_options: entity_options
         end
         #}}}
 
@@ -64,16 +44,29 @@ module Shapter
                                                 NOTE
         }
         params do 
-          requires :selected_tags, type: Array, desc: "Array of tags"
-          optional :limit, type: Integer, desc: "Limit the max number of results", default: 40
+          requires :selected_tags, type: Array, desc: "Array of pre-selected tag ids"
+          requires :context, type: String, desc: "Please pass 'item' or 'internship' to determine wether you are you looking for internships-related tags, or item-related tags"
+          optional :limit, type: Integer, desc: "Limit the max number of results (default 100)", default: 100
+          optional :category_filter, type: String, desc: "only tags of this category will be selected"
         end
 
         post :suggested do 
 
 
-          resp = reco_tags2(params[:selected_tags],params[:limit])
+          klass = if params[:context] == "item" 
+                    Item
+                  elsif params[:context] == "internship"
+                    Internship
+                  else
+                    error!("Please pass 'item' or 'internship' to determine wether you are you looking for internships-related tags, or item-related tags") 
+                  end
 
-          present :recommended_tags, resp
+          resp = reco_tags(params[:selected_tags],params[:category_filter],klass)
+          .take(params[:limit] + params[:selected_tags].size)
+          .reject{|t| params[:selected_tags].include? t.id.to_s}
+          .take(params[:limit])
+
+          present :recommended_tags, resp, with: Shapter::Entities::Tag, entity_options: entity_options
 
         end
         # }}}

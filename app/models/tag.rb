@@ -1,6 +1,7 @@
 class Tag
   include Mongoid::Document
   include Mongoid::Timestamps
+  include Autocomplete
 
   include Funnelable
   funnel_for :signup_funnel
