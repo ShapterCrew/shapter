@@ -22,8 +22,9 @@ angular.module( 'shapter.internships', [
   });
 }])
 
-.controller('InternshipsCtrl', ['$scope', 'security', '$location', 'Internship', 'Tag', '$rootScope', '$timeout', '$stateParams', 'shAddInternshipModalFactory', function( $scope, security, $location, Internship, Tag, $rootScope, $timeout, $stateParams, shAddInternshipModalFactory ){
+.controller('InternshipsCtrl', ['$scope', 'security', '$location', 'Internship', 'Tag', '$rootScope', '$timeout', '$stateParams', 'shAddInternshipModalFactory', 'Analytics', function( $scope, security, $location, Internship, Tag, $rootScope, $timeout, $stateParams, shAddInternshipModalFactory, Analytics ){
 
+  Analytics.internships();
   $scope.shAddInternshipModalFactory = shAddInternshipModalFactory;
   $scope.security = security;
   $scope.$location = $location;
@@ -36,6 +37,7 @@ angular.module( 'shapter.internships', [
   $scope.nav = function( state ) {
     $location.search('nav', state).search('filter', null);
     $scope.update();
+    Analytics.changeNav( state );
   };
 
   // used to convert $location.search into an array
@@ -173,10 +175,12 @@ angular.module( 'shapter.internships', [
 
   $scope.addTag = function(tag) {
     $scope.onTagAdded(tag);
+    Analytics.addTag( tag, 'internships' );
   };
 
   $scope.removeTag = function(tag) {
     $scope.onTagRemoved(tag);
+    Analytics.removeTag( tag, 'internships' );
   };
 
   $scope.addTextTag = function() {

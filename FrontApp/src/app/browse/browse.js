@@ -62,6 +62,7 @@ angular.module( 'shapter.browse', [
   $scope.nav = function( state ){
     $location.search( 'nav', state ).search( 'filter', null);
     $scope.update();
+    Analytics.changeNav( state );
   };
 
   if( !school.constructorFunnel ){
@@ -169,7 +170,7 @@ angular.module( 'shapter.browse', [
   // removes a tag from active tags
   $scope.removeTag = function( tag ){
     $scope.onTagRemoved( tag );
-    Analytics.removeTag( tag );
+    Analytics.removeTag( tag, 'browse' );
   };
 
   $scope.$watch( function(){
@@ -297,15 +298,9 @@ angular.module( 'shapter.browse', [
     }
   };
 
-  /*
-     if( Tag.getSchoolTagIndex().length > 0 ){
-     $scope.$emit( '$locationChangeSuccess' );
-     }
-     */
-
   $scope.addTag = function( tag ){
     $scope.onTagAdded( tag );
-    Analytics.addTag( tag );
+    Analytics.addTag( tag, 'browse' );
   };
 
   $scope.addTextTag = function(){
