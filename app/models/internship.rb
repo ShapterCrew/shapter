@@ -26,7 +26,7 @@ class Internship
     tags.skills
   end
 
-  def long
+  def lng
     location.first
   end
 
