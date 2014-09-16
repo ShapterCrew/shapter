@@ -46,6 +46,10 @@ class Internship
     id.to_s
   end
 
+  def in_progress?
+    start_date <= Date.today and end_date >= Date.today
+  end
+
   class << self
     def acceptable_categories
       [
