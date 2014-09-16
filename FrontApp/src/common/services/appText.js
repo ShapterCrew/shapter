@@ -20,6 +20,10 @@ angular.module( 'services.appText', [])
       return $filter( 'language' )( $parse( code )( AppText.categories ));
     },
     internships: {
+      in_progress: {
+        en: 'In progress!',
+        fr: 'En cours !'
+      },
       skills: {
         en: 'Describe the skills you developped with keywords: ',
         fr: 'Décris les compétences que tu as développées avec des mots-clefs :'

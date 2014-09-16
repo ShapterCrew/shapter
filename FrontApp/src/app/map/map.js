@@ -51,7 +51,7 @@ angular.module( 'shapter.maps', [
       };
 
       if( internship.in_progress ){
-        internship.icon.markerColor = 'red';
+        internship.icon.markerColor = 'green';
       }
 
       //defines group if not defined
