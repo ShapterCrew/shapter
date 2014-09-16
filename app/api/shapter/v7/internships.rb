@@ -26,6 +26,7 @@ module Shapter
             requires :tag_name, desc: "name of the tag"
             requires :tag_category, desc: "tag category"
           end
+          optional :description, desc: "description of the internship"
         end
         post :create do 
           check_confirmed_student!
@@ -50,6 +51,7 @@ module Shapter
             address: params[:location][:formatted_address],
             location: [params[:location][:lng], params[:location][:lat]],
             tags: tags,
+            description: params[:description],
           )
 
           if i.save
@@ -111,11 +113,6 @@ module Shapter
               requires :formatted_address, type: String, desc: "formatted address"
             end
             optional :end_date, type: Date, desc: "ending date"
-            optional :tags_by_ids, type: Array, desc: "directly pass the ids of known tags to associate"
-            optional :tags_by_name_cat, type: Array, desc: "find or create tags by name/category" do 
-              requires :tag_name, desc: "name of the tag"
-              requires :tag_category, desc: "tag category"
-            end
           end
           put do 
             permitted = [
@@ -123,8 +120,7 @@ module Shapter
               :start_date,
               :location,
               :end_date,
-              :tags_by_ids,
-              :tags_by_name_cat,
+              :description,
             ]
 
             if @internship.update_attributes(permit_params(params,permitted))
