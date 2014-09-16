@@ -22,7 +22,7 @@ angular.module( 'shapter.internships', [
   });
 }])
 
-.controller('InternshipsCtrl', ['$scope', 'security', '$location', 'Internship', 'Tag', '$rootScope', '$timeout', '$stateParams', 'shAddInternshipModalFactory', 'Analytics', function( $scope, security, $location, Internship, Tag, $rootScope, $timeout, $stateParams, shAddInternshipModalFactory, Analytics ){
+.controller('InternshipsCtrl', ['$scope', 'security', '$location', 'Internship', 'Tag', '$rootScope', '$timeout', '$stateParams', 'shAddInternshipModalFactory', 'Analytics', '$filter', function( $scope, security, $location, Internship, Tag, $rootScope, $timeout, $stateParams, shAddInternshipModalFactory, Analytics, $filter ){
 
   Analytics.internships();
   $scope.shAddInternshipModalFactory = shAddInternshipModalFactory;
@@ -82,7 +82,6 @@ angular.module( 'shapter.internships', [
     return $location.search().filter;
   }, function( newVal, oldVal ){
     if( oldVal != newVal ){
-      console.log( 'lol' );
       $scope.update();
     }
   }, true);
@@ -109,7 +108,6 @@ angular.module( 'shapter.internships', [
         }
       });
       array.push( $stateParams.schoolId );
-      console.log( array );
 
       Tag.getSuggestedTags( array, 'internship', 200, category ).then( function( response ){
         $scope.tagsSuggestions[ category ] = response.recommended_tags;

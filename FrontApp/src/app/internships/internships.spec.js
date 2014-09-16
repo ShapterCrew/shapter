@@ -66,9 +66,14 @@ describe('AddInternshipModal Test', function() {
 
     var not_formatted_internship = {
       title: 'sample title',
+      description: 'haha lol',
       start_date: 'lol',
       end_date: 'haha',
       schoolId: '1234',
+      tags_by_name_cat: [{
+        tag_name: 'lol',
+        tag_category: 'skill'
+      }],
       tags: {
         company_name: 'Shapter'
       },
@@ -114,6 +119,12 @@ describe('AddInternshipModal Test', function() {
     }));
 
     /* --------------------------------- */
+    it('should have a description', inject( function( $filter ){
+      var formatInternshipToPost = $filter( 'formatInternshipToPost' );
+      expect( formatInternshipToPost( not_formatted_internship ).description).toEqual( 'haha lol' );
+    }));
+
+    /* --------------------------------- */
     it('should have a start_date', inject( function( $filter ){
       var formatInternshipToPost = $filter( 'formatInternshipToPost' );
       expect( formatInternshipToPost( not_formatted_internship ).start_date).not.toBe( undefined );
@@ -146,6 +157,10 @@ describe('AddInternshipModal Test', function() {
     it('should format tags by name cat', inject( function( $filter ){
       var formatInternshipToPost = $filter( 'formatInternshipToPost' );
       var  expected_tags_by_name_cat = [{
+        tag_name: 'lol',
+        tag_category: 'skill'
+      },
+      {
         tag_name: 'Shapter',
         tag_category: 'company_name'
       },

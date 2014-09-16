@@ -70,7 +70,8 @@ angular.module('resources.internship', [
     var params = {
       entities: entities,
       filter: tags,
-      active_only: active_only
+      active_only: active_only,
+      n_stop: -1
     };
 
     return Restangular.all('internships').customPOST( params, 'filter' );
@@ -78,6 +79,10 @@ angular.module('resources.internship', [
 
   Internship.create = function( internship ) {
     return Restangular.all('internships').customPOST(internship, 'create');
+  };
+
+  Internship.update = function( internship ){
+    return Restangular.one( 'internships', internship.id ).customPUT( internship);
   };
 
   return Internship;

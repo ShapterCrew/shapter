@@ -29,13 +29,21 @@ angular.module( 'directives.addInternshipModal', [
 .controller( 'AddInternshipModalCtrl', ['$scope', 'Internship', '$stateParams', 'Map', '$filter', '$modalInstance', 'AppText', '$rootScope', 'Tag', 'Analytics', function($scope, Internship, $stateParams, Map, $filter, $modalInstance, AppText, $rootScope, Tag, Analytics ){
 
   Analytics.addInternshipModule();
+  $scope.step = 1;
   $scope.AppText = AppText;
   $scope.internship = {};
   $scope.internship.schoolId = $stateParams.schoolId;
   $scope.close = $modalInstance.close;
+  $scope.sizeOptions = [
+    "1-9",
+    "10-49",
+    "50-199",
+    "200-499",
+    "500+"
+  ];
 
-  $scope.getCompaniesTypeahead = function( string ){
-    return Tag.typeahead( string, [], 'internship', 30, 'company').then( function( response ){
+  $scope.getTypeahead = function( string, cat ){
+    return Tag.typeahead( string, [], 'internship', 30, cat).then( function( response ){
       return response.tags;
     });
   };
@@ -50,33 +58,60 @@ angular.module( 'directives.addInternshipModal', [
 
   $scope.addInternship = function() {
     Internship.create($filter( 'formatInternshipToPost' )($scope.internship)).then(function(response) {
-      $scope.internship = {};
+      $scope.internship = response;
       $rootScope.$broadcast( 'InternshipCreated' );
-      $scope.close();
       Analytics.internshipCreated();
+      $scope.step = 2;
     });
+  };
+
+  $scope.updateInternship = function(){
+
+    $scope.internship.tags_by_name_cat = $filter('formatTags')($scope.internship.tags);
+    delete $scope.internship.tags;
+
+    $scope.internship.put();
+  };
+
+  $scope.addSelectedSkill = function(){
+    if( $scope.internship.skillToBeAdded ){
+      $scope.internship.tags_by_name_cat = $scope.internship.tags_by_name_cat ? $scope.internship.tags_by_name_cat : [];
+      $scope.internship.tags_by_name_cat.push({
+        tag_category: 'skill',
+        tag_name: $scope.internship.skillToBeAdded
+      });
+      $scope.internship.skillToBeAdded = null;
+    }
   };
 
 }])
 
-.filter('formatInternshipToPost', function(){
+.filter('formatTags', [function(){
+  return function( tags ){
+    var out = [];
+    angular.forEach( tags, function(tag, cat) {
+      out.push({tag_category: cat, tag_name: tag });
+    });
+    return out;
+  };
+}])
+
+.filter('formatInternshipToPost', ['$filter', function( $filter ){
   return function( internship ){
     var out = {};
-
-    var tags = [];
-    angular.forEach( internship.tags, function(tag, cat) {
-      tags.push({tag_category: cat, tag_name: tag });
-    });
+    internship.tags_by_name_cat = internship.tags_by_name_cat ? internship.tags_by_name_cat : [];
+    out.tags_by_name_cat = internship.tags_by_name_cat.concat( $filter( 'formatTags' )( internship.tags ));
 
     angular.forEach( internship.address.address_components, function( component ){
       if( component.types[0] != 'street_number' && component.types[0] != 'route' && component.types[0] != 'postal_code'){
-        tags.push({
+        out.tags_by_name_cat.push({
           tag_category: 'geo',
           tag_name: component.long_name
         });
       }
     });
 
+    out.description = internship.description;
     out.title = internship.title;
     out.start_date = internship.start_date;
     out.end_date = internship.end_date;
@@ -87,9 +122,8 @@ angular.module( 'directives.addInternshipModal', [
       lng: internship.address.geometry.location.lng
     };
 
-    out.tags_by_name_cat = tags;
     out.tags_by_ids = [ internship.schoolId ];
 
     return out;
   };
-});
+}]);
