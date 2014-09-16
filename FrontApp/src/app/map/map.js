@@ -48,8 +48,14 @@ angular.module( 'shapter.maps', [
         type: 'awesomeMarker',
         icon: 'graduation-cap',
         prefix: 'fa'
-        //markerColor: 'green'
       };
+
+      if( internship.in_progress ){
+        internship.icon.markerColor = 'blue';
+      }
+      else { 
+        internship.icon.markerColor = 'cadetblue';
+      }
 
       //defines group if not defined
       //      internship.group = 'default';

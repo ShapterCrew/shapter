@@ -7,6 +7,7 @@ class Internship
   field :end_date, type: Date
   field :address
   field :location
+  field :description
 
   include Autocomplete
 
@@ -45,6 +46,10 @@ class Internship
     id.to_s
   end
 
+  def in_progress?
+    start_date <= Date.today and end_date >= Date.today
+  end
+
   class << self
     def acceptable_categories
       [
@@ -57,6 +62,18 @@ class Internship
         "position",
       ]
     end
+  end
+
+  after_save :tags_touch
+  after_save :user_touch
+
+  private
+  def tags_touch
+    tags.each(&:touch) if tags.any?
+  end
+
+  def user_touch
+    trainee.touch unless trainee.nil?
   end
 
 end

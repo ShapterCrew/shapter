@@ -53,7 +53,9 @@ angular.module('resources.internship', [
         "trainee": true,
         "tags": true,
         "lat": true,
-        "lng": true
+        "lng": true,
+        "description": true,
+        "in_progress": true
 
       },
       user: {
@@ -70,7 +72,8 @@ angular.module('resources.internship', [
     var params = {
       entities: entities,
       filter: tags,
-      active_only: active_only
+      active_only: active_only,
+      n_stop: -1
     };
 
     return Restangular.all('internships').customPOST( params, 'filter' );
@@ -78,6 +81,14 @@ angular.module('resources.internship', [
 
   Internship.create = function( internship ) {
     return Restangular.all('internships').customPOST(internship, 'create');
+  };
+
+  Internship.update = function( internship ){
+    return Restangular.one( 'internships', internship.id ).customPUT( internship );
+  };
+
+  Internship.addTags = function( id, tag_ids, tags_by_name_cat ){
+    return Restangular.one( 'internships', id ).customPUT({ tag_by_ids: tag_ids, tags_by_name_cat: tags_by_name_cat }, 'tags');
   };
 
   return Internship;
