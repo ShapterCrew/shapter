@@ -372,6 +372,11 @@ angular.module('shapter.item', [
 
 .filter('textCut', [function(){
   return function(input, limit, all) {
-    return all ? input : input.slice(0, limit);
+    if (input) {
+      return all ? input : input.slice(0, limit);
+    }
+    else {
+      return null;
+    }
   };
 }]);
