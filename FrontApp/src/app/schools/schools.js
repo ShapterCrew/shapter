@@ -226,7 +226,7 @@ angular.module( 'shapter.schools', [
   var tag_ids = $stateParams.formationId ? [ $stateParams.formationId ] : [];
   tag_ids.push( $stateParams.schoolId );
 
-    Internship.getListFromTags( tag_ids, true).then(function(response){
+    Internship.getListFromTags( tag_ids, false).then(function(response){
       $scope.internshipsList = response.internships;
     });
 

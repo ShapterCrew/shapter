@@ -20,6 +20,26 @@ angular.module( 'services.appText', [])
       return $filter( 'language' )( $parse( code )( AppText.categories ));
     },
     internships: {
+      skills: {
+        en: 'Describe the skills you developped with keywords: ',
+        fr: 'Décris les compétences que tu as développées avec des mots-clefs :'
+      },
+      company_size: {
+        en: 'Company size',
+        fr: 'Taille de l\'entreprise'
+      },
+      position: {
+        en: 'Your job in a word',
+        fr: 'Ton job en un mot'
+      },
+      position_examples: {
+        en: 'ex: data analyst, researcher, marketing, photocopies ...',
+        fr: 'ex : data analyst, chercheur, marketing, stagiaire photocopies ...'
+      },
+      description: {
+        en: 'Describe what you did: ',
+        fr: 'Décris un peu ton stage :'
+      },
       school_context: {
         en: 'I did the internship for: ',
         fr: 'J\'ai fait ce stage avec : '
@@ -1081,6 +1101,14 @@ angular.module( 'services.appText', [])
       }
     },
     system: {
+      add: {
+        en: 'add',
+        fr: 'ajouter'
+      },
+      select: {
+        en: 'select',
+        fr: 'sélectionner'
+      },
       previous: {
         en: 'Previous',
         fr: 'Précédent'
