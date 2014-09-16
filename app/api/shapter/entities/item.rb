@@ -9,7 +9,7 @@ module Shapter
 
       expose :pretty_id        , as: :id
       expose :name             , if: lambda{ |u,o| o[:entity_options]["item"][:name]}
-      expose :description      , if: lambda{ |u,o| o[:entity_options]["item"][:description]}
+      expose :syllabus         , if: lambda{ |u,o| o[:entity_options]["item"][:syllabus]}
       expose :tags             , using: Shapter::Entities::Tag  , if: lambda{ |u,o| o[:entity_options]["item"][:tags]}
       expose :comments_count   , if: lambda{ |u,o| o[:entity_options]["item"][:comments_count]}
       expose :subscribers_count, if: lambda{ |u,o| o[:entity_options]["item"][:subscribers_count]}

@@ -240,7 +240,7 @@ module Shapter
             requires :syllabus, type: String, desc: "syllabus"
           end
           put :update_syllabus do 
-            error!("forbidden",403) unless (current_user.schools & @item.tags.schools).any?
+            error!("forbidden",403) unless ( (current_user.schools & @item.tags.schools).any? or current_user.shapter_admin)
 
             @item.update_attribute(:syllabus, params[:syllabus])
 
