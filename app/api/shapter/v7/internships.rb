@@ -136,6 +136,77 @@ module Shapter
           end
           #}}}
 
+          #{{{ destroy
+          desc "destroy an internship"
+          delete do 
+            error!("forbidden",401) unless (current_user.shapter_admin or @internship.trainee == current_user)
+            @internship.destroy
+            present :status, :destroyed
+          end
+          #}}}
+
+          #{{{ add_tags
+          desc "add tags to internship"
+          params do
+            optional :tags_by_ids, type: Array, desc: "directly pass the ids of known tags to associate"
+            optional :tags_by_name_cat, type: Array, desc: "find or create tags by name/category" do 
+              requires :tag_name, desc: "name of the tag"
+              requires :tag_category, desc: "tag category"
+            end
+          end
+          put :tags do
+
+          new_tags = (p = params[:tags_by_name_cat]).nil? ? [] : p.map{ |h|
+            if Internship.acceptable_categories.include?(h["tag_category"])
+              Tag.find_or_create_by(name: h["tag_name"], category: h["tag_category"])
+            else
+              nil
+            end
+          }.compact
+
+          old_tags = ((p = params[:tags_by_ids]).nil? ? [] : Tag.find(params[:tags_by_ids])).compact
+
+          tags = (new_tags + old_tags).uniq
+
+           @internship.tags << tags
+
+          if @internship.save
+            present @internship, with: Shapter::Entities::Internship, entity_options: entity_options
+          else
+            error!(@internship.errors)
+          end
+
+          end
+          #}}}
+
+          #{{{ remove_tags
+          desc "remove tags from internship"
+          delete :tags do 
+            error!("forbidden",401) unless (current_user.shapter_admin or @internship.trainee == current_user)
+
+          new_tags = (p = params[:tags_by_name_cat]).nil? ? [] : p.map{ |h|
+            if Internship.acceptable_categories.include?(h["tag_category"])
+              Tag.find_or_create_by(name: h["tag_name"], category: h["tag_category"])
+            else
+              nil
+            end
+          }.compact
+
+          old_tags = ((p = params[:tags_by_ids]).nil? ? [] : Tag.find(params[:tags_by_ids])).compact
+
+          tags = (new_tags + old_tags).uniq
+
+          tags.each{|t| @internship.tags.delete(t)}
+
+          if @internship.save and tags.map(&:save).reduce(:&)
+            present @internship, with: Shapter::Entities::Internship, entity_options: entity_options
+          else
+            error!(@internship.error)
+          end
+
+          end
+          #}}}
+
         end
 
       end
