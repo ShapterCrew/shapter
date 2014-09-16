@@ -6,7 +6,7 @@ angular.module('resources.category', [
 .factory('Category', ['Restangular', '$rootScope', function( Restangular, $rootScope){
   var Category = {
 
-    list: function(){
+    for_items: function(){
       var params = {
         entities: {
           category: {
@@ -14,8 +14,19 @@ angular.module('resources.category', [
           }
         }
       };
-      return Restangular.all('categories').customPOST( params );
+      return Restangular.all('categories').customPOST( params, 'for_items' );
+    },
+    for_internships: function(){
+      var params = {
+        entities: {
+          category: {
+            code: true
+          }
+        }
+      };
+      return Restangular.all('categories').customPOST( params, 'for_internships' );
     }
+
   };
 
   return Category;
@@ -23,8 +34,13 @@ angular.module('resources.category', [
 
 .run([ 'Category', '$rootScope', function( Category, $rootScope ){
 
-  Category.list().then( function( response ){
-    $rootScope.categories = response.categories;
+  Category.for_items().then( function( response ){
+    $rootScope.item_categories = response.categories;
+  });
+
+  Category.for_internships().then( function( response ){
+    console.log( response.categories );
+    $rootScope.internship_categories = response.categories;
   });
 
 }]);

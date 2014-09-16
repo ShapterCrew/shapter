@@ -23,7 +23,7 @@
       </div>
       <div class="well" ng-show="tagItemsSchool">
         <h4>Ajoute des tags pour chercher des items : </h4>
-        <input type="text" class="form-control" placeholder="+ {{ AppText.browse.add_a_keyword | language }}" typeahead="tag as tag.name + ' / ' + tag.category for tag in schoolTags | ignoreAccentsFilter | filter: $viewValue | shorterFirstFilter | notAlreadyThereName:newItemTags | limitTo: 50" ng-model="tagItemstagToAdd" typeahead-editable="true" typeahead-on-select="addTagItemsTag( tagItemstagToAdd )">
+        <input type="text" class="form-control" placeholder="+ {{ AppText.browse.add_a_keyword | language }}" typeahead-min-length="3" typeahead="tag as tag.name + ' / ' + tag.category for tag in getTypeahead( $viewValue, tagItemsSchool.id)" ng-model="tagItemstagToAdd" typeahead-editable="true" typeahead-on-select="addTagItemsTag( tagItemstagToAdd )">
         <span class="tag tag-new" ng-repeat="tag in activeTags">{{ tag.name }} <span class="glyphicon glyphicon-remove" ng-click="removeTagItemsTag( $index )"</span></span>
       </div>
 
@@ -98,7 +98,7 @@
 
           <div class="list-group" ng-show="tagItemsMissing">
             <div class="list-group-item">
-              <input type="text" class="form-control" placeholder="+ {{ AppText.browse.add_a_keyword | language }}" typeahead="tag.name for tag in schoolTags | filter: {category: category} | ignoreAccentsFilter | filter: $viewValue | shorterFirstFilter | limitTo: 50" ng-model="tagItemsToAdd" typeahead-editable="true" typeahead-on-select="addTagItems( category, tagItemsToAdd );"></input>
+              <input type="text" class="form-control" placeholder="+ {{ AppText.browse.add_a_keyword | language }}" typeahead-min-length="3" typeahead="tag.name for tag in getTypeahead( $viewValue, tagItemsSchool.id )" ng-model="tagItemsToAdd" typeahead-editable="true" typeahead-on-select="addTagItems( category, tagItemsToAdd );"></input>
 
               <div class="form-group" style="margin-top: 10px">
                 <button class="btn btn-success" ng-click="addTagItems( category, tagItemsToAdd ); tagItemsToAdd = ''; tagItemsMissing = false">Ajouter</button>
@@ -171,7 +171,7 @@
 
               <div class="list-group" ng-show="tagMissing">
                 <div class="list-group-item">
-                  <input type="text" class="form-control" placeholder="+ {{ AppText.browse.add_a_keyword | language }}" typeahead="tag.name for tag in schoolTags | filter: {category: category} | ignoreAccentsFilter | filter: $viewValue | shorterFirstFilter | notAlreadyThereName:newItemTags | limitTo: 50" ng-model="tagToAdd" typeahead-editable="true" typeahead-on-select="addTag( category, tagToAdd )"></input>
+                  <input type="text" class="form-control" placeholder="+ {{ AppText.browse.add_a_keyword | language }}" typeahead-min-length="3" typeahead="tag.name for tag in getTypeahead( $viewValue, newItemSchool.id )" ng-model="tagToAdd" typeahead-editable="true" typeahead-on-select="addTag( category, tagToAdd )"></input>
 
                   <div class="form-group" style="margin-top: 10px">
                     <button class="btn btn-success" ng-click="addTag( category, tagToAdd )">Ajouter</button>
@@ -225,7 +225,7 @@
         </div>
         <div class="well" ng-show="tagItemsSchool">
           <h4>Tape le nom de ton/tes cours : </h4>
-          <input type="text" class="form-control" placeholder="Ex: Informatique théorique" typeahead="tag as tag.name + ' / ' + tag.category for tag in schoolTags | ignoreAccentsFilter | filter: $viewValue | shorterFirstFilter | notAlreadyThereName:newItemTags | limitTo: 50" ng-model="tagItemToUpdate" typeahead-editable="true" typeahead-on-select="addItemToUpdate( tagItemToUpdate )">
+          <input type="text" class="form-control" placeholder="Ex: Informatique théorique" typeahead-min-length="3" typeahead="tag as tag.name + ' / ' + tag.category for tag in getTypeahead( $viewValue, tagItemsSchool.id )" ng-model="tagItemToUpdate" typeahead-editable="true" typeahead-on-select="addItemToUpdate( tagItemToUpdate )">
           <div ng-show="tagItemsSchool && activeItemsToUpdate.length != 0">
             <h4>Ajoute les informations sur le(s) cours : </h4>
             <div style="margin-top: 5px; margin-bottom: 30px" ng-repeat="item in activeItemsToUpdate">

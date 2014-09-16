@@ -1,6 +1,7 @@
 class Tag
   include Mongoid::Document
   include Mongoid::Timestamps
+  include Autocomplete
 
   include Funnelable
   funnel_for :signup_funnel
@@ -23,6 +24,7 @@ class Tag
 
   # Don't forget to update Tag.merge when adding new relations
   has_and_belongs_to_many :items
+  has_and_belongs_to_many :internships
   has_and_belongs_to_many :students, class_name: "User", inverse_of: :schools
 
   def pretty_id
@@ -78,21 +80,7 @@ class Tag
     end
 
     def acceptable_categories
-      [
-       "school",
-       "admin",
-       "option",
-       "other",
-       "item_name",
-       "credits",
-       "department",
-       "choice",
-       "formation",
-       "language",
-       "geo",
-       "teacher",
-       "skill",
-      ]
+      (Item.acceptable_categories + Internship.acceptable_categories).uniq
     end
 
   end

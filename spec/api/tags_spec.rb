@@ -20,60 +20,49 @@ describe Shapter::V7::Tags do
     @tag.reload
   end
 
-  #{{{ index
-  describe :index do 
+  #{{{ typeahead
+  describe :typeahead do 
+    before do 
+      @school = Tag.create(name: "myschool", category: 'school')
+      @t1 = Tag.create(name: "my school Admin!", category: 'admin')
+      @t2 = Tag.create(name: "my school Place lol", category: 'geo')
+      @item.tags << @school ; @item.tags << @t1 ; @item.tags << @t2 ; @item.save ; @t1.save ; @t2.save ; @school.save
 
-    context "when logged of" do 
-      it "denies access" do 
-        post "tags"
-        access_denied(@response).should be true
-      end
-    end
+      @params = {
+        selected_tags: [@school.id], 
+        context: "item",
+        limit: '100',
+      }
 
-    context "when logged in" do 
-      before do 
-        login(@user)
-        @t1 = Tag.new(name: "t1")
-        @t2 = Tag.new(name: "t2")
-        @t3 = Tag.new(name: "t3")
-
-        @school1 = Item.new(name: "school1")
-        @school2 = Item.new(name: "school2")
-
-        @schooltag1 = Tag.new(name: "school1")
-        @schooltag2 = Tag.new(name: "school2")
-
-        @school1.tags = [ @schooltag1, @t1,@t2]
-        @school2.tags = [ @schooltag2, @t1,@t3]
-        [@schooltag1,@schooltag2,@school1,@school2,@t3,@t2,@t1].map(&:save)
-        [@schooltag1,@schooltag2,@school1,@school2,@t3,@t2,@t1].map(&:reload)
-      end
-
-      it "allows access" do 
-        post "tags"
-        access_denied(@response).should be false
-      end
-
-      it "list all tags withoug params" do 
-        post "tags"
-        JSON.parse(response.body).map{|h| h["id"]}.map(&:to_s).should =~ Tag.all.map(&:id).map(&:to_s)
-      end
-
-      context "when filter param is provided" do 
-        it "filters when <filter> param is provided" do 
-          post "tags", :filter => @schooltag1.id
-          a = JSON.parse(response.body)
-          a.map{|h| h["id"]}.map(&:to_s).should =~ [@schooltag1,@t1,@t2].map{|h| h["id"]}.map(&:to_s)
-        end
-
-        it "returns empty array if nothing is found" do 
-          post "tags", :filter => "hahahanonono"
-          response.body.should == [].to_json
-        end
-      end
+      login(@user)
 
     end
 
+    it "errors when less-than-3-characters search string" do 
+      post '/tags/typeahead', @params.merge(search_string: 'aa')
+      @response.status.should == 500
+    end
+
+    it 'finds all tags with provided search string' do 
+      post '/tags/typeahead', @params.merge(search_string: 'my School')
+      ids = JSON.parse(@response.body)["tags"].map{|h| h["id"]}
+      expect(ids).to match_array([@t1,@t2].map(&:id).map(&:to_s))
+
+      post '/tags/typeahead', @params.merge(search_string: ' School  admin')
+      ids = JSON.parse(@response.body)["tags"].map{|h| h["id"]}
+      expect(ids).to match_array([@t1].map(&:id).map(&:to_s))
+
+      post '/tags/typeahead', @params.merge(search_string: 'moijoijy School')
+      ids = JSON.parse(@response.body)["tags"].map{|h| h["id"]}
+      expect(ids).to match_array([].map(&:id).map(&:to_s))
+
+    end
+
+    it "finds tags of specified category, if category is specified" do 
+      post '/tags/typeahead', @params.merge(search_string: 'my School', category_filter: 'admin')
+      ids = JSON.parse(@response.body)["tags"].map{|h| h["id"]}
+      expect(ids).to match_array([@t1].map(&:id).map(&:to_s))
+    end
   end
   #}}}
 
@@ -98,7 +87,7 @@ describe Shapter::V7::Tags do
       end
 
       it "provides recommended tags" do 
-        post "tags/suggested", {:selected_tags => [@tag.id.to_s]}
+        post "tags/suggested", {:selected_tags => [@tag.id.to_s], context: "item"}
         h = JSON.parse(response.body)
         h.has_key?("recommended_tags").should be true
       end

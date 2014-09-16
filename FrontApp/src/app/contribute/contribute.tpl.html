@@ -6,17 +6,20 @@
       <div class="col-md-12 main-col" style="overflow-x: hidden">
         <div class="row">
           <div class="col-md-10 col-md-offset-1">
-            <span ng-show="loading" class="fa fa-spin fa-refresh pull-right"></span>
-            <h1 class="center text-sun" style="margin-bottom: 0px">
+            <span ng-hide="commentPipe.commentable_items.length">
+              <span ng-show="loading === true" class="fa fa-spin fa-refresh pull-right"></span>
+            </span>
+            <h2 class="text-sun">
               {{ AppText.contribute.give_a_hand | language }}
-            </h1>
+              <small><span class="fa fa-question-circle" ng-click="displayInfos = ! displayInfos"></span></small>
+            </h2>
           </div><!-- col -->
         </div><!-- row -->
       </div><!-- col -->
     </div><!-- row -->
   </div><!-- container -->
 
-  <div class="emerald-infos" ng-show="security.isConfirmedStudent()">
+  <div class="emerald-infos" ng-show="security.isConfirmedStudent() && displayInfos">
     <div class="container">
       <div class="row">
         <div class="col-md-10 col-md-offset-1">
@@ -57,7 +60,9 @@
           </div>
 
           <div class="col-md-10 col-md-offset-1">
-            <div class="shapter-well" ng-repeat="item in commentPipe.commentable_items" style="margin-bottom: 60px">
+            <div class="shapter-well">
+              <div class="list-group">
+            <div class="list-group-item" ng-repeat="item in commentPipe.commentable_items">
 
               <div class="text-muted" ng-hide="item.current_user_comments_count && item.current_user_has_diagram"> {{ AppText.contribute.need_feedback | language }} </div>
               <div class="pull-right" ng-show="item.current_user_has_diagram && item.current_user_comments_count"><span class="fa fa-check text-emerald fa-3x"></span></div>
@@ -99,6 +104,8 @@
                     </div>
                   </div>
                 </div>
+                </div>
+              </div>
               </div>
             </div>
 

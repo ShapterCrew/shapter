@@ -79,7 +79,10 @@ angular.module('shapter.header', ['directives.confirmAlert', 'directives.behaveA
         if( id ){
           $location.path("/schools/" + id ).search( 'filter', null ).search( 'categories', null);
         }
-        else {
+        else if( $stateParams.schoolId ){
+          $location.path("/schools/" + $stateParams.schoolId ).search( 'filter', null ).search( 'categories', null);
+        }
+        else if( security.currentUser.schools.length ){
           $location.path("/schools/" + security.currentUser.schools[0].id ).search( 'filter', null ).search( 'categories', null);
         }
       };

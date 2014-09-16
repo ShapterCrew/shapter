@@ -74,7 +74,7 @@
       @import "../../externals/Flat-UI-Pro-1.2.4/less/modules/buttons";
       @import "../../externals/Flat-UI-Pro-1.2.4/less/modules/button-groups";
       @import "../../externals/Flat-UI-Pro-1.2.4/less/modules/caret";
-      @import "../../externals/Flat-UI-Pro-1.2.4/less/modules/select";
+//      @import "../../externals/Flat-UI-Pro-1.2.4/less/modules/select";
       @import "../../externals/Flat-UI-Pro-1.2.4/less/modules/forms";
       @import "../../externals/Flat-UI-Pro-1.2.4/less/modules/input-icons";
       @import "../../externals/Flat-UI-Pro-1.2.4/less/modules/input-groups";
@@ -117,6 +117,9 @@
 @import 'type.less';
 @import 'modal.less';
 @import 'behave.less';
+@import 'leaflet.less';
+@import 'awesomeMarkers.less';
+@import 'leaflet.markercluster.less';
 
 /**
  * Now that all app-wide styles have been applied, we can load the styles for
@@ -125,6 +128,7 @@
  * TODO: In a later version of this boilerplate, I'd like to automate this.
  */
 
+@import '../../src/app/map/map.less';
 @import '../../src/common/directives/comment/comment.less';
 @import '../../src/app/header/header.less';
 @import '../../src/app/browse/browse.less';
@@ -419,6 +423,11 @@ background-color: #1abc9c;
   .button-variant(@btn-default-color, @orange, @orange, @orange);
 }
 
+.btn-sun {
+  // font-weight: bold;
+  .button-variant(@btn-default-color, @sun-pastel, @sun-pastel, @sun-pastel);
+}
+
 @orange-silver: mix(@orange, @silver, 80%);
 .btn-orange-silver {
   font-weight: bold;
@@ -674,6 +683,23 @@ background-color: #1abc9c;
   color: white;
 }
 
+.wisteria-infos {
+  margin-bottom: 30px;
+  margin-top: 30px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  background-color: mix(@wisteria, white, 80%);
+  color: white;
+}
+.pomegranate-infos {
+  margin-bottom: 30px;
+  margin-top: 30px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  background-color: mix(@pomegranate, white, 80%);
+  color: white;
+}
+
 .turquoise-infos {
   margin-bottom: 30px;
   margin-top: 30px;
@@ -702,8 +728,9 @@ background-color: #1abc9c;
   min-height: 20px;
   padding: 19px;
   margin-bottom: 20px;
-  background-color: @well-bg;
-  border: 1px solid @well-border;
+  //background-color: @well-bg;
+  background-color: mix(@clouds, white, 50%);
+  border: 1px solid mix(@clouds, white, 90%);
   &.shapter-well-turquoise {
     background-color: @green-pastel;
     color: white;
@@ -716,6 +743,10 @@ background-color: #1abc9c;
 
 .blue-caret {
   border-top-color: @blue-pastel;
+}
+
+.turquoise-caret {
+  border-top-color: @turquoise;
 }
 
 .white-caret {
@@ -733,10 +764,10 @@ background-color: #1abc9c;
 
 .campus-comment {
   background-color: white;
-  border: 1px solid @silver;
+  border: 1px solid @clouds;
   padding: 10px;
-  margin-top: 10px;
-  margin-bottom: 10px;
+  margin-top: 0px;
+  margin-bottom: 20px;
 }
 
 a {
@@ -759,4 +790,25 @@ h3.silver-bottom {
   &:hover {
     color: mix(@silver, @clouds, 50%);
   }
+}
+
+a.text-muted:hover {
+  color: lighten(@silver, 8%);
+}
+
+ul.dropdown-menu[datepicker-popup-wrap] {
+
+    & li[ng-show="showButtonBar"] {
+     // display: none;
+    }
+    & th[ng-show="showWeekNumbers"],
+    & td[ng-show="showWeekNumbers"] {
+    //  visibility: hidden;
+    }
+    & button {
+      &.btn.btn-default.btn-sm {
+        background-color: white;
+        color: @wet-asphalt;
+      }
+    }
 }
