@@ -5,6 +5,15 @@ describe('AddInternshipModal Test', function() {
     module('services.appText');
     module('resources.analytics');
     module(function( $provide ){
+      $provide.provider('ConfirmAlertFactory', function () { 
+        this.$get = function ( $q ) {
+          return {
+            showMsg: function(){
+              return $q.when({});
+            }
+          };
+        };
+      });
       $provide.provider('Analytics', function () { 
         this.$get = function ( $q ) {
           return {

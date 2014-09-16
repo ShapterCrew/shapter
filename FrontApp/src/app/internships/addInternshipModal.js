@@ -26,7 +26,7 @@ angular.module( 'directives.addInternshipModal', [
   };
 }])
 
-.controller( 'AddInternshipModalCtrl', ['$scope', 'Internship', '$stateParams', 'Map', '$filter', '$modalInstance', 'AppText', '$rootScope', 'Tag', 'Analytics', function($scope, Internship, $stateParams, Map, $filter, $modalInstance, AppText, $rootScope, Tag, Analytics ){
+.controller( 'AddInternshipModalCtrl', ['$scope', 'Internship', '$stateParams', 'Map', '$filter', '$modalInstance', 'AppText', '$rootScope', 'Tag', 'Analytics', 'ConfirmAlertFactory', function($scope, Internship, $stateParams, Map, $filter, $modalInstance, AppText, $rootScope, Tag, Analytics, ConfirmAlertFactory ){
 
   Analytics.addInternshipModule();
   $scope.step = 1;
@@ -72,14 +72,20 @@ angular.module( 'directives.addInternshipModal', [
 
   $scope.updateInternship = function(){
 
-      $scope.internship.tags_by_name_cat = $scope.internship.tags_by_name_cat ? $scope.internship.tags_by_name_cat : [];
+    $scope.internship.tags_by_name_cat = $scope.internship.tags_by_name_cat ? $scope.internship.tags_by_name_cat : [];
     $scope.internship.tags_by_name_cat = $scope.internship.tags_by_name_cat.concat( $filter('formatTags')( $scope.internship.tags ));
     Internship.addTags( $scope.internship.id, [], $scope.internship.tags_by_name_cat ).then( function( response ){
       $rootScope.$broadcast( 'InternshipCreated' );
       $scope.internship = {};
       $scope.close();
+      $scope.showSuccess();
     });
   };
+
+  $scope.showSuccess = function(){
+    ConfirmAlertFactory.showMsg();
+  };
+
 
   $scope.addSelectedSkill = function(){
     if( $scope.internship.skillToBeAdded ){

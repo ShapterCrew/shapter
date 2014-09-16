@@ -5,13 +5,13 @@
   </a>
   <div class="media-body">
     <div class="media-heading">
-      <strong><a class="text-default" href="#/schools/{{ $stateParams.schoolId }}/student/{{ marker.trainee.id }}"><span class="text-blue">{{ marker.trainee.firstname + ' ' + marker.trainee.lastname }}</span></a></strong>
+      <strong><a class="text-default" href="#/schools/{{ $stateParams.schoolId }}/student/{{ marker.trainee.id }}"><span style="text-decoration: underline" class="text-blue">{{ marker.trainee.firstname + ' ' + marker.trainee.lastname }}</span></a></strong>
     </div>
     <div><strong>
         <span ng-repeat="tag in marker.tags | filter: {category: 'company'} | filter: {category: '!company_size'}">
           {{ tag.name }}
         </span>
-        <span class="text-emerald" ng-show="marker.in_progress">{{ AppText.internships.in_progress | language }}</span>
+        <span class="text-blue" ng-show="marker.in_progress">{{ AppText.internships.in_progress | language }}</span>
     </strong></div>
     <div><span class="text-muted">{{ AppText.internships.from | language }}</span> <span class="">{{ marker.start_date | date: 'dd/MM/yyyy'}}</span><span class="text-muted"> {{ AppText.internships.to | language }}</span> <span class="">{{ marker.end_date | date: 'dd/MM/yyyy'}}</span></div> 
     <div style="margin-top: 8px; font-style: italic">

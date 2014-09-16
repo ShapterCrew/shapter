@@ -4,7 +4,7 @@
       <div class="modal-body">
         <div class="row">
           <div class="col-md-12">
-            <div class="lead bold text-sun center">
+            <div class="lead bold text-orange center">
               {{ AppText.internships.add_yours | language }} 
             </div>
             <div ng-show="step == 1">
@@ -24,24 +24,42 @@
 
 
                 <div class="form-group">
-                  <label>{{ AppText.internships.company | language }}</label>
-                  <input name="fname" typeahead-min-length="3" type="text" typeahead="tag.name for tag in getTypeahead( $viewValue, 'company')" ng-model="internship.tags.company" class="form-control" typeahead-editable="true" required>
+                  <div class="row">
+                    <div class="col-md-8">
+
+                      <label>{{ AppText.internships.company | language }}</label>
+                      <input name="fname" typeahead-min-length="3" type="text" typeahead="tag.name for tag in getTypeahead( $viewValue, 'company')" ng-model="internship.tags.company" class="form-control" typeahead-editable="true" required>
+                    </div>
+
+                    <div class="col-md-4">
+                      <label>{{ AppText.internships.company_size | language }}</label>
+                      <br/>
+                      <select ng-options="opt for opt in sizeOptions" ng-model="internship.tags.company_size">
+                        <option value="">-- {{ AppText.system.select | language }} --</option>
+                      </select>
+
+                    </div>
+                  </div>
                 </div>
+
+
 
                 <div class="form-group">
-                  <div style="position: relative; display: inline-block; vertical-align: top">
-                  <label>{{ AppText.internships.start_date | language }}</label>
-                  <p class="input-group">
-                    <input class="form-control" name="fstart" type="text" show-weeks="false" show-button-bar="false" datepicker-popup="dd/MM/yyyy" ng-model="internship.start_date" is-open="openedBegin" ng-required="true" close-text="Close" editable="false" required/>
-                  </p>
-                </div>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <label>{{ AppText.internships.start_date | language }}</label>
+                      <p class="input-group">
+                        <input class="form-control" name="fstart" type="text" show-weeks="false" show-button-bar="false" datepicker-popup="dd/MM/yyyy" ng-model="internship.start_date" is-open="openedBegin" ng-required="true" close-text="Close" editable="false" required/>
+                      </p>
+                    </div>
 
-                  <div style="position: relative; display: inline-block; vertical-align: top">
-                  <label>{{ AppText.internships.end_date | language }}</label>
-                  <p class="input-group">
-                    <input class="form-control" name="fend" type="text" show-weeks="false" show-button-bar="false" datepicker-popup="dd/MM/yyyy" ng-model="internship.end_date" is-open="openedEnd" ng-required="true" close-text="Close" editable="false" required/>
-                  </p>
-                </div>
+                    <div class="col-md-6">
+                      <label>{{ AppText.internships.end_date | language }}</label>
+                      <p class="input-group">
+                        <input class="form-control" name="fend" type="text" show-weeks="false" show-button-bar="false" datepicker-popup="dd/MM/yyyy" ng-model="internship.end_date" is-open="openedEnd" ng-required="true" close-text="Close" editable="false" required/>
+                      </p>
+                    </div>
+                  </div>
                 </div>
 
                 <div class="form-group">
@@ -56,32 +74,19 @@
             </div>
 
             <div ng-show="step == 2">
+              <div class="lead text-asphalt">{{ AppText.internships.skills | language }}</div>
               <form class="css-form" novalidate name="editInternshipForm">
 
-                <div class="form-group">
-                  <label>{{ AppText.internships.position | language }}</label> <label>({{ AppText.internships.position_examples | language }})</label>
-                  <input style="width: 250px" class="form-control" ng-model="internship.tags.position" typeahead="tag.name for tag in getTypeahead( $viewValue, 'position')" typeahead-editable="true" typeahead-min-length="3">
-                </div>
-
-                <div class="form-group">
-                  <label>{{ AppText.internships.company_size | language }}</label>
-                  <br/>
-                  <select ng-options="opt for opt in sizeOptions" ng-model="internship.tags.company_size">
-                    <option value="">-- {{ AppText.system.select | language }} --</option>
-                  </select>
-                </div>
-
-                <div class="form-group">
-                  <label>{{ AppText.internships.skills | language }}</label>
-                  <input class="form-control" ng-model="internship.skillToBeAdded" typeahead="skill.name for skill in getTypeahead( $viewValue, 'skill')" typeahead-editable="true" typeahead-min-length="3">
-                  <button ng-disabled="!internship.skillToBeAdded" style="margin-top: 10px" ng-click="addSelectedSkill()" class="btn btn-default btn-sm">{{ AppText.system.add | language }}</button>
+                <div class="form-group shapter-well">
+                  <label>{{ AppText.internships.add_keywords | language }}</label>
+                  <input class="form-control" ng-model="internship.skillToBeAdded" typeahead="skill.name for skill in getTypeahead( $viewValue, 'skill')" typeahead-editable="true" typeahead-min-length="3" typeahead-on-select="addSelectedSkill()">
+                  <button ng-disabled="!internship.skillToBeAdded" style="margin-top: 10px" ng-click="addSelectedSkill()" class="btn btn-orange btn-sm">{{ AppText.system.add | language }}</button>
                   <div>
                     <span class="tag" ng-repeat="tag in internship.tags_by_name_cat | filter: {tag_category: 'skill'}">
                       {{ tag.tag_name }} <span class="glyphicon glyphicon-remove" ng-click="removeSkill( tag )"></span>
                     </span>
                   </div>
                 </div>
-                {{ internship.tags_by_name_cat }}
 
                 <div class="form-group">
                   <button class="btn btn-success" type="submit" ng-click="updateInternship()" ng-disabled="editInternshipForm.$invalid">{{ AppText.system.validate | language }}</button>

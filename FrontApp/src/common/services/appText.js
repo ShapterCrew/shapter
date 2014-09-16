@@ -20,21 +20,29 @@ angular.module( 'services.appText', [])
       return $filter( 'language' )( $parse( code )( AppText.categories ));
     },
     internships: {
+      almost_there: {
+        en: 'Almost there!',
+        fr: 'C\'est presque fini !'
+      },
       in_progress: {
-        en: 'In progress!',
-        fr: 'En cours !'
+        en: 'in progress!',
+        fr: 'en cours !'
       },
       skills: {
         en: 'Describe the skills you developped with keywords: ',
-        fr: 'Décris les compétences que tu as développées avec des mots-clefs :'
+        fr: 'Décris les compétences que tu as développées pendant ton stage avec des mots-clefs :'
+      },
+      add_keywords: {
+        en: 'Add keywords',
+        fr: 'Ajoute des mots-clefs'
       },
       company_size: {
         en: 'Company size',
         fr: 'Taille de l\'entreprise'
       },
       position: {
-        en: 'Your job in a word',
-        fr: 'Ton job en un mot'
+        en: 'If you had to describe your job in one word?',
+        fr: 'Si tu devais décrire ton poste en un mot ?'
       },
       position_examples: {
         en: 'ex: data analyst, researcher, marketing, photocopies ...',
@@ -61,8 +69,8 @@ angular.module( 'services.appText', [])
         fr: 'Pays'
       },
       add_yours: {
-        en: 'Add your internship!',
-        fr: 'Ajoute ton stage !'
+        en: 'Add your internship',
+        fr: 'Ajoute ton stage'
       },
       internship_title: {
         en: 'Internship title',
