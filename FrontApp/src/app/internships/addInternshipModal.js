@@ -72,10 +72,11 @@ angular.module( 'directives.addInternshipModal', [
 
   $scope.updateInternship = function(){
 
-    $scope.internship.tags_by_name_cat = $filter('formatTags')($scope.internship.tags);
-    delete $scope.internship.tags;
+      $scope.internship.tags_by_name_cat = $scope.internship.tags_by_name_cat ? $scope.internship.tags_by_name_cat : [];
+    $scope.internship.tags_by_name_cat = $scope.internship.tags_by_name_cat.concat( $filter('formatTags')( $scope.internship.tags ));
     Internship.addTags( $scope.internship.id, [], $scope.internship.tags_by_name_cat ).then( function( response ){
       $rootScope.$broadcast( 'InternshipCreated' );
+      $scope.internship = {};
       $scope.close();
     });
   };

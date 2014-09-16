@@ -7,7 +7,7 @@
             <div class="lead bold text-sun center">
               {{ AppText.internships.add_yours | language }} 
             </div>
-            <div>
+            <div ng-show="step == 1">
               <form name="addInternshipForm" class="css-form" novalidate >
 
 
@@ -55,7 +55,7 @@
               </form>
             </div>
 
-            <div>
+            <div ng-show="step == 2">
               <form class="css-form" novalidate name="editInternshipForm">
 
                 <div class="form-group">
@@ -81,6 +81,7 @@
                     </span>
                   </div>
                 </div>
+                {{ internship.tags_by_name_cat }}
 
                 <div class="form-group">
                   <button class="btn btn-success" type="submit" ng-click="updateInternship()" ng-disabled="editInternshipForm.$invalid">{{ AppText.system.validate | language }}</button>

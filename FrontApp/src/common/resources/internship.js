@@ -53,7 +53,9 @@ angular.module('resources.internship', [
         "trainee": true,
         "tags": true,
         "lat": true,
-        "lng": true
+        "lng": true,
+        "description": true,
+        "in_progress": true
 
       },
       user: {

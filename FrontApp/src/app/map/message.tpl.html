@@ -8,7 +8,7 @@
       <strong><a class="text-default" href="#/schools/{{ $stateParams.schoolId }}/student/{{ marker.trainee.id }}"><span class="text-blue">{{ marker.trainee.firstname + ' ' + marker.trainee.lastname }}</span></a></strong>
     </div>
     <div><strong>
-        <span ng-repeat="tag in marker.tags | filter: {category: 'company'}">
+        <span ng-repeat="tag in marker.tags | filter: {category: 'company'} | filter: {category: '!company_size'}">
           {{ tag.name }}
         </span>
     </strong></div>
