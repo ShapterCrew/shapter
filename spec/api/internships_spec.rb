@@ -112,5 +112,93 @@ describe Shapter::V7::SchoolsDiagDims do
   end
   #}}}
 
+  #{{{ destroy
+  describe :destroy do 
+    before do 
+      @u2 = FactoryGirl.build(:user) 
+      @u2.email="another.email@test.com" 
+      @intern.trainee = @u2
+      @u2.save ; @intern.save
+      @u2.stub(:confirmed_student?).and_return(true)
+    end
+
+    context "when admin" do 
+      before do 
+        User.any_instance.stub(:shapter_admin).and_return(true)
+      end
+      it "destroys" do 
+        id = @intern.id.dup
+        expect(Internship.where(id: id).any?).to be true
+        delete "internships/#{@intern.id}"
+        expect(Internship.where(id: id).any?).to be false
+      end
+    end
+
+    context "when author" do 
+      before do 
+        @intern.trainee = @user ; @intern.save
+      end
+      it "destroys" do 
+        id = @intern.id.dup
+        expect(Internship.where(id: id).any?).to be true
+        delete "internships/#{@intern.id}"
+        expect(Internship.where(id: id).any?).to be false
+      end
+    end
+
+    context "when nothing" do 
+      it "does NOT destroys" do 
+        id = @intern.id.dup
+        expect(Internship.where(id: id).any?).to be true
+        delete "internships/#{@intern.id}"
+        expect(Internship.where(id: id).any?).to be true
+      end
+    end
+
+  end
+  #}}}
+
+  #{{{ add_tags
+  describe :add_tags do
+    it "adds tags" do 
+      @new_t = Tag.create(category: "skill", name: "hahaha new skill")
+      @p = {
+        tags_by_name_cat: [
+          {tag_name: "new_tag1", tag_category: "geo"},
+        ],
+        tags_by_ids: [@new_t.id.to_s],
+      }
+
+      put "internships/#{@intern.id}/tags", @p
+      @intern.reload
+      expect(@intern.tags.include?(@new_t)).to be true
+      expect(@intern.tags.map(&:name).include?("new_tag1")).to be true
+    end
+  end
+  #}}}
+
+  #{{{ remove_tags
+  describe :remove_tags do 
+    it "removes tags" do 
+      User.any_instance.stub(:shapter_admin).and_return(true)
+
+      @p = {
+        tags_by_ids: [@t1.id.to_s],
+        tags_by_name_cat: [
+          {tag_name: @t2.name, tag_category: @t2.category}
+        ]
+      }
+
+      expect(@intern.tag_ids.include?(@t1.id)).to be true
+      expect(@intern.tag_ids.include?(@t2.id)).to be true
+
+      delete "internships/#{@intern.id}/tags", @p
+      @intern.reload
+      expect(@intern.tag_ids.include?(@t1.id)).to be false
+      expect(@intern.tag_ids.include?(@t2.id)).to be true
+    end
+  end
+  #}}}
+
 end
 
