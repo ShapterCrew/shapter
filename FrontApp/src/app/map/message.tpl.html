@@ -14,7 +14,7 @@
         <span class="text-blue" ng-show="marker.in_progress">{{ AppText.internships.in_progress | language }}</span>
     </strong></div>
     <div><span class="text-muted">{{ AppText.internships.from | language }}</span> <span class="">{{ marker.start_date | date: 'dd/MM/yyyy'}}</span><span class="text-muted"> {{ AppText.internships.to | language }}</span> <span class="">{{ marker.end_date | date: 'dd/MM/yyyy'}}</span></div> 
-    <div style="margin-top: 8px; font-style: italic">
+    <div style="margin-top: 8px; font-style: italic; max-height: 200px; overflow-y: auto">
       {{ marker.description }}
     </div>
 
