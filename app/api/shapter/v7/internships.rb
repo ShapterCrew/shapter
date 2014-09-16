@@ -51,7 +51,7 @@ module Shapter
             address: params[:location][:formatted_address],
             location: [params[:location][:lng], params[:location][:lat]],
             tags: tags,
-            description: description,
+            description: params[:description],
           )
 
           if i.save
