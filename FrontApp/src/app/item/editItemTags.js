@@ -44,7 +44,7 @@ angular.module('editItemTags', [])
     tag.status = "idle";
   });
 
-  $scope.categories = $rootScope.categories;
+  $scope.categories = $rootScope.item_categories;
 
   $scope.validate = function(){
     var item_ids = [

@@ -12,28 +12,6 @@ module Shapter
 
       namespace :items do 
 
-        #{{{ recommended
-        desc "the courses you'll like !"
-        params do 
-          optional :max_number, type: Integer, desc: "max number of suggested items", default: 10
-        end
-        post :recommended do 
-          max = params[:max_number] || 10
-          present items_reco(current_user,max), with: Shapter::Entities::Item, entity_options: entity_options
-        end
-        #}}}
-
-        #{{{ cart recommended
-        desc "the courses you'll like ! (cart version: it suggest items based on your cart)"
-        params do 
-          optional :max_number,type: Integer,  desc: "max number of suggested items", default: 10
-        end
-        post :cart_recommended do 
-          max = params[:max_number] || 10
-          present cart_items_reco(current_user,max), with: Shapter::Entities::Item, entity_options: entity_options
-        end
-        #}}}
-
         #{{{ tag filter
         desc "search for an item using a list of tags"
         params do 
@@ -46,7 +24,7 @@ module Shapter
         end
         post :filter do 
           nstart = params[:n_start].to_i
-          nstop = params[:n_stop].to_i
+          nstop  = params[:n_stop].to_i
 
           f = if !!params[:quality_filter]
                 quality_filter(params[:filter])

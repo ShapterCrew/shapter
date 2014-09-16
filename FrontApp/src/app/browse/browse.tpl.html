@@ -1,26 +1,28 @@
 <div style="height: 100%; overflow: auto" infinite-scroll="loadMoreItems()" infinite-scroll-distance="1" infinite-scroll-disabled="itemsLoading" infinite-scroll-immediate-check="true">
-
   <sh-header></sh-header>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <h2 class="text-sun" style="margin: 20px">
+          <span class="fa fa-search"></span> {{ AppText.browse.browse_classes | language }}
+          <small><span class="fa fa-question-circle" ng-click="displayInfos = ! displayInfos"></span></small>
+        </h2>
+      </div>
+    </div>
+  </div>
 
-  <div class="asphalt-infos">
+  <div class="asphalt-infos" ng-show="displayInfos">
     <div class="container">
       <div class="row">
         <div class="col-md-8">
-          <p ng-bind="AppText.browse.browse_classes | language"></p>
+          <p ng-bind="AppText.browse.browse_classes_long | language"></p>
         </div>
-        <!--
-        <div class="col-md-6 hidden-sm">
-          <div class="center">
-            <img class="img-repsonsive" style="width: 150px" src="assets/img/logo_white_square.png">
-          </div>
-        </div>
-        -->
       </div>
     </div>
   </div>
 
   <div class="container" style="margin-bottom: 500px">
-    <div class="row main-row">
+    <div class="row">
 
       <div class="col-md-3">
         <div class="shapter-well">
@@ -29,7 +31,6 @@
             <li ng-click="nav('favourites')" ng-class="{'active': $location.search().nav == 'favourites' }"><a><span class="fa fa-star-o"></span> {{ AppText.browse.favourite_classes | language }}</a></li>
           </ul>
         </div>
-
       </div><!-- col -->
 
       <div class="col-md-9">
@@ -46,21 +47,24 @@
           </div>
 
           <!-- input -->
-          <input sh-auto-focus="true" type="text" class="form-control" placeholder="+ {{ AppText.browse.add_a_keyword | language }}" typeahead="tag as tag.full_name for tag in schoolTags | ignoreAccentsFilter | filter: {'full_name': $viewValue} | shorterFirstFilter | notAlreadyThere:activeTags | limitTo: 50" ng-model="typedTag" typeahead-editable="false" typeahead-on-select="addTextTag()" style="margin-top: 20px"></input>
+          <input sh-auto-focus="true" type="text" class="form-control" placeholder="+ {{ AppText.browse.add_a_keyword | language }}" typeahead="tag as tag.name for tag in getTypeahead( $viewValue ) | limitTo: 50" typeahead-min-length="3" ng-model="typedTag" typeahead-editable="false" typeahead-on-select="addTextTag()" style="margin-top: 20px"></input>
 
 
-          <hr style="margin-top: 15px; margin-bottom: 15px">
-
-          <ul class="list-inline cat-list nav-justified" style="margin-bottom: 0px">
+          <ul class="list-inline cat-list nav-justified" style="margin-bottom: 0px; margin-top: 20px">
 
             <!-- some categories -->
             <li class="dropdown" ng-repeat="cat in (categories | catFilter ).display">
-              <a class="dropdown-toggle" style="white-space: nowrap">{{ AppText.translateCode( cat )}}<span class="caret"></span> </a>
+              <a class="dropdown-toggle" style="white-space: nowrap" ng-mouseover="getSuggestedTags( cat )">{{ AppText.translateCode( cat )}}<span class="caret turquoise-caret"></span> </a>
               <ul class="dropdown-menu">
-                <li ng-repeat="tag in tagsSuggestions | filter: {category: cat}" ng-click="addTag( tag )"><a>{{ tag.name }}</a></li>
-                <li ng-hide="(tagsSuggestions | filter: {category: cat}).length > 0" class="disabled">
+                <li ng-hide="tagsSuggestions[ cat ] === undefined || tagsSuggestions[ cat ] == 'loading'" ng-repeat="tag in tagsSuggestions[ cat ]" ng-click="addTag( tag )"><a>{{ tag.name }}</a></li>
+                <li ng-show="tagsSuggestions[cat] !== undefined && tagsSuggestions[ cat ].length === 0" class="disabled">
                   <a>
                     {{ AppText.browse.remove_tags | language }}
+                  </a>
+                </li>
+                <li ng-show="tagsSuggestions[ cat ] == 'loading'" class="disabled">
+                  <a>
+                    <span class="fa fa-refresh fa-spin"></span>
                   </a>
                 </li>
               </ul>
@@ -68,18 +72,18 @@
 
             <!-- more categories ! -->
             <li class="dropdown">
-              <a class="dropdown-toggle" style="white-space: nowrap">{{ AppText.browse.more | language }}<span class="caret"></span> </a>
+              <a class="dropdown-toggle" style="white-space: nowrap" ng-mouseover="getRemainingCatSuggestions()">{{ AppText.browse.more | language }}<span class="caret turquoise-caret"></span></a>
 
-              <ul class="dropdown-menu dropdown-menu-right">
+              <ul class="dropdown-menu">
                 <!-- repat remaining categories -->
-                <li ng-repeat="cat in (categories | catFilter).others" ng-show="(tagsSuggestions | filter: { category: cat }).length > 0">
+                <li ng-repeat="cat in (categories | catFilter).others" ng-show="tagsSuggestions[ cat ].length > 0 && tagsSuggestions[ cat ] != 'loading'">
                     <a class="list-in-dropdown-title">{{ AppText.translateCode( cat ) }}</a>
                     <ul class="list-in-dropdown-list">
-                      <li ng-repeat="tag in tagsSuggestions | filter: {category: cat}" ng-click="addTag( tag )"><a>{{ tag.name }}</a></li>
+                      <li ng-repeat="tag in tagsSuggestions[ cat ]" ng-click="addTag( tag )"><a>{{ tag.name }}</a></li>
                     </ul>
                 </li>
 
-                <li ng-hide="(tagsSuggestions | filter: {category: cat}).length > 0" class="disabled">
+                <li class="disabled">
                   <a>
                     {{ AppText.browse.remove_tags | language }}
                   </a>
@@ -144,12 +148,10 @@
               <div class="pull-right">
               </div>
               -->
-
             </div>
           </div>
-
         </div><!-- shapter-well -->
-      </div>
+      </div><!-- col -->
     </div><!-- row -->
   </div><!-- container -->
 </div><!-- infinite scroll -->

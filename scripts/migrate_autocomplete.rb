@@ -1,0 +1,1 @@
+Tag.each(&:save)

@@ -37,9 +37,6 @@ angular.module( 'shapter.schools', [
       }],
       school: ['Tag', '$stateParams', function( Tag, $stateParams ){
         return Tag.get( $stateParams.schoolId );
-      }],
-      schools: ['Tag', function( Tag ){
-        return Tag.getSchools();
       }]
     }
   }).state( 'formation', {
@@ -131,8 +128,59 @@ angular.module( 'shapter.schools', [
 }])
 
 
-.controller('FormationCtrl', [ '$scope', 'Tag', 'security', '$location', 'formation', '$stateParams', 'school', 'Formation', 'AppText', 'Analytics', function( $scope, Tag, security, $location, formation, $stateParams, school, Formation, AppText, Analytics){
+.controller('FormationCtrl', [ '$scope', 'Tag', 'security', '$location', 'formation', '$stateParams', 'school', 'Formation', 'AppText', 'Analytics', 'Internship', 'shAddInternshipModalFactory', function( $scope, Tag, security, $location, formation, $stateParams, school, Formation, AppText, Analytics, Internship, shAddInternshipModalFactory){
 
+  $scope.shAddInternshipModalFactory = shAddInternshipModalFactory;
+  $scope.internshipsList = [{
+    student: {
+      id: '53fc8eaf4d61632d1a111400',
+      image: 'http://graph.facebook.com/746309634/picture',
+      firstname: 'Alex',
+      lastname: 'lolalilaloule'
+    },
+    company: {
+      name: 'Bougyues'
+    },
+    start_time: '2014-07-31',
+    end_time: '2014-09-04',
+    duration: '6',
+    year: '2014',
+    lat: 39.91,
+    lng: 15.75,
+    message: '',
+    focus: false,
+    draggable: false
+  },
+  {
+    student: {
+      id: '53fc8eaf4d61632d1a111400',
+      firstname: 'Bob',
+      lastname: 'Haha'
+    },
+    company: {
+      name: 'Ornage'
+    },
+    lat: 59.81,
+    lng: 11.75,
+    message: '',
+    focus: false,
+    draggable: false
+  },
+  {
+    student: {
+      id: '53fc8eaf4d61632d1a111400',
+      firstname: 'Bob',
+      lastname: 'Haha'
+    },
+    company: {
+      name: 'Ornage'
+    },
+    lat: 59.91,
+    lng: 10.75,
+    message: '',
+    focus: false,
+    draggable: false
+  }];
   $scope.n = 0;
   $scope.AppText = AppText;
   $scope.hideLikes = true;
@@ -174,8 +222,13 @@ angular.module( 'shapter.schools', [
   $scope.departmentsLimit = 8;
   $scope.formationsLimit = 8;
 
+
   var tag_ids = $stateParams.formationId ? [ $stateParams.formationId ] : [];
   tag_ids.push( $stateParams.schoolId );
+
+    Internship.getListFromTags( tag_ids, false).then(function(response){
+      $scope.internshipsList = response.internships;
+    });
 
   Formation.subFormations( tag_ids ).then( function( response ){
     $scope.formation.sub_choices = response.sub_choices;
@@ -186,10 +239,6 @@ angular.module( 'shapter.schools', [
   Formation.typical_users( tag_ids ).then( function( response ){
     $scope.formation.typicalUsers = response.typical_users;
   });
-
-  $scope.schoolNav = function(){
-    $location.path('/schools/' + $stateParams.schoolId );
-  };
 
   $scope.secondFormationId = function(){
     return !!$stateParams.formationId;
@@ -232,53 +281,12 @@ angular.module( 'shapter.schools', [
 
 }])
 
-.controller('SchoolPageAdminCtrl', ['$scope', 'formation', 'school', 'schools', 'Formation', 'Tag', function( $scope, formation, school, schools, Formation, Tag ){
-  $scope.schools = schools;
+.controller('SchoolPageAdminCtrl', ['$scope', 'formation', 'school', 'Formation', '$stateParams', function( $scope, formation, school, Formation, $stateParams ){
   $scope.school = school;
   $scope.activeTags = [school];
 
-  var selectTagsSchools = function() {
-    Tag.getSchoolTags( $scope.school.id ).then(function(response){
-      $scope.schoolTags = response.tags;
-    });
-  };
-
-  $scope.changeSchool = function() {
-    if (angular.isDefined($scope.school.id)) {
-      $scope.wrongSchoolName = false;
-      Formation.formations( [$scope.school.id] ).then(function(response) {
-        formation = response;
-        $scope.activeTags = [$scope.school];
-        $scope.form = {
-          name: $scope.school.name,
-          description: formation.description,
-          website_url: formation.website_url,
-          image_credits: formation.image_credits
-        };
-      });
-      selectTagsSchools();
-    }
-    else {
-      $scope.wrongSchoolName = true;
-      $scope.form = {
-      };
-    }
-  };
-
-  $scope.changeSchool();
-  selectTagsSchools();
-
   $scope.checkUrl = function() {
     $scope.wrongUrl = $scope.form.website_url && $scope.form.website_url.substring(0, 3) != "htt";
-  };
-
-  $scope.addFormationTags = function() {
-    $scope.activeTags.push( $scope.formationTag );
-    $scope.formationTag = null;
-  };
-
-  $scope.removeTag = function( index ){
-    $scope.activeTags.splice( index, 1 );
   };
 
   $scope.createOrUpdate = function() {
@@ -286,28 +294,10 @@ angular.module( 'shapter.schools', [
     angular.forEach($scope.activeTags, function(value) {
       tag_ids.push(value.id);
     });
+
     $scope.form.tag_ids = tag_ids;
     Formation.createOrUpdate($scope.form).then(function(response) {
       alert("La formation " + response.name + " a bien été enregistrée !");
     });
   };
-}])
-
-.filter('schoolNotThere', [function(){
-  return function( schools, alreadyThere){
-    var out = [];
-    angular.forEach( schools, function( school ){
-      here = false;
-      angular.forEach( alreadyThere, function( thereSchools ){
-        if( school.id == thereSchools.id ){
-          here = true;
-        }
-      });
-      if( here === false ){
-        out.push( school );
-      }
-    });
-    return out;
-  };
 }]);
-

@@ -58,6 +58,24 @@ class Item
     end
     #}}}
 
+    def acceptable_categories
+      [
+       "school",
+       "admin",
+       "option",
+       "other",
+       "item_name",
+       "credits",
+       "department",
+       "choice",
+       "formation",
+       "language",
+       "geo",
+       "teacher",
+       "skill",
+      ]
+    end
+
   end
 
   def skills
