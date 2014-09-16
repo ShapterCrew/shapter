@@ -372,6 +372,19 @@ describe Shapter::V7::Items do
   end
   #}}}
 
+  #{{{ update_syllabus
+  describe :update_syllabus do 
+    it "updates syllabus" do 
+      User.any_instance.stub(:shapter_admin).and_return true
+      login(@user)
+      expect(@item.syllabus).not_to eq "hahahahohoho"
+      put "items/#{@item.id}/update_syllabus", {syllabus: "hahahahohoho"}
+      @item.reload
+      expect(@item.syllabus).to eq "hahahahohoho"
+    end
+  end
+  #}}}
+
   #{{{ avg_diag
   describe :avgDiag do 
     it "should present averaged diagram" do 
