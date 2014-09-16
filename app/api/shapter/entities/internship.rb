@@ -11,6 +11,7 @@ module Shapter
       expose :address, if: lambda{|i,o| o[:entity_options]["internship"][:address]}
       expose :lat, if: lambda{|i,o| o[:entity_options]["internship"][:lat]}
       expose :lng, if: lambda{|i,o| o[:entity_options]["internship"][:lng]}
+      expose :description, if: lambda{|i,o| o[:entity_options]["internship"][:description]}
     end
   end
 end

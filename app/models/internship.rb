@@ -60,4 +60,16 @@ class Internship
     end
   end
 
+  after_save :tags_touch
+  after_save :user_touch
+
+  private
+  def tags_touch
+    tags.each(&:touch) if tags.any?
+  end
+
+  def user_touch
+    trainee.touch unless trainee.nil?
+  end
+
 end
