@@ -77,7 +77,7 @@
                   <button ng-disabled="!internship.skillToBeAdded" style="margin-top: 10px" ng-click="addSelectedSkill()" class="btn btn-default btn-sm">{{ AppText.system.add | language }}</button>
                   <div>
                     <span class="tag" ng-repeat="tag in internship.tags_by_name_cat | filter: {tag_category: 'skill'}">
-                      {{ tag.tag_name }} <span class="glyphicon glyphicon-remove" ng-click="( internship.tags_by_name_cat | filter: {tag_category: 'skill'}).splice( index, 1 )"></span>
+                      {{ tag.tag_name }} <span class="glyphicon glyphicon-remove" ng-click="removeSkill( tag )"></span>
                     </span>
                   </div>
                 </div>

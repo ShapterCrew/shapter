@@ -65,12 +65,19 @@ angular.module( 'directives.addInternshipModal', [
     });
   };
 
+  $scope.removeSkill = function( tag ){
+    var i = $scope.internship.tags_by_name_cat.indexOf( tag );
+    $scope.internship.tags_by_name_cat.splice( i, 1 );
+  };
+
   $scope.updateInternship = function(){
 
     $scope.internship.tags_by_name_cat = $filter('formatTags')($scope.internship.tags);
     delete $scope.internship.tags;
-
-    $scope.internship.put();
+    Internship.addTags( $scope.internship.id, [], $scope.internship.tags_by_name_cat ).then( function( response ){
+      $rootScope.$broadcast( 'InternshipCreated' );
+      $scope.close();
+    });
   };
 
   $scope.addSelectedSkill = function(){

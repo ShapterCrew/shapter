@@ -82,7 +82,11 @@ angular.module('resources.internship', [
   };
 
   Internship.update = function( internship ){
-    return Restangular.one( 'internships', internship.id ).customPUT( internship);
+    return Restangular.one( 'internships', internship.id ).customPUT( internship );
+  };
+
+  Internship.addTags = function( id, tag_ids, tags_by_name_cat ){
+    return Restangular.one( 'internships', id ).customPUT({ tag_by_ids: tag_ids, tags_by_name_cat: tags_by_name_cat }, 'tags');
   };
 
   return Internship;
