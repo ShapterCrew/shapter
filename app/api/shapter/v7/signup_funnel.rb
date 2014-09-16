@@ -98,9 +98,7 @@ module Shapter
                 requires :school_id, type: String, desc: "id of the school tag to use"
               end
               post do 
-                #tag = current_user.schools.first
                 tag = Tag.find(params[:school_id]) || error!("school tag not found",404)
-                error!("user doesn't belong to this school") unless current_user.schools.include?(tag)
                 if tag.signup_funnel
 
                   if params[:i].to_i > tag.signup_funnel.size

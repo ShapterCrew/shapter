@@ -19,6 +19,116 @@ angular.module( 'services.appText', [])
     translateCode: function( code ){
       return $filter( 'language' )( $parse( code )( AppText.categories ));
     },
+    internships: {
+      almost_there: {
+        en: 'Almost there!',
+        fr: 'C\'est presque fini !'
+      },
+      in_progress: {
+        en: 'in progress!',
+        fr: 'en cours !'
+      },
+      skills: {
+        en: 'Describe the skills you developped with keywords: ',
+        fr: 'Décris les compétences que tu as développées pendant ton stage avec des mots-clefs :'
+      },
+      add_keywords: {
+        en: 'Add keywords',
+        fr: 'Ajoute des compétences'
+      },
+      company_size: {
+        en: 'Company size',
+        fr: 'Taille de l\'entreprise'
+      },
+      position: {
+        en: 'If you had to describe your job in one word?',
+        fr: 'Si tu devais décrire ton poste en un mot ?'
+      },
+      position_examples: {
+        en: 'ex: data analyst, researcher, marketing, photocopies ...',
+        fr: 'ex : data analyst, chercheur, marketing, stagiaire photocopies ...'
+      },
+      description: {
+        en: 'Describe what you did: ',
+        fr: 'Décris un peu ton stage :'
+      },
+      school_context: {
+        en: 'I did the internship for: ',
+        fr: 'J\'ai fait ce stage avec : '
+      },
+      from: {
+        en: 'from',
+        fr: 'du'
+      },
+      to: {
+        en: 'to',
+        fr: 'au'
+      },
+      country: {
+        en: 'Country',
+        fr: 'Pays'
+      },
+      add_yours: {
+        en: 'Add your internship',
+        fr: 'Ajoute ton stage'
+      },
+      internship_title: {
+        en: 'Internship title',
+        fr: 'Nom du stage'
+      },
+      address: {
+        en: 'Address',
+        fr: 'Adresse'
+      },
+      company: {
+        en: 'Company',
+        fr: 'Entreprise'
+      },
+      start_date: {
+        en: 'Start date',
+        fr: 'Date de début'
+      },
+      end_date: {
+        en: 'End date',
+        fr: 'Date de fin'
+      },
+      _in: {
+        en: 'in',
+        fr: 'à'
+      },
+      browse_internships_long: {
+        en: 'Browse internships whit keywords: the name of the company, the localisation, its field ... Each additional keyword filters the results once more.',
+        fr: 'Cherche parmi les stages effectués par les anciens en ajoutant des mot-clefs : le nom de l\'entreprise, le lieu, le domaine enseigné ... Chaque mot-clef supplémentaire filtre un peu plus la recherche.'
+      },
+      browse_internships: {
+        en: 'Browse internships',
+        fr: 'Cherche des stages'
+      },
+      internships: {
+        en: 'internships',
+        fr: 'stages'
+      },
+      map_view: {
+        en: 'Map view',
+        fr: 'Carte'
+      },
+      list_view: {
+        en: 'List view',
+        fr: 'Liste'
+      },
+      in_favourites: {
+        en: 'current internships',
+        fr: 'stages en cours'
+      },
+      current_internships: {
+        en: 'Current internships',
+        fr: 'Stages en cours'
+      },
+      all_internships: {
+        en: 'All Internships',
+        fr: 'Tous les stages'
+      }
+    },
     startpage: {
       terms_of_use: {
         en: 'Terms of use',
@@ -156,6 +266,10 @@ angular.module( 'services.appText', [])
       }
     },
     browse: {
+      classes: {
+        en: 'Classes',
+        fr: 'Cours'
+      },
       about: {
         en: 'About',
         fr: 'À propos'
@@ -201,6 +315,10 @@ angular.module( 'services.appText', [])
         fr: 'Tous les cours'
       },
       browse_classes: {
+        en: 'Browse classes',
+        fr: 'Cherche des cours'
+      },
+      browse_classes_long: {
         en: 'Browse classes whit keywords: the name of the course, the category it belongs to, its field ... Each additional keyword filters the results once more.',
         fr: 'Cherche des cours en ajoutant des mot-clefs : le nom du cours, la catégorie à laquelle il appartient, le domaine enseigné ... Chaque mot-clef supplémentaire filtre un peu plus la recherche.'
       },
@@ -305,8 +423,8 @@ angular.module( 'services.appText', [])
         fr: 'Cours'
       },
       look_for_classes : {
-        en: 'Look for classes',
-        fr: 'Chercher des cours'
+        en: 'Classes',
+        fr: 'Cours'
       },
       display_results: {
         en: 'Display Results',
@@ -526,6 +644,18 @@ angular.module( 'services.appText', [])
       }
     },
     item: {
+      comment: {
+        en: 'Leave a comment!',
+        fr: 'Laisse un commentaire !'
+      },
+      hide_comment: {
+        en: 'hide',
+        fr: 'masquer'
+      },
+      characteristics: {
+        en: 'Characteristics: ',
+        fr: 'Caractéristiques :'
+      },
       i_have_an_email: {
         en: 'Identify',
         fr: 'M\'identifier'
@@ -676,6 +806,10 @@ angular.module( 'services.appText', [])
       }
     },
     header: {
+      classes: {
+        en: 'Classes', 
+        fr: 'Cours'
+      },
       ohters: {
         en: 'Other',
         fr: 'Autres'
@@ -847,6 +981,14 @@ angular.module( 'services.appText', [])
       }
     },
     school: {
+      browse_internships_by_keywords: {
+        en: 'Browse by keywords trough all internships',
+        fr: 'Chercher par mots-clefs parmi tous les stages'
+      },
+      where_do_they_internship: {
+        en: 'Where do they internship ?',
+        fr: 'Où sont-ils en stage ?'
+      },
       campus_not_in_list: {
         en: 'My campus is not in the list',
         fr: 'Mon campus n\'est pas dans la liste'
@@ -900,12 +1042,12 @@ angular.module( 'services.appText', [])
         fr: 'Quelques étudiants de'
       },
       they_love_it: {
-        en: 'They love it: ',
-        fr: 'Coups de coeur : '
+        en: 'What they love',
+        fr: 'Coups de coeur des étudiants'
       },
       browse_all_courses: {
-        en: 'Browse all the courses from',
-        fr: 'Parcourir toutes les formations de'
+        en: 'Browse courses by keywords in',
+        fr: 'Chercher des formations par mot-clefs à'
       },
       photo_credits: {
         en: 'Photo credits',
@@ -971,6 +1113,14 @@ angular.module( 'services.appText', [])
       }
     },
     system: {
+      add: {
+        en: 'add',
+        fr: 'ajouter'
+      },
+      select: {
+        en: 'select',
+        fr: 'sélectionner'
+      },
       previous: {
         en: 'Previous',
         fr: 'Précédent'
@@ -998,56 +1148,76 @@ angular.module( 'services.appText', [])
     },
     categories: {
       school: {
-        en: 'school',
+        en: 'School',
         fr: 'Établissement'
       },
       formation: {
-        en: 'program',
-        fr: 'formation'
+        en: 'Program',
+        fr: 'Formation'
       },
       choice: {
-        en: 'elective category',
-        fr: 'choix'
+        en: 'Elective category',
+        fr: 'Choix'
       },
       option: {
-        en: 'option',
-        fr: 'option'
+        en: 'Option',
+        fr: 'Option'
       },
       credits: {
         en: 'ECTS',
         fr: 'ECTS'
       },
       language: {
-        en: 'language',
-        fr: 'language'
+        en: 'Language',
+        fr: 'Language'
       },
       geo: {
-        en: 'localistation',
-        fr: 'localisation'
+        en: 'Location',
+        fr: 'Localisation'
       },
       teacher: {
-        en: 'teacher',
-        fr: 'professeur'
+        en: 'Teacher',
+        fr: 'Professeur'
       },
       department: {
-        en: 'department',
-        fr: 'département'
+        en: 'Department',
+        fr: 'Département'
       },
       item_name: {
-        en: 'name',
-        fr: 'nom'
+        en: 'Name',
+        fr: 'Nom'
       },
       admin: {
-        en: 'admin',
-        fr: 'admin'
+        en: 'Admin',
+        fr: 'Admin'
       },
       other: {
-        en: 'other',
-        fr: 'autre'
+        en: 'Other',
+        fr: 'Autre'
       },
       skill: {
-        en: 'skill',
-        fr: 'compétence'
+        en: 'Skill',
+        fr: 'Compétence'
+      },
+      internship_name: {
+        en: 'Name',
+        fr: 'Nom'
+      },
+      company_size: {
+        en: 'Company size',
+        fr: 'Taille de l\'entreprise'
+      },
+      position: {
+        en: 'Position',
+        fr: 'Poste'
+      },
+      domain: {
+        en: 'Domain',
+        fr: 'Domaine'
+      },
+      company: {
+        en: 'Company',
+        fr: 'Entreprise'
       }
     },
     confirmationSent: {

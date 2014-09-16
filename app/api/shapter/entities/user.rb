@@ -32,6 +32,8 @@ module Shapter
       expose :diagrams_count                  , if: lambda { |u,o| o[:entity_options]["user"][:diagrams_count]}
 
       expose :skills, if: lambda {|u,o| o[:entity_options]["user"][:skills]}
+
+      expose :internships, using: Shapter::Entities::Internship, if: lambda{|u,o| o[:entity_options]["user"][:internships]}
     end
   end
 end
