@@ -201,7 +201,6 @@ angular.module('resources.item', [
       }
     };
     return Restangular.one( 'items', this.id ).customPOST( params ).then( function( response ){
-      console.log( response );
       item.current_user_diagram = response.current_user_diagram;
       item.current_user_has_diagram = response.current_user_has_diagram;
       return item;
