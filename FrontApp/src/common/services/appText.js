@@ -34,7 +34,7 @@ angular.module( 'services.appText', [])
       },
       add_keywords: {
         en: 'Add keywords',
-        fr: 'Ajoute des mots-clefs'
+        fr: 'Ajoute des compétences'
       },
       company_size: {
         en: 'Company size',
