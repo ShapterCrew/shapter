@@ -21,7 +21,7 @@ angular.module( 'directives.updateItemSyllabus', [])
     $scope.alerts.splice( index, 1 );
   };
 
-  $scope.updateSyllabus = function() {
+  $scope.updateItemSyllabus = function() {
     $scope.item.updateSyllabus($scope.item.syllabus).then(function(response){
       $scope.cb();
     }, function(x){

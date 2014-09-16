@@ -150,7 +150,6 @@ angular.module('shapter.item', [
       loadMoreItems: '&'
     },
     link: function (scope, element, attr) {
-      scope.updateSyllabus = false;
       element.addClass("pointer");
       element.bind('click', function (event) {
         if( scope.item.loading !== true ){
@@ -283,7 +282,7 @@ angular.module('shapter.item', [
   };
 
   $scope.hideUpdateSyllabus = function() {
-    $scope.updateSyllabus = false;
+    $scope.item.updatingSyllabus = false;
   };
 
   $scope.close = function() {
@@ -369,5 +368,10 @@ angular.module('shapter.item', [
   return function(items) {
     return items ? items.slice().reverse() : [];
   };
-});
+})
 
+.filter('textCut', [function(){
+  return function(input, limit, all) {
+    return all ? input : input.slice(0, limit);
+  };
+}]);

@@ -63,18 +63,18 @@
       </div><!-- col left -->
 
       <div class="col-md-6" >
-        <div class="padding-well bordered-well" style="height: 294px; oveflow: auto">
-          <button class="pull-right btn btn-info" ng-click="updateSyllabus=true" ng-show="security.isConfirmedStudent()">{{ AppText.item.update_syllabus | language }}</button>
+        <div class="padding-well bordered-well">
+          <button class="pull-right btn btn-info" ng-click="item.updatingSyllabus=true" ng-show="security.isConfirmedStudent()">{{ AppText.item.update_syllabus | language }}</button>
 
           <div class="lead text-asphalt bold">
             {{ AppText.item.description | language }} 
           </div>
 
-          <div style="font-style: italic" ng-hide="updateSyllabus">{{ item.syllabus }}</div>
-          <div style="font-stule: italic" class="text-muted" ng-hide="item.syllabus.length || updateSyllabus">{{ AppText.item.no_description | language }}</div>
+          <div style="font-style: italic" ng-hide="item.updatingSyllabus">{{ item.syllabus | textCut:400:item.displayAllSyllabus }} <a ng-click="item.displayAllSyllabus = true" ng-show="item.syllabus.length > 400 && !item.displayAllSyllabus">... {{ AppText.comment.display_more | language }}</a><a ng-click="item.displayAllSyllabus = false" ng-show="item.syllabus.length > 400 && item.displayAllSyllabus">{{ AppText.comment.hide | language }}</a></div>
+          <div style="font-stule: italic" class="text-muted" ng-hide="item.syllabus.length || item.updatingSyllabus">{{ AppText.item.no_description | language }}</div>
 
-          <div ng-show="updateSyllabus">
-            <div id="updateSyllabus" sh-update-item-syllabus item="item" ng-repeat="item in [ item ]" cb="hideUpdateSyllabus()"></div>
+          <div ng-show="item.updatingSyllabus">
+            <div id="updatingSyllabus" sh-update-item-syllabus item="item" ng-repeat="item in [ item ]" cb="hideUpdateSyllabus()"></div>
           </div>
         </div>
         </div>
