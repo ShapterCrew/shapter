@@ -7,6 +7,7 @@ class Internship
   field :end_date, type: Date
   field :address
   field :location
+  field :description
 
   include Autocomplete
 
