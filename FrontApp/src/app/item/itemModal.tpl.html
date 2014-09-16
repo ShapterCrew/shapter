@@ -64,14 +64,19 @@
 
       <div class="col-md-6" >
         <div class="padding-well bordered-well" style="height: 294px; oveflow: auto">
+          <button class="pull-right btn btn-info" ng-click="updateSyllabus=true" ng-show="security.isConfirmedStudent()">{{ AppText.item.update_syllabus | language }}</button>
 
           <div class="lead text-asphalt bold">
             {{ AppText.item.description | language }} 
           </div>
 
-          <div style="font-style: italic">{{ item.description }}</div>
-          <div style="font-stule: italic" class="text-muted" ng-hide="item.description.length">{{ AppText.item.no_description | language }}</div>
+          <div style="font-style: italic" ng-hide="updateSyllabus">{{ item.syllabus }}</div>
+          <div style="font-stule: italic" class="text-muted" ng-hide="item.syllabus.length || updateSyllabus">{{ AppText.item.no_description | language }}</div>
 
+          <div ng-show="updateSyllabus">
+            <div id="updateSyllabus" sh-update-item-syllabus item="item" ng-repeat="item in [ item ]" cb="hideUpdateSyllabus()"></div>
+          </div>
+        </div>
         </div>
       </div>
     </div>

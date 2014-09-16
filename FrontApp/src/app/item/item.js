@@ -150,6 +150,7 @@ angular.module('shapter.item', [
       loadMoreItems: '&'
     },
     link: function (scope, element, attr) {
+      scope.updateSyllabus = false;
       element.addClass("pointer");
       element.bind('click', function (event) {
         if( scope.item.loading !== true ){
@@ -279,6 +280,10 @@ angular.module('shapter.item', [
 
   $scope.hideAddComment = function(){
     $scope.item.displayAddComment = false;
+  };
+
+  $scope.hideUpdateSyllabus = function() {
+    $scope.updateSyllabus = false;
   };
 
   $scope.close = function() {
