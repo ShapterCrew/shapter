@@ -68,28 +68,6 @@ angular.module('resources.analytics', [])
         "items_count": user.items_count || 0
       });
 
-      _cio.identify({
-        "id": user.id,
-        "email": user.email,
-        "admin": user.admin, 
-
-        "First name": user.firstname,
-        "Last name": user.lastname,
-
-        "comments_count": user.comments_count,
-        "diagrams_count": user.diagrams_count,
-        "items_count": user.items_count,
-
-        'provider': user.provider,
-        'school': school,
-        'comments_likes_count': user.comments_likes_count,
-        'comments_dislikes_count': user.comments_dislikes_count,
-        'confirmed': user.confirmed,
-        'confirmed_student': user.confirmed_student,
-        'sign_in_count': user.sign_in_count,
-
-        'nb_schools': user.schools.length
-      });
     },
 
     loginSuccess: function( loginUser ){
@@ -106,21 +84,18 @@ angular.module('resources.analytics', [])
       if( newDiagram === true ){
         mixpanel.people.increment("diagrams_count");
       }
-      _cio.track("Edit Diagram");
     },
 
     requestComments: function(item){
       mixpanel.track("Request Comments", {
         "item": item.id
       });
-      _cio.track("Request Comment");
     },
 
     unRequestComments: function(item){
       mixpanel.track("Un-request Comments", {
         "item": item.id
       });
-      _cio.track("Unrequest Comment");
     },
 
     addToCart: function( item ){
@@ -128,7 +103,6 @@ angular.module('resources.analytics', [])
         "item": item.id,
         "item_name": item.name
       });
-      _cio.track("Add Item To Cart");
     },
 
     removeFromCart: function( item ){
@@ -136,7 +110,6 @@ angular.module('resources.analytics', [])
         "item": item.id,
         "item_name": item.name
       });
-      _cio.track("Remove Item From Cart");
     },
 
     addToConstructor: function( item ){
@@ -209,12 +182,10 @@ angular.module('resources.analytics', [])
 
     signupFunnel: function(){
       mixpanel.track('Signup Funnel');
-      _cio.track("Signup Funnel");
     },
 
     contribute: function(){
       mixpanel.track('Contribute');
-      _cio.track("Contribute");
     },
 
     unsubscribeFromItem: function(item){
@@ -222,7 +193,6 @@ angular.module('resources.analytics', [])
         "item": item.id,
         "item_name": item.name
       });
-      _cio.track("Unsubscribe From Item");
     },
 
     subscribeToItem: function(item){
@@ -230,7 +200,6 @@ angular.module('resources.analytics', [])
         "item": item.id,
         "item_name": item.name
       });
-      _cio.track("Subscribe To Item");
     },
 
     addComment: function(comment, origin){
@@ -239,7 +208,6 @@ angular.module('resources.analytics', [])
         "item": comment.item_id
       });
       mixpanel.people.increment("comments_count");
-      _cio.track("Add Comment");
     },
 
     removeComment: function(){
@@ -281,22 +249,18 @@ angular.module('resources.analytics', [])
         "item": item.id,
         "item_name": item.name
       });
-      _cio.track("Select Item");
     },
 
     forgotPassword: function(){
       mixpanel.track("Forgot Password");
-      //_cio.track("Forgot Password");
     },
 
     cancelForgotPassword: function(){
       mixpanel.track("Cancel Forgot Password");
-      //_cio.track("Cancel Forgot Password");
     },
 
     successChangePassword: function(){
       mixpanel.track("Success Change Password");
-      //_cio.track("Success Change Password");
     },
 
     showLogin: function(){
@@ -317,7 +281,6 @@ angular.module('resources.analytics', [])
 
     logout: function(){
       mixpanel.track("Logout");
-      //_cio.track("Logout");
     },
 
     signupSuccess: function(){
