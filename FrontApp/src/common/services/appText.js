@@ -803,6 +803,14 @@ angular.module( 'services.appText', [])
       associated_keywords: {
         en: 'Associated Keywords: ',
         fr: 'Mots-clefs associés'
+      },
+      update_syllabus: {
+        en: 'Update the description',
+        fr: 'Editer la description'
+      },
+      update_syllabus_textarea_placeholder: {
+        en: 'Copy/paste the official description of the course',
+        fr: 'Copie/colle la description officielle du cours'
       }
     },
     header: {
@@ -1113,6 +1121,10 @@ angular.module( 'services.appText', [])
       }
     },
     system: {
+      edit: {
+        en: 'edit',
+        fr: 'éditer'
+      },
       add: {
         en: 'add',
         fr: 'ajouter'
