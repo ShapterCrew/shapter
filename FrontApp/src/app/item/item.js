@@ -281,10 +281,6 @@ angular.module('shapter.item', [
     $scope.item.displayAddComment = false;
   };
 
-  $scope.hideUpdateSyllabus = function() {
-    $scope.item.updatingSyllabus = false;
-  };
-
   $scope.close = function() {
     $modalInstance.close( true );
     Analytics.closeItem( $scope.item );
@@ -368,47 +364,42 @@ angular.module('shapter.item', [
   return {
     restrict: 'A',
     scope: {
-      item: '=',
-      cb: '&'
+      item: '='
     },
     templateUrl: 'item/updateSyllabus.tpl.html',
     controller: 'UpdateItemSyllabusCtrl'
   };
 }])
 
-.controller( 'UpdateItemSyllabusCtrl', ['$scope', 'Item', 'AppText', '$filter', function($scope, Comment, AppText, $filter ){
-  var textInit = $scope.item.syllabus;
-  $scope.$watch('item.updatingSyllabus', function(newValue, oldValue) {
-    if (newValue) {
-      textInit = $scope.item.syllabus;
-    }
-  });
+.controller( 'UpdateItemSyllabusCtrl', ['$scope', 'Item', 'AppText', '$filter', 'Analytics', function($scope, Comment, AppText, $filter, Analytics ){
 
+  $scope.item.newSyllabus = $scope.item.newSyllabus ? $scope.item.newSyllabus : $scope.item.syllabus;
   $scope.AppText = AppText;
-  $scope.alerts = [
-  ];
+  $scope.alerts = [];
 
   $scope.removeAlert = function( index ){
     $scope.alerts.splice( index, 1 );
   };
 
   $scope.cancelUpdateSyllabus = function() {
-    $scope.item.syllabus = textInit;
+    $scope.item.newSyllabus = $scope.item.syllabus;
     $scope.item.updatingSyllabus = false;
   };
 
   $scope.updateItemSyllabus = function() {
-    $scope.item.updateSyllabus($scope.item.syllabus).then(function(response){
-      $scope.cb();
+    $scope.item.updateSyllabus( $scope.item.newSyllabus ).then( function( response ){
+      $scope.item.syllabus = $scope.item.newSyllabus;
+      $scope.item.updatingSyllabus = false;
+      Analytics.editSyllabus( $scope.item );
     }, function(x){
       console.log( x );
       $scope.alerts.push({
-        msg: $filter( 'language' )(AppText.item.problem )
+        msg: $filter( 'language' )( AppText.item.problem )
       });
     });
   };
-}])
 
+}])
 
 .filter('reverse', function() {
   return function(items) {

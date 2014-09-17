@@ -689,8 +689,8 @@ angular.module( 'services.appText', [])
         fr: 'Pas d\'évaluations pour le moment. Évalue le cours ou demande à quelqu\'un qui l\'a suivi de le faire !'
       },
       no_description: {
-        en: 'No description available : send it to us and we will add it.  teamshapter@shapter.com',
-        fr: 'Nous n\'avons pas la description du cours. Envoie-la nous et nous l\'ajouterons. teamshapter@gmail.com'
+        en: 'We don\'t have the official description for this course. Could you upload it ? Click on the blue button above and coppy-paste it!',
+        fr: 'Nous n\'avons pas la description du cours. Clique sur "Editer la description" et copie-colle la pour que les autres puissent en profiter !'
       },
       diagram: {
         en: 'Diagram: ',

@@ -405,6 +405,13 @@ angular.module('resources.analytics', [])
 
     openMapMarker: function(){
       mixpanel.track('Open Map Marker');
+    },
+
+    editSyllabus: function( item ){
+      mixpanel.track('Edit Syllabus', {
+        item: item.id,
+        item_name: item.name
+      });
     }
 
   };

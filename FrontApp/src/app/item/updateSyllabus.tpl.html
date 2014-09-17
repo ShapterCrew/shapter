@@ -3,7 +3,7 @@
 <div class="row">
   <div class="col-md-12">
 
-    <textarea ng-model="item.syllabus" class="form-control" sh-auto-focus="displayAddComment" rows="6" placeholder="{{ AppText.item.update_syllabus_textarea_placeholder | language }}"></textarea>
+    <textarea ng-model="item.newSyllabus" class="form-control" sh-auto-focus="displayAddComment" rows="6" placeholder="{{ AppText.item.update_syllabus_textarea_placeholder | language }}"></textarea>
   </div>
 
 </div>
@@ -11,7 +11,7 @@
 <div class="row" style="margin-bottom: 20px">
   <div class="col-md-12">
     <div class="form-group clearfix" style="padding-top: 15px; margin-bottom: 0px">
-      <button ng-disabled="!item.syllabus.length" ng-click="updateItemSyllabus()" class="btn btn-info pull-right" style="margin-left: 10px">{{ AppText.edit_item.validate | language }}</button>
+      <button ng-disabled="!item.newSyllabus.length" ng-click="updateItemSyllabus()" class="btn btn-info pull-right" style="margin-left: 10px">{{ AppText.edit_item.validate | language }}</button>
       <button ng-click="cancelUpdateSyllabus()" class="btn btn-sun pull-right" style="margin-left: 10px">{{ AppText.comment.cancel | language }}</button>
     </div>
   </div>

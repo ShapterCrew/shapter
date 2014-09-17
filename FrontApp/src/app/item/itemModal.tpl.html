@@ -64,7 +64,7 @@
 
       <div class="col-md-6" >
         <div class="padding-well bordered-well">
-          <button class="pull-right btn btn-info" ng-click="item.updatingSyllabus=true" ng-show="security.isConfirmedStudent() && !item.syllabus">{{ AppText.item.update_syllabus | language }}</button>
+          <button class="pull-right btn btn-info" ng-click="item.updatingSyllabus = true" ng-show="security.isConfirmedStudent() && !item.syllabus">{{ AppText.item.update_syllabus | language }}</button>
 
           <div class="lead text-asphalt bold">
             {{ AppText.item.description | language }} 
@@ -74,7 +74,7 @@
           <div style="font-stule: italic" class="text-muted" ng-hide="item.syllabus.length || item.updatingSyllabus">{{ AppText.item.no_description | language }}</div>
 
           <div ng-show="item.updatingSyllabus">
-            <div id="updatingSyllabus" sh-update-item-syllabus item="item" ng-repeat="item in [ item ]" cb="hideUpdateSyllabus()"></div>
+            <div id="updatingSyllabus" sh-update-item-syllabus item="item" ng-repeat="item in [ item ]"></div>
           </div>
         </div>
         </div>
