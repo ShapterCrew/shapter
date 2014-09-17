@@ -1121,6 +1121,10 @@ angular.module( 'services.appText', [])
       }
     },
     system: {
+      edit: {
+        en: 'edit',
+        fr: 'éditer'
+      },
       add: {
         en: 'add',
         fr: 'ajouter'

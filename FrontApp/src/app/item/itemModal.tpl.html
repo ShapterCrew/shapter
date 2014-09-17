@@ -64,13 +64,13 @@
 
       <div class="col-md-6" >
         <div class="padding-well bordered-well">
-          <button class="pull-right btn btn-info" ng-click="item.updatingSyllabus=true" ng-show="security.isConfirmedStudent()">{{ AppText.item.update_syllabus | language }}</button>
+          <button class="pull-right btn btn-info" ng-click="item.updatingSyllabus=true" ng-show="security.isConfirmedStudent() && !item.syllabus">{{ AppText.item.update_syllabus | language }}</button>
 
           <div class="lead text-asphalt bold">
             {{ AppText.item.description | language }} 
           </div>
 
-          <div style="font-style: italic" ng-hide="!item.syllabus || item.updatingSyllabus">{{ item.syllabus | textCut:400:item.displayAllSyllabus }} <a ng-click="item.displayAllSyllabus = true" ng-show="item.syllabus.length > 400 && !item.displayAllSyllabus">... {{ AppText.comment.display_more | language }}</a><a ng-click="item.displayAllSyllabus = false" ng-show="item.syllabus.length > 400 && item.displayAllSyllabus">{{ AppText.comment.hide | language }}</a></div>
+          <div style="font-style: italic" ng-hide="!item.syllabus || item.updatingSyllabus">{{ item.syllabus | textCut:400:item.displayAllSyllabus }} <a class="text-info" ng-click="item.displayAllSyllabus = true" ng-show="item.syllabus.length > 400 && !item.displayAllSyllabus">... {{ AppText.comment.display_more | language }}</a><a class="text-muted" ng-hide="item.syllabus.length > 400 && !item.displayAllSyllabus" ng-click="item.updatingSyllabus = true">[{{ AppText.system.edit  | language }}]</a><a class="text-info" ng-click="item.displayAllSyllabus = false" ng-show="item.syllabus.length > 400 && item.displayAllSyllabus">{{ AppText.comment.hide | language }}</a> </div>
           <div style="font-stule: italic" class="text-muted" ng-hide="item.syllabus.length || item.updatingSyllabus">{{ AppText.item.no_description | language }}</div>
 
           <div ng-show="item.updatingSyllabus">
