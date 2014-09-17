@@ -360,9 +360,60 @@ angular.module('shapter.item', [
 
 }])
 
+.directive( 'shUpdateItemSyllabus', [function(){
+  return {
+    restrict: 'A',
+    scope: {
+      item: '='
+    },
+    templateUrl: 'item/updateSyllabus.tpl.html',
+    controller: 'UpdateItemSyllabusCtrl'
+  };
+}])
+
+.controller( 'UpdateItemSyllabusCtrl', ['$scope', 'Item', 'AppText', '$filter', 'Analytics', function($scope, Comment, AppText, $filter, Analytics ){
+
+  $scope.item.newSyllabus = $scope.item.newSyllabus ? $scope.item.newSyllabus : $scope.item.syllabus;
+  $scope.AppText = AppText;
+  $scope.alerts = [];
+
+  $scope.removeAlert = function( index ){
+    $scope.alerts.splice( index, 1 );
+  };
+
+  $scope.cancelUpdateSyllabus = function() {
+    $scope.item.newSyllabus = $scope.item.syllabus;
+    $scope.item.updatingSyllabus = false;
+  };
+
+  $scope.updateItemSyllabus = function() {
+    $scope.item.updateSyllabus( $scope.item.newSyllabus ).then( function( response ){
+      $scope.item.syllabus = $scope.item.newSyllabus;
+      $scope.item.updatingSyllabus = false;
+      Analytics.editSyllabus( $scope.item );
+    }, function(x){
+      console.log( x );
+      $scope.alerts.push({
+        msg: $filter( 'language' )( AppText.item.problem )
+      });
+    });
+  };
+
+}])
+
 .filter('reverse', function() {
   return function(items) {
     return items ? items.slice().reverse() : [];
   };
-});
+})
 
+.filter('textCut', [function(){
+  return function(input, limit, all) {
+    if (input) {
+      return all ? input : input.slice(0, limit);
+    }
+    else {
+      return null;
+    }
+  };
+}]);
