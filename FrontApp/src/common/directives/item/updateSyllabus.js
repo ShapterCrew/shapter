@@ -12,6 +12,12 @@ angular.module( 'directives.updateItemSyllabus', [])
 }])
 
 .controller( 'UpdateItemSyllabusCtrl', ['$scope', 'Item', 'AppText', '$filter', function($scope, Comment, AppText, $filter ){
+  var textInit = $scope.item.syllabus;
+  $scope.$watch('item.updatingSyllabus', function(newValue, oldValue) {
+    if (newValue) {
+      textInit = $scope.item.syllabus;
+    }
+  });
 
   $scope.AppText = AppText;
   $scope.alerts = [
@@ -19,6 +25,11 @@ angular.module( 'directives.updateItemSyllabus', [])
 
   $scope.removeAlert = function( index ){
     $scope.alerts.splice( index, 1 );
+  };
+
+  $scope.cancelUpdateSyllabus = function() {
+    $scope.item.syllabus = textInit;
+    $scope.item.updatingSyllabus = false;
   };
 
   $scope.updateItemSyllabus = function() {
