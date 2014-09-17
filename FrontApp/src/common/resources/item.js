@@ -53,7 +53,6 @@ angular.module('resources.item', [
           "current_user_has_in_cart": true,
           "current_user_has_in_constructor": false,
           "current_user_subscribed": true,
-          "description": true,
           "diagrams_count": true,
           "documents_count": true,
           "follower_friends": false,
@@ -62,6 +61,7 @@ angular.module('resources.item', [
           "requires_comment_score": false,
           "shared_docs": true,
           "subscribers": true,
+          "syllabus": true,
           "tags": true,
           "this_user_has_comment": true,
           "this_user_has_diagram": true,
@@ -119,7 +119,7 @@ angular.module('resources.item', [
       item.comments_count = response.comments_count;
       item.diagrams_count = response.diagrams_count;
       item.documents_count = response.documents_count;
-      item.description = response.description;
+      item.syllabus = response.syllabus;
       item.tags = response.tags;
       item.documents_count = response.documents_count;
       item.avg_work_score = response.avg_work_score;
@@ -171,18 +171,18 @@ angular.module('resources.item', [
     });
   };
 
-  var loadDescription = function() {
+  var loadSyllabus = function() {
     var item = this;
     var params = {
       entities: {
         item: {
-          description: true
+          syllabus: true
         }
       }
     };
     
     return Restangular.one( 'items', this.id ).customPOST( params ).then( function( response ){
-      item.description = response.description;
+      item.syllabus = response.syllabus;
     });
   };
 
@@ -201,7 +201,6 @@ angular.module('resources.item', [
       }
     };
     return Restangular.one( 'items', this.id ).customPOST( params ).then( function( response ){
-      console.log( response );
       item.current_user_diagram = response.current_user_diagram;
       item.current_user_has_diagram = response.current_user_has_diagram;
       return item;
@@ -280,8 +279,8 @@ angular.module('resources.item', [
     });
   };
 
-  var edit = function() {
-    return Restangular.one( 'items', this.id ).customPUT( { item : {name: this.name, description: this.description }}, 'update' );
+  var updateSyllabus = function(syllabus) {
+    return Restangular.one( 'items', this.id ).customPUT( {syllabus: syllabus}, 'update_syllabus' );
   };
 
   var unsubscribe = function() {
@@ -419,7 +418,7 @@ angular.module('resources.item', [
       removeTag: removeTag,
       cart: cart,
       uncart: uncart,
-      edit: edit,
+      updateSyllabus: updateSyllabus,
       constructor: constructor,
       unconstructor: unconstructor,
       avgDiag: avgDiag,
@@ -430,7 +429,7 @@ angular.module('resources.item', [
       toggleCart: toggleCart,
       loadUserDiagram: loadUserDiagram,
       loadDiagram: loadDiagram,
-      loadDescription: loadDescription, 
+      loadSyllabus: loadSyllabus, 
       loadTags: loadTags,
       currentUserDiag: currentUserDiag
 
@@ -543,7 +542,6 @@ angular.module('resources.item', [
           "current_user_has_in_constructor": true,
           "current_user_subscribed": true,
           "current_user_has_diagram": true,
-          "description": true,
           "diagrams_count": true,
           "documents_count": true,
           "follower_friends": false,
@@ -552,6 +550,7 @@ angular.module('resources.item', [
           "requires_comment_score": false,
           "shared_docs": false,
           "subscribers": true,
+          "syllabus": true,
           "tags": true,
           "this_user_has_comment": true,
           "this_user_has_diagram": true,

@@ -3,7 +3,7 @@
 FactoryGirl.define do
   factory :item do
     name "MyString"
-    description "MyText"
+    syllabus "MyText"
     tags []
   end
 end

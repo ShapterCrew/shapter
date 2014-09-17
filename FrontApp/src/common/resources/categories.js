@@ -39,7 +39,6 @@ angular.module('resources.category', [
   });
 
   Category.for_internships().then( function( response ){
-    console.log( response.categories );
     $rootScope.internship_categories = response.categories;
   });
 
