@@ -6,6 +6,8 @@ class Item
   field :syllabus              , type: String
   field :short_name            , type: String
   field :requires_comment_score, type: Integer
+  field :requires_diagram_score, type: Integer
+  field :requires_skill_score  , type: Integer
 
   embeds_many :comments
   embeds_many :diagrams
@@ -194,6 +196,8 @@ class Item
   end
 
   before_save :set_requires_comment_score
+  before_save :set_requires_diagram_score
+  before_save :set_requires_skill_score
 
   private
 
@@ -221,9 +225,11 @@ class Item
   end
 
   def set_requires_diagram_score
+    self.requires_diagram_score = ( 10*interested_users_count - subscribers_count - 10*diagrams_count)
   end
 
   def set_requires_skill_score
+    self.requires_skill_score = ( 10*interested_users_count - subscribers_count - 10*tags.skills.count)
   end
 
   def diag_timestamp_key

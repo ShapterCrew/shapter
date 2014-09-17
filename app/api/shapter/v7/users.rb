@@ -2,6 +2,7 @@ module Shapter
   module V7
     class Users < Grape::API
       helpers Shapter::Helpers::UsersHelper
+      helpers Shapter::Helpers::ContributeHelper
       format :json
 
 
@@ -40,25 +41,19 @@ module Shapter
             n        = params[:n]       || 5
             n_start  = params[:n_start] || 0
 
+            school = if params[:school_id]
+                       Tag.schools.find(params[:school_id]) || error!("school not found",404)
+                     else
+                       nil
+                     end
 
-            if params[:school_id]
-              school = Tag.find(params[:school_id]) || error!("school not found",404)
-              error!("school_id is no school") unless school.category.to_s == "school"
+            commentable = commentable_items(current_user,school,n_start,n)
+            diagramable = diagramable_items(current_user,school,n_start,n)
+            skillable   =   skillable_items(current_user,school,n_start,n)
 
-              r = current_user.items
-              .where("tag_ids" => school.id)
-              .not.where("comments.author_id" => current_user.id)
-              .desc(:requires_comment_score)
-              .skip(n_start)
-              .take(n)
-            else
-              r = current_user.items
-              .not.where("comments.author_id" => current_user.id)
-              .desc(:requires_comment_score)
-              .skip(n_start)
-              .take(n)
-            end
-            present :commentable_items, r , with: Shapter::Entities::Item, entity_options: entity_options
+            present :commentable_items, commentable , with: Shapter::Entities::Item, entity_options: entity_options
+            present :diagram_items, diagramable , with: Shapter::Entities::Item, entity_options: entity_options
+            present :skill_items, skillable , with: Shapter::Entities::Item, entity_options: entity_options
           end
           #}}}
 
