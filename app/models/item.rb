@@ -220,6 +220,12 @@ class Item
     self.requires_comment_score = ( 10*interested_users_count - subscribers_count - 20*comments_count)
   end
 
+  def set_requires_diagram_score
+  end
+
+  def set_requires_skill_score
+  end
+
   def diag_timestamp_key
     Item.find(id).diagrams.max(:updated_at).try(:utc).try(:to_s, :number)
   end
