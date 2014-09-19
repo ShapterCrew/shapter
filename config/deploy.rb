@@ -33,11 +33,11 @@ set :ssh_options,{
 # set :pty, true
 
 # Default value for :linked_files is []
- set :linked_files, %w{config/mongoid.yml config/initializers/behave_io.rb config/initializers/secret_token.rb config/initializers/aws_credentials.rb}
+ set :linked_files, %w{config/mongoid.yml config/initializers/behave_io.rb config/initializers/secret_token.rb config/initializers/aws_credentials.rb FrontApp/src/app/config/config.js}
 
 # Default value for linked_dirs is []
 # set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
- set :linked_dirs, %w{log tmp/pids tmp/cache tmp/sockets vendor/bundle }
+ set :linked_dirs, %w{log tmp/pids tmp/cache tmp/sockets vendor/bundle FrontApp/node_modules FrontApp/vendor }
 
 # Default value for default_env is {}
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
@@ -49,33 +49,16 @@ namespace :deploy do
 
   desc 'Restart application'
   task :restart do
-    on roles(:app), in: :sequence, wait: 2 do
+    on roles(:app), in: :sequence do
       # Your restart mechanism here, for example:
        execute :touch, release_path.join('tmp/restart.txt')
     end
   end
 
 
-  desc "build the front app code"
-  task :frontapp_deploy do 
-    on roles(:root), in: :sequence do 
-      execute :cd, release_path.join('FrontApp')
-      execute "sudo npm install --quiet -g grunt-cli karma bower"
-      execute "sudo npm install"
-      execute "bower install"
-      execute :cd, release_path
-    end
-  end
-
-  after :publishing, :frontapp_deploy, :restart
-
   desc "restart delayed_job daemon"
-  after :restart, :clear_cache do
-    on roles(:app), in: :groups, limit: 3, wait: 1 do
-      # Here we can do anything such as:
-      # within release_path do
-      #   execute :rake, 'cache:clear'
-      # end
+  task :delayed_jobs do
+    on roles(:app) do
       within release_path do 
         with rails_env: :production do 
           execute :bundle, :exec, :"bin/delayed_job", :restart
@@ -83,5 +66,24 @@ namespace :deploy do
       end
     end
   end
+
+
+  desc "build front app"
+  task :build_front do 
+    on roles(:web), in: :sequence  do 
+      within release_path.join("FrontApp") do 
+        execute "if test ! -d /usr/lib/node_modules/grunt-cli; then sudo npm install --quiet -g grunt-cli; false;fi"
+        execute "if test ! -d /usr/lib/node_modules/karma; then sudo npm install --quiet -g karma bower; false;fi"
+        execute "if test ! -d /usr/lib/node_modules/bower; then sudo npm install --quiet -g bower; false;fi"
+        execute :sudo, :npm, :install
+        execute :bower, :install
+        execute :grunt, :compile
+      end
+    end
+  end
+
+  after :publishing, :build_front
+  after :build_front, :restart
+  after :build_front, :delayed_jobs
 
 end
