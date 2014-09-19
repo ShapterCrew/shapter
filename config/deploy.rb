@@ -77,13 +77,16 @@ namespace :deploy do
         execute "if test ! -d /usr/lib/node_modules/bower; then sudo npm install --quiet -g bower; false;fi"
         execute :sudo, :npm, :install
         execute :bower, :install
-        execute :grunt, :compile
+        execute :grunt
       end
     end
   end
 
-  after :publishing, :build_front
-  after :build_front, :restart
+  #after :publishing, :build_front
+  #after :build_front, :restart
+  before :publishing, :build_front
+
+  after :publishing, :restart
   after :build_front, :delayed_jobs
 
 end
