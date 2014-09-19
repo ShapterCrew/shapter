@@ -57,6 +57,18 @@ namespace :deploy do
 
   after :publishing, :restart
 
+  after :publishing, :frontapp_deploy
+  desc "build the front app code"
+  task :frontapp_deploy do 
+    on roles(:root), in: :sequence do 
+      execute :cd, release_path.join('FrontApp')
+      execute "sudo npm install --quiet -g grunt-cli karma bower"
+      execute "sudo npm install"
+      execute "bower install"
+      execute :cd, release_path
+    end
+  end
+
   desc "restart delayed_job daemon"
   after :restart, :clear_cache do
     on roles(:app), in: :groups, limit: 3, wait: 1 do
