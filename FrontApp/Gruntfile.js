@@ -547,7 +547,7 @@ module.exports = function ( grunt ) {
    */
   grunt.renameTask( 'watch', 'delta' );
   grunt.registerTask( 'watch', [ 'build', 'karma:unit', 'delta' ] );
-  grunt.registerTask( 'test', ['build', 'karma:unit'] );
+  grunt.registerTask( 'test', ['build', 'karma:unit', 'compile'] );
 
   /**
    * The default task is to build and compile.
