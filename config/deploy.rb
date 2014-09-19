@@ -55,9 +55,7 @@ namespace :deploy do
     end
   end
 
-  after :publishing, :restart
 
-  after :publishing, :frontapp_deploy
   desc "build the front app code"
   task :frontapp_deploy do 
     on roles(:root), in: :sequence do 
@@ -68,6 +66,8 @@ namespace :deploy do
       execute :cd, release_path
     end
   end
+
+  after :publishing, :frontapp_deploy, :restart
 
   desc "restart delayed_job daemon"
   after :restart, :clear_cache do
