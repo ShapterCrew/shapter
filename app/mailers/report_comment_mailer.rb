@@ -10,7 +10,7 @@ class ReportCommentMailer < ActionMailer::Base
       comment_id: comment_report.comment_id,
     }
     mail(
-      to: "admin@shapter.com",
+      to: "moderate@shapter.com",
       subject: "[COMMENT REPORT] #{comment_report.id}",
     )
   end
