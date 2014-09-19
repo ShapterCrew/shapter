@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1><%= @reporter_email %> just reported a comment</h1>
+    <h2>Report reason:</h2>
+    <p>
+      <%= @report_description %>
+    </p>
+
+    <h2> Comment content: </h2>
+    <p>
+      <%= @comment_body %>
+    </p>
+
+    <p>
+      <h2> comment details: </h2>
+      <%= @comment_id.inspect %>
+    </p>
+  </body>
+</html>
