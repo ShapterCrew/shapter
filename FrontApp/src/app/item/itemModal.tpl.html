@@ -55,19 +55,6 @@
           <button class="pull-right btn btn-info" ng-click="editDiagramFactory.openModal( item )" ng-show="security.isConfirmedStudent()">Évaluer</button>
           <div class="lead text-asphalt bold">
             {{ AppText.item.diagram | language }}
-            <!-- facebook output -->
-            <ul ng-social-buttons
-              ng-show="security.isAdmin()"
-              data-url="'http://shapter.com/#/item/' + item.id"
-              data-image="diagjpg()"
-              data-title="'Shapter: les cours qui te correspondent'"
-
-              data-description="'Choisis tes cours grâce à l\' avis des
-              anciens et donne le tien !'"
-
-              style="display: inline; margin-left: 20px;">
-              <li class="ng-social-facebook">Facebook</li>
-            </ul>
           </div>
           <div class="center" ng-repeat="item in [item]" style="margin-top: 20px; margin-bottom: 20px" ng-show="item.diagrams_count">
 

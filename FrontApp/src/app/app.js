@@ -81,12 +81,6 @@ angular.module( 'shapter', [
 }])
 
 
-.controller('IndexCtrl', ['$scope', 'SocialMeta', 'ENV', function( $scope, SocialMeta, ENV ){
-  $scope.SocialMeta = SocialMeta;
-  $scope.ENV = ENV;
-}])
-
-
 .run(['$window', function( window ){
   // Include the UserVoice JavaScript SDK (only needed once on a page)
   UserVoice=window.UserVoice||[];(function(){var uv=document.createElement('script');uv.type='text/javascript';uv.async=true;uv.src='//widget.uservoice.com/27UyRlFYUv3yLX6SXKZouQ.js';var s=document.getElementsByTagName('script')[0];s.parentNode.insertBefore(uv,s);})();
