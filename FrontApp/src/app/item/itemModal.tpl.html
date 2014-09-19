@@ -51,12 +51,29 @@
     <div class="row">
       <div class="col-md-6" >
         <div class="padding-well bordered-well">
+
           <button class="pull-right btn btn-info" ng-click="editDiagramFactory.openModal( item )" ng-show="security.isConfirmedStudent()">Évaluer</button>
           <div class="lead text-asphalt bold">
             {{ AppText.item.diagram | language }}
+            <!-- facebook output -->
+            <ul ng-social-buttons
+              ng-show="security.isAdmin()"
+              data-url="'http://staging.shapter.com/#/item/' + item.id"
+              data-image="diagjpg()"
+              data-title="'Shapter: les cours qui te correspondent'"
+
+              data-description="'Choisis tes cours grâce à l\' avis des
+              anciens et donne le tien !'"
+
+              style="display: inline; margin-left: 20px;">
+              <li class="ng-social-facebook">Facebook</li>
+            </ul>
           </div>
           <div class="center" ng-repeat="item in [item]" style="margin-top: 20px; margin-bottom: 20px" ng-show="item.diagrams_count">
-            <sh-diagram diagram="item.averaged_diagram" width="60" with-text="true"></sh-diagram>
+
+            <sh-diagram diagram="item.averaged_diagram" width="60" with-text="true" id="diagram"></sh-diagram>
+
+
           </div>
           <div class="text-muted" ng-hide="item.diagrams_count">{{ AppText.item.no_diagram | language }}</div>
         </div>
@@ -77,9 +94,9 @@
             <div id="updatingSyllabus" sh-update-item-syllabus item="item" ng-repeat="item in [ item ]"></div>
           </div>
         </div>
-        </div>
       </div>
     </div>
+  </div>
 
 
 
