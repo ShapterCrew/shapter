@@ -1253,16 +1253,6 @@ angular.module( 'services.appText', [])
         en: 'If you don\'t recieve the email, check your spam folder',
         fr: 'Si tu ne reçois rien, vérifie ton dossier de spams'
       }
-    },
-    social: {
-      the_courses_youll_like: {
-        en: 'The courses you\'ll like',
-        fr: 'Choisis les cours que tu vas aimer'
-      },
-      defaultDescription: {
-        en: 'Get feedbacks from former students to chose the best courses',
-        fr: 'Consulte les retours des anciens sur leurs cours pour choisir les meilleurs cours'
-      }
     }
   };
 
