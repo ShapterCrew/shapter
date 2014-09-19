@@ -131,56 +131,6 @@ angular.module( 'shapter.schools', [
 .controller('FormationCtrl', [ '$scope', 'Tag', 'security', '$location', 'formation', '$stateParams', 'school', 'Formation', 'AppText', 'Analytics', 'Internship', 'shAddInternshipModalFactory', function( $scope, Tag, security, $location, formation, $stateParams, school, Formation, AppText, Analytics, Internship, shAddInternshipModalFactory){
 
   $scope.shAddInternshipModalFactory = shAddInternshipModalFactory;
-  $scope.internshipsList = [{
-    student: {
-      id: '53fc8eaf4d61632d1a111400',
-      image: 'http://graph.facebook.com/746309634/picture',
-      firstname: 'Alex',
-      lastname: 'lolalilaloule'
-    },
-    company: {
-      name: 'Bougyues'
-    },
-    start_time: '2014-07-31',
-    end_time: '2014-09-04',
-    duration: '6',
-    year: '2014',
-    lat: 39.91,
-    lng: 15.75,
-    message: '',
-    focus: false,
-    draggable: false
-  },
-  {
-    student: {
-      id: '53fc8eaf4d61632d1a111400',
-      firstname: 'Bob',
-      lastname: 'Haha'
-    },
-    company: {
-      name: 'Ornage'
-    },
-    lat: 59.81,
-    lng: 11.75,
-    message: '',
-    focus: false,
-    draggable: false
-  },
-  {
-    student: {
-      id: '53fc8eaf4d61632d1a111400',
-      firstname: 'Bob',
-      lastname: 'Haha'
-    },
-    company: {
-      name: 'Ornage'
-    },
-    lat: 59.91,
-    lng: 10.75,
-    message: '',
-    focus: false,
-    draggable: false
-  }];
   $scope.n = 0;
   $scope.AppText = AppText;
   $scope.hideLikes = true;
