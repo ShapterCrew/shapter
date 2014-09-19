@@ -81,8 +81,9 @@ angular.module( 'shapter', [
 }])
 
 
-.controller('IndexCtrl', ['$scope', 'SocialMeta', function( $scope, SocialMeta ){
+.controller('IndexCtrl', ['$scope', 'SocialMeta', 'ENV', function( $scope, SocialMeta, ENV ){
   $scope.SocialMeta = SocialMeta;
+  $scope.ENV = ENV;
 }])
 
 

@@ -57,6 +57,7 @@
             {{ AppText.item.diagram | language }}
             <!-- facebook output -->
             <ul ng-social-buttons
+              ng-show="security.isAdmin()"
               data-url="'http://staging.shapter.com/#/item/' + item.id"
               data-image="diagjpg()"
               data-title="'Shapter: les cours qui te correspondent'"

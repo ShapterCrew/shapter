@@ -114,8 +114,9 @@
 
               <!-- facebook output -->
               <ul ng-social-buttons
+                ng-show="security.currentUser.isAdmin()"
                 class="pull-right"
-                data-image="'http://staging.shapter.com/assets/img/logo_blue.png'"
+                data-image="'http://shapter.com/assets/img/logo_blue.png'"
                 data-url="'http://staging.shapter.com/#/schools/' + school.id"
                 data-title="(AppText.school.come_and_check | language ) + ' ' + school.name + ' ' + (AppText.school.on_shapter | language)"
                 data-description="'Choisis tes cours grâce à l\' avis des
@@ -124,25 +125,26 @@
                 <li class="ng-social-facebook">Facebook</li>
                 <li class="ng-social-twitter">Twitter</li>
               </ul>
+
             </div>
             <div class="campus-comment" sh-comment hide-likes="false" close="" comment="comment" display-course-name="true" current-user="security.currentUser" comments='comments' ng-repeat="comment in formation.best_comments | limitTo: 6"></div>
             <a ng-click="browseNavFromFormation()" class="text-info">{{ AppText.school.browse_all_courses | language }} {{ formation.name }} <small class="fa fa-arrow-right"></small></a>
           </div>
         </div>
 
+        <!--
         <div class="col-md-12" style="margin-top: 60px">
           <div>
             <a href="{{ formation.website_url }}" ng-show="formation.website_url" target="_blank">{{ formation.website_url }}</a>
           </div>
           <div>
-            <!--
             <small>
               {{ AppText.school.photo_credits | language }} 
                {{ formation.image_credits }}
             </small>
-            -->
           </div>
         </div>
+        -->
 
       </div>
     </div><!-- col -->

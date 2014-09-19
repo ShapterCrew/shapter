@@ -31,7 +31,6 @@ angular.module('shapter.social', [
       else {
         description = $filter( 'language' )( AppText.social.defaultDescription );
       }
-      console.log( description );
     }
 
   };
