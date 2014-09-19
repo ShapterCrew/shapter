@@ -1,16 +1,16 @@
 {
-  "author": "The Shapter Crou",
-  "name": "Shapter",
-  "version": "10.0",
-  "homepage": "http://shapter.com",
+  "author": "Josh David Miller",
+  "name": "ngbp",
+  "version": "0.3.2",
+  "homepage": "https://github.com/ngbp/ngbp",
   "licenses": {
-    "type": "",
-    "url": ""
+    "type": "MIT",
+    "url": "https://raw.github.com/ngbp/ngbp/master/LICENSE"
   },
-  "bugs": "",
+  "bugs": "https://github.com/ngbp/ngbp/issues",
   "repository": {
-    "type": "",
-    "url": ""
+    "type": "git",
+    "url": "git@github.com:ngbp/ngbp.git"
   },
   "dependencies": {},
   "devDependencies": {
