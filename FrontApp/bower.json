@@ -16,7 +16,9 @@
     "angular-upload": "~1.0.11",
     "leaflet.markercluster": "~0.4.0",
     "Leaflet.awesome-markers": "~2.0.2",
-    "leaflet": "~0.7.3"
+    "leaflet": "~0.7.3",
+    "angular-social": "~0.1.1",
+    "canvg": "~1.3.0"
   },
   "dependencies": {}
 }

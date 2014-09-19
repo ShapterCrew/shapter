@@ -197,7 +197,7 @@ angular.module('shapter.item', [
   $scope.close = $modalInstance.close;
 }])
 
-.controller('itemModalCtrl', ['$scope', 'item', 'itemsList', 'loadMoreItems',  'numberOfItems', '$window', '$modalInstance', '$location', '$q', 'Item', 'Analytics', 'security', 'editDiagramFactory', '$upload', '$http', 'AppText', 'itemFactory', '$stateParams', '$rootScope', function($scope, item, itemsList, loadMoreItems, numberOfItems, $window, $modalInstance, $location, $q, Item, Analytics, security, editDiagramFactory, $upload, $http, AppText, itemFactory, $stateParams, $rootScope ) {
+.controller('itemModalCtrl', ['$scope', 'item', 'itemsList', 'loadMoreItems',  'numberOfItems', '$window', '$modalInstance', '$location', '$q', 'Item', 'Analytics', 'security', 'editDiagramFactory', '$upload', '$http', 'AppText', 'itemFactory', '$stateParams', '$rootScope', 'StoJ', function($scope, item, itemsList, loadMoreItems, numberOfItems, $window, $modalInstance, $location, $q, Item, Analytics, security, editDiagramFactory, $upload, $http, AppText, itemFactory, $stateParams, $rootScope, StoJ ) {
 
   $scope.$rootScope = $rootScope;
   item.open = true;
@@ -212,6 +212,17 @@ angular.module('shapter.item', [
   $scope.display = 'comments';
   $scope.numberOfItems = numberOfItems;
   $location.search( 'item', item.id );
+
+  $scope.diagjpg = function(){
+    var svg = document.getElementById('diagram') ? document.getElementById.innerHTML : null;
+    if( svg ){
+      console.log( svg );
+      return StoJ.convert(svg);
+    }
+    else {
+      return null;
+    }
+  };
 
   $scope.$watch( function(){
     return $location.search().item;

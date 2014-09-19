@@ -989,6 +989,14 @@ angular.module( 'services.appText', [])
       }
     },
     school: {
+      on_shapter: {
+        en: 'according to students on @shapter_ !',
+        fr: 'selon les étudiants sur @shapter_ !'
+      },
+      come_and_check: {
+        en: 'Come and check the five best courses of',
+        fr: 'Venez voir les cinq meilleurs cours de'
+      },
       browse_internships_by_keywords: {
         en: 'Browse by keywords trough all internships',
         fr: 'Chercher par mots-clefs parmi tous les stages'
@@ -1050,8 +1058,8 @@ angular.module( 'services.appText', [])
         fr: 'Quelques étudiants de'
       },
       they_love_it: {
-        en: 'What they love',
-        fr: 'Coups de coeur des étudiants'
+        en: 'The five best courses: ',
+        fr: 'Les cinq meilleurs cours :'
       },
       browse_all_courses: {
         en: 'Browse courses by keywords in',
@@ -1245,7 +1253,19 @@ angular.module( 'services.appText', [])
         en: 'If you don\'t recieve the email, check your spam folder',
         fr: 'Si tu ne reçois rien, vérifie ton dossier de spams'
       }
+    },
+    social: {
+      the_courses_youll_like: {
+        en: 'The courses you\'ll like',
+        fr: 'Choisis les cours que tu vas aimer'
+      },
+      defaultDescription: {
+        en: 'Get feedbacks from former students to chose the best courses',
+        fr: 'Consulte les retours des anciens sur leurs cours pour choisir les meilleurs cours'
+      }
     }
   };
+
   return AppText;
+
 }]);

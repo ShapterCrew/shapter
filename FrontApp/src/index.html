@@ -1,19 +1,19 @@
 <!DOCTYPE html>
 <html ng-app="shapter">
 
-  <head>
+  <head ng-controller="IndexCtrl">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Cache-control" content="no-cache">
     
     <meta property="fb:app_id" content="213583302154494">
     <meta property="og:site_name" content="Shapter">
-    <meta property="og:title" content="Profite de l'expérience des anciens pour mieux faire tes choix">
+    <meta property="og:title" content="{{ SocialMeta.getTitle() }}">
     <meta property="og:type" content="article">
-    <meta property="og:url" content="http://shapter.com/">
-    <meta property="og:image" content="http://shapter.com/assets/img/favicon.ico">
-    <meta property="og:locale" content="fr_FR">
-    <meta property="og:description" content="Consulte l'avis des anciens sur des cours qu'ils ont suivis et donne le tien sur shapter.com !">
+    <meta property="og:url" content="http://staging.shapter.com/">
+    <meta property="og:image" content="http://staging.shapter.com/assets/img/favicon.ico">
+    <!--<meta property="og:locale" content="fr_FR">-->
+    <meta property="og:description" content="{{ SocialMeta.getDescription() }}">
     <!-- /facebook tags -->
     
     <title ng-bind="'Shapter | '+ $state.$current.data.pageTitle"></title>
