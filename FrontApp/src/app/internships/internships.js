@@ -160,7 +160,13 @@ angular.module( 'shapter.internships', [
       $scope.nbItems = 0;
       $scope.itemsList = [];
 
-      var newFilters = toArray( $location.search().filter ) || [];
+      var newFilters;
+      if( $scope.cumulateFilters ){
+      newFilters = toArray( $location.search().filter ) || [];
+      } 
+      else {
+        newFilters = [];
+      }
       newFilters.push( tag.id );
       $location.search( 'filter', newFilters );
     }
@@ -175,6 +181,7 @@ angular.module( 'shapter.internships', [
   };
 
   $scope.addTag = function(tag) {
+    $scope.displayCumulateFilters = true;
     $scope.onTagAdded(tag);
     Analytics.addTag( tag, 'internships' );
   };

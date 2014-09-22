@@ -21,8 +21,8 @@ angular.module( 'services.appText', [])
     },
     internships: {
       me_too: {
-        en: 'Add my internship',
-        fr: 'Ajouter mon stage'
+        en: 'Add your internship!',
+        fr: 'Ajoute ton stage !'
       },
       almost_there: {
         en: 'Almost there!',
@@ -270,6 +270,14 @@ angular.module( 'services.appText', [])
       }
     },
     browse: {
+      cumulate_tip: {
+        en: 'With this option, cumulate keywords to refine the search:',
+        fr: 'Avec cette option, cumule les mots-clefs pour affiner la recherche :'
+      },
+      cumulate_next_keywords: {
+        en: 'cumulate next keywords',
+        fr: 'cumuler les prochains mots-clefs'
+      },
       addition_filters: {
         en: 'Addition fiters',
         fr: 'Additionner les filtres'

@@ -38,7 +38,7 @@
       </div><!-- col -->
 
       <div class="col-md-9">
-        <div class="shapter-well" style="padding-bottom: 10px; padding-top: 10px">
+        <div class="shapter-well" style="padding-bottom: 10px; padding-top: 10px; margin-bottom: 5px">
           <div style="width: 100%;">
             <span class="glyphicon glyphicon-search"></span>
             <span ng-repeat="tag in activeTags">
@@ -94,10 +94,20 @@
               </ul>
             </li>
           </ul>
-
         </div><!-- shapter-well -->
 
-        <p class="center bold" style="margin-bottom: 0px">
+        <div ng-show="displayCumulateFilters">
+          <div class="shapter-well shapter-well-blue" type="info" style="margin-bottom: 15px; padding-top: 5px; padding-bottom: 5px; padding-right: 10px">
+            <label style="margin-right: 10px">
+              {{ AppText.browse.cumulate_tip | language }} 
+          </label>
+            <span style="white-space: nowrap">
+              <input type="checkbox" id="cumulateFilters" ng-model="cumulateFilters" style="margin: 0">&nbsp;<label class="bold" for="cumulateFilters" style="margin: 0">{{ AppText.browse.cumulate_next_keywords | language }}</label>
+            </span>
+          </div>
+        </div>
+
+        <p class="center bold" style="margin-bottom: 0px; margin-top: 10px">
           <span ng-hide="batchLoading">
             {{ nbItems }} 
             {{ AppText.browse.result | language }}
