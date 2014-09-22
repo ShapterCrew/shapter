@@ -195,7 +195,7 @@ angular.module( 'shapter.schools', [
   };
 
   $scope.formationNav = function( id ){
-    $location.path( "/schools/" + $scope.school.id + "/formations/" + id );
+    $location.path( "/schools/" + $scope.school.id + "/browse").search('filter', id ).search( 'nav', null );
     Analytics.formationNav( id );
     /*$location.path("/schools/" + school.id + "/formations/" + id );*/
   };

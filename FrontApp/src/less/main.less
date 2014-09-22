@@ -430,6 +430,11 @@ background-color: #1abc9c;
   .button-variant(@btn-default-color, @sun-pastel, @sun-pastel, @sun-pastel);
 }
 
+.btn-purple {
+  // font-weight: bold;
+  .button-variant(@btn-default-color, @wisteria, @wisteria, @wisteria);
+}
+
 @orange-silver: mix(@orange, @silver, 80%);
 .btn-orange-silver {
   font-weight: bold;
@@ -739,6 +744,9 @@ background-color: #1abc9c;
   }
   &.shapter-well-sun {
     background-color: mix(@sun-pastel, white, 30%) !important;
+  }
+  & > .lead {
+    margin-top: 0px! important;
   }
 }
 

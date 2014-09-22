@@ -4,6 +4,7 @@ angular.module( 'shapter.browse', [
   'security',
   'resources.tag',
   'resources.item',
+  'resources.category',
   'shapter.item',
   'services.appText',
   'shapter.contribute'

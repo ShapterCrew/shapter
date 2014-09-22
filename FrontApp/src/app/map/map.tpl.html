@@ -1,5 +1,5 @@
 <div style="position: relative">
-  <span class="add-internship-in-map" ng-show="isOneOfMySchools()"><button class="btn btn-sun" ng-click="onNew()"><span class="fa fa-plus"></span></button></span>
-  <leaflet markers="markers" height="480px" width="100%"></leaflet>
-<small class="text-muted" style="position: absolute; bottom: 0; left: 0">&nbsp Spéciale dédicasse à Mathieu Allègre :-)</small>
+  <span class="add-internship-in-map" ng-show="isOneOfMySchools()"><button class="btn btn-purple" ng-click="onNew()"><span class="fa fa-plus"></span> {{ AppText.internships.me_too | language }}</button></span>
+  <leaflet markers="markers" height="420px" width="100%" id="map"></leaflet>
+  <small class="text-muted" style="position: absolute; bottom: 0; left: 0">&nbsp Spéciale dédicasse à Matthieu Allègre :-)</small>
 </div>

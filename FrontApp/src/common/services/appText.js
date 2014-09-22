@@ -20,6 +20,10 @@ angular.module( 'services.appText', [])
       return $filter( 'language' )( $parse( code )( AppText.categories ));
     },
     internships: {
+      me_too: {
+        en: 'Add my internship',
+        fr: 'Ajouter mon stage'
+      },
       almost_there: {
         en: 'Almost there!',
         fr: 'C\'est presque fini !'
@@ -266,6 +270,10 @@ angular.module( 'services.appText', [])
       }
     },
     browse: {
+      addition_filters: {
+        en: 'Addition fiters',
+        fr: 'Additionner les filtres'
+      },
       classes: {
         en: 'Classes',
         fr: 'Cours'
@@ -407,8 +415,8 @@ angular.module( 'services.appText', [])
         fr: 'cartes'
       },
       add_a_keyword: {
-        en: 'Add a keyword',
-        fr: 'Ajoute un mot-clef'
+        en: 'Add a keyword to filter',
+        fr: 'Ajoute un mot-clef pour filter'
       },
       keywords: {
         en: 'keywords',

@@ -1,5 +1,8 @@
 <div style="height: 100%; overflow: auto" infinite-scroll="loadMoreItems()" infinite-scroll-distance="1" infinite-scroll-disabled="itemsLoading" infinite-scroll-immediate-check="true">
   <sh-header></sh-header>
+
+
+  <!--
   <div class="container">
     <div class="row">
       <div class="col-md-12">
@@ -10,6 +13,7 @@
       </div>
     </div>
   </div>
+  -->
 
   <div class="asphalt-infos" ng-show="displayInfos">
     <div class="container">
@@ -34,7 +38,7 @@
       </div><!-- col -->
 
       <div class="col-md-9">
-        <div class="shapter-well">
+        <div class="shapter-well" style="padding-bottom: 10px; padding-top: 10px">
           <div style="width: 100%;">
             <span class="glyphicon glyphicon-search"></span>
             <span ng-repeat="tag in activeTags">
@@ -47,11 +51,10 @@
           </div>
 
           <!-- input -->
-          <input sh-auto-focus="true" type="text" class="form-control" placeholder="+ {{ AppText.browse.add_a_keyword | language }}" typeahead="tag as tag.name for tag in getTypeahead( $viewValue ) | limitTo: 50" typeahead-min-length="3" ng-model="typedTag" typeahead-editable="false" typeahead-on-select="addTextTag()" style="margin-top: 20px"></input>
+          <input sh-auto-focus="true" type="text" class="form-control" placeholder="+ {{ AppText.browse.add_a_keyword | language }}" typeahead="tag as tag.name for tag in getTypeahead( $viewValue ) | limitTo: 50" typeahead-min-length="3" ng-model="typedTag" typeahead-editable="false" typeahead-on-select="addTextTag()" style="margin-top: 10px"/>
 
 
-          <ul class="list-inline cat-list nav-justified" style="margin-bottom: 0px; margin-top: 20px">
-
+          <ul class="list-inline cat-list nav-justified" style="margin-bottom: 0px; margin-top: 20px; width: auto">
             <!-- some categories -->
             <li class="dropdown" ng-repeat="cat in (categories | catFilter ).display">
               <a class="dropdown-toggle" style="white-space: nowrap" ng-mouseover="getSuggestedTags( cat )">{{ AppText.translateCode( cat )}}<span class="caret turquoise-caret"></span> </a>

@@ -2,6 +2,7 @@ angular.module( 'shapter.internships', [
   'ui.router',
   'ui.bootstrap',
   'security',
+  'resources.category',
   'services.appText'
 ])
 
@@ -135,6 +136,8 @@ angular.module( 'shapter.internships', [
 
     // Call the API to have internships with such tags
     Internship.getListFromTags(array, current_only).then(function(response){
+      angular.forEach( response.internships, function( internship ){
+      });
       $scope.internshipsList = response.internships;
       $scope.nbInternships = response.number_of_results;
     });

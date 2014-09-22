@@ -1,9 +1,7 @@
 <sh-header></sh-header>
 
+<!--
 <div class="container">
-  <!--<div style="top: 0px; position: absolute; max-height: 100%; width: 100%; overflow: hidden" ng-show="formation.image_url">-->
-    <!--<img class="img-responsive" src="{{ formation.image_url }}" style="margin-right: auto; margin-left: auto"/>-->
-    <!--</div>-->
 
   <div class="row">
     <div class="col-md-12">
@@ -23,7 +21,9 @@
     </div>
   </div>
 </div>
+-->
 
+<!--
 <div class="turquoise-infos">
   <div class="container">
     <div class="row">
@@ -46,6 +46,7 @@
     </div>
   </div>
 </div>
+-->
 
 
 <div class="container">
@@ -53,12 +54,6 @@
     <div class="col-md-12">
 
       <!--
-      <div ng-show="formation.description">
-        <div class="shapter-well" style="font-style: italic">
-          <div class="lead bold text-asphalt" style="margin: 25px 0px 5px 0px">{{ AppText.browse.about | language }}</div>
-          {{ formation.description | commentCut:400:formation.displayAll }} <a class="text-blue" ng-click="formation.displayAll = true" ng-show="formation.description.length > 400 && !formation.displayAll"> ... {{ AppText.comment.display_more | language }}</a><a class="text-blue" ng-click="formation.displayAll = false" ng-show="formation.description.length > 400 && formation.displayAll">{{ AppText.comment.hide | language }}</a>
-        </div>
-      </div>
       -->
 
       <div class="row">
@@ -103,6 +98,14 @@
           </div>
         </div>
         <div class="col-md-8">
+
+          <div class="shapter-well" ng-show="formation.description">
+              <div class="lead bold text-asphalt" style="margin: 25px 0px 5px 0px">{{ AppText.browse.about | language }}</div>
+              <div style="font-style: italic">
+              {{ formation.description | commentCut:400:formation.displayAll }} <a class="text-blue" ng-click="formation.displayAll = true" ng-show="formation.description.length > 400 && !formation.displayAll"> ... {{ AppText.comment.display_more | language }}</a><a class="text-blue" ng-click="formation.displayAll = false" ng-show="formation.description.length > 400 && formation.displayAll">{{ AppText.comment.hide | language }}</a>
+            </div>
+          </div>
+
           <div class="shapter-well">
             <div class="lead bold text-asphalt" style="margin: 25px 0px 5px 0px">{{ AppText.school.where_do_they_internship | language }}</div>
             <sh-map on-new="shAddInternshipModalFactory.open()" internships-list="internshipsList"></sh-map>
