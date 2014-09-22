@@ -39,8 +39,9 @@ angular.module( 'shapter.maps', [
 }])
 
 // formats the internships into markers
-.filter('formatMarkers', [function(){
-  return function( internships ){
+.filter('formatMarkers', ['$rootScope', function( $rootScope ){
+  return function( list ){
+    var internships = angular.copy( list );
     angular.forEach( internships, function( internship, index ){
       // adds templating whit shMapMessage directive to marker popups templates
       internship.message = '<div sh-map-message marker=\"markers[\'' + index + '\']\"></div>';
@@ -57,7 +58,7 @@ angular.module( 'shapter.maps', [
         internship.icon.markerColor = 'cadetblue';
       }
 
-      //defines group if not defined
+      //defines group for clustering 
       //internship.group = 'default';
     });
     return internships;
@@ -65,8 +66,9 @@ angular.module( 'shapter.maps', [
 }])
 
 //controller for the map
-.controller('MapsCtrl', ['$scope', '$compile', '$filter', 'leafletMarkersHelpers', 'security', '$stateParams', 'Analytics', function( $scope, $compile, $filter, leafletMarkersHelpers, security, $stateParams, Analytics ){
+.controller('MapsCtrl', ['$scope', '$compile', '$filter', 'leafletMarkersHelpers', 'security', '$stateParams', 'Analytics', 'AppText', '$rootScope', 'leafletData', function( $scope, $compile, $filter, leafletMarkersHelpers, security, $stateParams, Analytics, AppText, $rootScope, leafletData ){
 
+  $scope.AppText = AppText;
   $scope.isOneOfMySchools = function(){
     var id = $stateParams.schoolId;
     var out = false;
@@ -92,10 +94,18 @@ angular.module( 'shapter.maps', [
     $scope.onInternshipCreated();
   });
 
+  console.log( leafletMarkersHelpers );
+  console.log( leafletData );
+  console.log( L );
+
   // formats the internships into markers
   $scope.$watch( function(){
     return $scope.internshipsList;
   }, function(){
+    leafletData.getMap().then( function( map ){
+      console.log( map );
+    });
+    leafletMarkersHelpers.resetCurrentGroups();
     $scope.markers = $filter( 'formatMarkers' )( $scope.internshipsList );
   }, true);
 

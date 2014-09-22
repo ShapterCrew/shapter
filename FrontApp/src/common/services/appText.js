@@ -20,6 +20,10 @@ angular.module( 'services.appText', [])
       return $filter( 'language' )( $parse( code )( AppText.categories ));
     },
     internships: {
+      me_too: {
+        en: 'Add your internship!',
+        fr: 'Ajoute ton stage !'
+      },
       almost_there: {
         en: 'Almost there!',
         fr: 'C\'est presque fini !'
@@ -266,6 +270,18 @@ angular.module( 'services.appText', [])
       }
     },
     browse: {
+      cumulate_tip: {
+        en: 'With this option, cumulate keywords to refine the search:',
+        fr: 'Avec cette option, cumule les mots-clefs pour affiner la recherche :'
+      },
+      cumulate_next_keywords: {
+        en: 'cumulate next keywords',
+        fr: 'cumuler les prochains mots-clefs'
+      },
+      addition_filters: {
+        en: 'Addition fiters',
+        fr: 'Additionner les filtres'
+      },
       classes: {
         en: 'Classes',
         fr: 'Cours'
@@ -407,8 +423,8 @@ angular.module( 'services.appText', [])
         fr: 'cartes'
       },
       add_a_keyword: {
-        en: 'Add a keyword',
-        fr: 'Ajoute un mot-clef'
+        en: 'Add a keyword to filter',
+        fr: 'Ajoute un mot-clef pour filter'
       },
       keywords: {
         en: 'keywords',

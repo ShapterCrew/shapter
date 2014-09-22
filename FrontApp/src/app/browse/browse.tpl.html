@@ -1,5 +1,8 @@
 <div style="height: 100%; overflow: auto" infinite-scroll="loadMoreItems()" infinite-scroll-distance="1" infinite-scroll-disabled="itemsLoading" infinite-scroll-immediate-check="true">
   <sh-header></sh-header>
+
+
+  <!--
   <div class="container">
     <div class="row">
       <div class="col-md-12">
@@ -10,6 +13,7 @@
       </div>
     </div>
   </div>
+  -->
 
   <div class="asphalt-infos" ng-show="displayInfos">
     <div class="container">
@@ -34,7 +38,7 @@
       </div><!-- col -->
 
       <div class="col-md-9">
-        <div class="shapter-well">
+        <div class="shapter-well" style="padding-bottom: 10px; padding-top: 10px; margin-bottom: 5px">
           <div style="width: 100%;">
             <span class="glyphicon glyphicon-search"></span>
             <span ng-repeat="tag in activeTags">
@@ -47,11 +51,10 @@
           </div>
 
           <!-- input -->
-          <input sh-auto-focus="true" type="text" class="form-control" placeholder="+ {{ AppText.browse.add_a_keyword | language }}" typeahead="tag as tag.name for tag in getTypeahead( $viewValue ) | limitTo: 50" typeahead-min-length="3" ng-model="typedTag" typeahead-editable="false" typeahead-on-select="addTextTag()" style="margin-top: 20px"></input>
+          <input sh-auto-focus="true" type="text" class="form-control" placeholder="+ {{ AppText.browse.add_a_keyword | language }}" typeahead="tag as tag.name for tag in getTypeahead( $viewValue ) | limitTo: 50" typeahead-min-length="3" ng-model="typedTag" typeahead-editable="false" typeahead-on-select="addTextTag()" style="margin-top: 10px"/>
 
 
-          <ul class="list-inline cat-list nav-justified" style="margin-bottom: 0px; margin-top: 20px">
-
+          <ul class="list-inline cat-list nav-justified" style="margin-bottom: 0px; margin-top: 20px; width: auto">
             <!-- some categories -->
             <li class="dropdown" ng-repeat="cat in (categories | catFilter ).display">
               <a class="dropdown-toggle" style="white-space: nowrap" ng-mouseover="getSuggestedTags( cat )">{{ AppText.translateCode( cat )}}<span class="caret turquoise-caret"></span> </a>
@@ -91,10 +94,20 @@
               </ul>
             </li>
           </ul>
-
         </div><!-- shapter-well -->
 
-        <p class="center bold" style="margin-bottom: 0px">
+        <div ng-show="displayCumulateFilters">
+          <div class="shapter-well shapter-well-blue" type="info" style="margin-bottom: 15px; padding-top: 5px; padding-bottom: 5px; padding-right: 10px">
+            <label style="margin-right: 10px">
+              {{ AppText.browse.cumulate_tip | language }} 
+          </label>
+            <span style="white-space: nowrap">
+              <input type="checkbox" id="cumulateFilters" ng-model="cumulateFilters" style="margin: 0">&nbsp;<label class="bold" for="cumulateFilters" style="margin: 0">{{ AppText.browse.cumulate_next_keywords | language }}</label>
+            </span>
+          </div>
+        </div>
+
+        <p class="center bold" style="margin-bottom: 0px; margin-top: 10px">
           <span ng-hide="batchLoading">
             {{ nbItems }} 
             {{ AppText.browse.result | language }}

@@ -93,7 +93,7 @@
       @import "../../externals/Flat-UI-Pro-1.2.4/less/modules/tables";
       @import "../../externals/Flat-UI-Pro-1.2.4/less/modules/labels";
       @import "../../externals/Flat-UI-Pro-1.2.4/less/modules/badges";
-      @import "../../externals/Flat-UI-Pro-1.2.4/less/modules/alerts";
+//      @import "../../externals/Flat-UI-Pro-1.2.4/less/modules/alerts";
       @import "../../externals/Flat-UI-Pro-1.2.4/less/modules/bottom";
       //@import "../../externals/Flat-UI-Pro-1.2.4/less/modules/navs";
       //@import "../../externals/Flat-UI-Pro-1.2.4/less/modules/navbar";
@@ -430,6 +430,11 @@ background-color: #1abc9c;
   .button-variant(@btn-default-color, @sun-pastel, @sun-pastel, @sun-pastel);
 }
 
+.btn-purple {
+  // font-weight: bold;
+  .button-variant(@btn-default-color, @wisteria, @wisteria, @wisteria);
+}
+
 @orange-silver: mix(@orange, @silver, 80%);
 .btn-orange-silver {
   font-weight: bold;
@@ -740,6 +745,13 @@ background-color: #1abc9c;
   &.shapter-well-sun {
     background-color: mix(@sun-pastel, white, 30%) !important;
   }
+  &.shapter-well-blue {
+    background-color: mix(@blue-pastel, white, 10%) !important;
+    color: @blue-pastel;
+  }
+  & > .lead {
+    margin-top: 0px! important;
+  }
 }
 
 
@@ -813,4 +825,13 @@ ul.dropdown-menu[datepicker-popup-wrap] {
         color: @wet-asphalt;
       }
     }
+}
+
+.cumulate-option {
+  margin: 6px 0px 6px 6px;
+  padding: 0px 14px 1px 14px;
+  //border: 1px solid @silver;
+  & label {
+    margin: 0px;
+  }
 }
