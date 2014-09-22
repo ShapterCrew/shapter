@@ -35,6 +35,10 @@ angular.module( 'shapter.internships', [
   $scope.tagsSuggestions = {};
   $scope.categories = $rootScope.internship_categories;
 
+  $scope.toggleCumulateTags = function(){
+    Analytics.toggleCumulateTags();
+  };
+
   $scope.nav = function( state ) {
     $location.search('nav', state).search('filter', null);
     $scope.update();

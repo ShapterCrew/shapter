@@ -59,6 +59,10 @@ angular.module( 'shapter.browse', [
   $scope.batchesLoaded = [];
   $scope.lastBatchLoaded = $scope.batchesLoaded[ $scope.batchesLoaded.length - 1 ];
 
+  $scope.toggleCumulateTags = function(){
+    Analytics.toggleCumulateTags();
+  };
+
   $scope.nav = function( state ){
     $location.search( 'nav', state ).search( 'filter', null);
     $scope.update();

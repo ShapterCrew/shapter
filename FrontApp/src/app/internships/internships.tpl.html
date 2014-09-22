@@ -104,7 +104,7 @@
             {{ AppText.browse.cumulate_tip | language }} 
           </label>
           <span style="white-space: nowrap">
-            <input type="checkbox" id="cumulateFilters" ng-model="cumulateFilters" style="margin: 0">&nbsp;<label class="bold" for="cumulateFilters" style="margin: 0">{{ AppText.browse.cumulate_next_keywords | language }}</label>
+            <input type="checkbox" id="cumulateFilters" ng-model="cumulateFilters" style="margin: 0" ng-change="toggleCumulateTags()">&nbsp;<label class="bold" for="cumulateFilters" style="margin: 0">{{ AppText.browse.cumulate_next_keywords | language }}</label>
           </span>
         </div>
       </div>
