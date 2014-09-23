@@ -232,6 +232,8 @@ class User
 
       schools << Tag.find_or_create_by(category: :school, name: "ENSMA") if (email =~ /@etu.isae-ensma.fr/)
 
+      schools << Tag.find_or_create_by(category: :school, name: "Eurecom") if (email =~ /@eurecom.fr/)
+
       if perm = SignupPermission.find_by(email: email)
         perm.school_names.each do |school_name|
           schools << Tag.find_or_create_by(category: :school, name: school_name)
