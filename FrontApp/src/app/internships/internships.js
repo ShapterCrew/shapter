@@ -2,6 +2,7 @@ angular.module( 'shapter.internships', [
   'ui.router',
   'ui.bootstrap',
   'security',
+  'resources.category',
   'services.appText'
 ])
 
@@ -33,6 +34,10 @@ angular.module( 'shapter.internships', [
   $scope.internshipTags = [];
   $scope.tagsSuggestions = {};
   $scope.categories = $rootScope.internship_categories;
+
+  $scope.toggleCumulateTags = function(){
+    Analytics.toggleCumulateTags();
+  };
 
   $scope.nav = function( state ) {
     $location.search('nav', state).search('filter', null);
@@ -135,6 +140,8 @@ angular.module( 'shapter.internships', [
 
     // Call the API to have internships with such tags
     Internship.getListFromTags(array, current_only).then(function(response){
+      angular.forEach( response.internships, function( internship ){
+      });
       $scope.internshipsList = response.internships;
       $scope.nbInternships = response.number_of_results;
     });
@@ -157,7 +164,13 @@ angular.module( 'shapter.internships', [
       $scope.nbItems = 0;
       $scope.itemsList = [];
 
-      var newFilters = toArray( $location.search().filter ) || [];
+      var newFilters;
+      if( $scope.cumulateFilters ){
+      newFilters = toArray( $location.search().filter ) || [];
+      } 
+      else {
+        newFilters = [];
+      }
       newFilters.push( tag.id );
       $location.search( 'filter', newFilters );
     }
@@ -172,6 +185,7 @@ angular.module( 'shapter.internships', [
   };
 
   $scope.addTag = function(tag) {
+    $scope.displayCumulateFilters = true;
     $scope.onTagAdded(tag);
     Analytics.addTag( tag, 'internships' );
   };

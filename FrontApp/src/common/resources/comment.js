@@ -20,6 +20,9 @@ angular.module('resources.comment', [])
       "firstname": true,
       "lastname": true,
       "image": true
+    },
+    item: {
+      "name": true
     }
   };
 

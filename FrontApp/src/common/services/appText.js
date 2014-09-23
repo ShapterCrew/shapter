@@ -20,6 +20,10 @@ angular.module( 'services.appText', [])
       return $filter( 'language' )( $parse( code )( AppText.categories ));
     },
     internships: {
+      me_too: {
+        en: 'Add your internship!',
+        fr: 'Ajoute ton stage !'
+      },
       almost_there: {
         en: 'Almost there!',
         fr: 'C\'est presque fini !'
@@ -266,6 +270,18 @@ angular.module( 'services.appText', [])
       }
     },
     browse: {
+      cumulate_tip: {
+        en: 'With this option, cumulate keywords to refine the search:',
+        fr: 'Avec cette option, cumule les mots-clefs pour affiner la recherche :'
+      },
+      cumulate_next_keywords: {
+        en: 'cumulate next keywords',
+        fr: 'cumuler les prochains mots-clefs'
+      },
+      addition_filters: {
+        en: 'Addition fiters',
+        fr: 'Additionner les filtres'
+      },
       classes: {
         en: 'Classes',
         fr: 'Cours'
@@ -407,8 +423,8 @@ angular.module( 'services.appText', [])
         fr: 'cartes'
       },
       add_a_keyword: {
-        en: 'Add a keyword',
-        fr: 'Ajoute un mot-clef'
+        en: 'Add a keyword to filter',
+        fr: 'Ajoute un mot-clef pour filter'
       },
       keywords: {
         en: 'keywords',
@@ -989,6 +1005,14 @@ angular.module( 'services.appText', [])
       }
     },
     school: {
+      on_shapter: {
+        en: 'according to students on @shapter_ !',
+        fr: 'selon les étudiants sur @shapter_ !'
+      },
+      come_and_check: {
+        en: 'Come and check the five best courses of',
+        fr: 'Venez voir les cinq meilleurs cours de'
+      },
       browse_internships_by_keywords: {
         en: 'Browse by keywords trough all internships',
         fr: 'Chercher par mots-clefs parmi tous les stages'
@@ -1050,8 +1074,8 @@ angular.module( 'services.appText', [])
         fr: 'Quelques étudiants de'
       },
       they_love_it: {
-        en: 'What they love',
-        fr: 'Coups de coeur des étudiants'
+        en: 'The five best courses: ',
+        fr: 'Les cinq meilleurs cours :'
       },
       browse_all_courses: {
         en: 'Browse courses by keywords in',
@@ -1247,5 +1271,7 @@ angular.module( 'services.appText', [])
       }
     }
   };
+
   return AppText;
+
 }]);

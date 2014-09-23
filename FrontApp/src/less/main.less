@@ -93,7 +93,7 @@
       @import "../../externals/Flat-UI-Pro-1.2.4/less/modules/tables";
       @import "../../externals/Flat-UI-Pro-1.2.4/less/modules/labels";
       @import "../../externals/Flat-UI-Pro-1.2.4/less/modules/badges";
-      @import "../../externals/Flat-UI-Pro-1.2.4/less/modules/alerts";
+//      @import "../../externals/Flat-UI-Pro-1.2.4/less/modules/alerts";
       @import "../../externals/Flat-UI-Pro-1.2.4/less/modules/bottom";
       //@import "../../externals/Flat-UI-Pro-1.2.4/less/modules/navs";
       //@import "../../externals/Flat-UI-Pro-1.2.4/less/modules/navbar";
@@ -120,6 +120,7 @@
 @import 'leaflet.less';
 @import 'awesomeMarkers.less';
 @import 'leaflet.markercluster.less';
+@import 'angular.rangeSlider.less';
 
 /**
  * Now that all app-wide styles have been applied, we can load the styles for
@@ -141,9 +142,10 @@
 @import '../../src/app/item/item.less';
 @import '../../src/app/student/student.less';
 @import '../../src/app/contribute/contribute.less';
+
 @import '../../src/common/directives/confirmAlert/confirmAlert.less';
 
-@import 'angular.rangeSlider.less';
+@import '../../vendor/angular-social/angular-social.less';
 
 html, body{
   height: 100%;
@@ -426,6 +428,11 @@ background-color: #1abc9c;
 .btn-sun {
   // font-weight: bold;
   .button-variant(@btn-default-color, @sun-pastel, @sun-pastel, @sun-pastel);
+}
+
+.btn-purple {
+  // font-weight: bold;
+  .button-variant(@btn-default-color, @wisteria, @wisteria, @wisteria);
 }
 
 @orange-silver: mix(@orange, @silver, 80%);
@@ -738,6 +745,13 @@ background-color: #1abc9c;
   &.shapter-well-sun {
     background-color: mix(@sun-pastel, white, 30%) !important;
   }
+  &.shapter-well-blue {
+    background-color: mix(@blue-pastel, white, 10%) !important;
+    color: @blue-pastel;
+  }
+  & > .lead {
+    margin-top: 0px! important;
+  }
 }
 
 
@@ -811,4 +825,13 @@ ul.dropdown-menu[datepicker-popup-wrap] {
         color: @wet-asphalt;
       }
     }
+}
+
+.cumulate-option {
+  margin: 6px 0px 6px 6px;
+  padding: 0px 14px 1px 14px;
+  //border: 1px solid @silver;
+  & label {
+    margin: 0px;
+  }
 }

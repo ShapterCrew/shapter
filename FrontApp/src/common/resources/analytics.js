@@ -412,6 +412,10 @@ angular.module('resources.analytics', [])
         item: item.id,
         item_name: item.name
       });
+    },
+
+    toggleCumulateTags: function(){
+      mixpanel.track('Toggle Cumulate Tags');
     }
 
   };

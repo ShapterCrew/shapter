@@ -547,7 +547,13 @@ module.exports = function ( grunt ) {
    */
   grunt.renameTask( 'watch', 'delta' );
   grunt.registerTask( 'watch', [ 'build', 'karma:unit', 'delta' ] );
-  grunt.registerTask( 'test', ['build', 'karma:unit'] );
+  grunt.registerTask( 'build_without_tests', [
+    'clean', 'html2js', 'jshint', 'less:build',
+    'concat:build_css', 'copy:build_app_assets', 'copy:build_vendor_assets',
+    'copy:build_appjs', 'copy:build_vendorjs', 'index:build' 
+  ]);
+  grunt.registerTask( 'deploy', ['build_without_tests', 'compile' ]);
+  grunt.registerTask( 'test', ['build', 'karma:unit', 'compile'] );
 
   /**
    * The default task is to build and compile.

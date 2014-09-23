@@ -1,6 +1,7 @@
 angular.module( 'shapter', [
   'templates-app',
   'templates-common',
+  'ngSocial',
   'ngAnimate',
   'ui.router',
   'ui-rangeSlider',
@@ -11,6 +12,7 @@ angular.module( 'shapter', [
   'restangular',
   'shapter.confirmationSent',
   'shapter.about',
+  'shapter.social',
   'shapter.addCampus',
   'shapter.schools',
   'shapter.cgu',
@@ -59,6 +61,7 @@ angular.module( 'shapter', [
   'directives.blurFocus',
   'security.service',
   'security.authorization',
+  'services.diagconv',
   'services.colors', 
   'services.appText', 
   'filters.ignoreAccents',

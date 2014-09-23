@@ -12,6 +12,7 @@ script:
   - RAILS_ENV=test bundle exec rake
   - cd FrontApp 
   - grunt test
+  - grunt deploy
 before_script:
   - cp config/initializers/secret_token.rb.example config/initializers/secret_token.rb
   - cp config/initializers/aws_credentials.rb.example config/initializers/aws_credentials.rb

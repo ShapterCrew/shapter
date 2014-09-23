@@ -1,4 +1,6 @@
 <sh-header></sh-header>
+
+<!--
 <div class="container">
   <div class="row">
     <div class="col-md-12">
@@ -10,6 +12,7 @@
     </div>
   </div>
 </div>
+-->
 <div class="asphalt-infos" ng-show="displayInfos">
   <div class="container">
     <div class="row">
@@ -36,7 +39,7 @@
 
     <div class="col-md-9">
       <!-- {{{ input -->
-      <div class="shapter-well">
+        <div class="shapter-well" style="padding-bottom: 10px; padding-top: 10px; margin-bottom: 5px">
         <div style="width: 100%;">
           <span class="glyphicon glyphicon-search"></span>
           <span ng-repeat="tag in activeTags">
@@ -49,7 +52,7 @@
         </div>
 
         <!-- input -->
-        <input sh-auto-focus="true" type="text" class="form-control" placeholder="+ {{ AppText.browse.add_a_keyword | language }}" typeahead="tag as tag.name for tag in getTypeahead( $viewValue )" ng-model="typedTag" typeahead-min-length=3 typeahead-editable="false" typeahead-on-select="addTextTag()" style="margin-top: 20px"></input>
+        <input sh-auto-focus="true" type="text" class="form-control" placeholder="+ {{ AppText.browse.add_a_keyword | language }}" typeahead="tag as tag.name for tag in getTypeahead( $viewValue )" ng-model="typedTag" typeahead-min-length=3 typeahead-editable="false" typeahead-on-select="addTextTag()" style="margin-top: 10px"></input>
 
 
         <ul class="list-inline cat-list nav-justified" style="margin-bottom: 0px; margin-top: 20px">
@@ -57,7 +60,7 @@
             <!-- some categories -->
             <li class="dropdown" ng-repeat="cat in (categories | internshipsCatFilter ).display">
               <a class="dropdown-toggle" style="white-space: nowrap" ng-mouseover="getSuggestedTags( cat )">{{ AppText.translateCode( cat )}}<span class="caret turquoise-caret"></span> </a>
-              <ul class="dropdown-menu">
+              <ul class="dropdown-menu" style="z-index: 1001">
                 <li ng-hide="tagsSuggestions[ cat ] === undefined || tagsSuggestions[ cat ] == 'loading'" ng-repeat="tag in tagsSuggestions[ cat ]" ng-click="addTag( tag )"><a>{{ tag.name }}</a></li>
                 <li ng-show="tagsSuggestions[cat] !== undefined && tagsSuggestions[ cat ].length === 0" class="disabled">
                   <a>
@@ -94,6 +97,17 @@
             </li>
         </ul>
       </div><!-- shapter-well -->
+
+      <div ng-show="displayCumulateFilters">
+        <div class="shapter-well shapter-well-blue" type="info" style="margin-bottom: 15px; padding-top: 5px; padding-bottom: 5px; padding-right: 10px">
+          <label style="margin-right: 10px">
+            {{ AppText.browse.cumulate_tip | language }} 
+          </label>
+          <span style="white-space: nowrap">
+            <input type="checkbox" id="cumulateFilters" ng-model="cumulateFilters" style="margin: 0" ng-change="toggleCumulateTags()">&nbsp;<label class="bold" for="cumulateFilters" style="margin: 0">{{ AppText.browse.cumulate_next_keywords | language }}</label>
+          </span>
+        </div>
+      </div>
       <!-- }}} -->
 
       <!-- {{{ results -->
