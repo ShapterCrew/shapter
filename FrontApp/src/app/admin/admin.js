@@ -35,7 +35,7 @@ angular.module( 'shapter.admin', [
 
   $scope.Tag = Tag;
   $scope.nav = 'tagItems';
-  $scope.schools = schools;
+  $scope.schools = schools.schools;
   $scope.categories = $rootScope.item_categories;
 
   /* {{{ add students  */
