@@ -27,7 +27,7 @@ module Schools
 
       #schools << Tag.find_or_create_by(category: :school, name: "Eurecom") if (email =~ /@eurecom.fr/)
 
-      if perm = SignupPermission.find_by(email: email)
+      if perm = SignupPermission.find_by(email: email.downcase)
         perm.school_names.each do |school_name|
           schools << Tag.find_or_create_by(category: :school, name: school_name)
         end

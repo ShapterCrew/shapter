@@ -16,11 +16,17 @@ class SignupPermission
   after_create :send_email
   after_create :touch_user_if_possible
 
+  before_validation :downcase_email
+
   def pretty_id
     id.to_s
   end
 
   protected
+  def downcase_email
+    self.email = self.email.downcase if self.email
+  end
+
   def send_email
     SignupPermissionMailer.send_user_email(email, school_names).deliver
   end
