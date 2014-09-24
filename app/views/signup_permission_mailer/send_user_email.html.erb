@@ -8,12 +8,19 @@
       <p>
       Bonjour,<br/>
       Ton compte vient d'être validé avec l'email <%= @user_email %> et tu disposes désormais de droits d'accès étudiants pour <%= @schools %> !
-  </p>
+      </p>
 
     <p>
       Enjoy, et à bientôt sur <a href="http://shapter.com">shapter</a> !
     </p>
 
+  <p>
+      Hi, <br/>
+      Your account has just been validated with the email <%= @user_email %>, you now has a student acces for <%= @schools %> !
+  </p>
+    <p>
+      See you soon on <a href="http://shapter.com">shapter</a> !
+    </p>
   <% else %>
       <p>
       Bonjour, tu viens d'être invité sur Shapter avec l'adresse <%= @user_email %>.<br/>
@@ -23,10 +30,25 @@
     <p>
       Enjoy, et à bientôt sur <a href="http://shapter.com">Shapter</a> ! 
     </p>
+
+    <p>
+    Hi,<br/>
+    You've just been invited on Shapter with the address : <%= @user_email %>.<br/>
+    If you creat an account on <a href="http://shapter.com">shapter</a> with this email address, you'll be recognized as a <%= @school %> student.
+    </p>
+
+    <p>
+      See you soon on <a href="http://shapter.com">shapter</a> !
+    </p>
+
   <% end %>
 
     <p>
       En cas de problème, n'hésite pas à nous contacter : team@shapter.com
+    </p>
+
+    <p>
+      If you have any question, please ask us : team@shapter.com
     </p>
 
   </body>
