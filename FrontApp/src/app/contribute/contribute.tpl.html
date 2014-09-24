@@ -10,7 +10,7 @@
             <span ng-hide="commentPipe.commentable_items.length">
               <span ng-show="loading === true" class="fa fa-spin fa-refresh pull-right"></span>
             </span>
-            <h2 class="text-asphalt">
+            <h2 class="text-dark-blue">
               {{ AppText.contribute.give_a_hand | language }}
               <small><span class="fa fa-question-circle" ng-click="displayInfos = ! displayInfos"></span></small>
             </h2>
@@ -71,7 +71,7 @@
                   <div class="text-muted" ng-hide="item.current_user_comments_count && item.current_user_has_diagram"> {{ AppText.contribute.need_feedback | language }} </div>
                   -->
                   <div class="pull-right" ng-show="item.current_user_has_diagram && item.current_user_comments_count"><span class="fa fa-check text-emerald fa-3x"></span></div>
-                  <div style="margin-bottom: 10px"><span class="bold lead text-asphalt">{{ item.name }}</span></div>
+                  <div style="margin-bottom: 10px"><span class="bold lead underline text-dark-blue">{{ item.name }}</span></div>
 
                   <div class="row">
                     <div class="col-md-4">

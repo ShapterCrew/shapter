@@ -1,11 +1,12 @@
 <sh-header></sh-header>
 
+<!--
 <div class="container">
   <div class="row">
     <div class="col-md-12">
       <h2 class="" style="margin-bottom: 0px">
         <img class="media-object thumbnail" src="{{ formation.logo_url }}" style="float: left; width: 80px" ng-show="formation.logo_url">
-        <span ng-click="schoolNav()" class="text-asphalt"> {{ school.name }}</span>
+        <span ng-click="schoolNav()" class="text-dark-blue"> {{ school.name }}</span>
         <small ng-show="secondFormationId()" class="text-orange">
           <small class="glyphicon glyphicon-chevron-right"></small> {{ formation.name }} <small class="text-orange glyphicon glyphicon-remove" ng-click="schoolNav()"></small> 
         </small>
@@ -19,6 +20,7 @@
     </div>
   </div>
 </div>
+-->
 
 <!--
 <div class="turquoise-infos">
@@ -54,18 +56,18 @@
           <div ng-include="'schools/sub_formations.tpl.html'"></div>
         </div>
         <div class="col-md-8">
-          <div class="shapter-well">
-            <div class="lead bold text-asphalt" style="margin: 30px 0px 5px 0px">{{ AppText.school.where_do_they_internship | language }}</div>
-            <sh-map on-new="shAddInternshipModalFactory.open()" internships-list="internshipsList"></sh-map>
-            <p style="margin-top: 5px"><a class="text-info" href="#/schools/{{ school.id }}/internships">{{ AppText.school.browse_internships_by_keywords | language }} <small class="fa fa-arrow-right"></small></a></p>
-          </div>
 
           <div class="shapter-well">
-            <div class="lead bold text-asphalt" style="margin: 30px 0px 5px 0px">
+            <div class="underline lead bold text-dark-blue" style="margin: 30px 0px 5px 0px">
               {{ AppText.school.they_love_it | language }}
             </div>
             <div class="campus-comment" sh-comment hide-likes="false" close="" comment="comment" display-course-name="true" current-user="security.currentUser" comments='comments' ng-repeat="comment in formation.best_comments | limitTo: 6"></div>
             <a ng-click="browseNavFromFormation()" class="text-info">{{ AppText.school.browse_all_courses | language }} {{ formation.name }} <small class="fa fa-arrow-right"></small></a>
+          </div>
+          <div class="shapter-well">
+            <div class="lead bold underline text-dark-blue" style="margin: 30px 0px 5px 0px">{{ AppText.school.where_do_they_internship | language }}</div>
+            <sh-map on-new="shAddInternshipModalFactory.open()" internships-list="internshipsList"></sh-map>
+            <p style="margin-top: 5px"><a class="text-info" href="#/schools/{{ school.id }}/internships">{{ AppText.school.browse_internships_by_keywords | language }} <small class="fa fa-arrow-right"></small></a></p>
           </div>
         </div><!-- col 8 -->
         <div class="col-md-4 hidden-md hidden-lg">
@@ -96,7 +98,7 @@
 <!--
 <div ng-show="formation.description.length">
   <div class="shapter-well">
-    <div class="lead bold text-asphalt" style="margin: 30px 0px 5px 0px">{{ AppText.browse.about | language }}</div>
+    <div class="lead bold text-dark-blue" style="margin: 30px 0px 5px 0px">{{ AppText.browse.about | language }}</div>
     <div style="font-style: italic">
       {{ formation.description | commentCut:400:formation.displayAll }} <a class="text-blue" ng-click="formation.displayAll = true" ng-show="formation.description.length > 400 && !formation.displayAll"> ... {{ AppText.comment.display_more | language }}</a><a class="text-blue" ng-click="formation.displayAll = false" ng-show="formation.description.length > 400 && formation.displayAll">{{ AppText.comment.hide | language }}</a>
     </div>

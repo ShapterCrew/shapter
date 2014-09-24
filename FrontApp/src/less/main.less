@@ -234,6 +234,7 @@ a {
   //color: white;
   //background-color: @sun-flower;
   background-color: @blue-pastel;
+  border: 1px solid @blue-pastel; 
   color: white;
   & .badge {
     color: @brand-success;
@@ -364,7 +365,7 @@ background-color: #1abc9c;
   color: @orange-pastel;
   &:hover {
     color: mix(@orange-pastel, white, 90%);
-}
+  }
 }
 
 .text-concrete {
@@ -432,7 +433,7 @@ background-color: #1abc9c;
 
 .btn-purple {
   // font-weight: bold;
-  .button-variant(@btn-default-color, @wisteria, @wisteria, @wisteria);
+  .button-variant(@btn-default-color, @amethyst, @amethyst, @amethyst);
 }
 
 @orange-silver: mix(@orange, @silver, 80%);
@@ -455,6 +456,8 @@ background-color: #1abc9c;
 
 
 @sun-blood: mix(@sun-pastel, @alizarin, 90%);
+@blue-clouds-1: mix(#f6f9fb, @blue-pastel, 96%);
+@blue-clouds: mix( @blue-clouds-1, white, 55%);
 
 //@peter-river: #4CA0FF;
 //@peter-river: #5CA5FD;
@@ -602,13 +605,13 @@ background-color: #1abc9c;
   .button-variant(@btn-default-color, @blue-pastel, @blue-pastel, @blue-pastel);
 }
 
-@sun-orange: mix(@sun-pastel, @orange, 50%);
+@sun-orange: mix(@sun-pastel, @orange, 20%);
 .tag-orange {
   margin: 6px;
   &:extend( .btn );
   border-radius: 0px;
   padding: 9px 14px;
-  .button-variant(@btn-default-color, @orange, @orange, @orange);
+  .button-variant(@btn-default-color, @sun-orange, @sun-orange, @sun-orange);
 }
 .well.orange-well {
   background-color: mix( @clouds, @orange-pastel, 90%);
@@ -638,7 +641,7 @@ background-color: #1abc9c;
   background-color: @clouds;
   & .h6 {
     color: @silver;
-  }
+}
 }
 
 .orange-infos {
@@ -736,22 +739,23 @@ background-color: #1abc9c;
   padding: 19px;
   margin-bottom: 20px;
   //background-color: @well-bg;
-  background-color: mix(@clouds, white, 50%);
-  border: 1px solid mix(@clouds, white, 90%);
+  //background-color: mix(@clouds, white, 30%);
+  background-color: @blue-clouds;
+  border: 1px solid darken(@blue-clouds, 3%); 
   &.shapter-well-turquoise {
     background-color: @green-pastel;
     color: white;
-  }
-  &.shapter-well-sun {
-    background-color: mix(@sun-pastel, white, 30%) !important;
-  }
-  &.shapter-well-blue {
-    background-color: mix(@blue-pastel, white, 10%) !important;
-    color: @blue-pastel;
-  }
-  & > .lead {
-    margin-top: 0px! important;
-  }
+}
+&.shapter-well-sun {
+  background-color: mix(@sun-pastel, white, 30%) !important;
+}
+&.shapter-well-blue {
+  background-color: mix(@blue-pastel, white, 10%) !important;
+  color: @blue-pastel;
+}
+& > .lead {
+  margin-top: 0px! important;
+}
 }
 
 
@@ -774,10 +778,6 @@ background-color: #1abc9c;
 .btn,
 .list-group-item {
   border-radius: 0px;
-}
-
-.text-asphalt {
-   color: mix(@wet-asphalt, white, 80%);
 }
 
 .campus-comment {
@@ -807,7 +807,7 @@ h3.silver-bottom {
   &:extend( .text-muted );
   &:hover {
     color: mix(@silver, @clouds, 50%);
-  }
+}
 }
 
 a.text-muted:hover {
@@ -816,19 +816,19 @@ a.text-muted:hover {
 
 ul.dropdown-menu[datepicker-popup-wrap] {
 
-    & li[ng-show="showButtonBar"] {
-     // display: none;
-    }
-    & th[ng-show="showWeekNumbers"],
-    & td[ng-show="showWeekNumbers"] {
+  & li[ng-show="showButtonBar"] {
+    // display: none;
+  }
+  & th[ng-show="showWeekNumbers"],
+  & td[ng-show="showWeekNumbers"] {
     //  visibility: hidden;
+  }
+  & button {
+    &.btn.btn-default.btn-sm {
+      background-color: white;
+      color: @wet-asphalt;
     }
-    & button {
-      &.btn.btn-default.btn-sm {
-        background-color: white;
-        color: @wet-asphalt;
-      }
-    }
+  }
 }
 
 .cumulate-option {
@@ -837,9 +837,13 @@ ul.dropdown-menu[datepicker-popup-wrap] {
   //border: 1px solid @silver;
   & label {
     margin: 0px;
-  }
+}
 }
 
 .grey-hr {
   border-color: @silver;
+}
+
+.underline {
+  text-decoration: underline;
 }
