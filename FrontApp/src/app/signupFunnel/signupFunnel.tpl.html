@@ -68,7 +68,9 @@
       <div class="col-md-12 main-col questions-col">
         <div class="row">
           <div class="col-md-8 col-md-offset-2">
-            <h4 class="text-info">{{ stepName }} <span class="pull-right">{{ step }}&nbsp/&nbsp{{ nb_of_steps }}</span>: </h4>
+            <h6 class="text-muted">{{ AppText.signup_funnel.select_classes | language }}</h6>
+            <hr class="grey-hr" style="margin-top: 10px; margin-bottom: 39px"/>
+            <div class="lead bold text-asphalt">{{ stepName }} <span class="pull-right">{{ step }}&nbsp/&nbsp{{ nb_of_steps }}</span>: </div>
             <h6 ng-show="loadingItems"><span class="fa fa-spin fa-refresh"></span></h6>
 
             <div class="form-group clearfix">

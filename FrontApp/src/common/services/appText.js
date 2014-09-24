@@ -830,9 +830,13 @@ angular.module( 'services.appText', [])
       }
     },
     header: {
+      home: {
+        en: 'Home',
+        fr: 'Accueil'
+      },
       classes: {
         en: 'Classes', 
-        fr: 'Cours'
+        fr: 'Les cours'
       },
       ohters: {
         en: 'Other',
@@ -868,7 +872,7 @@ angular.module( 'services.appText', [])
       },
       internships: {
         en: 'Internships',
-        fr: 'Stages'
+        fr: 'Les Stages'
       },
       my_authorizations: {
         en: 'My authorizations',
@@ -1042,8 +1046,8 @@ angular.module( 'services.appText', [])
         fr: 'M\'identifier dans cet établissement'
       },
       contribute: {
-        en: 'Contribute',
-        fr: 'Contribuer'
+        en: 'Add comments',
+        fr: 'Commenter'
       },
       contributors: {
         en: 'Contributors',

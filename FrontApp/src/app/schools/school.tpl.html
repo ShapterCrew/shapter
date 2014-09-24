@@ -1,12 +1,11 @@
 <sh-header></sh-header>
 
 <div class="container">
-
   <div class="row">
     <div class="col-md-12">
       <h2 class="" style="margin-bottom: 0px">
         <img class="media-object thumbnail" src="{{ formation.logo_url }}" style="float: left; width: 80px" ng-show="formation.logo_url">
-        <span ng-click="schoolNav()" class="text-emerald"> {{ school.name }}</span>
+        <span ng-click="schoolNav()" class="text-asphalt"> {{ school.name }}</span>
         <small ng-show="secondFormationId()" class="text-orange">
           <small class="glyphicon glyphicon-chevron-right"></small> {{ formation.name }} <small class="text-orange glyphicon glyphicon-remove" ng-click="schoolNav()"></small> 
         </small>
@@ -50,82 +49,27 @@
 <div class="container">
   <div class="row">
     <div class="col-md-12">
-
-      <!--
-      -->
-
       <div class="row">
-        <div class="col-md-4">
-
-          <div  ng-show="formation.sub_formations.length">
-          <div class="lead bold text-asphalt" style="margin: 30px 0px 5px 0px">Formations: </div>
-          <div class="shapter-well">
-            <ul class="list-unstyled">
-              <li ng-click="formationNav( subformation.id )" ng-repeat="subformation in formation.sub_formations | orderByAccent: 'name': false | limitTo: formationsLimit">{{ subformation.name }}</li>
-              <li ng-show="formation.sub_formations.length > formationsLimit" ng-click="formationsLimit = 1000"><a class="text-info">{{ AppText.school.show_more | language }}</a></li>
-            </ul>
-          </div>
-        </div>
-
-        <div ng-show="formation.sub_choices.length">
-          <div class="lead bold text-asphalt" style="margin: 30px 0px 5px 0px">{{ AppText.school.electives | language }}</div>
-          <div class="shapter-well">
-            <ul class="list-unstyled">
-              <li ng-click="formationNav( subformation.id )" ng-repeat="subformation in formation.sub_choices | orderByAccent: 'name': false | limitTo: choiceLimit">{{ subformation.name }}</li>
-              <li ng-show="formation.sub_choices.length > choicesLimit" ng-click="choicesLimit = 1000"><a class="text-info">{{ AppText.shchool.show_more | language }}</a></li>
-            </ul>
-          </div>
-        </div>
-
-        <div ng-show="formation.sub_departments.length">
-          <div class="lead bold text-asphalt" style="margin: 30px 0px 5px 0px">{{ AppText.school.fields_of_study | language }}</div>
-          <div class="shapter-well" ng-show="formation.sub_departments.length">
-            <ul class="list-unstyled">
-              <li ng-click="formationNav( subformation.id )" ng-repeat="subformation in formation.sub_departments | orderByAccent: 'name': false | limitTo: departmentsLimit | orderBy: 'name': false">{{ subformation.name }}</li>
-              <li ng-show="formation.sub_departments.length > departmentsLimit" ng-click="departmentsLimit = 1000"><a class="text-info">{{ AppText.school.show_more | language }}</a></li>
-            </ul>
-          </div>
-        </div>
-
-        <div ng-show="formation.typicalUsers.length"> 
-          <div class="lead bold text-asphalt" style="margin: 30px 0px 5px 0px">{{ AppText.school.some_students | language }} {{ formation.name }} : </div>
-          <div class="shapter-well">
-            <div class="media" ng-repeat="student in formation.typicalUsers">
-              <a class="pull-left">
-                <img src="assets/img/logo_silver_square.png" style="width: 40px" class="thumbnail" ng-hide="student.image">
-                <img ng-src="{{ student.image }}" style="width: 40px" class="thumbnail" ng-show="student.image">
-              </a>
-              <div class="media-body">
-                <a class="media-heading text-default" ng-href="#/schools/{{ school.id }}/student/{{ student.id }}">{{ student.firstname + " " + student.lastname }}</a>
-              </div>
-            </div>
-          </div>
-        </div>
+        <div class="col-md-4 hidden-sm hidden-xs">
+          <div ng-include="'schools/sub_formations.tpl.html'"></div>
         </div>
         <div class="col-md-8">
-
-          <div ng-show="formation.description.length">
-            <div class="lead bold text-asphalt" style="margin: 30px 0px 5px 0px">{{ AppText.browse.about | language }}</div>
-            <div class="shapter-well">
-              <div style="font-style: italic">
-                {{ formation.description | commentCut:400:formation.displayAll }} <a class="text-blue" ng-click="formation.displayAll = true" ng-show="formation.description.length > 400 && !formation.displayAll"> ... {{ AppText.comment.display_more | language }}</a><a class="text-blue" ng-click="formation.displayAll = false" ng-show="formation.description.length > 400 && formation.displayAll">{{ AppText.comment.hide | language }}</a>
-              </div>
-            </div>
-          </div>
-
-          <div class="lead bold text-asphalt" style="margin: 30px 0px 5px 0px">{{ AppText.school.where_do_they_internship | language }}</div>
-          <div class="">
+          <div class="shapter-well">
+            <div class="lead bold text-asphalt" style="margin: 30px 0px 5px 0px">{{ AppText.school.where_do_they_internship | language }}</div>
             <sh-map on-new="shAddInternshipModalFactory.open()" internships-list="internshipsList"></sh-map>
             <p style="margin-top: 5px"><a class="text-info" href="#/schools/{{ school.id }}/internships">{{ AppText.school.browse_internships_by_keywords | language }} <small class="fa fa-arrow-right"></small></a></p>
           </div>
 
-          <div class="lead bold text-asphalt" style="margin: 30px 0px 5px 0px">
-            {{ AppText.school.they_love_it | language }}
-          </div>
-          <div class="">
+          <div class="shapter-well">
+            <div class="lead bold text-asphalt" style="margin: 30px 0px 5px 0px">
+              {{ AppText.school.they_love_it | language }}
+            </div>
             <div class="campus-comment" sh-comment hide-likes="false" close="" comment="comment" display-course-name="true" current-user="security.currentUser" comments='comments' ng-repeat="comment in formation.best_comments | limitTo: 6"></div>
             <a ng-click="browseNavFromFormation()" class="text-info">{{ AppText.school.browse_all_courses | language }} {{ formation.name }} <small class="fa fa-arrow-right"></small></a>
           </div>
+        </div><!-- col 8 -->
+        <div class="col-md-4 hidden-md hidden-lg">
+          <div ng-include="'schools/sub_formations.tpl.html'"></div>
         </div>
 
         <!--
@@ -143,6 +87,20 @@
         -->
 
       </div>
+      <!-- for responsiveness, stuff moves depending on screen size -->
     </div><!-- col -->
   </div><!-- row -->
 </div><!-- container -->
+
+
+<!--
+<div ng-show="formation.description.length">
+  <div class="shapter-well">
+    <div class="lead bold text-asphalt" style="margin: 30px 0px 5px 0px">{{ AppText.browse.about | language }}</div>
+    <div style="font-style: italic">
+      {{ formation.description | commentCut:400:formation.displayAll }} <a class="text-blue" ng-click="formation.displayAll = true" ng-show="formation.description.length > 400 && !formation.displayAll"> ... {{ AppText.comment.display_more | language }}</a><a class="text-blue" ng-click="formation.displayAll = false" ng-show="formation.description.length > 400 && formation.displayAll">{{ AppText.comment.hide | language }}</a>
+    </div>
+  </div>
+</div>
+-->
+
