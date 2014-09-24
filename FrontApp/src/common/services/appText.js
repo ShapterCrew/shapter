@@ -872,7 +872,7 @@ angular.module( 'services.appText', [])
       },
       internships: {
         en: 'Internships',
-        fr: 'Les Stages'
+        fr: 'Les stages'
       },
       my_authorizations: {
         en: 'My authorizations',
