@@ -13,7 +13,15 @@ class SignupPermission
 
   validates_uniqueness_of :email
 
+  after_create :send_email
+
   def pretty_id
     id.to_s
   end
+
+  protected
+  def send_email
+    SignupPermissionMailer.send_user_email(email, school_names).deliver
+  end
+
 end
