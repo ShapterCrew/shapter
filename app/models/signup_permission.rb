@@ -13,7 +13,22 @@ class SignupPermission
 
   validates_uniqueness_of :email
 
+  after_create :send_email
+  after_create :touch_user_if_possible
+
   def pretty_id
     id.to_s
   end
+
+  protected
+  def send_email
+    SignupPermissionMailer.send_user_email(email, school_names).deliver
+  end
+
+  def touch_user_if_possible
+    if u = User.find_by(email: email)
+      u.save
+    end
+  end
+
 end

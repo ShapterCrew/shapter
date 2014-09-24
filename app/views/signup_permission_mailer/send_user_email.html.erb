@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <body>
+
+    <h1>Tu viens d'être invité sur Shapter !</h1>
+
+    <% if User.where(email: @user_email).exists?%>
+      <p>
+      Bonjour,<br/>
+      Ton compte vient d'être validé avec l'email <%= @user_email %> et tu disposes désormais de droits d'accès étudiants pour <%= @schools %> !
+  </p>
+
+    <p>
+      Enjoy, et à bientôt sur <a href="http://shapter.com">shapter</a> !
+    </p>
+
+  <% else %>
+      <p>
+      Bonjour, tu viens d'être invité sur Shapter avec l'adresse <%= @user_email %>.<br/>
+      Concrètement, ça veut dire que tu peux créer un compte avec cette adresse, qui t'identifiera en tant qu'étudiant de <%= @schools %> sur <a href="http://shapter.com">shapter</a>.
+    </p>
+
+    <p>
+      Enjoy, et à bientôt sur <a href="http://shapter.com">Shapter</a> ! 
+    </p>
+  <% end %>
+
+    <p>
+      En cas de problème, n'hésite pas à nous contacter : team@shapter.com
+    </p>
+
+  </body>
+</html>
