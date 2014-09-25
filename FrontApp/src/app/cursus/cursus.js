@@ -1,4 +1,4 @@
-angular.module( 'shapter.contribute', [
+angular.module( 'shapter.cursus', [
   'ui.router',
   'ui.bootstrap',
   'security',
@@ -22,6 +22,42 @@ angular.module( 'shapter.contribute', [
 }])
 
 .controller('CursusCtrl', ['$scope', function( $scope ){
+
+  $scope.boxes = [{
+    title: "TFE",
+    type: "internship",
+    company: "Shapter",
+    lat: 35,
+    lng: 32,
+    tags: [{
+      name: "Centrale Lyon",
+      type: "School"
+    }]
+  }, {
+    title: "Modules Ouverts Disciplinaires",
+    type: "classes",
+    tags: [{
+      name: "Centrale Lyon",
+      type: "School"
+    }, {
+      name: "MOD",
+      type: "choice"
+    }, {
+      name: "3A",
+      type: "admin"
+    }]
+  }, {
+    title: "Modules Ouverts Sectoriels",
+    type: "classes",
+    tags: [{
+      name: "Centrale Lyon",
+      type: "School"
+    }, {
+      name: "MOS",
+      type: "choice"
+    }, {
+      name: "3A",
+      type: "admin"
+    }]
+  }];
 }]);
-
-

@@ -11,6 +11,7 @@ angular.module( 'shapter', [
   'ngTagsInput',
   'restangular',
   'shapter.confirmationSent',
+  'shapter.cursus',
   'shapter.about',
   'shapter.social',
   'shapter.addCampus',

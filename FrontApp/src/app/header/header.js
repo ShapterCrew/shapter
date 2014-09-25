@@ -98,6 +98,13 @@ angular.module('shapter.header', ['directives.confirmAlert', 'directives.behaveA
         $location.path("/schools").search( 'filter', null ).search( 'categories', null);
       };
 
+      scope.cursusNav = function(){
+        var schoolId = $stateParams.schoolId ? $stateParams.schoolId : ( security.isConfirmedStudent() ? security.currentUser.schools[ 0 ].id : null );
+        if( schoolId ){
+          $location.path("/schools/" + schoolId + "/cursus").search( 'filter', null ).search( 'categories', null);
+        }
+      };
+
       scope.sfNav = function(){
         var schoolId = $stateParams.schoolId ? $stateParams.schoolId : ( security.isConfirmedStudent() ? security.currentUser.schools[ 0 ].id : null );
         if( schoolId ){

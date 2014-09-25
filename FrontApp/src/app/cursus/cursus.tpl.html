@@ -1,1 +1,21 @@
 <sh-header></sh-header>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-10 col-md-offset-1">
+      <button class="btn btn-sun btn-hg" style="width: 100%; margin-bottom: 20px; min-height: 70px">
+        <span class="glyphicon glyphicon-plus"></span>
+      </button>
+      <div class="cursus-box" ng-class="{'internship-box': box.type == 'internship', 'classes-box': box.type == 'classes'}" ng-repeat="box in boxes">
+        <span class="bold text-dark-blue">{{ box.title }}</span>
+
+        <div ng-show="box.type == 'internship'">
+        </div>
+
+        <div ng-show="box.type == 'classes'">
+        </div>
+
+      </div>
+    </div><!-- col -->
+  </div><!-- row -->
+</div><!-- container -->
