@@ -5,7 +5,7 @@ angular.module('resources.item', [
 
 ])
 
-.factory('Item', ['Restangular', '$q', 'Comment', 'ConfirmAlertFactory', function( Restangular, $q, Comment, ConfirmAlertFactory ) {
+.factory('Item', ['Restangular', '$q', 'Comment', 'ConfirmAlertFactory', 'Analytics', function( Restangular, $q, Comment, ConfirmAlertFactory, Analytics ) {
 
   //********* Adding instance methods *************//
 
@@ -321,14 +321,21 @@ angular.module('resources.item', [
       this.cart();
     }
   };
+
   var cart = function(){
     this.current_user_has_in_cart = true;
-    return Restangular.one( 'items', this.id ).customPOST({}, 'cart');
+    return Restangular.one( 'items', this.id ).customPOST({}, 'cart').then( function( response ){
+      Analytics.addToCart( this );
+      return response;
+    });
   };
 
   var uncart = function(){
     this.current_user_has_in_cart = false;
-    return Restangular.one( 'items', this.id ).customPOST({}, 'uncart');
+    return Restangular.one( 'items', this.id ).customPOST({}, 'uncart').then( function( response ){
+      Analytics.removeFromCart( this );
+      return response;
+    });
   };
 
   var constructor = function(){
