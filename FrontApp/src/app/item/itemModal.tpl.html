@@ -8,13 +8,14 @@
           </span>
 
           <h3 style="margin-bottom: 25px">
-            <span class="text-turquoise">
-              {{ item.name }} <small sh-edit-item-tags-modal="item" class="glyphicon glyphicon-pencil"></small>
+            <span class="text-emerald">
+              {{ item.name }}<small sh-edit-item-tags-modal="item" class="glyphicon glyphicon-pencil"></small>
             </span>
           </h3>
 
         </div>
-        <ul class="list-inline stats-list" style="margin-bottom: 10px">
+        <div class="padding-well bordered-well">
+        <ul class="list-inline stats-list" style="margin-bottom: 0px">
           <li class="h6">
             <span ng-show="security.isConfirmedStudent()">
               <span class="fa fa-lg fa-star text-sun" ng-show="item.current_user_has_in_cart" ng-click="item.uncart()"></span>
@@ -24,9 +25,9 @@
           </li>
           <li class="h6">
             <span ng-show="security.isConfirmedStudent()">
-              <span ng-click="item.unsubscribe()" class="fa fa-check-square-o text-emerald" ng-show="item.current_user_subscribed"></span>
+              <span ng-click="item.unsubscribe()" class="fa fa-check-square-o text-sun" ng-show="item.current_user_subscribed"></span>
               <span ng-click="item.subscribe()" class="fa fa-square-o" ng-hide="item.current_user_subscribed"></span>
-              <span ng-class="{'text-emerald': item.current_user_subscribed}">{{ AppText.item.followed | language }}</span>
+              <span ng-class="{'text-sun': item.current_user_subscribed}">{{ AppText.item.followed | language }}</span>
             </span>
           </li>
           <li class="text-blue h6">
@@ -45,108 +46,112 @@
           </li>
         </ul>
       </div>
+      </div>
     </div><!-- row -->
 
 
     <div class="row">
-      <div class="col-md-6" >
-        <div class="padding-well bordered-well">
+      <div class="col-md-6" style="height: 273px">
+        <div class="padding-well bordered-well" style="height: 100%; margin: 0px">
+
           <button class="pull-right btn btn-info" ng-click="editDiagramFactory.openModal( item )" ng-show="security.isConfirmedStudent()">Évaluer</button>
-          <div class="lead text-asphalt bold">
-            {{ AppText.item.diagram | language }}
+          <div class="lead text-asphalt bold underline">
+            {{ AppText.item.diagram | language }} <span ng-show="item.diagrams_count">({{ item.diagrams_count }})</span>
           </div>
           <div class="center" ng-repeat="item in [item]" style="margin-top: 20px; margin-bottom: 20px" ng-show="item.diagrams_count">
-            <sh-diagram diagram="item.averaged_diagram" width="60" with-text="true"></sh-diagram>
+
+            <sh-diagram diagram="item.averaged_diagram" width="60" with-text="true" id="diagram"></sh-diagram>
+
+
           </div>
           <div class="text-muted" ng-hide="item.diagrams_count">{{ AppText.item.no_diagram | language }}</div>
         </div>
       </div><!-- col left -->
 
-      <div class="col-md-6" >
-        <div class="padding-well bordered-well">
-          <button class="pull-right btn btn-info" ng-click="item.updatingSyllabus=true" ng-show="security.isConfirmedStudent()">{{ AppText.item.update_syllabus | language }}</button>
+      <div class="col-md-6" style="height: 273px">
+        <div class="padding-well bordered-well" style="height: 100%; overflow: auto; margin: 0px">
+          <button class="pull-right btn btn-info" ng-click="item.updatingSyllabus = true" ng-show="security.isConfirmedStudent() && !item.syllabus">{{ AppText.item.update_syllabus | language }}</button>
 
-          <div class="lead text-asphalt bold">
+          <div class="lead text-asphalt bold underline">
             {{ AppText.item.description | language }} 
           </div>
 
-          <div style="font-style: italic" ng-hide="!item.syllabus || item.updatingSyllabus">{{ item.syllabus | textCut:400:item.displayAllSyllabus }} <a ng-click="item.displayAllSyllabus = true" ng-show="item.syllabus.length > 400 && !item.displayAllSyllabus">... {{ AppText.comment.display_more | language }}</a><a ng-click="item.displayAllSyllabus = false" ng-show="item.syllabus.length > 400 && item.displayAllSyllabus">{{ AppText.comment.hide | language }}</a></div>
+          <div style="font-style: italic" ng-hide="!item.syllabus || item.updatingSyllabus">{{ item.syllabus | textCut:400:item.displayAllSyllabus }} <a class="text-info" ng-click="item.displayAllSyllabus = true" ng-show="item.syllabus.length > 400 && !item.displayAllSyllabus">... {{ AppText.comment.display_more | language }}</a><a class="text-muted" ng-hide="item.syllabus.length > 400 && !item.displayAllSyllabus" ng-click="item.updatingSyllabus = true">[{{ AppText.system.edit  | language }}]</a>  <a class="text-info" ng-click="item.displayAllSyllabus = false" ng-show="item.syllabus.length > 400 && item.displayAllSyllabus">{{ AppText.comment.hide | language }}</a> </div>
           <div style="font-stule: italic" class="text-muted" ng-hide="item.syllabus.length || item.updatingSyllabus">{{ AppText.item.no_description | language }}</div>
 
           <div ng-show="item.updatingSyllabus">
-            <div id="updatingSyllabus" sh-update-item-syllabus item="item" ng-repeat="item in [ item ]" cb="hideUpdateSyllabus()"></div>
+            <div id="updatingSyllabus" sh-update-item-syllabus item="item" ng-repeat="item in [ item ]"></div>
           </div>
         </div>
-        </div>
       </div>
     </div>
 
 
 
-  <div class="row" >
-    <div class="col-md-8" >
-      <div class="padding-well bordered-well">
-        <button class="pull-right btn btn-info" ng-click="item.displayAddComment = true" ng-show="security.isConfirmedStudent() && item.displayAddComment === false">{{ AppText.item.comment | language }}</button>
-        <button class="pull-right btn btn-info" ng-click="item.displayAddComment = false" ng-show="security.isConfirmedStudent() && item.displayAddComment === true">{{ AppText.item.hide_comment | language }}</button>
-        <div class="lead text-asphalt bold">
-          {{ AppText.item.comments | language }} 
+    <div class="row" >
+      <div class="col-md-8" >
+        <div class="padding-well bordered-well">
+          <button class="pull-right btn btn-info" ng-click="item.displayAddComment = true" ng-show="security.isConfirmedStudent() && item.displayAddComment === false">{{ AppText.item.comment | language }}</button>
+          <button class="pull-right btn btn-info" ng-click="item.displayAddComment = false" ng-show="security.isConfirmedStudent() && item.displayAddComment === true">{{ AppText.item.hide_comment | language }}</button>
+          <div class="lead text-asphalt bold underline">
+            {{ AppText.item.comments | language }} 
+          </div>
+
+          <div ng-show="item.displayAddComment">
+            <div id="addComment" sh-add-comment item="item" ng-repeat="item in [ item ]" cb="hideAddComment()"></div>
+          </div>
+
+          <div ng-show="item.comments | hiddenComments" class="orange-infos" style="padding: 20px">
+            <div class="bold underline">{{ AppText.item.there_are | language }} {{ item.comments | hiddenComments }} {{ AppText.item.hidden_comments | language }}</div>
+            <p>{{ AppText.item.to_see_the_comments | language }}</p>
+            <a href="#/campusAuthentication" class="btn btn-info">{{ AppText.item.i_have_an_email | language }}</a>
+          </div>
+
+          <div class="campus-comment" ng-repeat="comment in item.comments | filter: {content: '!hidden'} | reverse">
+            <div sh-comment close="close()" comment="comment" display-student-name="true" current-user="security.currentUser" comments='item.comments'></div>
+          </div>
+
+          <div class="text-muted" ng-hide="item.comments.length">{{ AppText.item.no_comments | language }}</div>
         </div>
+      </div><!-- col -->
 
-        <div ng-show="item.displayAddComment">
-          <div id="addComment" sh-add-comment item="item" ng-repeat="item in [ item ]" cb="hideAddComment()"></div>
-        </div>
-
-        <div ng-show="item.comments | hiddenComments" class="orange-infos" style="padding: 20px">
-          <div class="bold">{{ AppText.item.there_are | language }} {{ item.comments | hiddenComments }} {{ AppText.item.hidden_comments | language }}</div>
-          <p>{{ AppText.item.to_see_the_comments | language }}</p>
-          <a href="#/campusAuthentication" class="btn btn-info">{{ AppText.item.i_have_an_email | language }}</a>
-        </div>
-
-        <div class="campus-comment" ng-repeat="comment in item.comments | filter: {content: '!hidden'} | reverse">
-          <div sh-comment close="close()" comment="comment" display-student-name="true" current-user="security.currentUser" comments='item.comments'></div>
-        </div>
-
-        <div class="text-muted" ng-hide="item.comments.length">{{ AppText.item.no_comments | language }}</div>
-      </div>
-    </div><!-- col -->
-
-    <div class="col-md-4" >
-      <div class="padding-well bordered-well">
-        <div class="lead text-asphalt bold">
-          {{ AppText.item.attending_students | language }} 
-        </div>
-        <ul class="list-unstyled">
-          <li class="student-li" ng-repeat="student in item.subscribers | limitTo: nbDisplayStudents" ng-click="navStudent( student.id )">
-
-            <div class="media pointer">
-              <a class="pull-left">
-                <img class="thumbnail" src="{{ student.image }}" ng-show="student.image" style="width: 30px; margin-bottom: 5px">
-              </a>
-              <div class="media-body">
-                <p class="media-heading">{{ student.firstname }} {{ student.lastname }}</p>
-              </div>
-            </div>
-
-          </li>
-          <li ng-click="nbDisplayStudents = nbDisplayStudents  + 10" ng-show="nbDisplayStudents < item.subscribers.length"><a>{{ AppText.item.show_more | language }}</a></li>
-        </ul>
-      </div>
-      <div class="padding-well bordered-well">
-        <div class="lead text-asphalt bold">
-          {{ AppText.item.characteristics | language }} 
-        </div>
-        <div ng-repeat="cat in $rootScope.item_categories" ng-show="(item.tags | filter: { 'category': cat }).length > 0">
-          <!--{{ item.tags | { 'category': cat } }}-->
-          <strong>{{ AppText.translateCode( cat ) }}</strong>
+      <div class="col-md-4" >
+        <div class="padding-well bordered-well">
+          <div class="lead text-asphalt bold underline">
+            {{ AppText.item.attending_students | language }} 
+          </div>
           <ul class="list-unstyled">
-            <li ng-repeat="tag in item.tags | filter: {category: cat}">
-              {{ tag.name }}
-            </li>
-          </ul>
+            <li class="student-li" ng-repeat="student in item.subscribers | limitTo: nbDisplayStudents" ng-click="navStudent( student.id )">
 
+              <div class="media pointer">
+                <a class="pull-left">
+                  <img class="thumbnail" src="{{ student.image }}" ng-show="student.image" style="width: 30px; margin-bottom: 5px">
+                </a>
+                <div class="media-body">
+                  <p class="media-heading">{{ student.firstname }} {{ student.lastname }}</p>
+                </div>
+              </div>
+
+            </li>
+            <li ng-click="nbDisplayStudents = nbDisplayStudents  + 10" ng-show="nbDisplayStudents < item.subscribers.length"><a>{{ AppText.item.show_more | language }}</a></li>
+          </ul>
+        </div>
+        <div class="padding-well bordered-well">
+          <div class="lead text-asphalt bold underline">
+            {{ AppText.item.characteristics | language }} 
+          </div>
+          <div ng-repeat="cat in $rootScope.item_categories" ng-show="(item.tags | filter: { 'category': cat }).length > 0">
+            <!--{{ item.tags | { 'category': cat } }}-->
+            <strong>{{ AppText.translateCode( cat ) }}</strong>
+            <ul class="list-unstyled">
+              <li ng-repeat="tag in item.tags | filter: {category: cat}">
+                {{ tag.name }}
+              </li>
+            </ul>
+
+          </div>
         </div>
       </div>
-    </div>
-  </div><!-- row -->
-</div>
+    </div><!-- row -->
+  </div>
 </div>

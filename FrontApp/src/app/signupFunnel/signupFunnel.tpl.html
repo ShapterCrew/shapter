@@ -1,4 +1,7 @@
 <sh-header></sh-header>
+<button ng-click="nextStep()" class="visible-xs btn btn-success" style="position: fixed; bottom: 0px; width: 100%; z-index: 100">
+  {{ AppText.system.next | language }} <span class="glyphicon glyphicon-arrow-right"></span>
+</button>
 
 <div class="emerald-infos" ng-show="initialState && security.isConfirmedStudent() && noSF">
   <div class="container">
@@ -35,7 +38,7 @@
     -->
   </div>
 
-  <div class="emerald-infos" ng-show="initialState && security.isConfirmedStudent()">
+  <div class="turquoise-infos" ng-show="initialState && security.isConfirmedStudent()">
     <div class="container">
       <div class="row">
         <div class="col-md-8 col-md-offset-2">
@@ -60,7 +63,7 @@
     <div class="row" ng-show="security.isConfirmedStudent()">
       <div class="col-md-8 col-md-offset-2" ng-show="initialState">
         <div class="clearfix">
-          <button class="btn btn-hg btn-info pull-right" ng-click="initialState = false;" ng-hide="loadingItems">Go <span class="glyphicon glyphicon-arrow-right"></span></button>
+          <button class="btn btn-hg btn-info pull-right hidden-xs" ng-click="initialState = false;" ng-hide="loadingItems">Go <span class="glyphicon glyphicon-arrow-right"></span></button>
         </div>
       </div><!-- col -->
     </div><!-- row -->
@@ -68,10 +71,13 @@
       <div class="col-md-12 main-col questions-col">
         <div class="row">
           <div class="col-md-8 col-md-offset-2">
-            <h4 class="text-info">{{ stepName }} <span class="pull-right">{{ step }}&nbsp/&nbsp{{ nb_of_steps }}</span>: </h4>
-            <h6 ng-show="loadingItems"><span class="fa fa-spin fa-refresh"></span></h6>
+            <div class="padding-well" style="padding-top: 0px; margin-top: 0px; margin-bottom: 0px">
+            <h6 class="text-muted">{{ AppText.signup_funnel.select_classes | language }}</h6>
+              <div class="lead bold text-dark-blue">{{ stepName }} <span class="pull-right">{{ step }}&nbsp/&nbsp{{ nb_of_steps }}</span>: </div>
+              <h6 ng-show="loadingItems"><span class="fa fa-spin fa-refresh"></span></h6>
+            </div>
 
-            <div class="form-group clearfix">
+            <div class="form-group clearfix hidden-xs">
               <div class="pull-right">
                 <button class="btn btn-info" ng-click="previousStep()" ng-show="step > 1">{{ AppText.system.previous | language }}</button>
                 <button class="btn btn-info" ng-click="nextStep()" ng-hide="step == nb_of_steps">{{ AppText.system.next | language }}</button>
@@ -79,20 +85,24 @@
               </div>
             </div>
 
-            <div class="list-group" ng-repeat="item in items | orderByAccent" ng-click="selectItem( item )" ng-hide="loadingItems">
-              <div class="list-group-item" ng-class="{'active': item.current_user_subscribed === true}">
-                <p style="margin-bottom: 0px">
-                  <span class="fa fa-lg" ng-class="{'fa-check-square-o': item.current_user_subscribed === true, 'fa-square-o': item.current_user_subscribed !== true}"></span>
-                  &nbsp{{ item.name }}
-                </p>
-              </div><!-- panel-body -->
-            </div><!-- list-group -->
+            <div class="shapter-well" style="margin-bottom: 60px">
+              <div class="list-group" ng-repeat="item in items | orderByAccent" ng-click="selectItem( item )" ng-hide="loadingItems">
+                <div class="list-group-item" ng-class="{'active': item.current_user_subscribed === true}">
+                  <p style="margin-bottom: 0px">
+                    <span class="fa fa-lg" ng-class="{'fa-check-square-o': item.current_user_subscribed === true, 'fa-square-o': item.current_user_subscribed !== true}"></span>
+                    &nbsp{{ item.name }}
+                  </p>
+                </div><!-- panel-body -->
+              </div><!-- list-group -->
+            </div><!-- shapter-well -->
 
-            <div class="clearfix pull-right" style="margin-bottom: 50px">
-              <button class="btn btn-info" ng-click="previousStep()" ng-show="step > 1">{{ AppText.system.previous | language }}</button>
-              <button class="btn btn-info" ng-click="nextStep()" ng-hide="step == nb_of_steps">{{ AppText.system.next | language }}</button>
-              <button class="btn btn-success" ng-click="nextStep()" ng-show="step == nb_of_steps">{{ AppText.system.finish | language }}</button>
-            </div>
+            <div class="clearfix hidden-xs">
+              <div class="pull-right" style="margin-bottom: 50px">
+                <button class="btn btn-info" ng-click="previousStep()" ng-show="step > 1">{{ AppText.system.previous | language }}</button>
+                <button class="btn btn-info" ng-click="nextStep()" ng-hide="step == nb_of_steps">{{ AppText.system.next | language }}</button>
+                <button class="btn btn-success" ng-click="nextStep()" ng-show="step == nb_of_steps">{{ AppText.system.finish | language }}</button>
+              </div>
+            </div><!-- clearfix -->
 
           </div>
         </div>

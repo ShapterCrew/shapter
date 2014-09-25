@@ -20,6 +20,10 @@ angular.module( 'services.appText', [])
       return $filter( 'language' )( $parse( code )( AppText.categories ));
     },
     internships: {
+      me_too: {
+        en: 'Add your internship!',
+        fr: 'Ajoute ton stage !'
+      },
       almost_there: {
         en: 'Almost there!',
         fr: 'C\'est presque fini !'
@@ -266,6 +270,18 @@ angular.module( 'services.appText', [])
       }
     },
     browse: {
+      cumulate_tip: {
+        en: 'With this option, cumulate keywords to refine the search:',
+        fr: 'Avec cette option, cumule les mots-clefs pour affiner la recherche :'
+      },
+      cumulate_next_keywords: {
+        en: 'cumulate next keywords',
+        fr: 'cumuler les prochains mots-clefs'
+      },
+      addition_filters: {
+        en: 'Addition fiters',
+        fr: 'Additionner les filtres'
+      },
       classes: {
         en: 'Classes',
         fr: 'Cours'
@@ -407,8 +423,8 @@ angular.module( 'services.appText', [])
         fr: 'cartes'
       },
       add_a_keyword: {
-        en: 'Add a keyword',
-        fr: 'Ajoute un mot-clef'
+        en: 'Add a keyword to filter',
+        fr: 'Ajoute un mot-clef pour filter'
       },
       keywords: {
         en: 'keywords',
@@ -689,8 +705,8 @@ angular.module( 'services.appText', [])
         fr: 'Pas d\'évaluations pour le moment. Évalue le cours ou demande à quelqu\'un qui l\'a suivi de le faire !'
       },
       no_description: {
-        en: 'No description available : send it to us and we will add it.  teamshapter@shapter.com',
-        fr: 'Nous n\'avons pas la description du cours. Envoie-la nous et nous l\'ajouterons. teamshapter@gmail.com'
+        en: 'We don\'t have the official description for this course. Could you upload it ? Click on the blue button above and coppy-paste it!',
+        fr: 'Nous n\'avons pas la description du cours. Clique sur "Editer la description" et copie-colle la pour que les autres puissent en profiter !'
       },
       diagram: {
         en: 'Diagram: ',
@@ -814,9 +830,13 @@ angular.module( 'services.appText', [])
       }
     },
     header: {
+      home: {
+        en: 'Home',
+        fr: 'Accueil'
+      },
       classes: {
         en: 'Classes', 
-        fr: 'Cours'
+        fr: 'Les cours'
       },
       ohters: {
         en: 'Other',
@@ -852,7 +872,7 @@ angular.module( 'services.appText', [])
       },
       internships: {
         en: 'Internships',
-        fr: 'Stages'
+        fr: 'Les stages'
       },
       my_authorizations: {
         en: 'My authorizations',
@@ -989,9 +1009,17 @@ angular.module( 'services.appText', [])
       }
     },
     school: {
+      on_shapter: {
+        en: 'according to students on @shapter_ !',
+        fr: 'selon les étudiants sur @shapter_ !'
+      },
+      come_and_check: {
+        en: 'Come and check the five best courses of',
+        fr: 'Venez voir les cinq meilleurs cours de'
+      },
       browse_internships_by_keywords: {
-        en: 'Browse by keywords trough all internships',
-        fr: 'Chercher par mots-clefs parmi tous les stages'
+        en: 'Browse trough internships',
+        fr: 'Parcourir les stages'
       },
       where_do_they_internship: {
         en: 'Where do they internship ?',
@@ -1018,8 +1046,8 @@ angular.module( 'services.appText', [])
         fr: 'M\'identifier dans cet établissement'
       },
       contribute: {
-        en: 'Contribute',
-        fr: 'Contribuer'
+        en: 'Add comments',
+        fr: 'Commenter'
       },
       contributors: {
         en: 'Contributors',
@@ -1050,12 +1078,12 @@ angular.module( 'services.appText', [])
         fr: 'Quelques étudiants de'
       },
       they_love_it: {
-        en: 'What they love',
-        fr: 'Coups de coeur des étudiants'
+        en: 'The five best courses: ',
+        fr: 'Les cinq meilleurs cours :'
       },
       browse_all_courses: {
-        en: 'Browse courses by keywords in',
-        fr: 'Chercher des formations par mot-clefs à'
+        en: 'All courses in',
+        fr: 'Tous les cours de'
       },
       photo_credits: {
         en: 'Photo credits',
@@ -1121,6 +1149,10 @@ angular.module( 'services.appText', [])
       }
     },
     system: {
+      edit: {
+        en: 'edit',
+        fr: 'éditer'
+      },
       add: {
         en: 'add',
         fr: 'ajouter'
@@ -1243,5 +1275,7 @@ angular.module( 'services.appText', [])
       }
     }
   };
+
   return AppText;
+
 }]);

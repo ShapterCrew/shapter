@@ -13,8 +13,8 @@ describe Shapter::V7::SchoolsDiagDims do
     @intern = FactoryGirl.create(:internship)
     @intern2= FactoryGirl.create(:internship)
 
-    @intern.trainee = @user
-    @intern2.trainee = @user
+    @intern.trainees = [@user]
+    @intern2.trainees = [@user]
 
     @t1 = Tag.new(name: :t1) ; @t1.save
     @t2 = Tag.new(name: :t2) ; @t2.save
@@ -117,7 +117,7 @@ describe Shapter::V7::SchoolsDiagDims do
     before do 
       @u2 = FactoryGirl.build(:user) 
       @u2.email="another.email@test.com" 
-      @intern.trainee = @u2
+      @intern.trainees = [@u2]
       @u2.save ; @intern.save
       @u2.stub(:confirmed_student?).and_return(true)
     end
@@ -136,7 +136,7 @@ describe Shapter::V7::SchoolsDiagDims do
 
     context "when author" do 
       before do 
-        @intern.trainee = @user ; @intern.save
+        @intern.trainees = [@user] ; @intern.save
       end
       it "destroys" do 
         id = @intern.id.dup

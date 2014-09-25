@@ -27,10 +27,11 @@ angular.module('directives.shDiagram', [])
 
 
       /************ Front parameters **************/
-      var diagramColor = "rgba(52, 152, 219,0.5)";
+      var diagramColor = "#318FFF";
+      //var diagramColor = "rgba(52, 152, 219,0.5)";
       var colors = ["#c4f5bd","#fdf0d3","#f8fdbc","#c9ddd4","#ffffff"];
       var strokeWidth = 2;
-      var strokeColor = "#2980b9";
+      var strokeColor = diagramColor; //"#2980b9";
       var fontFamily = "'Lato', Helvetica, Arial, sans-serif";
       var withCaption = true; // Add the dashed lines in the diagram if set to true
       var defaultWidth = 100;

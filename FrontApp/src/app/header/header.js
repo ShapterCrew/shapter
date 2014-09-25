@@ -23,7 +23,7 @@ angular.module('shapter.header', ['directives.confirmAlert', 'directives.behaveA
       };
 
       scope.noSchoolActive = function(){
-        return !$rootScope.school;
+        return !$stateParams.schoolId;
       };
 
       scope.ownProfile = function(){

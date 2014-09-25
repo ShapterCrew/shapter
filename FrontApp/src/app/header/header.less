@@ -19,8 +19,11 @@
   color: white;
 }
 
-.navbar-2 {
-  background-color: mix(@clouds, white, 40%);
+.navbar.navbar-2 {
+  background-color: @blue-clouds;
+  z-index: 100;
+  margin-bottom: 30px;
+  border-bottom: 1px solid darken(@blue-clouds, 3%); 
 }
 
 .navbar-1 {
@@ -121,8 +124,8 @@
 .navbar-default.navbar-2 .navbar-nav > .active > a:hover,
 .navbar-default.navbar-2 .navbar-nav > .active > a:focus {
   font-weight: bold;
-  background-color: @clouds;
-  color: @blue-pastel;
+  background-color: @sun-pastel;
+  color: white;
 }
 
 .navbar-2 .navbar-center {

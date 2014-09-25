@@ -1,0 +1,20 @@
+<div class="alert alert-error" ng-repeat="alert in alerts">{{alert.msg}}<span class="glyphicon glyphicon-remove pull-right text-muted" ng-click="removeAlert( $index )"></span></div>
+
+<div class="row">
+  <div class="col-md-12">
+
+    <textarea ng-model="item.newSyllabus" class="form-control" sh-auto-focus="displayAddComment" rows="6" placeholder="{{ AppText.item.update_syllabus_textarea_placeholder | language }}"></textarea>
+  </div>
+
+</div>
+
+<div class="row" style="margin-bottom: 20px">
+  <div class="col-md-12">
+    <div class="form-group clearfix" style="padding-top: 15px; margin-bottom: 0px">
+      <button ng-disabled="!item.newSyllabus.length" ng-click="updateItemSyllabus()" class="btn btn-info pull-right" style="margin-left: 10px">{{ AppText.edit_item.validate | language }}</button>
+      <button ng-click="cancelUpdateSyllabus()" class="btn btn-sun pull-right" style="margin-left: 10px">{{ AppText.comment.cancel | language }}</button>
+    </div>
+  </div>
+</div>
+
+

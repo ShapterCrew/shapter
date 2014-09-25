@@ -19,7 +19,7 @@
 
         <li class="dropdown">
           <a class="navbar-school dropdown-toggle">
-            <span ng-show="root.school">{{ root.school.name }}</span>
+            <span class="bold" ng-show="root.school">{{ root.school.name }}</span>
             <span ng-hide="root.school">{{ AppText.header.choose_a_campus | language }}</span>
             <span class="caret white-caret"></span>
           </a>
@@ -64,10 +64,10 @@
 </nav>
 
 
-<nav class="navbar navbar-default navbar-2" role="navigation" style="z-index: 100" ng-hide="noSchoolActive()">
+<nav class="navbar navbar-default navbar-2" role="navigation" ng-hide="noSchoolActive()">
   <div class="container">
     <ul class="nav navbar-nav navbar-center">
-      <li ng-class="{'active': $state.$current =='school'}" ng-click="home()"><a>Home</a></li>
+      <li ng-class="{'active': $state.$current =='school'}" ng-click="home()"><a>{{ AppText.header.home | language }}</a></li>
       <li ng-class="{'active': $state.$current =='signupFunnel'}" ng-click="sfNav()"><a>{{ AppText.header.my_classes | language }}</a></li>
       <li ng-class="{'active': $state.$current =='schoolContribute'}" ng-click="contributeNav()"><a>{{ AppText.school.contribute | language }}</a></li>
       <li ng-class="{'active': $state.$current =='browse'}" ng-click="browseNav()"><a>{{ AppText.header.classes | language }}</a></li>

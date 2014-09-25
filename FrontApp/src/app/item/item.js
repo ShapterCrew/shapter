@@ -197,7 +197,7 @@ angular.module('shapter.item', [
   $scope.close = $modalInstance.close;
 }])
 
-.controller('itemModalCtrl', ['$scope', 'item', 'itemsList', 'loadMoreItems',  'numberOfItems', '$window', '$modalInstance', '$location', '$q', 'Item', 'Analytics', 'security', 'editDiagramFactory', '$upload', '$http', 'AppText', 'itemFactory', '$stateParams', '$rootScope', function($scope, item, itemsList, loadMoreItems, numberOfItems, $window, $modalInstance, $location, $q, Item, Analytics, security, editDiagramFactory, $upload, $http, AppText, itemFactory, $stateParams, $rootScope ) {
+.controller('itemModalCtrl', ['$scope', 'item', 'itemsList', 'loadMoreItems',  'numberOfItems', '$window', '$modalInstance', '$location', '$q', 'Item', 'Analytics', 'security', 'editDiagramFactory', '$upload', '$http', 'AppText', 'itemFactory', '$stateParams', '$rootScope', 'StoJ', function($scope, item, itemsList, loadMoreItems, numberOfItems, $window, $modalInstance, $location, $q, Item, Analytics, security, editDiagramFactory, $upload, $http, AppText, itemFactory, $stateParams, $rootScope, StoJ ) {
 
   $scope.$rootScope = $rootScope;
   item.open = true;
@@ -212,6 +212,17 @@ angular.module('shapter.item', [
   $scope.display = 'comments';
   $scope.numberOfItems = numberOfItems;
   $location.search( 'item', item.id );
+
+  $scope.diagjpg = function(){
+    var svg = document.getElementById('diagram') ? document.getElementById.innerHTML : null;
+    if( svg ){
+      console.log( svg );
+      return StoJ.convert(svg);
+    }
+    else {
+      return null;
+    }
+  };
 
   $scope.$watch( function(){
     return $location.search().item;
@@ -279,10 +290,6 @@ angular.module('shapter.item', [
 
   $scope.hideAddComment = function(){
     $scope.item.displayAddComment = false;
-  };
-
-  $scope.hideUpdateSyllabus = function() {
-    $scope.item.updatingSyllabus = false;
   };
 
   $scope.close = function() {
@@ -360,6 +367,47 @@ angular.module('shapter.item', [
   $scope.trackDownload = function( item, doc ){
     Item.countDl( item.id, doc.id );
     Analytics.downloadFile( item, doc );
+  };
+
+}])
+
+.directive( 'shUpdateItemSyllabus', [function(){
+  return {
+    restrict: 'A',
+    scope: {
+      item: '='
+    },
+    templateUrl: 'item/updateSyllabus.tpl.html',
+    controller: 'UpdateItemSyllabusCtrl'
+  };
+}])
+
+.controller( 'UpdateItemSyllabusCtrl', ['$scope', 'Item', 'AppText', '$filter', 'Analytics', function($scope, Comment, AppText, $filter, Analytics ){
+
+  $scope.item.newSyllabus = $scope.item.newSyllabus ? $scope.item.newSyllabus : $scope.item.syllabus;
+  $scope.AppText = AppText;
+  $scope.alerts = [];
+
+  $scope.removeAlert = function( index ){
+    $scope.alerts.splice( index, 1 );
+  };
+
+  $scope.cancelUpdateSyllabus = function() {
+    $scope.item.newSyllabus = $scope.item.syllabus;
+    $scope.item.updatingSyllabus = false;
+  };
+
+  $scope.updateItemSyllabus = function() {
+    $scope.item.updateSyllabus( $scope.item.newSyllabus ).then( function( response ){
+      $scope.item.syllabus = $scope.item.newSyllabus;
+      $scope.item.updatingSyllabus = false;
+      Analytics.editSyllabus( $scope.item );
+    }, function(x){
+      console.log( x );
+      $scope.alerts.push({
+        msg: $filter( 'language' )( AppText.item.problem )
+      });
+    });
   };
 
 }])

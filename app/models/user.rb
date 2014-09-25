@@ -4,12 +4,13 @@ class User
 
   include Facebookable
   include Skilled
+  include Schools
 
   field :firstname, type: String
   field :lastname,  type: String
   field :shapter_admin, type: Boolean
 
-  has_many :internships, class_name: "Internship", inverse_of: :trainee
+  has_and_belongs_to_many :internships, class_name: "Internship", inverse_of: :trainee
 
   has_and_belongs_to_many :liked_comments, class_name: "Item", inverse_of: :likers
   has_and_belongs_to_many :disliked_comments, class_name: "Item", inverse_of: :dislikers
@@ -24,6 +25,7 @@ class User
   has_and_belongs_to_many :schools, class_name: "Tag", inverse_of: :students
 
   has_many :syllabus_edited_items, class_name: "Item", inverse_of: :syllabus_author
+  has_many :reported_comments, class_name: "Report", inverse_of: :reporter
 
   # {{{ devise
   # Include default devise modules. Others available are:
@@ -122,8 +124,6 @@ class User
     end
   end
 
-  #validate :valid_school?
-  before_validation :set_schools!
   before_validation :set_names!
 
   after_save :items_touch
@@ -212,35 +212,6 @@ class User
     Behave.delay.track pretty_id, "login"
   end
 
-  class << self
-    def schools_for(email)
-      schools = []
-
-      schools << Tag.find_or_create_by(category: :school, name: "Centrale Lyon") if (email =~ /.*@ecl[0-9]+.ec-lyon.fr/ or email =~ /.*@auditeur.ec-lyon.fr/)
-
-      schools << Tag.find_or_create_by(category: :school, name: "Centrale Paris") if (email =~ /.*@student.ecp.fr/)
-
-      schools << Tag.find_or_create_by(category: :school, name: "ULM") if ( email =~ /.*@clipper.ens.fr/)
-
-      schools << Tag.find_or_create_by(category: :school, name: "HEC") if (email =~ /.*@hec.edu/)
-
-      schools << Tag.find_or_create_by(category: :school, name: "Ponts ParisTech") if (email =~ /.*@eleves.enpc.fr/)
-
-      schools << Tag.find_or_create_by(category: :school, name: "ESPCI") if (email =~ /@bde.espci.fr/)
-
-      schools << Tag.find_or_create_by(category: :school, name: "ESCP Europe") if (email =~ /@edu.escpeurope.eu/)
-
-      schools << Tag.find_or_create_by(category: :school, name: "ENSMA") if (email =~ /@etu.isae-ensma.fr/)
-
-      if perm = SignupPermission.find_by(email: email)
-        perm.school_names.each do |school_name|
-          schools << Tag.find_or_create_by(category: :school, name: school_name)
-        end
-      end
-      return schools
-    end
-  end
-
   private
 
   def items_touch
@@ -256,12 +227,6 @@ class User
     schools.each(&:touch) if school_ids_changed? or new_record?
   end
 
-  def valid_school?
-    unless self.provider == "facebook"
-      errors.add(:base,"user must belong to at least one school") if self.schools.empty?
-    end
-  end
-
   def set_names!
     if perm = SignupPermission.find_by(email: self.email)
       self.firstname ||= perm.firstname if perm.firstname
@@ -269,13 +234,8 @@ class User
     end
   end
 
-  def set_schools!
-    self.schools += self.class.schools_for(self.email)
-  end
-
   def confirmation_required?
     false
   end
-
 
 end
