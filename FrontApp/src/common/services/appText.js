@@ -830,9 +830,13 @@ angular.module( 'services.appText', [])
       }
     },
     header: {
+      home: {
+        en: 'Home',
+        fr: 'Accueil'
+      },
       classes: {
         en: 'Classes', 
-        fr: 'Cours'
+        fr: 'Les cours'
       },
       ohters: {
         en: 'Other',
@@ -868,7 +872,7 @@ angular.module( 'services.appText', [])
       },
       internships: {
         en: 'Internships',
-        fr: 'Stages'
+        fr: 'Les stages'
       },
       my_authorizations: {
         en: 'My authorizations',
@@ -1014,8 +1018,8 @@ angular.module( 'services.appText', [])
         fr: 'Venez voir les cinq meilleurs cours de'
       },
       browse_internships_by_keywords: {
-        en: 'Browse by keywords trough all internships',
-        fr: 'Chercher par mots-clefs parmi tous les stages'
+        en: 'Browse trough internships',
+        fr: 'Parcourir les stages'
       },
       where_do_they_internship: {
         en: 'Where do they internship ?',
@@ -1042,8 +1046,8 @@ angular.module( 'services.appText', [])
         fr: 'M\'identifier dans cet établissement'
       },
       contribute: {
-        en: 'Contribute',
-        fr: 'Contribuer'
+        en: 'Add comments',
+        fr: 'Commenter'
       },
       contributors: {
         en: 'Contributors',
@@ -1078,8 +1082,8 @@ angular.module( 'services.appText', [])
         fr: 'Les cinq meilleurs cours :'
       },
       browse_all_courses: {
-        en: 'Browse courses by keywords in',
-        fr: 'Chercher des formations par mot-clefs à'
+        en: 'All courses in',
+        fr: 'Tous les cours de'
       },
       photo_credits: {
         en: 'Photo credits',

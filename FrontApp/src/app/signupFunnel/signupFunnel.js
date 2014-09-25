@@ -30,7 +30,7 @@ angular.module( 'shapter.signupFunnel', [
   }
   else {
     $scope.hideNav = true;
-    $scope.initialState = true;
+    $scope.initialState = false;
   }
 
   Analytics.signupFunnel();
@@ -40,11 +40,12 @@ angular.module( 'shapter.signupFunnel', [
   $scope.nb_of_steps = null;
 
   $scope.finish = function(){
-    var id = security.currentUser.schools.length ? security.currentUser.schools[0].id : null;
+    var id = $stateParams.schoolId ? $stateParams.schoolId : ( security.currentUser.schools ? security.currentUser.schools[0].id : null );
     if( id ){
       $location.path( "/schools/" + id + "/contribute" );
     }
   };
+
 
   $scope.nextStep = function(){
     $scope.step += 1;

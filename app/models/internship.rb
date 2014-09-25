@@ -12,15 +12,19 @@ class Internship
   include Autocomplete
 
   has_and_belongs_to_many :tags
-  belongs_to :trainee, class_name: "User", inverse_of: :internships
+  has_and_belongs_to_many :trainees, class_name: "User", inverse_of: :internships # This allows queries such as User.not.where(internship_ids: nil) to find user with internships
 
   #{{{ validations
-  validates_presence_of :start_date, :end_date, :trainee_id, :title, :location
+  validates_presence_of :start_date, :end_date, :trainee_ids, :title, :location
   validate :dates_validation
   def dates_validation
     errors.add(:base,"end_date should be greater than start_date") if start_date >= end_date
   end
   #}}}
+
+  def trainee
+    trainees.first
+  end
 
   def duration
     (end_date - start_date).to_i
@@ -75,5 +79,6 @@ class Internship
   def user_touch
     trainee.touch unless trainee.nil?
   end
+
 
 end

@@ -1,6 +1,7 @@
 <div style="height: 100%; overflow: auto" infinite-scroll="loadMoreItems()" infinite-scroll-distance="1" infinite-scroll-disabled="loading">
   <sh-header></sh-header>
 
+  <!--
   <div class="container" >
     <div class="row main-row">
       <div class="col-md-12 main-col" style="overflow-x: hidden">
@@ -9,16 +10,18 @@
             <span ng-hide="commentPipe.commentable_items.length">
               <span ng-show="loading === true" class="fa fa-spin fa-refresh pull-right"></span>
             </span>
-            <h2 class="text-emerald">
+            <h2 class="text-dark-blue">
               {{ AppText.contribute.give_a_hand | language }}
               <small><span class="fa fa-question-circle" ng-click="displayInfos = ! displayInfos"></span></small>
             </h2>
-          </div><!-- col -->
-        </div><!-- row -->
-      </div><!-- col -->
-    </div><!-- row -->
-  </div><!-- container -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  -->
 
+  <!--
   <div class="emerald-infos" ng-show="security.isConfirmedStudent() && displayInfos">
     <div class="container">
       <div class="row">
@@ -32,6 +35,7 @@
       </div>
     </div>
   </div>
+  -->
 
   <div class="orange-infos" ng-hide="security.isConfirmedStudent()">
     <div class="container">
@@ -60,12 +64,14 @@
           </div>
 
           <div class="col-md-10 col-md-offset-1">
-              <div ng-repeat="item in commentPipe.commentable_items" style="margin-bottom: 30px">
+              <div class="shapter-well" ng-repeat="item in commentPipe.commentable_items" style="margin-bottom: 30px">
 
                 <div class="">
+                  <!--
                   <div class="text-muted" ng-hide="item.current_user_comments_count && item.current_user_has_diagram"> {{ AppText.contribute.need_feedback | language }} </div>
+                  -->
                   <div class="pull-right" ng-show="item.current_user_has_diagram && item.current_user_comments_count"><span class="fa fa-check text-emerald fa-3x"></span></div>
-                  <div style="margin-bottom: 10px"><span class="bold lead text-dark-blue">{{ item.name }}</span></div>
+                  <div style="margin-bottom: 10px"><span class="bold lead underline text-dark-blue">{{ item.name }}</span></div>
 
                   <div class="row">
                     <div class="col-md-4">
