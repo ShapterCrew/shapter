@@ -1,0 +1,88 @@
+.cursus-box {
+  @media (max-width: @screen-sm-max) {
+    margin-bottom: 30px;
+    border-bottom: 1px solid darken( @blue-clouds, 3%);
+  }
+  & .cursus-box-folded {
+    background-color: @blue-clouds;
+    border-top: 1px solid darken( @blue-clouds, 3%);
+    border-right: 1px solid darken( @blue-clouds, 3%);
+    border-left: 1px solid darken( @blue-clouds, 3%);
+    &:last-child {
+      border-bottom: 1px solid darken( @blue-clouds, 3%);
+    }
+    & .box-type {
+      font-weight: bold;
+      position: relative;
+      display: inline-block;
+      padding: 19px;
+      width: 100%;
+      &.internship-type {
+        background-color: @sun-pastel;
+        color: white;
+      }
+      &.classes-type {
+        background-color: @emerald-pastel;
+        color: white;
+      }
+    }
+    & .box-content {
+      padding: 19px;
+      position: relative;
+      display: inline-block;
+    }
+  }
+  & .cursus-box-unfolded {
+    //margin-bottom: 30px;
+    //margin-left: 180px;
+    border-bottom: 1px solid darken( @blue-clouds, 3%);
+    border-right: 1px solid darken( @blue-clouds, 3%);
+    border-left: 1px solid darken( @blue-clouds, 3%);
+    background-color: @blue-clouds;
+    & .item-in-box {
+      border-top: 1px solid darken( @blue-clouds, 3%);
+      padding: 10px 19px 10px 19px;
+    }
+    & .unfolded-internship {
+      padding: 19px;
+    }
+  }
+  &.add-box {
+    margin-bottom: 40px;
+  }
+}
+
+.box-btn {
+  width: 100%; 
+  margin-bottom: 20px; 
+  height: 70px; 
+  margin: 0px;
+  border-right: 1px solid darken( @blue-clouds, 3% ) !important;
+  border-left: 1px solid darken( @blue-clouds, 3% ) !important;
+  border-top: 1px solid darken( @blue-clouds, 3% ) !important;
+}
+
+.add-box-choice {
+  border-right: 1px solid darken( @blue-clouds, 3% ) !important;
+  border-left: 1px solid darken( @blue-clouds, 3% ) !important;
+  & ul.list-inline {
+    margin: 0px;
+  }
+  & ul.nav.list-inline.nav-justified > li {
+    padding: 0px;
+    & > a {
+      padding: 0px;
+    }
+  }
+  & .btn {
+    height: 70px; 
+    width: 100%;
+  }
+}
+
+.add-classes-box {
+  border-right: 1px solid darken( @blue-clouds, 3% ) !important;
+  border-left: 1px solid darken( @blue-clouds, 3% ) !important;
+  border-bottom: 1px solid darken( @blue-clouds, 3% ) !important;
+  padding: 19px;
+}

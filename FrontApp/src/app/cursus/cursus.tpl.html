@@ -2,20 +2,120 @@
 
 <div class="container">
   <div class="row">
-    <div class="col-md-10 col-md-offset-1">
-      <button class="btn btn-sun btn-hg" style="width: 100%; margin-bottom: 20px; min-height: 70px">
-        <span class="glyphicon glyphicon-plus"></span>
-      </button>
-      <div class="cursus-box" ng-class="{'internship-box': box.type == 'internship', 'classes-box': box.type == 'classes'}" ng-repeat="box in boxes">
-        <span class="bold text-dark-blue">{{ box.title }}</span>
-
-        <div ng-show="box.type == 'internship'">
+    <div class="col-md-10 col-md-offset-1" style="margin-bottom: 150px">
+      <div class="cursus-box add-box">
+        <div class="add-box-choice">
+          <ul class="nav list-inline nav-justified">
+            <li>
+              <a>
+                <button class="btn btn-lg btn-default" ng-class="{'btn-info': !addInternship}" ng-click="displayAddClasses = !displayAddClasses; addInternship = false">
+                  <span class="fa fa-stack fa-lg">
+                    <span class="fa fa-circle fa-stack-2x"></span>
+                    <span class="fa fa-plus fa-stack-1x" ng-class="{'text-info': !addInternship, 'text-muted': addInternship}"></span>
+                  </span>
+                  {{ AppText.cursus.courses | language }}
+                </button>
+              </a>
+            </li>
+            <li>
+              <a>
+                <button class="btn btn-lg btn-default" ng-class="{'btn-info': !displayAddClasses}" ng-click="displayAddClasses = false; addInternship = true">
+                  <span class="fa fa-stack fa-lg">
+                    <span class="fa fa-circle fa-stack-2x"></span>
+                    <span class="fa fa-plus fa-stack-1x" ng-class="{'text-info': !displayAddClasses,'text-muted': displayAddClasses}"></span>
+                  </span>
+                  {{ AppText.cursus.internship | language }}
+                </button>
+              </a>
+            </li>
+          </ul>
         </div>
 
-        <div ng-show="box.type == 'classes'">
-        </div>
+        <div ng-show="displayAddClasses" class="add-classes-box">
+          <div ng-show="classesStep == 1">
+            <div class="form-group">
+              <label>Dans quel établissement as-tu suivi ces cours ?</label>
+              <br/>
+              <select ng-model="addClassesSchool" ng-options="school as school.name for school in schools | orderByAccent:'name':false" ng-change="selectTagItemsSchool()">
+                <option value="">-- Choisis l'établissement --</option>
+              </select>
+            </div>
+            <div ng-show="!!addClassesSchool">
+              <div class="form-group">
+                <label>Comment se nomme cette série de cours ?</label>
+                <input class="form-control" ng-model="newBox.classes.title" typeahead="tag as tag.name for tag in getTypeahead( $viewValue )" typeahead-editable="false" typeahead-min-length="3" typeahead-on-select="selectTagTitle( $item )">
+              </div>
+              <div class="form-group">
+                <div style="display: inline-block; position: relative;">
+                  <label>{{ AppText.internships.start_date | language }}</label>
+                  <p class="input-group">
+                    <input class="form-control" name="fstart" type="text" show-weeks="false" show-button-bar="false" datepicker-popup="dd/MM/yyyy" ng-model="newBox.classes.start_date" is-open="openedBegin" ng-required="true" close-text="Close" editable="false" required/>
+                  </p>
+                </div>
+                <div style="display: inline-block; position: relative;">
+                  <label>{{ AppText.internships.end_date | language }}</label>
+                  <p class="input-group">
+                    <input class="form-control" name="fend" type="text" show-weeks="false" show-button-bar="false" datepicker-popup="dd/MM/yyyy" ng-model="newBox.classes.end_date" is-open="openedEnd" ng-required="true" close-text="Close" editable="false" required/>
+                  </p>
+                </div>
+              </div>
+            </div><!-- show when school -->
+          </div><!-- classes step 1 -->
 
-      </div>
+          <div ng-show="classesStep == 2">
+            <div class="">
+              <div style="width: 100%;">
+                <span class="glyphicon glyphicon-search"></span>
+                <span class="tag-orange" ng-show="activeTag">
+                  {{ activeTag.name }}
+                  <!--<span class="glyphicon glyphicon-remove" ng-click="$event.stopPropagation();activeTag = null; itemsList = null"></span>-->
+                </span>
+              </div>
+
+              <!-- input -->
+              <!--<input ng-show="!activeTag" sh-auto-focus="true" type="text" class="form-control" placeholder="+ {{ AppText.browse.add_a_keyword | language }}" typeahead="tag as tag.name for tag in getTypeahead( $viewValue ) | limitTo: 50" typeahead-min-length="3" ng-model="activeTag" typeahead-editable="false" typeahead-on-select="loadItems()" style="margin-top: 10px"/>-->
+
+              <label>Sélectionne les cours que tu as suivis ou retourne changer la recherche si tu ne les trouves pas !</label>
+
+              <div class="form-group bold text-emerald clearfix">
+                <div class="pull-right">
+                  <span ng-click="previousClassesStep()" ng-show="classesStep > 1"> <span class="fa fa-arrow-left"></span>précédent </span>
+                  <span ng-show="classesStep > 1"> - </span>
+                  <span ng-show="classesStep == 2" ng-click="addClasses()">valider</span>
+                  <span ng-click="nextClassesStep()" ng-hide="classesStep == 2 || !addClassesSchool"> suivant <span class="fa fa-arrow-right"></span></span>
+                </div>
+              </div>
+
+              <div class="list-group" style="margin-top: 20px; margin-left: -20px; margin-right: -20px">
+                <div ng-repeat="item in itemsList" class="list-group-item" ng-class="{'active': item.selected }" ng-click="toggleSelectItem( item )" style="border-radius: 0">
+                  <span class="fa fa-lg" ng-class="{'fa-check-square-o': item.selected === true, 'fa-square-o': item.selected !== true}"></span>
+                  {{ item.name }}
+                </div>
+              </div>
+            </div>
+          </div><!-- classes step 2 -->
+
+          <div ng-show="classesStep == 3">
+            <label>Récapitulatif</label>
+            <sh-cursus-box box="newBox.classes"></sh-cursus-box>
+          </div>
+
+          <div class="form-group bold text-emerald clearfix">
+            <div class="pull-right">
+              <span ng-click="previousClassesStep()" ng-show="classesStep > 1"> <span class="fa fa-arrow-left"></span>précédent </span>
+              <span ng-show="classesStep > 1"> - </span>
+              <span ng-show="classesStep == 2" ng-click="addClasses()">valider</span>
+              <span ng-click="nextClassesStep()" ng-hide="classesStep == 2 || !addClassesSchool"> suivant <span class="fa fa-arrow-right"></span></span>
+            </div>
+          </div>
+
+        </div>
+        <div ng-show="addInternship" class="add-internship-box">
+        </div>
+      </div><!-- cursus-box -->
+
+      <sh-cursus-box ng-repeat="box in boxes" box="box" display-school="boxes[ $index - 1 ].type == 'internship'"></sh-cursus-box>
+
     </div><!-- col -->
   </div><!-- row -->
 </div><!-- container -->

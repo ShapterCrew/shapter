@@ -20,7 +20,7 @@
           <span style="margin-top: 0px">
 
             <span ng-show="displayCourseName">
-              <span class="badge badge-concrete">{{ comment.created_at | date:'dd/MM/yyyy'}}</span>
+              <span class="badge badge-info">{{ comment.created_at | date:'dd/MM/yyyy'}}</span>
 
               <div ng-show="ownComment()">
                 <div ng-hide="hideLikes">
@@ -38,7 +38,7 @@
                   <img class="media-object thumbnail" src="{{ comment.author.image }}" alt="zbeuh !" ng-show="comment.author.image" style="width: 70px">
                 </a>
                 <div class="media-body">
-                  <span class="badge badge-concrete">{{ comment.created_at | date:'dd/MM/yyyy'}}</span>
+                  <span class="badge badge-info">{{ comment.created_at | date:'dd/MM/yyyy'}}</span>
                   <div ng-show="ownComment()">
                     <small class="text-muted" ng-click="comment.displayEditComment = true; comment.newContent = comment.content">editer</small>
                     <small class="text-muted"> - </small>

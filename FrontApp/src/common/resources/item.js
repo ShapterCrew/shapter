@@ -463,6 +463,7 @@ angular.module('resources.item', [
   };
 
   Item.createTaggedItems = createTaggedItems;
+
   Item.getListFromTags = function( tags, total, batchSize, index, quality_filter, cart_only ) {
     var entities = {
       item: {

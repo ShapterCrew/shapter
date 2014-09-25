@@ -1,0 +1,50 @@
+<div class="cursus-box">
+  <div class="cursus-box-folded" ng-click="box.unfolded = !box.unfolded">
+    <div class="row">
+      <div class="col-md-3">
+        <div class="box-type" ng-class="{'internship-type': box.type == 'internship', 'classes-type': box.type == 'classes' && displaySchool}">
+          <span ng-show="box.type == 'internship'">
+            {{ box.company }}
+          </span>
+          <span ng-show="box.type == 'classes' && displaySchool">
+            <span  ng-repeat="tag in box.tags" ng-show="tag.category == 'school'">
+              {{ tag.name }}
+            </span>
+          </span>
+        </div>
+      </div>
+      <div class="col-md-9">
+        <div class="box-content">
+          <span class="badge badge-info">
+            <span ng-bind="box.start_date | date :'MM/yyyy'"></span>
+            <span ng-show="box.start_date && box.end_date"> - </span>
+            <span ng-bind="box.end_date | date :'MM/yyyy'"></span>
+          </span>
+          <span class="bold text-dark-blue">
+            <span>{{ box.title }} ({{ box.items.length || 0}})</span>
+          </span>
+        </div>
+      </div><!-- col -->
+    </div><!-- row -->
+  </div><!-- cursus box folded -->
+
+  <div class="cursus-box-unfolded" ng-show="box.unfolded === true">
+    <div class="row">
+      <div class="col-md-9 col-md-offset-3">
+        <div ng-show="box.type == 'classes'">
+          <div class="item-in-box" ng-repeat="item in box.items">
+            <span style="margin: 0px 3px;" class="pull-right label label-default" ng-show="item.current_user_comments_count > 0 ">{{ AppText.cursus.comment | language }} <span class="fa fa-check"></span></span>
+            <span style="margin: 0px 3px;" class="pull-right label label-default" ng-show="item.current_user_has_diagram === true">{{ AppText.cursus.diagram | language }} <span class="fa fa-check"></span></span>
+            <span sh-item-modal="item" items-list="box.items" class="">
+              {{ item.name }}
+            </span>
+          </div>
+        </div>
+        <div ng-show="box.type == 'internship'" class="unfolded-internship">
+          {{ box.description }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div><!-- cursus box -->
+

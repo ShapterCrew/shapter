@@ -305,6 +305,10 @@ background-color: #1abc9c;
   color: @brand-info;
 }
 
+.text-purple {
+  color: @amethyst;
+}
+
 [ readonly = "readonly" ] > i {
   cursor: default;
 }
@@ -434,7 +438,7 @@ background-color: #1abc9c;
 
 .btn-purple {
   // font-weight: bold;
-  .button-variant(@btn-default-color, @amethyst, @amethyst, @amethyst);
+  .button-variant(@btn-default-color, @amethyst, lighten(@amethyst, 5%), @amethyst);
 }
 
 @orange-silver: mix(@orange, @silver, 80%);

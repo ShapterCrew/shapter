@@ -1187,6 +1187,14 @@ angular.module( 'services.appText', [])
       }
     },
     categories: {
+      internship: {
+        en: 'Internship',
+        fr: 'Stage'
+      },
+      classes: {
+        en: 'Classes',
+        fr: 'Cours'
+      },
       school: {
         en: 'School',
         fr: 'Établissement'
@@ -1272,6 +1280,28 @@ angular.module( 'services.appText', [])
       check_spam: {
         en: 'If you don\'t recieve the email, check your spam folder',
         fr: 'Si tu ne reçois rien, vérifie ton dossier de spams'
+      }
+    },
+    cursus: {
+      add_step: {
+        en: 'Add a step to your profile',
+        fr: 'Ajoute une étape à ton cursus'
+      },
+      internship: {
+        en: 'Add an internship',
+        fr: 'Ajoute un stage'
+      },
+      courses: {
+        en: 'Add some courses',
+        fr: 'Ajoute des cours'
+      },
+      comment: {
+        en: 'comment',
+        fr: 'commentaire'
+      },
+      diagram: {
+        en: 'diagram',
+        fr: 'diagramme'
       }
     }
   };
