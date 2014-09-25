@@ -157,7 +157,7 @@ class FormationPage
       end
 
       true_students = students_with_items.map do |k,v|
-        k if v.size > n_min
+        k if v.size >= n_min
       end.compact
 
       true_students.flat_map(&:internships).compact.uniq
