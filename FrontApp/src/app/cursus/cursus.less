@@ -1,8 +1,4 @@
 .cursus-box {
-  @media (max-width: @screen-sm-max) {
-    margin-bottom: 30px;
-    border-bottom: 1px solid darken( @blue-clouds, 3%);
-  }
   & .cursus-box-folded {
     background-color: @blue-clouds;
     border-top: 1px solid darken( @blue-clouds, 3%);
@@ -27,9 +23,13 @@
       }
     }
     & .box-content {
+      @media (min-width: @screen-md-min) {
+        margin-left: -30px;
+      }
       padding: 19px;
       position: relative;
       display: inline-block;
+      border-left: 1px solid darken( @blue-clouds, 3%);
     }
   }
   & .cursus-box-unfolded {
@@ -40,10 +40,18 @@
     border-left: 1px solid darken( @blue-clouds, 3%);
     background-color: @blue-clouds;
     & .item-in-box {
+      @media (min-width: @screen-md-min) {
+        margin-left: -30px;
+      }
       border-top: 1px solid darken( @blue-clouds, 3%);
+      border-left: 1px solid darken( @blue-clouds, 3%);
       padding: 10px 19px 10px 19px;
     }
     & .unfolded-internship {
+      @media (min-width: @screen-md-min) {
+        margin-left: -30px;
+      border-left: 1px solid darken( @blue-clouds, 3%);
+      }
       padding: 19px;
     }
   }

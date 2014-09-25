@@ -5,7 +5,7 @@
     <div class="col-md-10 col-md-offset-1" style="margin-bottom: 150px">
       <div class="cursus-box add-box">
         <div class="add-box-choice">
-          <ul class="nav list-inline nav-justified">
+          <ul class="nav list-inline nav-justified" ng-hide="true">
             <li>
               <a>
                 <button class="btn btn-lg btn-default" ng-class="{'btn-info': !addInternship}" ng-click="displayAddClasses = !displayAddClasses; addInternship = false">
@@ -114,7 +114,7 @@
         </div>
       </div><!-- cursus-box -->
 
-      <sh-cursus-box ng-repeat="box in boxes" box="box" display-school="boxes[ $index - 1 ].type == 'internship'"></sh-cursus-box>
+      <sh-cursus-box ng-repeat="box in boxes" box="box" display-school="$index == 0 || boxes[ $index - 1 ].type != 'classes' || ( boxes[ $index - 1 ].type == 'classes' && (boxes[ $index - 1 ].tags | filter: {category: 'school'})[0].id != (box.tags | filter: {category: 'school'})[0].id)"></sh-cursus-box>
 
     </div><!-- col -->
   </div><!-- row -->

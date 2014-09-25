@@ -110,6 +110,7 @@ angular.module( 'shapter.cursus', [
   };
   $scope.boxes = [{
     title: "TFE",
+    unfolded: true,
     start_date: '2014-07-08T13:05:59.679Z',
     end_date: '2014-09-08T13:05:59.679Z',
     description: "lol haha c'était kikoulol j\'ai bien rigolé",
@@ -119,16 +120,54 @@ angular.module( 'shapter.cursus', [
     lng: 32,
     tags: [{
       name: "Centrale Lyon",
-      category: "school"
+      category: "school",
+      id: 1
+    }]
+  }, {
+    title: "Master qq chose",
+    unfolded: false,
+    start_date: '2014-07-08T13:05:59.679Z',
+    end_date: '2014-09-08T13:05:59.679Z',
+    type: "classes",
+    tags: [{
+      name: "Telecom",
+      category: "school",
+      id: 2
+    }, {
+      name: "Cycle master",
+      category: "choice"
+    }, {
+      name: "2A",
+      category: "admin"
+    }]
+  }, {
+    title: "Master qq chose",
+    unfolded: false,
+    start_date: '2014-07-08T13:05:59.679Z',
+    end_date: '2014-09-08T13:05:59.679Z',
+    type: "classes",
+    tags: [{
+      name: "Telecom",
+      category: "school",
+      id: 2
+    }, {
+      name: "Cycle master",
+      category: "choice"
+    }, {
+      name: "2A",
+      category: "admin"
     }]
   }, {
     title: "Modules Ouverts Disciplinaires",
+    description: "lol haha c'était kikoulol j\'ai bien rigolé",
+    unfolded: true,
     start_date: '2014-07-08T13:05:59.679Z',
     end_date: '2014-09-08T13:05:59.679Z',
     type: "classes",
     tags: [{
       name: "Centrale Lyon",
-      category: "school"
+      category: "school",
+      id: 1
     }, {
       name: "MOD",
       category: "choice"
@@ -140,7 +179,7 @@ angular.module( 'shapter.cursus', [
       name: 'cours de lol',
       id: '538310624d616317813f0100',
       current_user_comments_count: 1,
-      current_user_has_diagram: false
+      current_user_has_diagram: true
     }, {
       name: 'cours de haha',
       id: '538310624d61631781f10000',
@@ -149,12 +188,50 @@ angular.module( 'shapter.cursus', [
     }]
   }, {
     title: "Modules Ouverts Sectoriels",
+    description: "Ldf d qdfqsdfqsd qsd qsd qsdf qsdfqsdf qsdq dfqsdf qsqqq q q qq qq qdsf q qsd qsdf qsdf dfsq qsdfqsdfsqdf fqds sdq qfdfqds fdsqqsdq q qsd fqsdfqd qsdf qsdf qsdf dsq fqsd",
+    unfolded: false,
     start_date: '2014-07-08T13:05:59.679Z',
     end_date: '2014-09-08T13:05:59.679Z',
     type: "classes",
     tags: [{
       name: "Centrale Lyon",
-      category: "school"
+      category: "school",
+      id: 1
+    }, {
+      name: "MOS",
+      category: "choice"
+    }, {
+      name: "3A",
+      category: "admin"
+    }]
+  },{
+    title: "Modules Ouverts Sectoriels",
+    description: "Les modules ouverts sectoriels c'set tagada tagad, et j'ai fait ceci et j'ai fait cela et j'ai tagada",
+    unfolded: false,
+    start_date: '2014-07-08T13:05:59.679Z',
+    end_date: '2014-09-08T13:05:59.679Z',
+    type: "classes",
+    tags: [{
+      name: "Centrale Lyon",
+      category: "school",
+      id: 1
+    }, {
+      name: "MOS",
+      category: "choice"
+    }, {
+      name: "3A",
+      category: "admin"
+    }]
+  }, {
+    title: "Modules Ouverts Sectoriels",
+    unfolded: false,
+    start_date: '2014-07-08T13:05:59.679Z',
+    end_date: '2014-09-08T13:05:59.679Z',
+    type: "classes",
+    tags: [{
+      name: "Centrale Lyon",
+      category: "school",
+      id: 1
     }, {
       name: "MOS",
       category: "choice"
@@ -164,6 +241,7 @@ angular.module( 'shapter.cursus', [
     }]
   }, {
     title: "Stage ouvrier",
+    unfolded: false,
     start_date: '2014-07-08T13:05:59.679Z',
     end_date: '2014-09-08T13:05:59.679Z',
     description: "sisi",
@@ -173,7 +251,8 @@ angular.module( 'shapter.cursus', [
     lng: 32,
     tags: [{
       name: "Centrale Lyon",
-      category: "school"
+      category: "school",
+      id: 1
     }]
   }];
 }]);
