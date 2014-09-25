@@ -2,6 +2,7 @@ module Shapter
   module Helpers
     module FilterHelper
 
+
       #{{{ filter_items
       # This for v2. 
       def filter_items2(ary)

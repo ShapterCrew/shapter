@@ -1,5 +1,6 @@
 class FormationPage
   include Mongoid::Document
+  include Clustering
 
   field :name
   field :website_url
@@ -40,6 +41,10 @@ class FormationPage
       end
       FormationPage.all_in(tag_ids: a).where(:tag_ids.with_size => a.size).first
     end
+
+    def find_or_create_by_tags(ary)
+      find_by_tags(ary) || FormationPage.new(tag_ids: ary)
+    end
   end
 
   def pretty_id
@@ -58,7 +63,7 @@ class FormationPage
 
   def students
     Rails.cache.fetch("frmPgeStdts|#{cache_id}|#{Item.any_in(id: items.map(&:id)).max(:updated_at).try(:utc).try(:to_s, :number)}", expires_in: 3.hours) do 
-      items.flat_map(&:subscriber_ids).uniq
+      User.any_in(item_ids: items.map(&:id))
     end
   end
 
@@ -125,6 +130,40 @@ class FormationPage
 
     User.any_in(id: ids)
   end
+
+  #{{{ formation_page_internships
+  #look for the internships related to the specified formation page.
+  #the formation page is specified through the tag_ids array.
+  def true_internships
+    Rails.cache.fetch("trueIntrnshp|#{cache_id}", expires_in: 5.minutes) do  #couldn't think of a proper cache key (yet)
+
+      students_with_items = self.items
+      .flat_map(&:subscribers)
+      .reject{|u| u.internship_ids == nil}
+      .group_by{|_| _}
+
+      # nb of items the user that belong to f took in f
+      nb_of_items = students_with_items.map{|k,v| v.size}
+
+      if nb_of_items.empty?
+        return []
+      elsif nb_of_items.size > 1
+        # Cluster nb_of_items to detect 'true' students
+        c1,c2 = twomeans(nb_of_items)
+
+        n_min = c2.nodes.min #true students share at least n_min items with f
+      else
+        n_min = nb_of_items.first
+      end
+
+      true_students = students_with_items.map do |k,v|
+        k if v.size > n_min
+      end.compact
+
+      true_students.flat_map(&:internships).compact.uniq
+    end
+  end
+  #}}}
 
   private
 
