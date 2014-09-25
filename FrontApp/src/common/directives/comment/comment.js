@@ -6,6 +6,7 @@ angular.module( 'directives.comment', [
     restrict: 'A',
     scope: {
       comment: '=',
+      displaySatisfaction: '=',
       displayCourseName: '=',
       displayStudentName: '=',
       currentUser: '=',
@@ -151,5 +152,11 @@ angular.module( 'directives.comment', [
     }).reduce( function( last, now ){
       return last += now;
     }, 0);
+  };
+}])
+
+.filter('floor', [function(){
+  return function( numb ){
+    return Math.floor( numb );
   };
 }]);
