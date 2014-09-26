@@ -3,22 +3,19 @@ class FacebookPagesController < ApplicationController
 
     clear_params = JSON.parse(Base64.decode64(params[:base64Params]))
 
-    puts "!!!!!!!!!!!!!!!!!!!!11 DEBUG !!!!!!!!!!!!!!!!!"
-    puts "clear params = #{clear_params}"
-    puts "!!!!!!!!!!!!!!!!!!!!11 DEBUG !!!!!!!!!!!!!!!!!"
-
     @permalink   = URI.join(root_url,clear_params["permalink"])
     @type        = clear_params["type"]
     @title       = clear_params["title"]
     @description = clear_params["description"]
 
     @metas = {
-      "fb:app_id"      => FACEBOOK_APP_TOKEN,
-      "og:site_name"   => "Shapter",
-      "og:description" => clear_params["description"],
       "og:title"       => clear_params["title"],
+      "og:site_name"   => "Shapter",
       "og:url"         => @permalink,
+      "og:description" => clear_params["description"],
       "og:image"       => image_meta,
+      "fb:app_id"      => FACEBOOK_APP_TOKEN,
+      "og:type"        => "article",
     }
 
   end
