@@ -1,15 +1,22 @@
 class FacebookPagesController < ApplicationController
   def index
-    @permalink   = URI.join(root_url,params[:permalink].gsub("%7C","/"))
-    @type        = params[:type]
-    @title       = params[:title]
-    @description = params[:description]
+
+    clear_params = JSON.parse(Base64.decode64(params[:base64Params]))
+
+    puts "!!!!!!!!!!!!!!!!!!!!11 DEBUG !!!!!!!!!!!!!!!!!"
+    puts "clear params = #{clear_params}"
+    puts "!!!!!!!!!!!!!!!!!!!!11 DEBUG !!!!!!!!!!!!!!!!!"
+
+    @permalink   = URI.join(root_url,clear_params["permalink"])
+    @type        = clear_params["type"]
+    @title       = clear_params["title"]
+    @description = clear_params["description"]
 
     @metas = {
       "fb:app_id"      => FACEBOOK_APP_TOKEN,
       "og:site_name"   => "Shapter",
-      "og:description" => params[:description],
-      "og:title"       => params[:title],
+      "og:description" => clear_params["description"],
+      "og:title"       => clear_params["title"],
       "og:url"         => @permalink,
       "og:image"       => image_meta,
     }
