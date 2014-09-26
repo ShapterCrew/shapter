@@ -107,6 +107,7 @@ angular.module( 'shapter.schools', [
   $scope.AppText = AppText;
   $scope.limit = 3;
 
+
   $scope.areComments = function( input ){
     return input.comments_count > 10 && input.students_count > 10;
   };
@@ -130,6 +131,10 @@ angular.module( 'shapter.schools', [
 
 .controller('FormationCtrl', [ '$scope', 'Tag', 'security', '$location', 'formation', '$stateParams', 'school', 'Formation', 'AppText', 'Analytics', 'Internship', 'shAddInternshipModalFactory', function( $scope, Tag, security, $location, formation, $stateParams, school, Formation, AppText, Analytics, Internship, shAddInternshipModalFactory){
 
+  $scope.facebookParams = 'permalink=' + $location.url() + '&' + 'type=best_comments&title=lol&description=haha';
+  console.log( encodeURIComponent( $scope.facebookParams ));
+
+  // permalink type title description
   $scope.shAddInternshipModalFactory = shAddInternshipModalFactory;
   $scope.n = 0;
   $scope.AppText = AppText;
