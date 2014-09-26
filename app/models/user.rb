@@ -10,7 +10,7 @@ class User
   field :lastname,  type: String
   field :shapter_admin, type: Boolean
 
-  has_many :internships, class_name: "Internship", inverse_of: :trainee
+  has_and_belongs_to_many :internships, class_name: "Internship", inverse_of: :trainee
 
   has_and_belongs_to_many :liked_comments, class_name: "Item", inverse_of: :likers
   has_and_belongs_to_many :disliked_comments, class_name: "Item", inverse_of: :dislikers
@@ -25,6 +25,7 @@ class User
   has_and_belongs_to_many :schools, class_name: "Tag", inverse_of: :students
 
   has_many :syllabus_edited_items, class_name: "Item", inverse_of: :syllabus_author
+  has_many :reported_comments, class_name: "Report", inverse_of: :reporter
 
   # {{{ devise
   # Include default devise modules. Others available are:

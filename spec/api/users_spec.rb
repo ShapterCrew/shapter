@@ -69,7 +69,7 @@ describe Shapter::V7::Users do
     it "should get 1 item to comment" do 
       post "/users/me/comment-pipe", n: 1
       h = JSON.parse(@response.body)
-      h.size.should == 1
+      h["commentable_items"].size.should == 1
     end
 
     it "should get 3 items in proper order" do 
@@ -90,7 +90,7 @@ describe Shapter::V7::Users do
 
       @school1.save ; @school2.save
 
-      post "/users/me/comment-pipe", n: 3, entities: {item: {requires_comment_score: true}}, school_id: @school2.id
+      post "/users/me/comment-pipe", n: 3, entities: {item: {requires_comment_score: true}}, school_id: @school2.id.to_s
       h = JSON.parse(@response.body)
       h["commentable_items"].size.should == 2
       h["commentable_items"].sort_by{|h| h["requires_comment_score"]}.reverse.map{|h| h["id"]}.should == [@i2,@i3].map(&:id).map(&:to_s)

@@ -44,7 +44,7 @@ module Shapter
           tags = (new_tags + old_tags).uniq
 
           i = Internship.new(
-            trainee_id: current_user.id,
+            trainee_ids: [current_user.id],
             title: params[:title],
             start_date: params[:start_date],
             end_date: params[:end_date],
@@ -71,6 +71,8 @@ module Shapter
           optional :n_stop, type: Integer, desc: "index to end with. default: 14. -1 will return the entire list", default: 14
 
           optional :active_only, type: Boolean, desc: "only internship that are currently active"
+
+          optional :formation_page_tag_ids, type: Array, desc: "tag ids that describe a formation_page. Expensive calculation, that will only select internships among users that are considered 'true' members of the formation_page"
         end
         post :filter do 
           nstart = params[:n_start].to_i
@@ -81,6 +83,11 @@ module Shapter
                     else
                       filter_internships(params[:filter])
                     end
+
+          if params[:formation_page_tag_ids]
+            f = FormationPage.find_or_create_by_tags(params[:formation_page_tag_ids])
+            results = results & f.true_internships
+          end
 
           present :number_of_results, results.size
           present :internships, results[nstart..nstop], with: Shapter::Entities::Internship, entity_options: entity_options
