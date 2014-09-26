@@ -9,10 +9,10 @@ class FacebookPagesController < ApplicationController
     @description = clear_params["description"]
 
     @metas = {
-      "og:title"       => clear_params["title"],
+      "og:title"       => @title,
       "og:site_name"   => "Shapter",
       "og:url"         => @permalink,
-      "og:description" => clear_params["description"],
+      "og:description" => @description,
       "og:image"       => image_meta,
       "fb:app_id"      => FACEBOOK_APP_TOKEN,
       "og:type"        => "article",
