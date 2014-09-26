@@ -11,7 +11,7 @@ class FacebookPagesController < ApplicationController
     @metas = {
       "og:title"       => @title,
       "og:site_name"   => "Shapter",
-      "og:url"         => @permalink,
+      "og:url"         => request.original_url,
       "og:description" => @description,
       "og:image"       => image_meta,
       "fb:app_id"      => FACEBOOK_APP_TOKEN,
