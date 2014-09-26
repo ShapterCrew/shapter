@@ -63,14 +63,14 @@
 
               <!-- facebook output -->
               <ul ng-social-buttons 
-                ng-show="security.isAdmin()"
-                data-url="'http://shapter.com/api/v1/facebook_pages/index/' + encodeURIComponent( permalink ) + '/' + encodeURIComponent( type ) + '/' + encodeURIComponent( title ) + '/' + encodeURIComponent( description )"
+                class="pull-right"
+                data-url="'http://shapter.com/api/v1/facebook_pages/' + facebookData"
                 data-title="'Shapter: les cours qui te correspondent'"
                 data-description="'Choisis tes cours grâce à l\' avis des
                 anciens et donne le tiens !'"
                 data-image="'http://shapter.com/assets/img/logo_blue_square.png'"
                 style="display: inline; margin-left: 20px;">
-                <li class="ng-social-facebook">Facebook</li>
+                <li class="ng-social-facebook">{{ AppText.school.share | language }}</li>
               </ul>
 
             </div>

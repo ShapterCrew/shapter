@@ -129,16 +129,18 @@ angular.module( 'shapter.schools', [
 }])
 
 
-.controller('FormationCtrl', [ '$scope', 'Tag', 'security', '$location', 'formation', '$stateParams', 'school', 'Formation', 'AppText', 'Analytics', 'Internship', 'shAddInternshipModalFactory', function( $scope, Tag, security, $location, formation, $stateParams, school, Formation, AppText, Analytics, Internship, shAddInternshipModalFactory){
+.controller('FormationCtrl', [ '$scope', 'Tag', 'security', '$location', 'formation', '$stateParams', 'school', 'Formation', 'AppText', 'Analytics', 'Internship', 'shAddInternshipModalFactory', '$filter', function( $scope, Tag, security, $location, formation, $stateParams, school, Formation, AppText, Analytics, Internship, shAddInternshipModalFactory, $filter){
 
-  $scope.permalink = encodeURIComponent( '#|schools|' + school.id );
-  $scope.type = "best_comments";
-  $scope.title = "hahahahahaah";
-  $scope.description = "tsup beatch ?";
+  facebookData = {
+    permalink: '#' + $location.url(),
+    type: "best_comments",
+    title: $filter( 'language' )( AppText.school.best_comments_share_title ) + ' ' + school.name + ' !',
+    description: $filter( 'language' )( AppText.school.best_comments_share_description_1 ) + ' ' + school.name + ' ' + $filter( 'language' )( AppText.school.best_comments_share_description_2 )
+  };
+
   // permalink type title description
 
-  var lol = 'http://shapter.com/api/v1/facebook_pages/index/' + encodeURIComponent( $scope.permalink ) + '/' + encodeURIComponent( $scope.type ) + '/' + encodeURIComponent( $scope.title ) + '/' + encodeURIComponent( $scope.description );
-  console.log( lol );
+  $scope.facebookData = btoa( JSON.stringify( facebookData ));
 
   $scope.shAddInternshipModalFactory = shAddInternshipModalFactory;
   $scope.n = 0;
