@@ -70,6 +70,12 @@
               <i class="fa fa-circle fa-stack-2x" ng-class="{'text-danger': comment.current_user_likes == - 1, 'text-muted': comment.current_user_likes != -1}"></i>
               <i class="fa fa-thumbs-down fa-stack-1x fa-inverse"></i>
             </span>
+
+            <span class="fa-stack fa-2x" ng-click="comment.report('hahaha')"> <!-- Ah si on pouvait attrapper une description ici on serait bien, dis ! -->
+              <i class="fa fa-circle fa-stack-2x"> </i>
+              <i class="fa fa-warning fa-stack-1x fa-inverse"></i>
+            </span>
+
           </div>
         </div>
 
