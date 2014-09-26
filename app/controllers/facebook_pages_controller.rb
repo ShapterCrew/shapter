@@ -19,7 +19,7 @@ class FacebookPagesController < ApplicationController
   protected
 
   def image_meta
-    if @type == "best_comment"
+    if @type == "best_comments"
       URI.join(root_url, ActionController::Base.helpers.asset_path("logo_shapter_blue.png"))
     elsif @type == "item"
       URI.join(root_url, ActionController::Base.helpers.asset_path("logo_shapter_blue.png"))
