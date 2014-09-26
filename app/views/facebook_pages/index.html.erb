@@ -1,0 +1,7 @@
+<% content_for :title %>
+
+<%content_for :metas, raw(display_metas(@metas)) %>
+
+<script>
+  window.location.replace("<%= @permalink %>");
+</script>
