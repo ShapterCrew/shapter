@@ -131,12 +131,15 @@ angular.module( 'shapter.schools', [
 
 .controller('FormationCtrl', [ '$scope', 'Tag', 'security', '$location', 'formation', '$stateParams', 'school', 'Formation', 'AppText', 'Analytics', 'Internship', 'shAddInternshipModalFactory', function( $scope, Tag, security, $location, formation, $stateParams, school, Formation, AppText, Analytics, Internship, shAddInternshipModalFactory){
 
-  $scope.permalink = '#/' + $location.url();
+  $scope.permalink = encodeURIComponent( '#|schools|' + school.id );
   $scope.type = "best_comments";
   $scope.title = "hahahahahaah";
   $scope.description = "tsup beatch ?";
-
   // permalink type title description
+
+  var lol = 'http://shapter.com/api/v1/facebook_pages/index/' + encodeURIComponent( $scope.permalink ) + '/' + encodeURIComponent( $scope.type ) + '/' + encodeURIComponent( $scope.title ) + '/' + encodeURIComponent( $scope.description );
+  console.log( lol );
+
   $scope.shAddInternshipModalFactory = shAddInternshipModalFactory;
   $scope.n = 0;
   $scope.AppText = AppText;
@@ -183,9 +186,9 @@ angular.module( 'shapter.schools', [
   var tag_ids = $stateParams.formationId ? [ $stateParams.formationId ] : [];
   tag_ids.push( $stateParams.schoolId );
 
-    Internship.getListFromTags( tag_ids, false).then(function(response){
-      $scope.internshipsList = response.internships;
-    });
+  Internship.getListFromTags( tag_ids, false).then(function(response){
+    $scope.internshipsList = response.internships;
+  });
 
   Formation.subFormations( tag_ids ).then( function( response ){
     $scope.formation.sub_choices = response.sub_choices;
