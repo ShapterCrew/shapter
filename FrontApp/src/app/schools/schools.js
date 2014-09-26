@@ -131,8 +131,10 @@ angular.module( 'shapter.schools', [
 
 .controller('FormationCtrl', [ '$scope', 'Tag', 'security', '$location', 'formation', '$stateParams', 'school', 'Formation', 'AppText', 'Analytics', 'Internship', 'shAddInternshipModalFactory', function( $scope, Tag, security, $location, formation, $stateParams, school, Formation, AppText, Analytics, Internship, shAddInternshipModalFactory){
 
-  $scope.facebookParams = 'permalink=' + $location.url() + '&' + 'type=best_comments&title=lol&description=haha';
-  console.log( encodeURIComponent( $scope.facebookParams ));
+  $scope.permalink = '#/' + $location.url();
+  $scope.type = "best_comments";
+  $scope.title = "hahahahahaah";
+  $scope.description = "tsup beatch ?";
 
   // permalink type title description
   $scope.shAddInternshipModalFactory = shAddInternshipModalFactory;

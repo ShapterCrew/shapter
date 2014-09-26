@@ -64,7 +64,7 @@
               <!-- facebook output -->
               <ul ng-social-buttons 
                 ng-show="security.isAdmin()"
-                data-url="'http://shapter.com/api/v1/facebook_pages/index?' + encodeURIComponent( facebookParams )"
+                data-url="'http://shapter.com/api/v1/facebook_pages/index/' + encodeURIComponent( permalink ) + '/' + encodeURIComponent( type ) + '/' + encodeURIComponent( title ) + '/' + encodeURIComponent( description )"
                 data-title="'Shapter: les cours qui te correspondent'"
                 data-description="'Choisis tes cours grâce à l\' avis des
                 anciens et donne le tiens !'"
