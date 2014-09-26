@@ -1,8 +1,8 @@
 class FacebookPagesController < ApplicationController
   def index
     @permalink   = URI.join(root_url,params[:permalink])
-    @title       = params[:title]
     @type        = params[:type]
+    @title       = params[:title]
     @description = params[:description]
 
     @metas = {
