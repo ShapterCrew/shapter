@@ -377,8 +377,9 @@ background-color: #1abc9c;
   color: @concrete;
 }
 
+@light-asphalt: mix(@wet-asphalt, @blue-pastel-d2, 75%);
 .text-asphalt {
-  color: @wet-asphalt;
+  color: @light-asphalt;
 }
 
 .text-emerald {
@@ -459,6 +460,10 @@ background-color: #1abc9c;
   color: mix(@pumpkin, white, 80%);
 }
 
+.text-purple {
+  color: @amethyst;
+}
+
 
 @sun-blood: mix(@sun-pastel, @alizarin, 90%);
 @blue-clouds-1: mix(#f6f9fb, @blue-pastel, 96%);
@@ -520,7 +525,7 @@ background-color: #1abc9c;
 .student-li {
   &:hover {
     color: @emerald-pastel;
-}
+  }
 }
 
 .center {
@@ -776,6 +781,10 @@ background-color: #1abc9c;
   border-top-color: @emerald-pastel;
 }
 
+.dark-blue-caret {
+  border-top-color: @blue-pastel-d2;
+}
+
 .white-caret {
   border-top-color: white;
 }
@@ -787,8 +796,8 @@ background-color: #1abc9c;
 
 .campus-comment {
   background-color: white;
-  border: 1px solid @clouds;
-  padding: 10px;
+  //border: 1px solid mix(@blue-pastel, @clouds, 20%);
+  padding: 15px;
   margin-top: 0px;
   margin-bottom: 20px;
 }

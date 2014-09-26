@@ -13,6 +13,11 @@ class Comment
   validates_presence_of :author
   validates_presence_of :content
 
+  field :report_ids, type: Array
+  def reports
+    CommentReport.find(report_ids)
+  end
+
   def unescaped_content
     CGI.unescapeHTML(content)
   end

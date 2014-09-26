@@ -72,10 +72,14 @@ angular.module('resources.formation', [
             "updated_at": true
           },
           item: {
-            "name": true
+            "name": true,
+            "averaged_diagram": true
           },
           tag: {
             "name": true
+          },
+          diagram: {
+            "front_values": true
           }
         }
       };

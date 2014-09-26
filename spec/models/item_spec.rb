@@ -117,7 +117,7 @@ describe Item do
       @item.tags << t1
       @item.tags << t2
 
-      expect(@item.skills).to match_array( [t1,t2])
+      expect(@item.skills.to_a).to match_array( [t1,t2])
     end
   end
   #}}}
