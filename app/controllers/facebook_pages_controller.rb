@@ -23,14 +23,15 @@ class FacebookPagesController < ApplicationController
   protected
 
   def image_meta
+
     if @type == "best_comments"
-      URI.join(root_url, ActionController::Base.helpers.asset_path("logo_shapter_blue.png"))
+      URI.join(root_url,'/api/v1/', ActionController::Base.helpers.asset_path("logo_shapter_blue.png")[1..-1]) # for some reason, the first '/' character of image path crashes everything
     elsif @type == "item"
-      URI.join(root_url, ActionController::Base.helpers.asset_path("logo_shapter_blue.png"))
+      URI.join(root_url,'/api/v1/', ActionController::Base.helpers.asset_path("logo_shapter_blue.png")[1..-1]) # for some reason, the first '/' character of image path crashes everything
     elsif @type == "internship"
-      URI.join(root_url, ActionController::Base.helpers.asset_path("logo_shapter_blue.png"))
+      URI.join(root_url,'/api/v1/', ActionController::Base.helpers.asset_path("logo_shapter_blue.png")[1..-1]) # for some reason, the first '/' character of image path crashes everything
     else
-      URI.join(root_url, ActionController::Base.helpers.asset_path("logo_shapter_blue.png"))
+      URI.join(root_url,'/api/v1/', ActionController::Base.helpers.asset_path("logo_shapter_blue.png")[1..-1]) # for some reason, the first '/' character of image path crashes everything
     end
   end
 
