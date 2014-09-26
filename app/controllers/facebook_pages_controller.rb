@@ -1,6 +1,6 @@
 class FacebookPagesController < ApplicationController
   def index
-    @permalink   = URI.join(root_url,params[:permalink]).gsub("|","/")
+    @permalink   = URI.join(root_url,params[:permalink].gsub("%7C","/"))
     @type        = params[:type]
     @title       = params[:title]
     @description = params[:description]
