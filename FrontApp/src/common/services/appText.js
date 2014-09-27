@@ -680,6 +680,18 @@ angular.module( 'services.appText', [])
       }
     },
     item: {
+      ask_for_comments: {
+        en: 'Ask your friends',
+        fr: 'Demande à tes amis'
+      },
+      facebook_need_comment_title: {
+        en: 'Help me to make my mind on',
+        fr: 'Aidez-moi à me faire un avis sur'
+      },
+      facebook_need_comment_description: {
+        en: 'I\'d like to have feedbacks on it on Shapter, who clan help me?',
+        fr: 'Je voudrais avoir des retours dessus sur Shapter, quelqu\'un peut-il m\'aider ?'
+      },
       comment: {
         en: 'Leave a comment!',
         fr: 'Laisse un commentaire !'
@@ -717,8 +729,8 @@ angular.module( 'services.appText', [])
         fr: 'favoris'
       },
       no_comments: {
-        en: 'Class hasn\'t been commented yet. Comment it or ask someone who took the class to give their feedback!',
-        fr: 'Pas de commentaires pour le moment. Commente le cours ou demande à quelqu\'un qui l\'a suivi de le faire !'
+        en: 'Class hasn\'t been commented yet. Ask your friends for feedbacks!',
+        fr: 'Pas de commentaires pour le moment. Demande à tes amis de mettre des commentaires !'
       },
       no_diagram: {
         en: 'Class hasn\'t been rated yet. Evaluate it or ask someone who took the class to do it!',
@@ -1185,6 +1197,10 @@ angular.module( 'services.appText', [])
       }
     },
     system: {
+      exclamation: {
+        en: '!',
+        fr: ' !'
+      },
       edit: {
         en: 'edit',
         fr: 'éditer'

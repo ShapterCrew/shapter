@@ -1,6 +1,7 @@
 angular.module('shapter.item', [
   'angularFileUpload',
-  'services.appText' ,
+  'services.appText',
+  'ui.router',
   'editItemTags'
 ])
 
@@ -197,7 +198,7 @@ angular.module('shapter.item', [
   $scope.close = $modalInstance.close;
 }])
 
-.controller('itemModalCtrl', ['$scope', 'item', 'itemsList', 'loadMoreItems',  'numberOfItems', '$window', '$modalInstance', '$location', '$q', 'Item', 'Analytics', 'security', 'editDiagramFactory', '$upload', '$http', 'AppText', 'itemFactory', '$stateParams', '$rootScope', 'StoJ', function($scope, item, itemsList, loadMoreItems, numberOfItems, $window, $modalInstance, $location, $q, Item, Analytics, security, editDiagramFactory, $upload, $http, AppText, itemFactory, $stateParams, $rootScope, StoJ ) {
+.controller('itemModalCtrl', ['$scope', 'item', 'itemsList', 'loadMoreItems',  'numberOfItems', '$window', '$modalInstance', '$location', '$q', 'Item', 'Analytics', 'security', 'editDiagramFactory', '$upload', '$http', 'AppText', 'itemFactory', '$stateParams', '$rootScope', '$filter', function($scope, item, itemsList, loadMoreItems, numberOfItems, $window, $modalInstance, $location, $q, Item, Analytics, security, editDiagramFactory, $upload, $http, AppText, itemFactory, $stateParams, $rootScope, $filter ) {
 
   $scope.$rootScope = $rootScope;
   item.open = true;
@@ -213,16 +214,14 @@ angular.module('shapter.item', [
   $scope.numberOfItems = numberOfItems;
   $location.search( 'item', item.id );
 
-  $scope.diagjpg = function(){
-    var svg = document.getElementById('diagram') ? document.getElementById.innerHTML : null;
-    if( svg ){
-      console.log( svg );
-      return StoJ.convert(svg);
-    }
-    else {
-      return null;
-    }
+  facebookData = {
+    permalink: '#/start?item=' + item.id,
+    type: "default",
+    title: $filter( 'replaceAccents' )($filter( 'language' )( AppText.item.facebook_need_comment_title ) + ' ' + item.name ),
+    description: $filter( 'replaceAccents' )( $filter( 'language' )( AppText.item.facebook_need_comment_description ))
   };
+
+  $scope.facebookData = btoa( JSON.stringify( facebookData ));
 
   $scope.$watch( function(){
     return $location.search().item;
@@ -285,8 +284,6 @@ angular.module('shapter.item', [
   else{ 
     $scope.item.displayAddComment = false;
   }
-
-
 
   $scope.hideAddComment = function(){
     $scope.item.displayAddComment = false;
@@ -426,5 +423,22 @@ angular.module('shapter.item', [
     else {
       return null;
     }
+  };
+}])
+
+.filter('replaceAccents', [function(){
+  return function( input ){
+    return input
+    .replace(/É/g, 'E')
+    .replace(/é/g, 'e')
+    .replace(/è/g, 'e')
+    .replace(/ë/g, 'e')
+    .replace(/ê/g, 'e')
+    .replace(/Ê/g, 'E')
+    .replace(/â/g, 'a')
+    .replace(/à/g, 'a')
+    .replace(/ä/g, 'a')
+    .replace(/Â/g, 'A')
+    .replace(/Ê/g, 'E');
   };
 }]);
