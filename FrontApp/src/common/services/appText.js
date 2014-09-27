@@ -517,8 +517,8 @@ angular.module( 'services.appText', [])
         fr: 'J\'ai suivi de nouveaux cours !'
       },
       need_feedback: {
-        en: 'There are not enough feedbacks on',
-        fr: 'Il n\'y a pas assez de témoignages sur'
+        en: 'Need feedback!',
+        fr: 'On a besoin de ton avis !'
       },
       how_did_you_feel: {
         en: 'What\'s your feeling ? Share it to the community !',
