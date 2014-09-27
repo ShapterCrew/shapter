@@ -56,12 +56,20 @@ angular.module( 'directives.addInternshipModal', [
     });
   };
 
+  $scope.toStepOne = function(){
+    $scope.step = 1;
+    $scope.internship = {};
+    $scope.internship.schoolId = $stateParams.schoolId;
+  };
+
   $scope.addInternship = function() {
     Internship.create($filter( 'formatInternshipToPost' )($scope.internship)).then(function(response) {
       $scope.internship = response;
       $rootScope.$broadcast( 'InternshipCreated' );
-      Analytics.internshipCreated();
       $scope.step = 2;
+      Analytics.internshipCreated();
+    }, function(){
+      console.log( 'error creating internship' );
     });
   };
 
@@ -71,21 +79,19 @@ angular.module( 'directives.addInternshipModal', [
   };
 
   $scope.updateInternship = function(){
-
     $scope.internship.tags_by_name_cat = $scope.internship.tags_by_name_cat ? $scope.internship.tags_by_name_cat : [];
     $scope.internship.tags_by_name_cat = $scope.internship.tags_by_name_cat.concat( $filter('formatTags')( $scope.internship.tags ));
     Internship.addTags( $scope.internship.id, [], $scope.internship.tags_by_name_cat ).then( function( response ){
       $rootScope.$broadcast( 'InternshipCreated' );
       $scope.internship = {};
-      $scope.close();
-      $scope.showSuccess();
+      $scope.internship.schoolId = $stateParams.schoolId;
+      $scope.step = 3;
     });
   };
 
   $scope.showSuccess = function(){
     ConfirmAlertFactory.showMsg();
   };
-
 
   $scope.addSelectedSkill = function(){
     if( $scope.internship.skillToBeAdded ){
@@ -97,6 +103,14 @@ angular.module( 'directives.addInternshipModal', [
       $scope.internship.skillToBeAdded = null;
     }
   };
+
+  facebookData = {
+    permalink: '#/' + $stateParams.schoolId + '/internships',
+    type: "internship",
+    title: $filter( 'language' )( AppText.internships.facebook_share_title ),
+    description: $filter( 'language' )( AppText.internships.facebook_share_description ) 
+  };
+  $scope.facebookData = btoa( JSON.stringify( facebookData ));
 
 }])
 

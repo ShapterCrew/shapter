@@ -20,6 +20,26 @@ angular.module( 'services.appText', [])
       return $filter( 'language' )( $parse( code )( AppText.categories ));
     },
     internships: {
+      internship_created: {
+        en: 'Super, your internship has been created!',
+        fr: 'Super, ton stage a bien été créé !'
+      },
+      share_your_internship: {
+        en: 'Share your internship and tell your friends to add theirs!',
+        fr: 'Partage ton stage et dis à tes amis d\'ajouter les leurs !'
+      },
+      new_internship: {
+        en: 'Add another internship',
+        fr: 'Ajouter un autre stage'
+      },
+      facebook_share_title: {
+        en: 'Come add your internships on Shapter!',
+        fr: 'Venez ajouter vos stages sur Shapter !'
+      },
+      facebook_share_description: {
+        en: 'Shapter makes it easy to find the best internships for your profile. Share your internships and discover where your friends took theirs!',
+        fr: 'Shapter rend la recherche de stages super facile : venez partagez vos stages et decouvrir ceux qu\'ont faits les autres !'
+      },
       me_too: {
         en: 'Add your internship!',
         fr: 'Ajoute ton stage !'
@@ -1200,6 +1220,10 @@ angular.module( 'services.appText', [])
       loading: {
         en: 'loading',
         fr: 'chargement'
+      },
+      close: {
+        en: 'close',
+        fr: 'fermer'
       }
     },
     categories: {
