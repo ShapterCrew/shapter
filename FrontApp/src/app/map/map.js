@@ -69,6 +69,9 @@ angular.module( 'shapter.maps', [
 .controller('MapsCtrl', ['$scope', '$compile', '$filter', 'leafletMarkersHelpers', 'security', '$stateParams', 'Analytics', 'AppText', '$rootScope', 'leafletData', function( $scope, $compile, $filter, leafletMarkersHelpers, security, $stateParams, Analytics, AppText, $rootScope, leafletData ){
 
   $scope.AppText = AppText;
+  $scope.options = {
+    scrollWheelZoom: false
+  };
   $scope.isOneOfMySchools = function(){
     var id = $stateParams.schoolId;
     var out = false;
@@ -94,18 +97,10 @@ angular.module( 'shapter.maps', [
     $scope.onInternshipCreated();
   });
 
-  console.log( leafletMarkersHelpers );
-  console.log( leafletData );
-  console.log( L );
-
   // formats the internships into markers
   $scope.$watch( function(){
     return $scope.internshipsList;
   }, function(){
-    leafletData.getMap().then( function( map ){
-      console.log( map );
-    });
-    leafletMarkersHelpers.resetCurrentGroups();
     $scope.markers = $filter( 'formatMarkers' )( $scope.internshipsList );
   }, true);
 
