@@ -222,6 +222,7 @@ angular.module('shapter.item', [
   };
 
   $scope.facebookData = btoa( JSON.stringify( facebookData ));
+  console.log(JSON.stringify( facebookData ));
 
   $scope.$watch( function(){
     return $location.search().item;
@@ -430,6 +431,7 @@ angular.module('shapter.item', [
   return function( input ){
     return input
     .replace(/É/g, 'E')
+    .replace(/È/g, 'E')
     .replace(/é/g, 'e')
     .replace(/è/g, 'e')
     .replace(/ë/g, 'e')

@@ -680,13 +680,17 @@ angular.module( 'services.appText', [])
       }
     },
     item: {
+      want_more_comments: {
+        en: 'Want more comments? Ask your friends!',
+        fr: 'Tu veux plus de commentaires ? Demande à tes amis !'
+      },
       ask_for_comments: {
-        en: 'Ask your friends',
-        fr: 'Demande à tes amis'
+        en: 'Ask for comments',
+        fr: 'Demande des commentaires'
       },
       facebook_need_comment_title: {
-        en: 'Help me to make my mind on',
-        fr: 'Aidez-moi à me faire un avis sur'
+        en: 'I\'m looking for someone who took',
+        fr: 'Je cherche quelqu\'un qui a suivi'
       },
       facebook_need_comment_description: {
         en: 'I\'d like to have feedbacks on it on Shapter, who clan help me?',
@@ -729,8 +733,8 @@ angular.module( 'services.appText', [])
         fr: 'favoris'
       },
       no_comments: {
-        en: 'Class hasn\'t been commented yet. Ask your friends for feedbacks!',
-        fr: 'Pas de commentaires pour le moment. Demande à tes amis de mettre des commentaires !'
+        en: 'Class hasn\'t been commented yet.',
+        fr: 'Pas de commentaires pour le moment.'
       },
       no_diagram: {
         en: 'Class hasn\'t been rated yet. Evaluate it or ask someone who took the class to do it!',

@@ -107,12 +107,11 @@
             <a href="#/campusAuthentication" class="btn btn-info">{{ AppText.item.i_have_an_email | language }}</a>
           </div>
 
-          <div class="campus-comment" ng-repeat="comment in item.comments | filter: {content: '!hidden'} | reverse">
-            <div sh-comment close="close()" comment="comment" display-student-name="true" current-user="security.currentUser" comments='item.comments'></div>
+          <div ng-hide="item.comments.length">
+            {{ AppText.item.no_comments | language }}
           </div>
-
-          <div class="text-muted" ng-hide="item.comments.length">
-
+          <div style="margin-bottom: 10px">
+            {{ AppText.item.want_more_comments | language }}
             <!-- facebook output -->
             <ul ng-social-buttons 
               class="pull-right"
@@ -124,10 +123,12 @@
               style="display: inline; margin-left: 20px;">
               <li class="ng-social-facebook">{{ AppText.item.ask_for_comments | language }}</li>
             </ul>
-
-            {{ AppText.item.no_comments | language }}
-
           </div>
+
+          <div class="campus-comment" ng-repeat="comment in item.comments | filter: {content: '!hidden'} | reverse">
+            <div sh-comment close="close()" comment="comment" display-student-name="true" current-user="security.currentUser" comments='item.comments'></div>
+          </div>
+
         </div>
       </div><!-- col -->
 
