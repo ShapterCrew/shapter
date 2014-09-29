@@ -11,7 +11,9 @@ module Shapter
       expose :address, if: lambda{|i,o| o[:entity_options]["internship"][:address]}
       expose :lat, if: lambda{|i,o| o[:entity_options]["internship"][:lat]}
       expose :lng, if: lambda{|i,o| o[:entity_options]["internship"][:lng]}
-      expose :description, if: lambda{|i,o| o[:entity_options]["internship"][:description]}
+      expose :description, if: lambda{|i,o| o[:entity_options]["internship"][:description]} do |i,ops|
+        i.public_description(ops[:entity_options][:current_user])
+      end
       expose :in_progress?, as: :in_progress, if: lambda{|i,o| o[:entity_options]["internship"][:in_progress]}
     end
   end
