@@ -1,7 +1,7 @@
 class FacebookPagesController < ApplicationController
   def index
 
-    clear_params = JSON.parse(Base64.decode64(params[:base64Params]))
+    clear_params = JSON.parse(Base64.decode64(URI.decode(params[:base64Params])))
 
     @permalink   = URI.join(root_url,clear_params["permalink"])
     @type        = clear_params["type"]
