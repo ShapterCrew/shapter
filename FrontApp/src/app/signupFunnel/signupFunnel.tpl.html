@@ -3,6 +3,27 @@
   {{ AppText.system.next | language }} <span class="glyphicon glyphicon-arrow-right"></span>
 </button>
 
+<div class="orange-infos" ng-hide="security.isConfirmedStudent()">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-10 col-md-offset-1">
+        <div class="row">
+          <div class="col-md-6">
+            <div ng-show="security.isAuthenticated()">
+              <p ng-bind="AppText.contribute.contribute_not_student | language"></p>
+              <a href="#/campusAuthentication" class="btn btn-info">{{ AppText.contribute.go_identify | language }}</a>
+            </div>
+            <div ng-hide="security.isAuthenticated()">
+              <p ng-bind="AppText.contribute.contribute_not_logged | language"></p>
+              <a ng-click="security.showLogin()" class="btn btn-info">{{ AppText.contribute.go_login | language }}</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="emerald-infos" ng-show="initialState && security.isConfirmedStudent() && noSF">
   <div class="container">
     <div class="container">
@@ -15,7 +36,7 @@
   </div>
 </div>
 
-<div ng-hide="noSF">
+<div ng-hide="noSF || !security.isConfirmedStudent()">
   <div class="container">
 
     <h1 class="yeah-alert" ng-show="displayThumb">
@@ -48,17 +69,6 @@
     </div>
   </div>
 
-  <div class="orange-infos" ng-show="initialState && !security.isConfirmedStudent()">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-          <p ng-bind="AppText.contribute.contribute_not_student | language"></p>
-          <a href="#/campusAuthentication" class="btn btn-info">{{ AppText.contribute.go_identify | language }}</a>
-        </div><!-- col -->
-      </div><!-- row -->
-    </div>
-  </div>
-
   <div class="container">
     <div class="row" ng-show="security.isConfirmedStudent()">
       <div class="col-md-8 col-md-offset-2" ng-show="initialState">
@@ -72,7 +82,7 @@
         <div class="row">
           <div class="col-md-8 col-md-offset-2">
             <div class="padding-well" style="padding-top: 0px; margin-top: 0px; margin-bottom: 0px">
-            <h6 class="text-asphalt">{{ AppText.signup_funnel.select_classes | language }}</h6>
+              <h6 class="text-asphalt">{{ AppText.signup_funnel.select_classes | language }}</h6>
               <div class="lead bold text-dark-blue">{{ stepName }} <span class="pull-right">{{ step }}&nbsp/&nbsp{{ nb_of_steps }}</span>: </div>
               <h6 ng-show="loadingItems"><span class="fa fa-spin fa-refresh"></span></h6>
             </div>

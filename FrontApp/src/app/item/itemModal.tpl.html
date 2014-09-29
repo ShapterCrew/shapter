@@ -1,4 +1,4 @@
-<div class="modal-content">
+<div class="modal-content" ng-hide="security.loginModalOpen()">
   <div class="modal-body">
     <div class="row modal-row" >
       <div class="col-md-12">
@@ -22,12 +22,20 @@
               <span class="fa fa-lg fa-star-o" ng-hide="item.current_user_has_in_cart" ng-click="item.cart()"></span>
               <span ng-class="{'text-emerald': item.current_user_has_in_cart}">{{ AppText.item.favourite | language }}</span>
             </span>
+            <span ng-hide="security.isConfirmedStudent()">
+              <span class="fa fa-lg fa-star-o" ng-click="security.showLogin()"></span>
+              <span>{{ AppText.item.favourite | language }}</span>
+            </span>
           </li>
           <li class="h6">
             <span ng-show="security.isConfirmedStudent()">
               <span ng-click="item.unsubscribe()" class="fa fa-check-square-o text-emerald" ng-show="item.current_user_subscribed"></span>
               <span ng-click="item.subscribe()" class="fa fa-square-o" ng-hide="item.current_user_subscribed"></span>
               <span ng-class="{'text-emerald': item.current_user_subscribed}">{{ AppText.item.followed | language }}</span>
+            </span>
+            <span ng-hide="security.isConfirmedStudent()">
+              <span ng-click="security.showLogin()" class="fa fa-square-o" ng-hide="item.current_user_subscribed"></span>
+              <span>{{ AppText.item.followed | language }}</span>
             </span>
           </li>
           <li class="text-blue h6">
@@ -77,7 +85,7 @@
           </div>
 
           <div style="font-style: italic" ng-hide="!item.syllabus || item.updatingSyllabus">{{ item.syllabus | textCut:400:item.displayAllSyllabus }} <a class="text-info" ng-click="item.displayAllSyllabus = true" ng-show="item.syllabus.length > 400 && !item.displayAllSyllabus">... {{ AppText.comment.display_more | language }}</a><a class="text-muted" ng-hide="item.syllabus.length > 400 && !item.displayAllSyllabus" ng-click="item.updatingSyllabus = true">[{{ AppText.system.edit  | language }}]</a>  <a class="text-info" ng-click="item.displayAllSyllabus = false" ng-show="item.syllabus.length > 400 && item.displayAllSyllabus">{{ AppText.comment.hide | language }}</a> </div>
-          <div style="font-stule: italic" class="text-muted" ng-hide="item.syllabus.length || item.updatingSyllabus">{{ AppText.item.no_description | language }}</div>
+          <div style="font-style: italic" class="text-muted" ng-hide="item.syllabus.length || item.updatingSyllabus">{{ AppText.item.no_description | language }}</div>
 
           <div ng-show="item.updatingSyllabus">
             <div id="updatingSyllabus" sh-update-item-syllabus item="item" ng-repeat="item in [ item ]"></div>
@@ -121,8 +129,8 @@
           <div ng-show="item.comments | hiddenComments" class="orange-infos" style="padding: 20px">
             <div class="bold ">{{ AppText.item.there_are | language }} {{ item.comments | hiddenComments }} {{ AppText.item.hidden_comments | language }}</div>
             <p>{{ AppText.item.to_see_the_comments | language }}</p>
-            <a ng-hide="security.isConfirmedStudent()" href="#/campusAuthentication" class="btn btn-info">{{ AppText.item.i_have_an_email | language }}</a>
-            <a ng-show="security.isConfirmedStudent()" href="#/campusAuthentication" class="btn btn-info">{{ AppText.item.add_an_authorization | language }}</a>
+            <a ng-hide="security.isAuthenticated()" ng-click="security.showLogin()" class="btn btn-info" href="">{{ AppText.item.connect | language }}</a>
+            <a ng-show="security.isAuthenticated()" href="#/campusAuthentication" class="btn btn-info">{{ AppText.item.add_an_authorization | language }}</a>
           </div>
 
           <div ng-hide="item.comments.length">
@@ -133,7 +141,8 @@
         </div>
       </div><!-- col -->
 
-      <div class="col-md-4" >
+      <div class="col-md-4">
+        <!--
         <div class="padding-well bordered-well">
           <div class="lead text-dark-blue bold ">
             {{ AppText.item.attending_students | language }} 
@@ -154,12 +163,13 @@
             <li ng-click="nbDisplayStudents = nbDisplayStudents  + 10" ng-show="nbDisplayStudents < item.subscribers.length"><a>{{ AppText.item.show_more | language }}</a></li>
           </ul>
         </div>
+        -->
+
         <div class="padding-well bordered-well">
           <div class="lead text-dark-blue bold ">
             {{ AppText.item.characteristics | language }} 
           </div>
           <div ng-repeat="cat in $rootScope.item_categories" ng-show="(item.tags | filter: { 'category': cat }).length > 0">
-            <!--{{ item.tags | { 'category': cat } }}-->
             <strong>{{ AppText.translateCode( cat ) }}</strong>
             <ul class="list-unstyled">
               <li ng-repeat="tag in item.tags | filter: {category: cat}">

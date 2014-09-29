@@ -27,7 +27,7 @@ angular.module('security.service', [
     }
 
     // has no school but has a confirmed email
-    else if ( service.isConfirmedUser() ) {
+    else if ( service.isConfirmed() ) {
       // if first connexion
       if( ( service.currentUser.provider == 'facebook' && service.currentUser.sign_in_count < 2 ) || ( service.currentUser.provider != 'facebook' && service.currentUser.sign_in_count < 3) ){
         string = "/campusAuthentication";
@@ -38,7 +38,7 @@ angular.module('security.service', [
       }
     }
 
-    else if ( !!service.isAuthenticated() && !service.isConfirmedUser() ){
+    else if ( !!service.isAuthenticated() && !service.isConfirmed() ){
       string = "/confirmationSent";
     }
 
@@ -132,6 +132,10 @@ angular.module('security.service', [
   // The public API of the service
   var service = {
 
+    loginModalOpen: function(){
+      return !!loginModal;
+    },
+
     // Get the first reason for needing a login
     getLoginReason: function() {
       return queue.retryReason();
@@ -174,35 +178,19 @@ angular.module('security.service', [
           }
         }).then( function( response ){
           behave.identify(response.id, {name: response.firstname + " " + response.lastname});
-          //Behave.identify(response);
           alerts.clear();
-
           service.currentUser = response;
 
           // has at least one school
-          if( service.isConfirmedStudent() ){
+          if( service.isConfirmedStudent() || service.isConfirmed() ){
             closeEmailLoginModal(true);
-            if( !queue.hasMore()){
-              redirect();
-            }
-            Analytics.identify( response );
-            Analytics.loginSuccess( response );
-            return {success: true};
-          }
-
-          // has no school but has a confirmed email
-          else if ( service.isConfirmedUser() ) {
-            closeEmailLoginModal(true);
-            if( !queue.hasMore()){
-              redirect();
-            }
             Analytics.identify( response );
             Analytics.loginSuccess( response );
             return {success: true};
           }
 
           // has an account but email not confirmed
-          else if ( service.isAuthenticated() && !service.isConfirmedUser() ) {
+          else if ( service.isAuthenticated() && !service.isConfirmed() ) {
             alerts.add("danger", {
               fr: "Tu dois confirmer ton adresse : un mail t'a été envoyé, clique sur le lien d'activation qu'il contient !",
               en: "Sorry, you need to activate your account first. An activation email has been sent to you : click on the activation link it contains."
@@ -218,7 +206,7 @@ angular.module('security.service', [
           alerts.clear();
           if (angular.isDefined(x.data.error)) {
             alerts.add("danger", {
-              fr: "Quelque chose ne s'est pas bien passé :-/",
+              fr: "Il y a eu un problème",
               en: "Sorry, something went wrong"
             });
           }
@@ -451,7 +439,8 @@ angular.module('security.service', [
           return service.currentUser;
         },
         function(error) {
-          redirect();
+          service.currentUser = null;
+          //redirect();
         });
       }
     },
