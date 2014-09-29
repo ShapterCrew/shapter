@@ -694,7 +694,7 @@ angular.module( 'services.appText', [])
     item: {
       want_more_comments: {
         en: 'Want more comments? Ask your friends!',
-        fr: 'Tu veux plus de commentaires ? Demande à tes amis !'
+        fr: 'Tu veux plus de commentaires ? Demande autour de toi !'
       },
       ask_for_comments: {
         en: 'Ask for comments',
