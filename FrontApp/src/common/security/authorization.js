@@ -49,7 +49,7 @@ angular.module('security.authorization', ['security.service'])
 
       requireConfirmedUser: function() {
         var promise = security.requestCurrentUser().then(function(userInfo) {
-          if ( !security.isConfirmedUser() ) {
+          if ( !security.isConfirmed() ) {
             return queue.pushRetryFn('unauthorized-client', service.requireConfirmedStudent);
           }
         });
