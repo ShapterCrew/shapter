@@ -694,7 +694,11 @@ angular.module( 'services.appText', [])
     item: {
       want_more_comments: {
         en: 'Want more comments? Ask your friends!',
-        fr: 'Tu veux plus de commentaires ? Demande autour de toi !'
+        fr: 'Tu veux plus de commentaires ?'
+      },
+      ask_around: {
+        en: 'Ask around!',
+        fr: 'Demande autour de toi !'
       },
       ask_for_comments: {
         en: 'Ask for comments',
@@ -721,8 +725,8 @@ angular.module( 'services.appText', [])
         fr: 'Caractéristiques :'
       },
       i_have_an_email: {
-        en: 'Identify',
-        fr: 'M\'identifier'
+        en: 'Identify as a student',
+        fr: 'M\'identifier comme étudiant'
       },
       there_are: {
         en: 'There are',
@@ -733,8 +737,8 @@ angular.module( 'services.appText', [])
         fr: 'commentaires cachés.'
       },
       to_see_the_comments: {
-        en: 'To see someone\'s comment, you need to share an institution with them.',
-        fr: 'Pour voir le commentaire d\'un étudiant, il faut que tu aies un établissement en commun avec lui.'
+        en: 'To see someone\'s comment, you need to be identified as a student from the same institution as them.',
+        fr: 'Pour voir le commentaire d\'un étudiant, il faut que tu sois identifié comme étudiant du même établissement que lui.'
       },
       followed: {
         en: 'took the class',

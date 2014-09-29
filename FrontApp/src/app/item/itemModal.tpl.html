@@ -101,28 +101,28 @@
             <div id="addComment" sh-add-comment item="item" ng-repeat="item in [ item ]" cb="hideAddComment()"></div>
           </div>
 
-          <div ng-show="item.comments | hiddenComments" class="orange-infos" style="padding: 20px">
-            <div class="bold ">{{ AppText.item.there_are | language }} {{ item.comments | hiddenComments }} {{ AppText.item.hidden_comments | language }}</div>
-            <p>{{ AppText.item.to_see_the_comments | language }}</p>
-            <a href="#/campusAuthentication" class="btn btn-sun">{{ AppText.item.i_have_an_email | language }}</a>
-          </div>
-
-          <div ng-hide="item.comments.length">
-            {{ AppText.item.no_comments | language }}
-          </div>
-          <div style="margin-bottom: 10px">
-            {{ AppText.item.want_more_comments | language }}
+          <div class="emerald-infos padding-well">
+            <p>{{ AppText.item.want_more_comments | language }} <span class="bold" ng-bind="AppText.item.ask_around | language"></span></p>
             <!-- facebook output -->
             <ul ng-social-buttons 
-              class="pull-right"
               data-url="'http://shapter.com/api/v1/facebook_pages/' + facebookData"
               data-title="'Shapter: les cours qui te correspondent'"
               data-description="'Choisis tes cours grâce à l\' avis des
               anciens et donne le tiens !'"
-              data-image="'http://shapter.com/assets/img/logo_blue_square.png'"
-              style="display: inline; margin-left: 20px;">
+              data-image="'http://shapter.com/assets/img/logo_blue_square.png'">
               <li class="ng-social-facebook">{{ AppText.item.ask_for_comments | language }}</li>
             </ul>
+          </div>
+
+
+          <div ng-show="item.comments | hiddenComments" class="orange-infos" style="padding: 20px">
+            <div class="bold ">{{ AppText.item.there_are | language }} {{ item.comments | hiddenComments }} {{ AppText.item.hidden_comments | language }}</div>
+            <p>{{ AppText.item.to_see_the_comments | language }}</p>
+            <a href="#/campusAuthentication" class="btn btn-info">{{ AppText.item.i_have_an_email | language }}</a>
+          </div>
+
+          <div ng-hide="item.comments.length">
+            {{ AppText.item.no_comments | language }}
           </div>
 
           <div class="campus-comment" ng-repeat="comment in item.comments | filter: {content: '!hidden'} | reverse">
