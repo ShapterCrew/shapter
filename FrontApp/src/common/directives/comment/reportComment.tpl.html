@@ -1,0 +1,16 @@
+  <div ng-show="comment.displayReportComment">
+    <div class="form-group">
+      <label>{{ AppText.comment.give_report_reason | language }}</label>
+      <input ng-model="comment.reportReason" class="form-control">
+    </div>
+
+    <div class="form-group">
+      <button class="btn btn-default" ng-click="comment.displayReportComment = false">{{ AppText.system.cancel | language }}</button> 
+
+      <button class="btn btn-info" ng-click="comment.report(comment.reportReason); comment.displayReportComment = false; comment.reported = true">{{ AppText.system.send | language }}</button> 
+    </div>
+  </div>
+
+  <div class="form-group text-orange" ng-show="comment.reported">
+    {{ AppText.comment.your_report_has_been_sent | language }}
+  </div>

@@ -218,6 +218,18 @@ angular.module( 'services.appText', [])
       }
     },
     comment: {
+      give_report_reason: {
+        en: 'briefly explain why this comment is inappropriate',
+        fr: 'explique brièvement pourquoi ce commentaire est inapproprié'
+      },
+      your_report_has_been_sent: {
+        en: 'Thanks, a report has been sent to the moderation.',
+        fr: 'Merci, un message a été envoyé à la modération.'
+      },
+      report_comment: {
+        en: 'report this comment',
+        fr: 'dénoncer un contenu inapproprié'
+      },
       problem: {
         en: 'There was a problem when adding your comment. Please report your problem to us: teamshapter@shapter.com',
         fr: 'Il y a eu un problème lors de l\'ajout de ton commentaire. Fais-nous en part à teamshapter@shapter.com'
@@ -1204,6 +1216,10 @@ angular.module( 'services.appText', [])
       exclamation: {
         en: '!',
         fr: ' !'
+      },
+      send: {
+        en: 'send',
+        fr: 'envoyer'
       },
       edit: {
         en: 'edit',
