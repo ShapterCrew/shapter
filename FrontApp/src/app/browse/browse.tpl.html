@@ -57,7 +57,7 @@
           <ul class="list-inline cat-list nav-justified" style="margin-bottom: 0px; margin-top: 20px; width: auto">
             <!-- some categories -->
             <li class="dropdown" ng-repeat="cat in (categories | catFilter ).display">
-              <a class="dropdown-toggle" style="white-space: nowrap" ng-mouseover="getSuggestedTags( cat )">{{ AppText.translateCode( cat )}}<span class="caret turquoise-caret"></span> </a>
+              <a class="dropdown-toggle" style="white-space: nowrap" ng-mouseover="getSuggestedTags( cat )">{{ AppText.translateCode( cat )}}<span class="caret"></span> </a>
               <ul class="dropdown-menu">
                 <li ng-hide="tagsSuggestions[ cat ] === undefined || tagsSuggestions[ cat ] == 'loading'" ng-repeat="tag in tagsSuggestions[ cat ]" ng-click="addTag( tag )"><a>{{ tag.name }}</a></li>
                 <li ng-show="tagsSuggestions[cat] !== undefined && tagsSuggestions[ cat ].length === 0" class="disabled">
@@ -75,7 +75,7 @@
 
             <!-- more categories ! -->
             <li class="dropdown">
-              <a class="dropdown-toggle" style="white-space: nowrap" ng-mouseover="getRemainingCatSuggestions()">{{ AppText.browse.more | language }}<span class="caret turquoise-caret"></span></a>
+              <a class="dropdown-toggle" style="white-space: nowrap" ng-mouseover="getRemainingCatSuggestions()">{{ AppText.browse.more | language }}<span class="caret"></span></a>
 
               <ul class="dropdown-menu">
                 <!-- repat remaining categories -->
@@ -107,7 +107,7 @@
           </div>
         </div>
 
-        <p class="center bold" style="margin-bottom: 0px; margin-top: 10px">
+        <p class="center bold text-asphalt" style="margin-bottom: 0px; margin-top: 10px">
           <span ng-hide="batchLoading">
             {{ nbItems }} 
             {{ AppText.browse.result | language }}

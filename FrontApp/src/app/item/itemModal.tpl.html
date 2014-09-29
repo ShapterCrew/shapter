@@ -8,7 +8,7 @@
           </span>
 
           <h3 style="margin-bottom: 25px">
-            <span class="text-emerald">
+            <span class="text-dark-blue">
               {{ item.name }}<small sh-edit-item-tags-modal="item" class="glyphicon glyphicon-pencil"></small>
             </span>
           </h3>
@@ -18,16 +18,16 @@
         <ul class="list-inline stats-list" style="margin-bottom: 0px">
           <li class="h6">
             <span ng-show="security.isConfirmedStudent()">
-              <span class="fa fa-lg fa-star text-sun" ng-show="item.current_user_has_in_cart" ng-click="item.uncart()"></span>
+              <span class="fa fa-lg fa-star text-emerald" ng-show="item.current_user_has_in_cart" ng-click="item.uncart()"></span>
               <span class="fa fa-lg fa-star-o" ng-hide="item.current_user_has_in_cart" ng-click="item.cart()"></span>
-              <span ng-class="{'text-sun': item.current_user_has_in_cart}">{{ AppText.item.favourite | language }}</span>
+              <span ng-class="{'text-emerald': item.current_user_has_in_cart}">{{ AppText.item.favourite | language }}</span>
             </span>
           </li>
           <li class="h6">
             <span ng-show="security.isConfirmedStudent()">
-              <span ng-click="item.unsubscribe()" class="fa fa-check-square-o text-sun" ng-show="item.current_user_subscribed"></span>
+              <span ng-click="item.unsubscribe()" class="fa fa-check-square-o text-emerald" ng-show="item.current_user_subscribed"></span>
               <span ng-click="item.subscribe()" class="fa fa-square-o" ng-hide="item.current_user_subscribed"></span>
-              <span ng-class="{'text-sun': item.current_user_subscribed}">{{ AppText.item.followed | language }}</span>
+              <span ng-class="{'text-emerald': item.current_user_subscribed}">{{ AppText.item.followed | language }}</span>
             </span>
           </li>
           <li class="text-blue h6">
@@ -54,8 +54,8 @@
       <div class="col-md-6" style="height: 273px">
         <div class="padding-well bordered-well" style="height: 100%; margin: 0px">
 
-          <button class="pull-right btn btn-info" ng-click="editDiagramFactory.openModal( item )" ng-show="security.isConfirmedStudent()">Évaluer</button>
-          <div class="lead text-asphalt bold underline">
+          <button class="pull-right btn btn-sun" ng-click="editDiagramFactory.openModal( item )" ng-show="security.isConfirmedStudent()">Évaluer</button>
+          <div class="lead text-dark-blue bold ">
             {{ AppText.item.diagram | language }} <span ng-show="item.diagrams_count">({{ item.diagrams_count }})</span>
           </div>
           <div class="center" ng-repeat="item in [item]" style="margin-top: 20px; margin-bottom: 20px" ng-show="item.diagrams_count">
@@ -70,9 +70,9 @@
 
       <div class="col-md-6" style="height: 273px">
         <div class="padding-well bordered-well" style="height: 100%; overflow: auto; margin: 0px">
-          <button class="pull-right btn btn-info" ng-click="item.updatingSyllabus = true" ng-show="security.isConfirmedStudent() && !item.syllabus">{{ AppText.item.update_syllabus | language }}</button>
+          <button class="pull-right btn btn-sun" ng-click="item.updatingSyllabus = true" ng-show="security.isConfirmedStudent() && !item.syllabus">{{ AppText.item.update_syllabus | language }}</button>
 
-          <div class="lead text-asphalt bold underline">
+          <div class="lead text-dark-blue bold ">
             {{ AppText.item.description | language }} 
           </div>
 
@@ -91,9 +91,9 @@
     <div class="row" >
       <div class="col-md-8" >
         <div class="padding-well bordered-well">
-          <button class="pull-right btn btn-info" ng-click="item.displayAddComment = true" ng-show="security.isConfirmedStudent() && item.displayAddComment === false">{{ AppText.item.comment | language }}</button>
-          <button class="pull-right btn btn-info" ng-click="item.displayAddComment = false" ng-show="security.isConfirmedStudent() && item.displayAddComment === true">{{ AppText.item.hide_comment | language }}</button>
-          <div class="lead text-asphalt bold underline">
+          <button class="pull-right btn btn-sun" ng-click="item.displayAddComment = true" ng-show="security.isConfirmedStudent() && item.displayAddComment === false">{{ AppText.item.comment | language }}</button>
+          <button class="pull-right btn btn-sun" ng-click="item.displayAddComment = false" ng-show="security.isConfirmedStudent() && item.displayAddComment === true">{{ AppText.item.hide_comment | language }}</button>
+          <div class="lead text-dark-blue bold ">
             {{ AppText.item.comments | language }} 
           </div>
 
@@ -102,9 +102,9 @@
           </div>
 
           <div ng-show="item.comments | hiddenComments" class="orange-infos" style="padding: 20px">
-            <div class="bold underline">{{ AppText.item.there_are | language }} {{ item.comments | hiddenComments }} {{ AppText.item.hidden_comments | language }}</div>
+            <div class="bold ">{{ AppText.item.there_are | language }} {{ item.comments | hiddenComments }} {{ AppText.item.hidden_comments | language }}</div>
             <p>{{ AppText.item.to_see_the_comments | language }}</p>
-            <a href="#/campusAuthentication" class="btn btn-info">{{ AppText.item.i_have_an_email | language }}</a>
+            <a href="#/campusAuthentication" class="btn btn-sun">{{ AppText.item.i_have_an_email | language }}</a>
           </div>
 
           <div class="campus-comment" ng-repeat="comment in item.comments | filter: {content: '!hidden'} | reverse">
@@ -117,7 +117,7 @@
 
       <div class="col-md-4" >
         <div class="padding-well bordered-well">
-          <div class="lead text-asphalt bold underline">
+          <div class="lead text-dark-blue bold ">
             {{ AppText.item.attending_students | language }} 
           </div>
           <ul class="list-unstyled">
@@ -137,7 +137,7 @@
           </ul>
         </div>
         <div class="padding-well bordered-well">
-          <div class="lead text-asphalt bold underline">
+          <div class="lead text-dark-blue bold ">
             {{ AppText.item.characteristics | language }} 
           </div>
           <div ng-repeat="cat in $rootScope.item_categories" ng-show="(item.tags | filter: { 'category': cat }).length > 0">

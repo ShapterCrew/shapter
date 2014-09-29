@@ -57,7 +57,7 @@
       <div class="col-md-12">
         <div class="row">
           <div class="col-md-10 col-md-offset-1" ng-show="loading === false && commentPipe.commentable_items.length === 0" style="text-align: center">
-            <div class="well">
+            <div class="shapter-well">
               <p style="margin-top: 50px">{{ AppText.contribute.what_did_you_study | language }}</p>
               <button class="btn btn-hg btn-orange" ng-click="navSf()">{{ AppText.contribute.fill_in_your_cursus | language }}</button>
             </div>
@@ -70,8 +70,8 @@
                   <!--
                   <div class="text-muted" ng-hide="item.current_user_comments_count && item.current_user_has_diagram"> {{ AppText.contribute.need_feedback | language }} </div>
                   -->
-                  <div class="pull-right" ng-show="item.current_user_has_diagram && item.current_user_comments_count"><span class="fa fa-check text-emerald fa-3x"></span></div>
-                  <div style="margin-bottom: 10px"><span class="bold lead underline text-dark-blue">{{ item.name }}</span></div>
+                  <!--<div class="pull-right" ng-show="item.current_user_has_diagram && item.current_user_comments_count"><span class="fa fa-check text-emerald fa-3x"></span></div>-->
+                  <div style="margin-bottom: 10px"><span class="bold lead text-asphalt">{{ item.name }} <span class="badge badge-danger" style="vertical-align: middle">{{ AppText.contribute.need_feedback | language }}</span></span></div>
 
                   <div class="row">
                     <div class="col-md-4">

@@ -517,8 +517,8 @@ angular.module( 'services.appText', [])
         fr: 'J\'ai suivi de nouveaux cours !'
       },
       need_feedback: {
-        en: 'There are not enough feedbacks on',
-        fr: 'Il n\'y a pas assez de témoignages sur'
+        en: 'Need feedback!',
+        fr: 'On a besoin de ton avis !'
       },
       how_did_you_feel: {
         en: 'What\'s your feeling ? Share it to the community !',
@@ -1009,6 +1009,22 @@ angular.module( 'services.appText', [])
       }
     },
     school: {
+      share: {
+        en: 'share',
+        fr: 'partager'
+      },
+      best_comments_share_title: {
+        en: 'The five best classes of',
+        fr: 'Les cinq meilleurs cours de'
+      },
+      best_comments_share_description_1: {
+        en: 'Come and see the five best classes of',
+        fr: 'Venez decouvrir les cinq cours les mieux notes de'
+      },
+      best_comments_share_description_2: {
+        en: 'according to students on Shapter, the Trip Advisor for your classes!',
+        fr: 'selon les etudiants sur Shapter, le Trip Advisor des cours !'
+      },
       on_shapter: {
         en: 'according to students on @shapter_ !',
         fr: 'selon les étudiants sur @shapter_ !'

@@ -58,14 +58,27 @@
         <div class="col-md-8">
 
           <div class="shapter-well">
-            <div class="underline lead bold text-dark-blue" style="margin: 30px 0px 5px 0px">
+            <div class="lead bold text-dark-blue" style="margin: 30px 0px 5px 0px">
               {{ AppText.school.they_love_it | language }}
+
+              <!-- facebook output -->
+              <ul ng-social-buttons 
+                class="pull-right"
+                data-url="'http://shapter.com/api/v1/facebook_pages/' + facebookData"
+                data-title="'Shapter: les cours qui te correspondent'"
+                data-description="'Choisis tes cours grâce à l\' avis des
+                anciens et donne le tiens !'"
+                data-image="'http://shapter.com/assets/img/logo_blue_square.png'"
+                style="display: inline; margin-left: 20px;">
+                <li class="ng-social-facebook">{{ AppText.school.share | language }}</li>
+              </ul>
+
             </div>
-            <div class="campus-comment" sh-comment hide-likes="false" close="" comment="comment" display-course-name="true" current-user="security.currentUser" comments='comments' ng-repeat="comment in formation.best_comments | limitTo: 6"></div>
+            <div class="campus-comment" sh-comment hide-likes="false" close="" comment="comment" display-course-name="true" current-user="security.currentUser" comments='comments' ng-repeat="comment in formation.best_comments | limitTo: 6" display-satisfaction="true"></div>
             <a ng-click="browseNavFromFormation()" class="text-info">{{ AppText.school.browse_all_courses | language }} {{ formation.name }} <small class="fa fa-arrow-right"></small></a>
           </div>
           <div class="shapter-well">
-            <div class="lead bold underline text-dark-blue" style="margin: 30px 0px 5px 0px">{{ AppText.school.where_do_they_internship | language }}</div>
+            <div class="lead bold text-dark-blue" style="margin: 30px 0px 5px 0px">{{ AppText.school.where_do_they_internship | language }}</div>
             <sh-map on-new="shAddInternshipModalFactory.open()" internships-list="internshipsList"></sh-map>
             <p style="margin-top: 5px"><a class="text-info" href="#/schools/{{ school.id }}/internships">{{ AppText.school.browse_internships_by_keywords | language }} <small class="fa fa-arrow-right"></small></a></p>
           </div>

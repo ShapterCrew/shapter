@@ -107,6 +107,7 @@ angular.module( 'shapter.schools', [
   $scope.AppText = AppText;
   $scope.limit = 3;
 
+
   $scope.areComments = function( input ){
     return input.comments_count > 10 && input.students_count > 10;
   };
@@ -128,7 +129,18 @@ angular.module( 'shapter.schools', [
 }])
 
 
-.controller('FormationCtrl', [ '$scope', 'Tag', 'security', '$location', 'formation', '$stateParams', 'school', 'Formation', 'AppText', 'Analytics', 'Internship', 'shAddInternshipModalFactory', function( $scope, Tag, security, $location, formation, $stateParams, school, Formation, AppText, Analytics, Internship, shAddInternshipModalFactory){
+.controller('FormationCtrl', [ '$scope', 'Tag', 'security', '$location', 'formation', '$stateParams', 'school', 'Formation', 'AppText', 'Analytics', 'Internship', 'shAddInternshipModalFactory', '$filter', function( $scope, Tag, security, $location, formation, $stateParams, school, Formation, AppText, Analytics, Internship, shAddInternshipModalFactory, $filter){
+
+  facebookData = {
+    permalink: '#' + $location.url(),
+    type: "best_comments",
+    title: $filter( 'language' )( AppText.school.best_comments_share_title ) + ' ' + school.name + ' !',
+    description: $filter( 'language' )( AppText.school.best_comments_share_description_1 ) + ' ' + school.name + ' ' + $filter( 'language' )( AppText.school.best_comments_share_description_2 )
+  };
+
+  // permalink type title description
+
+  $scope.facebookData = btoa( JSON.stringify( facebookData ));
 
   $scope.shAddInternshipModalFactory = shAddInternshipModalFactory;
   $scope.n = 0;
@@ -176,9 +188,9 @@ angular.module( 'shapter.schools', [
   var tag_ids = $stateParams.formationId ? [ $stateParams.formationId ] : [];
   tag_ids.push( $stateParams.schoolId );
 
-    Internship.getListFromTags( tag_ids, false).then(function(response){
-      $scope.internshipsList = response.internships;
-    });
+  Internship.getListFromTags( tag_ids, false).then(function(response){
+    $scope.internshipsList = response.internships;
+  });
 
   Formation.subFormations( tag_ids ).then( function( response ){
     $scope.formation.sub_choices = response.sub_choices;

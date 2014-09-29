@@ -3,9 +3,10 @@
 
   <div class="row" style="margin-top: 5px">
     <div class="col-md-12">
-      <h6 ng-show="displayCourseName" style="margin-top: 0px" sh-item-modal="comment.item">{{ comment.item.name }}<span class="transparent">l</span></h6>
+      <span class="badge badge-success pull-right"><span ng-repeat="val in comment.item.averaged_diagram" ng-show="val.name == 'Satisfaction'">{{ val.value | floor }}% de satisfaction</span></span>
+      <h6 ng-show="displayCourseName" style="margin-top: 0px" sh-item-modal="comment.item" class="text-asphalt bold">{{ comment.item.name }}<span class="transparent">l</span></h6>
       <span ng-show="displayCourseName && displayStudentName"> - </span>
-      <h6 ng-show="displayStudentName" class="media-heading" ng-click="navToStudent( comment.author.id )">{{ comment.author.firstname }} {{ comment.author.lastname }}
+      <h6 ng-show="displayStudentName" class="media-heading bold text-asphalt" ng-click="navToStudent( comment.author.id )">{{ comment.author.firstname }} {{ comment.author.lastname }}
         <small class="text-orange" ng-show="comment.is_alien"> {{ AppText.comment.from | language }} 
           <span ng-repeat="school in comment.alien_schools"> {{ school.name }}
             <span ng-hide="$last">,</span>
@@ -20,7 +21,7 @@
           <span style="margin-top: 0px">
 
             <span ng-show="displayCourseName">
-              <span class="badge badge-concrete">{{ comment.created_at | date:'dd/MM/yyyy'}}</span>
+              <span class="badge badge-info">{{ comment.created_at | date:'dd/MM/yyyy'}}</span>
 
               <div ng-show="ownComment()">
                 <div ng-hide="hideLikes">
@@ -38,7 +39,7 @@
                   <img class="media-object thumbnail" src="{{ comment.author.image }}" alt="zbeuh !" ng-show="comment.author.image" style="width: 70px">
                 </a>
                 <div class="media-body">
-                  <span class="badge badge-concrete">{{ comment.created_at | date:'dd/MM/yyyy'}}</span>
+                  <span class="badge badge-info">{{ comment.created_at | date:'dd/MM/yyyy'}}</span>
                   <div ng-show="ownComment()">
                     <small class="text-muted" ng-click="comment.displayEditComment = true; comment.newContent = comment.content">editer</small>
                     <small class="text-muted"> - </small>
