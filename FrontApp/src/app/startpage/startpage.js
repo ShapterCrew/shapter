@@ -57,7 +57,7 @@ angular.module('shapter.startpage', [
 
     // has an account but email not confirmed 
     else if ( security.isAuthenticated() ){
-      $location.path("/confirmationSent");
+    //  $location.path("/confirmationSent");
     }
 
   }, function(x){

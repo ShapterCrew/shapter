@@ -71,6 +71,10 @@ angular.module( 'shapter', [
   'filters.orderByAccent'
 ])
 
+.run( ['security', function( security ){
+  security.requestCurrentUser();
+}])
+
 .run( function( ENV ){
   mixpanel.init( ENV.mixpanel_id );
   behave.init( ENV.behave_api_token );
