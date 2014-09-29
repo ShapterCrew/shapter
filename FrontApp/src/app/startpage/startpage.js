@@ -1,5 +1,8 @@
 angular.module('shapter.startpage', [
-  'ui.router'
+  'ui.router',
+  'security',
+  'resources.analytics',
+  'services.appText'
 ])
 
 .config(function config( $stateProvider ) {
