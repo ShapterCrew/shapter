@@ -31,6 +31,7 @@ class FacebookPagesController < ApplicationController
         .gsub('-','+')
         .gsub('_','/')
       )
+      .force_encoding('iso-8859-1').encode('utf-8')
     )
   end
 
