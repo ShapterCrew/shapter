@@ -221,9 +221,9 @@ angular.module('shapter.item', [
     description: $filter( 'language' )( AppText.item.facebook_need_comment_description )
   };
 
-  $scope.facebookData = btoa( JSON.stringify( facebookData ));
-  console.log( $scope.facebookData );
-  console.log(JSON.stringify( facebookData ));
+  $scope.facebookData = $filter('shareEncoding')(btoa( JSON.stringify( facebookData )));
+
+  console.log( btoa('é') );
 
   $scope.$watch( function(){
     return $location.search().item;
@@ -425,23 +425,5 @@ angular.module('shapter.item', [
     else {
       return null;
     }
-  };
-}])
-
-.filter('replaceAccents', [function(){
-  return function( input ){
-    return input
-    .replace(/É/g, 'E')
-    .replace(/È/g, 'E')
-    .replace(/é/g, 'e')
-    .replace(/è/g, 'e')
-    .replace(/ë/g, 'e')
-    .replace(/ê/g, 'e')
-    .replace(/Ê/g, 'E')
-    .replace(/â/g, 'a')
-    .replace(/à/g, 'a')
-    .replace(/ä/g, 'a')
-    .replace(/Â/g, 'A')
-    .replace(/Ê/g, 'E');
   };
 }]);
