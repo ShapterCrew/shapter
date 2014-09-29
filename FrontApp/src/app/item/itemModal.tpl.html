@@ -114,20 +114,21 @@
             </ul>
           </div>
 
+          <div class="campus-comment" ng-repeat="comment in item.comments | filter: {content: '!hidden'} | reverse">
+            <div sh-comment close="close()" comment="comment" display-student-name="true" current-user="security.currentUser" comments='item.comments'></div>
+          </div>
 
           <div ng-show="item.comments | hiddenComments" class="orange-infos" style="padding: 20px">
             <div class="bold ">{{ AppText.item.there_are | language }} {{ item.comments | hiddenComments }} {{ AppText.item.hidden_comments | language }}</div>
             <p>{{ AppText.item.to_see_the_comments | language }}</p>
-            <a href="#/campusAuthentication" class="btn btn-info">{{ AppText.item.i_have_an_email | language }}</a>
+            <a ng-hide="security.isConfirmedStudent()" href="#/campusAuthentication" class="btn btn-info">{{ AppText.item.i_have_an_email | language }}</a>
+            <a ng-show="security.isConfirmedStudent()" href="#/campusAuthentication" class="btn btn-info">{{ AppText.item.add_an_authorization | language }}</a>
           </div>
 
           <div ng-hide="item.comments.length">
             {{ AppText.item.no_comments | language }}
           </div>
 
-          <div class="campus-comment" ng-repeat="comment in item.comments | filter: {content: '!hidden'} | reverse">
-            <div sh-comment close="close()" comment="comment" display-student-name="true" current-user="security.currentUser" comments='item.comments'></div>
-          </div>
 
         </div>
       </div><!-- col -->

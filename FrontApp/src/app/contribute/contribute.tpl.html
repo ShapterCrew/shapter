@@ -1,50 +1,20 @@
 <div style="height: 100%; overflow: auto" infinite-scroll="loadMoreItems()" infinite-scroll-distance="1" infinite-scroll-disabled="loading">
   <sh-header></sh-header>
 
-  <!--
-  <div class="container" >
-    <div class="row main-row">
-      <div class="col-md-12 main-col" style="overflow-x: hidden">
-        <div class="row">
-          <div class="col-md-10 col-md-offset-1">
-            <span ng-hide="commentPipe.commentable_items.length">
-              <span ng-show="loading === true" class="fa fa-spin fa-refresh pull-right"></span>
-            </span>
-            <h2 class="text-dark-blue">
-              {{ AppText.contribute.give_a_hand | language }}
-              <small><span class="fa fa-question-circle" ng-click="displayInfos = ! displayInfos"></span></small>
-            </h2>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  -->
-
-  <!--
-  <div class="emerald-infos" ng-show="security.isConfirmedStudent() && displayInfos">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-10 col-md-offset-1">
-          <div class="row">
-            <div class="col-md-6">
-              <p ng-bind="AppText.contribute.contribute_infos | language"></p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  -->
-
   <div class="orange-infos" ng-hide="security.isConfirmedStudent()">
     <div class="container">
       <div class="row">
         <div class="col-md-10 col-md-offset-1">
           <div class="row">
             <div class="col-md-6">
+              <div ng-show="security.isAuthenticated()">
               <p ng-bind="AppText.contribute.contribute_not_student | language"></p>
               <a href="#/campusAuthentication" class="btn btn-info">{{ AppText.contribute.go_identify | language }}</a>
+            </div>
+              <div ng-hide="security.isAuthenticated()">
+              <p ng-bind="AppText.contribute.contribute_not_logged | language"></p>
+              <a ng-click="security.showLogin()" class="btn btn-info">{{ AppText.contribute.go_login | language }}</a>
+            </div>
             </div>
           </div>
         </div>

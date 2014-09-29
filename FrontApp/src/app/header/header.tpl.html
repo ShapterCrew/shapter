@@ -42,11 +42,11 @@
 
       <ul class="nav navbar-nav navbar-right">
 
-        <!-- # arnaque -->
-        <li ng-show="name && !$stateParams.schoolId"><a ng-href="#/student/{{ security.currentUser.id }}">{{ name }}</a></li>
-        <li ng-show="name && $stateParams.schoolId" ng-click="test()"><a ng-href="#/schools/{{ $stateParams.schoolId }}/student/{{ security.currentUser.id }}">{{ name }}</a></li>
+        <li ng-show="security.isAuthenticated() && !$stateParams.schoolId"><a ng-href="#/student/{{ security.currentUser.id }}">{{ security.currentUser.firstname + ' ' + security.currentUser.lastname }}</a></li>
+        <li ng-show="security.isAuthenticated() && $stateParams.schoolId"><a ng-href="#/schools/{{ $stateParams.schoolId }}/student/{{ security.currentUser.id }}">{{ security.currentUser.firstname + ' ' + security.currentUser.lastname }}</a></li>
+        <li ng-hide="security.isAuthenticated()" class="connect-li"><a ng-click="security.showLogin()"><span ng-bind="AppText.header.connect | language"></span></a></li>
 
-        <li class="dropdown">
+        <li class="dropdown" ng-show="security.isAuthenticated()">
           <a href="#" class="dropdown-toggle glyphicon glyphicon-cog" data-toggle="dropdown" ></a>
           <ul class="dropdown-menu">
             <li ng-show="security.currentUser.admin">
@@ -72,21 +72,6 @@
       <li ng-class="{'active': $state.$current =='schoolContribute'}" ng-click="contributeNav()"><a>{{ AppText.school.contribute | language }}</a></li>
       <li ng-class="{'active': $state.$current =='browse'}" ng-click="browseNav()"><a>{{ AppText.header.classes | language }}</a></li>
       <li ng-show="$stateParams.schoolId" ng-class="{'active': $state.$current =='Internships'}"><a ng-href="#/schools/{{ $stateParams.schoolId }}/internships">{{ AppText.header.internships | language }}</a></li>
-      <!--
-      <li class="dropdown">
-        <a class="dropdown-toggle">
-          {{ AppText.header.more | language }}<span class="caret blue-caret"></span>
-        </a>
-        <ul class="dropdown-menu">
-          <li ng-show="security.isConfirmedStudent()" ng-click="profileNav()"><a>{{ AppText.header.me | language }}</a></li>
-          <li ng-click="peopleNav()"><a>{{ AppText.header.people | language }}</a></li>
-        </ul>
-      </li>
-      -->
-
-      <!--
-      <li ng-class="{'active': $state.$current =='internships'}"><a>{{ AppText.header.internships | language }}</a></li>
-      -->
     </ul>
   </div>
 </nav>
