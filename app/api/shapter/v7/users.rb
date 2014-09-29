@@ -25,8 +25,11 @@ module Shapter
 
           #{{{ /users/me
           post do 
-            u = current_user || User.new
-            present u, with: Shapter::Entities::User, entity_options: entity_options
+            if current_user
+            present current_user, with: Shapter::Entities::User, entity_options: entity_options
+            else
+              present nil
+            end
           end
           #}}}
 
