@@ -22,6 +22,14 @@ class Internship
   end
   #}}}
 
+  def public_description(who_ask)
+    if prom_buddy?(who_ask) or fb_friend?(who_ask) or who_ask.shapter_admin
+      description
+    else
+      "hidden"
+    end
+  end
+  
   def trainee
     trainees.first
   end
@@ -80,5 +88,12 @@ class Internship
     trainee.touch unless trainee.nil?
   end
 
+  def prom_buddy?(who_ask)
+    (trainee.schools & who_ask.schools).any?
+  end
+
+  def fb_friend?(who_ask)
+    trainee.is_friend_with?(who_ask)
+  end
 
 end
