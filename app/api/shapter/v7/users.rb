@@ -25,11 +25,8 @@ module Shapter
 
           #{{{ /users/me
           post do 
-            if current_user
+            check_user_login!
             present current_user, with: Shapter::Entities::User, entity_options: entity_options
-            else
-              present nil
-            end
           end
           #}}}
 
