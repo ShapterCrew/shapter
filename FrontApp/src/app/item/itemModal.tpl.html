@@ -107,11 +107,28 @@
             <a href="#/campusAuthentication" class="btn btn-sun">{{ AppText.item.i_have_an_email | language }}</a>
           </div>
 
+          <div ng-hide="item.comments.length">
+            {{ AppText.item.no_comments | language }}
+          </div>
+          <div style="margin-bottom: 10px">
+            {{ AppText.item.want_more_comments | language }}
+            <!-- facebook output -->
+            <ul ng-social-buttons 
+              class="pull-right"
+              data-url="'http://shapter.com/api/v1/facebook_pages/' + facebookData"
+              data-title="'Shapter: les cours qui te correspondent'"
+              data-description="'Choisis tes cours grâce à l\' avis des
+              anciens et donne le tiens !'"
+              data-image="'http://shapter.com/assets/img/logo_blue_square.png'"
+              style="display: inline; margin-left: 20px;">
+              <li class="ng-social-facebook">{{ AppText.item.ask_for_comments | language }}</li>
+            </ul>
+          </div>
+
           <div class="campus-comment" ng-repeat="comment in item.comments | filter: {content: '!hidden'} | reverse">
             <div sh-comment close="close()" comment="comment" display-student-name="true" current-user="security.currentUser" comments='item.comments'></div>
           </div>
 
-          <div class="text-muted" ng-hide="item.comments.length">{{ AppText.item.no_comments | language }}</div>
         </div>
       </div><!-- col -->
 

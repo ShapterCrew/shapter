@@ -20,6 +20,26 @@ angular.module( 'services.appText', [])
       return $filter( 'language' )( $parse( code )( AppText.categories ));
     },
     internships: {
+      internship_created: {
+        en: 'Super, your internship has been created!',
+        fr: 'Super, ton stage a bien été créé !'
+      },
+      share_your_internship: {
+        en: 'Share your internship and tell your friends to add theirs!',
+        fr: 'Partage ton stage et dis à tes amis d\'ajouter les leurs !'
+      },
+      new_internship: {
+        en: 'Add another internship',
+        fr: 'Ajouter un autre stage'
+      },
+      facebook_share_title: {
+        en: 'Come add your internships on Shapter!',
+        fr: 'Venez ajouter vos stages sur Shapter !'
+      },
+      facebook_share_description: {
+        en: 'Shapter makes it easy to find the best internships for your profile. Share your internships and discover where your friends took theirs!',
+        fr: 'Shapter rend la recherche de stages super facile : venez partagez vos stages et découvrir ceux qu\'ont faits les autres !'
+      },
       me_too: {
         en: 'Add your internship!',
         fr: 'Ajoute ton stage !'
@@ -672,6 +692,22 @@ angular.module( 'services.appText', [])
       }
     },
     item: {
+      want_more_comments: {
+        en: 'Want more comments? Ask your friends!',
+        fr: 'Tu veux plus de commentaires ? Demande autour de toi !'
+      },
+      ask_for_comments: {
+        en: 'Ask for comments',
+        fr: 'Demande des commentaires'
+      },
+      facebook_need_comment_title: {
+        en: 'I\'m looking for someone who took',
+        fr: 'Je cherche quelqu\'un qui a suivi'
+      },
+      facebook_need_comment_description: {
+        en: 'I\'d like to have feedbacks on it on Shapter, who clan help me?',
+        fr: 'Je voudrais avoir des retours dessus sur Shapter, quelqu\'un peut-il m\'aider ?'
+      },
       comment: {
         en: 'Leave a comment!',
         fr: 'Laisse un commentaire !'
@@ -709,8 +745,8 @@ angular.module( 'services.appText', [])
         fr: 'favoris'
       },
       no_comments: {
-        en: 'Class hasn\'t been commented yet. Comment it or ask someone who took the class to give their feedback!',
-        fr: 'Pas de commentaires pour le moment. Commente le cours ou demande à quelqu\'un qui l\'a suivi de le faire !'
+        en: 'Class hasn\'t been commented yet.',
+        fr: 'Pas de commentaires pour le moment.'
       },
       no_diagram: {
         en: 'Class hasn\'t been rated yet. Evaluate it or ask someone who took the class to do it!',
@@ -1177,6 +1213,10 @@ angular.module( 'services.appText', [])
       }
     },
     system: {
+      exclamation: {
+        en: '!',
+        fr: ' !'
+      },
       send: {
         en: 'send',
         fr: 'envoyer'
@@ -1216,6 +1256,10 @@ angular.module( 'services.appText', [])
       loading: {
         en: 'loading',
         fr: 'chargement'
+      },
+      close: {
+        en: 'close',
+        fr: 'fermer'
       }
     },
     categories: {

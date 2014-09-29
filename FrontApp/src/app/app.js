@@ -65,6 +65,7 @@ angular.module( 'shapter', [
   'services.colors', 
   'services.appText', 
   'filters.ignoreAccents',
+  'filters.shareEncoding',
   'filters.cutString',
   'filters.shorterFirst',
   'filters.orderByAccent'
