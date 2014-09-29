@@ -75,11 +75,6 @@ angular.module( 'shapter', [
   security.requestCurrentUser();
 }])
 
-.run( function( ENV ){
-  mixpanel.init( ENV.mixpanel_id );
-  behave.init( ENV.behave_api_token );
-})
-
 .run(['$rootScope', '$state', '$stateParams', function ($rootScope, $state, $stateParams) {
   $rootScope.$state = $state;
   $rootScope.$stateParams = $stateParams;
