@@ -26,7 +26,6 @@ angular.module( 'directives.comment', [
   /*** End diagrams ***/
 
   $scope.security = security;
-
   $scope.AppText = AppText;
   $scope.comment.displayEditComment = false;
 

@@ -1,8 +1,15 @@
 <div style="padding-right: 10px; margin-bottom: 30px">
 
-
   <div class="row" style="margin-top: 5px">
     <div class="col-md-12">
+
+      <div class="pull-right dropdown">
+        <small class="fa fa-chevron-down text-muted dropdown-toggle"></small>
+        <ul class="dropdown-menu">
+          <li ng-click="comment.displayReportComment = true"><a><span class="fa fa-exclamation-triangle"></span> {{ AppText.comment.report_comment | language }}</a></li>
+        </ul>
+      </div>
+
       <span class="badge badge-success pull-right"><span ng-repeat="val in comment.item.averaged_diagram" ng-show="val.name == 'Satisfaction'">{{ val.value | floor }}% de satisfaction</span></span>
       <h6 ng-show="displayCourseName" style="margin-top: 0px" sh-item-modal="comment.item" class="text-asphalt bold">{{ comment.item.name }}<span class="transparent">l</span></h6>
       <span ng-show="displayCourseName && displayStudentName"> - </span>
@@ -75,7 +82,8 @@
         </div>
 
 
-        <div class="comment-text"><!-- media body -->
+        <div class="comment-text">
+          <div ng-include="'directives/comment/reportComment.tpl.html'"></div>
           <div ng-hide="comment.displayEditComment" style="text-align: justify; white-space: pre-line; text-align: justify">{{ comment.content | commentCut:300:comment.displayAll}} <a ng-click="comment.displayAll = true" class="text-info" ng-show="comment.content.length > 300 && !comment.displayAll">... {{ AppText.comment.display_more | language }}</a><a class="text-muted" ng-click="comment.displayAll = false" ng-show="comment.content.length > 300 && comment.displayAll"> {{ AppText.comment.hide | language }}</a></div>
           <div class="media-body" ng-show="comment.displayEditComment">
             <textarea ng-model="comment.newContent" rows="8" class="form-control"></textarea>
