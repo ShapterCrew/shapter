@@ -4,7 +4,7 @@ angular.module( 'shapter.about', [
   'security'
 ])
 
-.config(['$stateProvider', 'securityAuthorizationProvider', function config( $stateProvider, securityAuthorizationProvider ) {
+.config(['$stateProvider', function config( $stateProvider ) {
   $stateProvider.state( 'about', {
     url: '/about',
     views: {
