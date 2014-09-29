@@ -1062,8 +1062,8 @@ angular.module( 'services.appText', [])
         fr: 'partager'
       },
       best_comments_share_title: {
-        en: 'The five best classes of',
-        fr: 'Les cinq meilleurs cours de'
+        en: 'Five of the best classes of',
+        fr: 'Cinq des meilleurs cours de'
       },
       best_comments_share_description_1: {
         en: 'Come and see the five best classes of',

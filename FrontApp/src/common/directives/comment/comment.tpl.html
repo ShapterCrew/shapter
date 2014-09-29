@@ -3,7 +3,7 @@
   <div class="row" style="margin-top: 5px">
     <div class="col-md-12">
 
-      <div class="pull-right dropdown">
+      <div class="pull-right dropdown" style="margin: 0px 0px 0px 5px">
         <small class="fa fa-chevron-down text-muted dropdown-toggle"></small>
         <ul class="dropdown-menu">
           <li ng-click="comment.displayReportComment = true"><a><span class="fa fa-exclamation-triangle"></span> {{ AppText.comment.report_comment | language }}</a></li>
@@ -11,6 +11,7 @@
       </div>
 
       <span class="badge badge-success pull-right"><span ng-repeat="val in comment.item.averaged_diagram" ng-show="val.name == 'Satisfaction'">{{ val.value | floor }}% de satisfaction</span></span>
+
       <h6 ng-show="displayCourseName" style="margin-top: 0px" sh-item-modal="comment.item" class="text-asphalt bold">{{ comment.item.name }}<span class="transparent">l</span></h6>
       <span ng-show="displayCourseName && displayStudentName"> - </span>
       <h6 ng-show="displayStudentName" class="media-heading bold text-asphalt" ng-click="navToStudent( comment.author.id )">{{ comment.author.firstname }} {{ comment.author.lastname }}
