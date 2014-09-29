@@ -1,12 +1,12 @@
 class FacebookPagesController < ApplicationController
   def index
 
-    clear_params = JSON.parse(Base64.decode64(URI.decode(params[:base64Params])))
+    clear_p = clear_params(params)
 
-    @permalink   = URI.join(root_url,clear_params["permalink"])
-    @type        = clear_params["type"]
-    @title       = clear_params["title"]
-    @description = clear_params["description"]
+    @permalink   = URI.join(root_url,clear_p["permalink"])
+    @type        = clear_p["type"]
+    @title       = clear_p["title"]
+    @description = clear_p["description"]
 
     @metas = {
       "og:title"       => @title,
@@ -21,6 +21,18 @@ class FacebookPagesController < ApplicationController
   end
 
   protected
+
+  def clear_params(p)
+    JSON.parse(
+      Base64.decode64(
+        URI.decode(
+          p[:base64Params]
+        )
+        .gsub('-','+')
+        .gsub('_','/')
+      )
+    )
+  end
 
   def image_meta
 
