@@ -38,7 +38,7 @@ angular.module( 'services.appText', [])
       },
       facebook_share_description: {
         en: 'Shapter makes it easy to find the best internships for your profile. Share your internships and discover where your friends took theirs!',
-        fr: 'Shapter rend la recherche de stages super facile : venez partagez vos stages et decouvrir ceux qu\'ont faits les autres !'
+        fr: 'Shapter rend la recherche de stages super facile : venez partagez vos stages et découvrir ceux qu\'ont faits les autres !'
       },
       me_too: {
         en: 'Add your internship!',

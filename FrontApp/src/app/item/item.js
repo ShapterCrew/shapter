@@ -217,11 +217,12 @@ angular.module('shapter.item', [
   facebookData = {
     permalink: '#/start?item=' + item.id,
     type: "default",
-    title: $filter( 'replaceAccents' )($filter( 'language' )( AppText.item.facebook_need_comment_title ) + ' ' + item.name ),
-    description: $filter( 'replaceAccents' )( $filter( 'language' )( AppText.item.facebook_need_comment_description ))
+    title: $filter( 'language' )( AppText.item.facebook_need_comment_title ) + ' ' + item.name,
+    description: $filter( 'language' )( AppText.item.facebook_need_comment_description )
   };
 
   $scope.facebookData = btoa( JSON.stringify( facebookData ));
+  console.log( $scope.facebookData );
   console.log(JSON.stringify( facebookData ));
 
   $scope.$watch( function(){
