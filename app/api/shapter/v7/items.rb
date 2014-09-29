@@ -7,7 +7,7 @@ module Shapter
 
       before do 
         #check_confirmed_student!
-        check_confirmed_account!
+        #check_confirmed_account!
       end
 
       namespace :items do 
@@ -33,6 +33,7 @@ module Shapter
               end
 
           results = if !!params[:cart_only]
+                      check_confirmed_account! # logged users only can have a cart
                       (f & current_user.cart_items)
                     else
                       f
@@ -40,9 +41,6 @@ module Shapter
 
           present :number_of_results, results.size
           present :items, results[nstart..nstop], with: Shapter::Entities::Item, entity_options: entity_options
-          unless (params[:filter] - current_user.school_ids.map(&:to_s)).empty?
-            Behave.delay.track current_user.pretty_id, "search on browse"
-          end
         end
         #}}}
 
@@ -137,6 +135,7 @@ module Shapter
           #{{{ cart
           desc "add item to cart"
           post :cart do 
+            check_confirmed_student!
             error!("user is no verified student of this school",401) unless @item.user_can_comment?(current_user)
             do_not_track = (current_user.cart_items.include?(@item))
             @item.interested_users << current_user
@@ -152,6 +151,7 @@ module Shapter
           #{{{ uncart
           desc "removes the item from cart"
           post :uncart do 
+            check_confirmed_student!
             error!("user is no verified student of this school",401) unless @item.user_can_comment?(current_user)
             do_not_track = !(current_user.cart_items.include?(@item))
             @item.interested_users.delete(current_user)
@@ -164,39 +164,10 @@ module Shapter
           end
           #}}}
 
-          #{{{ constructor
-          desc "add item to constructor"
-          post :constructor do 
-            error!("user is no verified student of this school",401) unless @item.user_can_comment?(current_user)
-            do_not_track = ( current_user.constructor_items.include?(@item))
-            @item.constructor_users << current_user
-            if @item.save
-              present @item, with: Shapter::Entities::Item, entity_options: entity_options
-              Behave.delay.track(current_user.pretty_id, "add to constructor", item: @item.pretty_id ) unless do_not_track
-            else
-              error!(@item.errors.messages)
-            end
-          end
-          #}}}
-
-          #{{{ unconstructor
-          desc "removes the item from constructor"
-          post :unconstructor do 
-            error!("user is no verified student of this school",401) unless @item.user_can_comment?(current_user)
-            do_not_track = !( current_user.constructor_items.include?(@item))
-            @item.constructor_users.delete(current_user)
-            if @item.save
-              present @item, with: Shapter::Entities::Item, entity_options: entity_options
-              Behave.delay.track(current_user.pretty_id, "remove from constructor", item: @item.pretty_id ) unless do_not_track
-            else
-              error!(@item.errors.messages)
-            end
-          end
-          #}}}
-
           #{{{ destroy
           desc "destroy an item"
           delete do 
+            check_user_admin!
             error!("forbidden",403) unless current_user.shapter_admin
 
             @item.destroy
@@ -219,6 +190,7 @@ module Shapter
             end
           end
           put :update do 
+            check_user_admin!
             error!("forbidden",403) unless current_user.shapter_admin
 
             ok_params = [
@@ -240,6 +212,7 @@ module Shapter
             requires :syllabus, type: String, desc: "syllabus"
           end
           put :update_syllabus do 
+            check_confirmed_student!
             error!("forbidden",403) unless ( (current_user.schools & @item.tags.schools).any? or current_user.shapter_admin)
 
             @item.update_attribute(:syllabus, params[:syllabus])

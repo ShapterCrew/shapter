@@ -33,12 +33,6 @@ describe Shapter::V7::Users do
       end
     end
 
-    context "when NOT logged in" do 
-      it "denies access" do 
-        post "users/me"
-        access_denied(@response).should be true
-      end
-    end
   end
 
   #}}}

@@ -4,9 +4,9 @@ module Shapter
       helpers Shapter::Helpers::FilterHelper
       format :json
 
-      before do 
-        check_user_login!
-      end
+      #before do 
+      #  check_user_login!
+      #end
 
       namespace :internships do 
 
@@ -122,6 +122,8 @@ module Shapter
             optional :end_date, type: Date, desc: "ending date"
           end
           put do 
+            check_user_login!
+            error!("forbidden",401) unless current_user.shapter_admin or @internship.trainee == current_user
             permitted = [
               :title,
               :start_date,
@@ -142,6 +144,7 @@ module Shapter
           #{{{ destroy
           desc "destroy an internship"
           delete do 
+            check_user_login!
             error!("forbidden",401) unless (current_user.shapter_admin or @internship.trainee == current_user)
             @internship.destroy
             present :status, :destroyed
@@ -158,26 +161,28 @@ module Shapter
             end
           end
           put :tags do
+            check_user_login!
+            error!("forbidden",401) unless (current_user.shapter_admin or @internship.trainee == current_user)
 
-          new_tags = (p = params[:tags_by_name_cat]).nil? ? [] : p.map{ |h|
-            if Internship.acceptable_categories.include?(h["tag_category"])
-              Tag.find_or_create_by(name: h["tag_name"], category: h["tag_category"])
+            new_tags = (p = params[:tags_by_name_cat]).nil? ? [] : p.map{ |h|
+              if Internship.acceptable_categories.include?(h["tag_category"])
+                Tag.find_or_create_by(name: h["tag_name"], category: h["tag_category"])
+              else
+                nil
+              end
+            }.compact
+
+            old_tags = ((p = params[:tags_by_ids]).nil? ? [] : Tag.find(params[:tags_by_ids])).compact
+
+            tags = (new_tags + old_tags).uniq
+
+            @internship.tags << tags
+
+            if @internship.save
+              present @internship, with: Shapter::Entities::Internship, entity_options: entity_options
             else
-              nil
+              error!(@internship.errors)
             end
-          }.compact
-
-          old_tags = ((p = params[:tags_by_ids]).nil? ? [] : Tag.find(params[:tags_by_ids])).compact
-
-          tags = (new_tags + old_tags).uniq
-
-           @internship.tags << tags
-
-          if @internship.save
-            present @internship, with: Shapter::Entities::Internship, entity_options: entity_options
-          else
-            error!(@internship.errors)
-          end
 
           end
           #}}}
@@ -185,27 +190,28 @@ module Shapter
           #{{{ remove_tags
           desc "remove tags from internship"
           delete :tags do 
+            check_user_login!
             error!("forbidden",401) unless (current_user.shapter_admin or @internship.trainee == current_user)
 
-          new_tags = (p = params[:tags_by_name_cat]).nil? ? [] : p.map{ |h|
-            if Internship.acceptable_categories.include?(h["tag_category"])
-              Tag.find_or_create_by(name: h["tag_name"], category: h["tag_category"])
+            new_tags = (p = params[:tags_by_name_cat]).nil? ? [] : p.map{ |h|
+              if Internship.acceptable_categories.include?(h["tag_category"])
+                Tag.find_or_create_by(name: h["tag_name"], category: h["tag_category"])
+              else
+                nil
+              end
+            }.compact
+
+            old_tags = ((p = params[:tags_by_ids]).nil? ? [] : Tag.find(params[:tags_by_ids])).compact
+
+            tags = (new_tags + old_tags).uniq
+
+            tags.each{|t| @internship.tags.delete(t)}
+
+            if @internship.save and tags.map(&:save).reduce(:&)
+              present @internship, with: Shapter::Entities::Internship, entity_options: entity_options
             else
-              nil
+              error!(@internship.error)
             end
-          }.compact
-
-          old_tags = ((p = params[:tags_by_ids]).nil? ? [] : Tag.find(params[:tags_by_ids])).compact
-
-          tags = (new_tags + old_tags).uniq
-
-          tags.each{|t| @internship.tags.delete(t)}
-
-          if @internship.save and tags.map(&:save).reduce(:&)
-            present @internship, with: Shapter::Entities::Internship, entity_options: entity_options
-          else
-            error!(@internship.error)
-          end
 
           end
           #}}}

@@ -3,16 +3,11 @@ module Shapter
     class Categories < Grape::API
       format :json
 
-      before do 
-        check_confirmed_account!
-      end
+      #before do 
+      #  check_confirmed_account!
+      #end
 
       namespace :categories do 
-
-        desc "index: get a list  of categories"
-#        post do 
-#          present :categories, Tag.acceptable_categories
-#        end
 
         desc "index: get a list  of categories for items"
         post :for_items do 

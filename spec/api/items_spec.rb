@@ -92,9 +92,9 @@ describe Shapter::V7::Items do
   # {{{ filter
   describe :filter do 
     context "when logged off" do 
-      it "should deny access" do 
+      it "should NOT deny access" do 
         post "items/filter", {filter: @filter}
-        access_denied(response).should be true
+        access_denied(response).should be false
       end
     end
 
@@ -143,9 +143,9 @@ describe Shapter::V7::Items do
   #{{{ get
   describe :get do 
     context "when logged off" do 
-      it "should deny access" do 
+      it "should NOT deny access" do 
         post "items/#{@item.id}"
-        access_denied(response).should be true
+        access_denied(response).should be false
       end
     end
 
@@ -401,9 +401,9 @@ describe Shapter::V7::Items do
     describe :index do
 
       context "when logged of" do
-        it "denies access" do 
+        it "does NOT denies access" do 
           post "items/#{@item.id}/comments"
-          access_denied(@response).should be true
+          access_denied(@response).should be false
         end
       end
 

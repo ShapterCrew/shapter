@@ -19,13 +19,14 @@ module Shapter
         #}}}
 
         namespace :me do 
-          before do 
-            check_user_login!
-          end
+          #before do 
+          #  check_user_login!
+          #end
 
           #{{{ /users/me
           post do 
-            present current_user, with: Shapter::Entities::User, entity_options: entity_options
+            u = current_user || User.new
+            present u, with: Shapter::Entities::User, entity_options: entity_options
           end
           #}}}
 
@@ -110,6 +111,7 @@ module Shapter
             optional :constructor_max       , type: Integer, desc: "maximum items in constructor list. default = 10", default: 10
           end
           post :latest_comments do
+            check_confirmed_student!
 
             unless params[:hide_my_items]
               my_items             = current_user.items            .not.where(comments: nil).flat_map(&:comments).sort_by{|c| c.updated_at}.reverse.take(params[:my_max])
@@ -130,7 +132,6 @@ module Shapter
 
         resource ":user_id" do 
           before do 
-            check_confirmed_account!
             params do 
               requires :user_id, type: String, desc: "id of the user"
             end
@@ -140,14 +141,12 @@ module Shapter
           #{{{ alike
           desc "get a list of users that ressemble the user"
           post :alike do 
-            check_confirmed_student!
             present :alike_users, alike_users(@user), with: Shapter::Entities::User, entity_options: entity_options
           end
           #}}}
 
           #{{{ get user
           post do 
-            #check_confirmed_student!
             present @user, with: Shapter::Entities::User, entity_options: entity_options
           end
           #}}}
@@ -155,6 +154,7 @@ module Shapter
           #{{{ friends
           desc "get user's friends from facebook x shapter"
           post :friends do 
+            check_confirmed_account!
             present @user.friends, with: Shapter::Entities::User, entity_options: entity_options
           end
           #}}}

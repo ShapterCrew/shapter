@@ -5,7 +5,7 @@ module Shapter
 
       before do 
         #check_confirmed_student!
-        check_confirmed_account!
+        #check_confirmed_account!
       end
 
       namespace :items do 
@@ -38,6 +38,7 @@ module Shapter
               end
             end
             post :create do
+              check_confirmed_student!
               error!("forbidden",403) unless @item.user_can_comment?(current_user)
               s = params[:sharedDoc][:file].split(',').last
               tempfile = Tempfile.new('upload')
@@ -89,6 +90,7 @@ module Shapter
                 optional :file, desc: "file"
               end
               put do 
+                check_confirmed_student!
                 error!("forbidden",403) unless @shared_doc.author == current_user or current_user.shapter_admin?
 
                 clean_p = [
@@ -108,6 +110,7 @@ module Shapter
               #{{{ delete
               desc "delete document"
               delete do 
+                check_confirmed_student!
                 error!("forbidden",403) unless @shared_doc.author == current_user or current_user.shapter_admin?
                 @shared_doc.destroy
                 @item.save
@@ -121,6 +124,7 @@ module Shapter
                 requires :score, type: Integer, desc: "score"
               end
               put :score do 
+                check_confirmed_student!
                 error!("forbidden",403) unless @item.user_can_comment?(current_user)
                 s = params[:score].to_i
 
@@ -163,7 +167,6 @@ module Shapter
               #{{{ countDl
               desc "add +1 to download counter"
               post :countDl do
-                error!("forbidden",403) unless @item.user_can_comment?(current_user)
                 @shared_doc.inc(dl_count: 1) 
                 present :count, @shared_doc.dl_count
               end
