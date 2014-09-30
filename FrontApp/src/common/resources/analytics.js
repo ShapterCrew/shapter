@@ -59,9 +59,6 @@ angular.module('resources.analytics', [
       b.__SV=1.2;
     }
   })(document,window.mixpanel||[]);
-
-  mixpanel.init( ENV.mixpanel_id );
-  behave.init( ENV.behave_api_token );
 }])
 
 
