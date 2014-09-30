@@ -6,7 +6,7 @@ angular.module( 'shapter.student', [
   'services.appText'
 ])
 
-.config(['$stateProvider', 'securityAuthorizationProvider', function config( $stateProvider, securityAuthorizationProvider ) {
+.config(['$stateProvider', function config( $stateProvider ) {
   $stateProvider.state( 'student in school', {
     url: '/schools/:schoolId/student/:studentId',
     views: {
@@ -15,10 +15,7 @@ angular.module( 'shapter.student', [
         templateUrl: 'student/student.tpl.html'
       }
     },
-    data:{ pageTitle: 'Profil' },
-    resolve: {
-      authenticatedUser: securityAuthorizationProvider.requireConfirmedUser
-    }
+    data:{ pageTitle: 'Profil' }
   }).state( 'student', {
     url: '/student/:studentId',
     views: {
@@ -27,10 +24,7 @@ angular.module( 'shapter.student', [
         templateUrl: 'student/student.tpl.html'
       }
     },
-    data:{ pageTitle: 'Profil' },
-    resolve: {
-      authenticatedUser: securityAuthorizationProvider.requireConfirmedUser
-    }
+    data:{ pageTitle: 'Profil' }
   });
 }])
 
