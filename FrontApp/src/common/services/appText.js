@@ -669,7 +669,7 @@ angular.module( 'services.appText', [])
         fr: 'Profils similaires'
       },
       manage_my_course: {
-        en: 'Manage my course at', 
+        en: 'Manage my courses at', 
         fr: 'Gérer mes cours à'
       },
       in_common: {
