@@ -1,11 +1,14 @@
-angular.module('shapter.header', ['directives.confirmAlert', 'directives.behaveAlert'])
+angular.module('shapter.header', [
+  'directives.confirmAlert', 
+  'directives.behaveAlert'
+])
+
 .directive( 'shHeader', ['$location', 'security', '$state', 'Analytics', 'BehaveAlertFactory', '$stateParams', 'AppText', '$rootScope', function( $location, security, $state, Analytics, BehaveAlertFactory, $stateParams, AppText, $rootScope){
 
   return {
     restrict: 'E',
     templateUrl: 'header/header.tpl.html',
     link: function(scope, element, attr){
-
 
       scope.$stateParams = $stateParams;
       scope.$state = $state;
