@@ -21,7 +21,7 @@ angular.module( 'services.appText', [])
     },
     internships: {
       internship_created: {
-        en: 'Super, your internship has been created!',
+        en: 'Great, your internship has been created!',
         fr: 'Super, ton stage a bien été créé !'
       },
       share_your_internship: {
@@ -69,7 +69,7 @@ angular.module( 'services.appText', [])
         fr: 'Si tu devais décrire ton poste en un mot ?'
       },
       position_examples: {
-        en: 'ex: data analyst, researcher, marketing, photocopies ...',
+        en: 'ex: data analyst, research scientist, marketing, photocopies ...',
         fr: 'ex : data analyst, chercheur, marketing, stagiaire photocopies ...'
       },
       description: {
@@ -669,7 +669,7 @@ angular.module( 'services.appText', [])
         fr: 'Profils similaires'
       },
       manage_my_course: {
-        en: 'Manage my course at', 
+        en: 'Manage my courses at', 
         fr: 'Gérer mes cours à'
       },
       in_common: {
@@ -773,7 +773,7 @@ angular.module( 'services.appText', [])
         fr: 'Pas d\'évaluations pour le moment. Évalue le cours ou demande à quelqu\'un qui l\'a suivi de le faire !'
       },
       no_description: {
-        en: 'We don\'t have the official description for this course. Could you upload it ? Click on the blue button above and coppy-paste it!',
+        en: 'We don\'t have the official description for this course. Could you upload it ? Click on the blue button above and copy-paste it!',
         fr: 'Nous n\'avons pas la description du cours. Clique sur "Editer la description" et copie-colle la pour que les autres puissent en profiter !'
       },
       diagram: {
