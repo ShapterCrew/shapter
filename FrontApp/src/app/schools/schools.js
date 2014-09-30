@@ -5,8 +5,9 @@ angular.module( 'shapter.schools', [
   'services.appText'
 ])
 
-.config(['$stateProvider', 'securityAuthorizationProvider', function config( $stateProvider, securityAuthorizationProvider ) {
-  $stateProvider.state( 'schools', {
+.config(['$stateProvider', function config( $stateProvider ) {
+  $stateProvider
+  .state( 'schools', {
     url: '/schools',
     views: {
       "main": {
@@ -14,11 +15,9 @@ angular.module( 'shapter.schools', [
         templateUrl: 'schools/schools.tpl.html'
       }
     },
-    data:{ pageTitle: 'Schools' },
-    resolve: {
-      authenticatedUser: securityAuthorizationProvider.requireConfirmedUser
-    }
-  }).state( 'campusPageAdmin', {
+    data:{ pageTitle: 'Schools' }
+  })
+  .state( 'campusPageAdmin', {
     url: '/schools/:schoolId/admin',
     views: {
       "main": {
@@ -39,7 +38,8 @@ angular.module( 'shapter.schools', [
         return Tag.get( $stateParams.schoolId );
       }]
     }
-  }).state( 'formation', {
+  })
+  .state( 'formation', {
     url: '/schools/:schoolId/formations/:formationId',
     views: {
       "main": {
@@ -61,7 +61,8 @@ angular.module( 'shapter.schools', [
         return Formation.formations( tag_ids );
       }]
     }
-  }).state( 'school', {
+  })
+  .state( 'school', {
     url: '/schools/:schoolId',
     views: {
       "main": {
@@ -90,9 +91,9 @@ angular.module( 'shapter.schools', [
     return $stateParams.schoolId;
   }, function( newValue ){
     if( newValue ){
-    Tag.get( $stateParams.schoolId ).then( function( school ){
-      $rootScope.school = school;
-    });
+      Tag.get( $stateParams.schoolId ).then( function( school ){
+        $rootScope.school = school;
+      });
     }
     else {
       $rootScope.school = null;
