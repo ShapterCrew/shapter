@@ -27,7 +27,6 @@ angular.module( 'shapter.schools', [
     },
     data:{ pageTitle: 'School Admin' },
     resolve: {
-      authenticatedUser: securityAuthorizationProvider.requireAdminUser,
       formation: ['Formation', '$stateParams', function( Formation, $stateParams ){
         var tag_ids = [
           $stateParams.schoolId
@@ -49,7 +48,6 @@ angular.module( 'shapter.schools', [
     },
     data:{ pageTitle: 'School' },
     resolve: {
-      authenticatedUser: securityAuthorizationProvider.requireConfirmedUser,
       school: ['Tag', '$stateParams', function( Tag, $stateParams ){
         return Tag.get( $stateParams.schoolId );
       }],
@@ -72,7 +70,6 @@ angular.module( 'shapter.schools', [
     },
     data:{ pageTitle: 'School' },
     resolve: {
-      authenticatedUser: securityAuthorizationProvider.requireConfirmedUser,
       formation: ['Formation', '$stateParams', function( Formation, $stateParams ){
         var tag_ids = [
           $stateParams.schoolId
