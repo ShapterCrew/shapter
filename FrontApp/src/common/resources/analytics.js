@@ -1,10 +1,4 @@
-angular.module('resources.analytics', [ 'shapter.config' ])
-
-.run( function( ENV ){
-  mixpanel.init( ENV.mixpanel_id );
-  behave.init( ENV.behave_api_token );
-})
-
+angular.module('resources.analytics', [])
 
 .factory('Analytics', [function(){
 
