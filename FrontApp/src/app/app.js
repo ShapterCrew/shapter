@@ -3,7 +3,7 @@ angular.module( 'shapter', [
   'templates-common',
   'ngSocial',
   'ngAnimate',
-//  'LocalStorageModule',
+  'LocalStorageModule',
   'ui.router',
   'ui-rangeSlider',
   'ui.keypress',
