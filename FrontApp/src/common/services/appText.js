@@ -205,8 +205,8 @@ angular.module( 'services.appText', [])
         fr: 'Tu dois être identifié comme étudiant pour pouvoir contribuer sur Shapter !'
       },
       back: {
-        en: 'back',
-        fr: 'retour'
+        en: 'back to connect',
+        fr: 'retour vers connexion'
       },
       create_account: {
         en: 'Create account',
@@ -741,7 +741,7 @@ angular.module( 'services.appText', [])
         fr: 'Quelqu\'un a-t-il suivi'
       },
       facebook_need_comment_description: {
-        en: 'I\'d like to know more. Can someone share some insight on this class ?',
+        en: 'I\'d like to know more. Can someone share some insight about this class ?',
         fr: 'Je cherche à me renseigner, quelqu\'un peut-il témoigner dessus ?'
       },
       comment: {
