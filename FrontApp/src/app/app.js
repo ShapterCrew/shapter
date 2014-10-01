@@ -3,6 +3,7 @@ angular.module( 'shapter', [
   'templates-common',
   'ngSocial',
   'ngAnimate',
+  'LocalStorageModule',
   'ui.router',
   'ui-rangeSlider',
   'ui.keypress',
@@ -61,7 +62,6 @@ angular.module( 'shapter', [
   'directives.blurFocus',
   'security.service',
   'security.authorization',
-  'services.diagconv',
   'services.colors', 
   'services.appText', 
   'filters.ignoreAccents',
@@ -70,6 +70,14 @@ angular.module( 'shapter', [
   'filters.shorterFirst',
   'filters.orderByAccent'
 ])
+
+.run(['localStorageService', '$window', function( localStorageService, $window ){
+  if( localStorageService.get('back url')){
+    var url = '#' + localStorageService.get('back url');
+    localStorageService.remove('back url');
+    $window.location.href = url;
+  }
+}])
 
 .run( function( ENV ){
   mixpanel.init( ENV.mixpanel_id );

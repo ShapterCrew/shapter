@@ -87,7 +87,8 @@ module.exports = {
       'vendor/Leaflet.awesome-markers/dist/leaflet.awesome-markers.js',
       'vendor/angular-social/angular-social.js',
       'vendor/canvg/dist/canvg.min.js',
-      'vendor/canvg/dist/canvg.bundle.min.js'
+      'vendor/canvg/dist/canvg.bundle.min.js',
+      'vendor/angular-local-storage/angular-local-storage.js'
     ],
     css: [
     ],
