@@ -135,7 +135,7 @@ module Shapter
           #{{{ cart
           desc "add item to cart"
           post :cart do 
-            check_confirmed_student!
+            check_confirmed_account!
             error!("user is no verified student of this school",401) unless @item.user_can_comment?(current_user)
             do_not_track = (current_user.cart_items.include?(@item))
             @item.interested_users << current_user
@@ -151,7 +151,7 @@ module Shapter
           #{{{ uncart
           desc "removes the item from cart"
           post :uncart do 
-            check_confirmed_student!
+            check_confirmed_account!
             error!("user is no verified student of this school",401) unless @item.user_can_comment?(current_user)
             do_not_track = !(current_user.cart_items.include?(@item))
             @item.interested_users.delete(current_user)
