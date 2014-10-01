@@ -71,6 +71,10 @@ angular.module( 'shapter', [
   'filters.orderByAccent'
 ])
 
+.config(['localStorageServiceProvider', function(localStorageServiceProvider){
+    localStorageServiceProvider.setPrefix('shapter');
+}])
+
 .run(['localStorageService', '$window', function( localStorageService, $window ){
   if( localStorageService.get('back url')){
     var url = '#' + localStorageService.get('back url');
