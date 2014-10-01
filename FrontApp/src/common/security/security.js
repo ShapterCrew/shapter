@@ -63,7 +63,7 @@ angular.module('security.service', [
     }, function(error){
       loginModal = null;
       queue.cancelAll();
-      redirect();
+      //redirect();
     });
   }
 
@@ -77,11 +77,12 @@ angular.module('security.service', [
     loginModal = null;
     if ( success ) {
       console.log( "retrying queue" );
+      $rootScope.$broadcast('login success');
       queue.retryAll();
     } else {
       console.log( "canceling queue" );
       queue.cancelAll();
-      redirect();
+      //redirect();
     }
   }
 
@@ -102,7 +103,7 @@ angular.module('security.service', [
     }, function(error){
       forgotPasswordModal = null;
       queue.cancelAll();
-      redirect();
+      //redirect();
     });
   }
 
@@ -131,6 +132,10 @@ angular.module('security.service', [
 
   // The public API of the service
   var service = {
+
+    isLoginModalOpen: function(){
+      return !!loginModal;
+    },
 
     // Get the first reason for needing a login
     getLoginReason: function() {
@@ -183,7 +188,7 @@ angular.module('security.service', [
           if( service.isConfirmedStudent() ){
             closeEmailLoginModal(true);
             if( !queue.hasMore()){
-              redirect();
+              //redirect();
             }
             Analytics.identify( response );
             Analytics.loginSuccess( response );
@@ -194,7 +199,7 @@ angular.module('security.service', [
           else if ( service.isConfirmedUser() ) {
             closeEmailLoginModal(true);
             if( !queue.hasMore()){
-              redirect();
+              //redirect();
             }
             Analytics.identify( response );
             Analytics.loginSuccess( response );
@@ -238,7 +243,7 @@ angular.module('security.service', [
     cancelLogin: function() {
       closeLoginModal(false);
       Analytics.cancelLogin();
-      redirect();
+      //redirect();
     },
 
     // Logout the current user and redirect
@@ -251,7 +256,7 @@ angular.module('security.service', [
         });
         service.currentUser = null;
         Analytics.logout();
-        redirect(redirectTo);
+        //redirect(redirectTo);
       });
     },
 
@@ -384,7 +389,7 @@ angular.module('security.service', [
       return Restangular.all('users').customPUT({user: {password:password, password_confirmation:password, reset_password_token:token}}, "password", {}, {}).then(function(response) {
         alerts.clear();
         alerts.add("success", localizedMessages.get('forgotPassword.success'));
-        redirect();
+        //redirect();
         return response;
       }, function(x) {
         alerts.clear();
@@ -451,7 +456,7 @@ angular.module('security.service', [
           return service.currentUser;
         },
         function(error) {
-          redirect();
+          //redirect();
         });
       }
     },

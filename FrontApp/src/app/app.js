@@ -76,6 +76,10 @@ angular.module( 'shapter', [
   behave.init( ENV.behave_api_token );
 })
 
+.run(['security', function( security ){
+  security.requestCurrentUser();
+}])
+
 .run(['$rootScope', '$state', '$stateParams', function ($rootScope, $state, $stateParams) {
   $rootScope.$state = $state;
   $rootScope.$stateParams = $stateParams;

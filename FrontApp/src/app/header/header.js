@@ -8,7 +8,6 @@ angular.module('shapter.header', ['directives.confirmAlert', 'directives.behaveA
 
 
       scope.$stateParams = $stateParams;
-      scope.name = security.isAuthenticated() ? security.currentUser.firstname + ' ' + security.currentUser.lastname : null;
       scope.$state = $state;
       scope.root = $rootScope;
       scope.isCollapsed = true;

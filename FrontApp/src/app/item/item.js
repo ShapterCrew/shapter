@@ -213,6 +213,10 @@ angular.module('shapter.item', [
   $scope.numberOfItems = numberOfItems;
   $location.search( 'item', item.id );
 
+  $scope.$on('login success', function(){
+    item.loadComments();
+  });
+
   facebookData = {
     permalink: '#/start?item=' + item.id,
     type: "default",

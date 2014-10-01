@@ -878,6 +878,10 @@ angular.module( 'services.appText', [])
       }
     },
     header: {
+      connect: {
+        en: 'Connect',
+        fr: 'Connexion'
+      },
       home: {
         en: 'Home',
         fr: 'Accueil'

@@ -1,7 +1,8 @@
 angular.module('security.emailLogin', ['services.localizedMessages'])
 
-.controller('EmailLoginCtrl', ['Restangular', 'Item', '$scope', 'security', '$window', 'AppText', 'User', function(Restangular, Item, $scope, security, $window, AppText, User ){
+.controller('EmailLoginCtrl', ['Restangular', 'Item', '$scope', 'security', '$window', 'AppText', 'User', '$modalInstance', function(Restangular, Item, $scope, security, $window, AppText, User, $modalInstance ){
 
+  $scope.close = $modalInstance.close;
   $scope.AppText = AppText;
   $scope.loginUser = {};
   $scope.signupUser = {};
