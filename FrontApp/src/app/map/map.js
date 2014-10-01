@@ -72,15 +72,21 @@ angular.module( 'shapter.maps', [
   $scope.options = {
     scrollWheelZoom: false
   };
+  $scope.security = security;
   $scope.isOneOfMySchools = function(){
-    var id = $stateParams.schoolId;
-    var out = false;
-    angular.forEach( security.currentUser.schools, function( school ){
-      if( school.id == id ){
-        out = true;
-      }
-    });
-    return out;
+    if( !security.isConfirmedStudent() ){
+      return false;
+    }
+    else {
+      var id = $stateParams.schoolId;
+      var out = false;
+      angular.forEach( security.currentUser.schools, function( school ){
+        if( school.id == id ){
+          out = true;
+        }
+      });
+      return out;
+    }
   };
 
   //Show the popup on marker click

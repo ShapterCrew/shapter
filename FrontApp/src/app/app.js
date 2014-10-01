@@ -232,8 +232,8 @@ angular.module( 'shapter', [
     en: "Please login to access the application"
   },
   'login.error.invalidCredentials': {
-    fr: "Mauvaise combinaison login/mot de passe.",
-    en: "Wrong password / login combination"
+    fr: "Mauvaise combinaison login/mot de passe. Pour créer un nouveau compte, clique sur \"créér un compte\" à côté du bouton !",
+    en: "Wrong password / login combination. To create a new account, click on \"create account\" beside the button!"
   },
   'login.error.serverError': {
     en: "Il y a eu un problème d'authentification.", //Use {{exception}} for more details

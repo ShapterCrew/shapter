@@ -220,7 +220,7 @@ angular.module('shapter.item', [
   facebookData = {
     permalink: '#/start?item=' + item.id,
     type: "default",
-    title: $filter( 'language' )( AppText.item.facebook_need_comment_title ) + ' ' + item.name,
+    title: $filter( 'language' )( AppText.item.facebook_need_comment_title ) + ' ' + item.name + $filter( 'language' )( AppText.system.question_mark ),
     description: $filter( 'language' )( AppText.item.facebook_need_comment_description )
   };
 

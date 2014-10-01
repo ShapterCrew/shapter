@@ -232,8 +232,8 @@ angular.module('security.service', [
         alerts.clear();
         if (angular.isDefined(x.data.error)) {
           alerts.add("danger", {
-            fr: "Combinaison email/mot de passe invalide.",
-            en: "Invalid email / password combination"
+            fr: "Mauvaise combinaison email/mot de passe. Pour créer un nouveau compte, clique en bas sur \"créér un compte\" !",
+            en: "Wrong password / login combination. To create a new account, click on \"create account\" below!"
           });
         }
       });

@@ -713,8 +713,8 @@ angular.module( 'services.appText', [])
         fr: 'Demande des commentaires'
       },
       facebook_need_comment_title: {
-        en: 'I\'m looking for someone who took',
-        fr: 'Je cherche quelqu\'un qui a suivi'
+        en: 'Anyone to share some insights about',
+        fr: 'Quelqu\'un a-t-il suivi'
       },
       facebook_need_comment_description: {
         en: 'I\'d like to have feedbacks on it on Shapter, who clan help me?',
@@ -1229,6 +1229,14 @@ angular.module( 'services.appText', [])
       }
     },
     system: {
+      or: {
+        en: 'or',
+        fr: 'ou'
+      },
+      question_mark: {
+        en: '?',
+        fr: ' ?'
+      },
       exclamation: {
         en: '!',
         fr: ' !'
