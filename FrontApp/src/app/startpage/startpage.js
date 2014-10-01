@@ -20,8 +20,7 @@ angular.module('shapter.startpage', [
 
   $scope.AppText = AppText;
   $scope.security = security;
-
-  security.requestCurrentUser().then( function( response ){
+  $scope.startpageRedirect = function(){
     // has at least one school
     if( security.isConfirmedStudent() ){
       var schoolId = security.currentUser.schools[0].id;
@@ -48,8 +47,8 @@ angular.module('shapter.startpage', [
         $location.path("/schools");
       }
 
-      Analytics.identify( response );
-      Analytics.loginSuccess( response );
+      Analytics.identify( security.currentUser );
+      Analytics.loginSuccess( security.currentUser );
       return {success: true};
     }
 
@@ -57,7 +56,10 @@ angular.module('shapter.startpage', [
     else if ( security.isAuthenticated() && security.isConfirmedUser() ){
       $location.path("/confirmationSent");
     }
+  };
 
+  security.requestCurrentUser().then( function(){
+     $scope.startpageRedirect();
   }, function(x){
     console.log( x );
   });
@@ -74,8 +76,12 @@ angular.module('shapter.startpage', [
     $location.path('cgu');
   };
 
+  $scope.$on('login success', function(){
+    $scope.startpageRedirect();
+  });
+
   $scope.emailLogin = function(){
-    security.showLogin();
+    security.showLogin( null );
   };
 
   $scope.scroll = function(){

@@ -152,6 +152,8 @@ angular.module('security.service', [
 
     // Show the modal login dialog
     showLogin: function( reason, access ) {
+      console.log( 'show login' );
+      console.log( access );
       openLoginModal( reason, access );
       Analytics.showLogin();
     },
