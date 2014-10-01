@@ -3,7 +3,6 @@ angular.module( 'shapter.contribute', [
   'ui.bootstrap',
   'security',
   'resources.user',
-  'resources.analytics',
   'services.appText'
 ])
 

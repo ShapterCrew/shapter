@@ -41,7 +41,7 @@ angular.module('shapter.startpage', [
     }
 
     // has no school but confirmed email
-    else if ( security.isConfirmed() ) {
+    else if ( security.isConfirmedUser() ) {
 
       // if first connexion
       if( ( security.currentUser.provider == 'facebook' && security.currentUser.sign_in_count < 2 ) || ( security.currentUser.provider != 'facebook' && security.currentUser.sign_in_count < 3) ){
