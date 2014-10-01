@@ -15,7 +15,6 @@ class API < Grape::API
     mount Shapter::V7::SignupPermissions
     mount Shapter::V7::SignupFunnel
     mount Shapter::V7::ConstructorFunnel
-    mount Shapter::V7::CourseBuilder
     mount Shapter::V7::ConfirmStudents
     mount Shapter::V7::SharedDocs
     mount Shapter::V7::EntityAttributes

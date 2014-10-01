@@ -145,7 +145,7 @@
 
 @import '../../src/common/directives/confirmAlert/confirmAlert.less';
 
-@import '../../vendor/angular-social/angular-social.less';
+@import 'social.less';
 
 html, body{
   height: 100%;
@@ -175,7 +175,10 @@ a {
 }
 
 .text-default {
-  color: @brand-primary;
+  color: @wet-asphalt;
+  &:hover {
+    color: @wet-asphalt;
+  }
 }
 
 [ng-click],

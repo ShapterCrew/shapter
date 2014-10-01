@@ -70,7 +70,13 @@
                 anciens et donne le tiens !'"
                 data-image="'http://shapter.com/assets/img/logo_blue_square.png'"
                 style="display: inline; margin-left: 20px;">
-                <li class="ng-social-facebook">{{ AppText.school.share | language }}</li>
+                <li class="ng-social-facebook">
+                  <span class="fa-stack">
+                    <i class="fa fa-square fa-stack-2x"></i>
+                    <i class="fa fa-facebook fa-stack-1x text-facebook"></i>
+                  </span>
+                  {{ AppText.school.share | language }}
+                </li>
               </ul>
 
             </div>

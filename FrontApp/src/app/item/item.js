@@ -5,7 +5,7 @@ angular.module('shapter.item', [
   'editItemTags'
 ])
 
-.config(['$stateProvider', 'securityAuthorizationProvider', function( $stateProvider, securityAuthorizationProvider ){
+.config(['$stateProvider', function( $stateProvider ){
   $stateProvider.state( 'item', {
     url: '/item/:itemId',
     views: {
@@ -16,7 +16,6 @@ angular.module('shapter.item', [
     },
     data: { pageTitle: 'Cours' },
     resolve: {
-      authenticatedUser: securityAuthorizationProvider.requireConfirmedUser,
       item: ['Item', '$stateParams', function( Item, $stateParams ){
         return Item.load( $stateParams.itemId );
       }]
@@ -214,10 +213,14 @@ angular.module('shapter.item', [
   $scope.numberOfItems = numberOfItems;
   $location.search( 'item', item.id );
 
+  $scope.$on('login success', function(){
+    item.loadComments();
+  });
+
   facebookData = {
     permalink: '#/start?item=' + item.id,
     type: "default",
-    title: $filter( 'language' )( AppText.item.facebook_need_comment_title ) + ' ' + item.name,
+    title: $filter( 'language' )( AppText.item.facebook_need_comment_title ) + ' ' + item.name + $filter( 'language' )( AppText.system.question_mark ),
     description: $filter( 'language' )( AppText.item.facebook_need_comment_description )
   };
 

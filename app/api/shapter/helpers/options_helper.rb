@@ -17,7 +17,7 @@ module Shapter
           "internship"        => (params[:entities]["internship"]        rescue nil )|| {},
         }
 
-        empty_h.merge({:current_user => current_user})
+        empty_h.merge({:current_user => current_user || User.new})
       end
 
       def permit_params(h,ary)

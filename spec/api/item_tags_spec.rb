@@ -80,12 +80,12 @@ describe Shapter::V7::ItemTags do
     it "deletes a batch of tags from a batch of items" do 
       [@t1,@t2,@t3,@i1,@i2].each(&:reload)
 
-      expect(@t1.items).to eq [@i1,@i2]
-      expect(@t2.items).to eq [@i1,@i2]
-      expect(@t3.items).to eq [@i1,@i2]
+      expect(@t1.items).to match_array([@i1,@i2])
+      expect(@t2.items).to match_array([@i1,@i2])
+      expect(@t3.items).to match_array([@i1,@i2])
 
-      expect(@i1.tags).to eq [@t1, @t2, @t3]
-      expect(@i2.tags).to eq [@t1, @t2, @t3]
+      expect(@i1.tags).to match_array([@t1, @t2, @t3])
+      expect(@i2.tags).to match_array([@t1, @t2, @t3])
 
       item_ids = [@i1,@i2].map(&:id).map(&:to_s)
       tags = [@t2,@t3].map{|t| {tag_name: t.name, category: t.category}}
@@ -97,7 +97,7 @@ describe Shapter::V7::ItemTags do
 
       [@t1,@t2,@t3,@i1,@i2].each(&:reload)
 
-      expect(@t1.items).to eq [@i1,@i2]
+      expect(@t1.items).to match_array([@i1,@i2])
       expect(@t2.items).to eq []
       expect(@t3.items).to eq []
 

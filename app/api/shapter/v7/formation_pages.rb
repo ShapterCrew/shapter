@@ -3,9 +3,9 @@ module Shapter
     class FormationPages < Grape::API
       format :json
 
-      before do 
-        check_confirmed_account!
-      end
+      #before do 
+      #  check_confirmed_account!
+      #end
 
       namespace :formations do 
 

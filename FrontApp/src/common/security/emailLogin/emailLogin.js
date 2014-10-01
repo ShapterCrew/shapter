@@ -1,12 +1,25 @@
-angular.module('security.emailLogin', ['services.localizedMessages'])
+angular.module('security.emailLogin', [
+  'services.localizedMessages',
+  'LocalStorageModule'
+])
 
-.controller('EmailLoginCtrl', ['Restangular', 'Item', '$scope', 'security', '$window', 'AppText', 'User', function(Restangular, Item, $scope, security, $window, AppText, User ){
+.controller('EmailLoginCtrl', ['Restangular', 'Item', '$scope', 'security', '$window', 'AppText', 'User', '$modalInstance', '$location', 'localStorageService', 'reason', function(Restangular, Item, $scope, security, $window, AppText, User, $modalInstance, $location, localStorageService, reason ){
 
+  $scope.close = $modalInstance.close;
   $scope.AppText = AppText;
   $scope.loginUser = {};
   $scope.signupUser = {};
+  $scope.reasonAlerts = [];
+
+  if( reason ){
+    $scope.reasonAlerts.push({
+      msg: AppText.security[ reason ],
+      type: 'info'
+    });
+  }
 
   $scope.facebookConnect = function(){
+    localStorageService.set('back url', $location.url());
     $window.location.href = "/api/v1/users/auth/facebook";
   };
 
@@ -46,7 +59,7 @@ angular.module('security.emailLogin', ['services.localizedMessages'])
 
   $scope.signup = function(){
     $scope.pendingRequest = true;
-    security.signup($scope.signupUser.email, $scope.signupUser.password, $scope.signupUser.firstname, $scope.signupUser.lastname).then(function(data){
+    security.signup($scope.loginUser.email, $scope.loginUser.password, $scope.loginUser.firstname, $scope.loginUser.lastname).then(function(data){
       $scope.pendingRequest = false;
     });
   };

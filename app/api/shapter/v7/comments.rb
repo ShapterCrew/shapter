@@ -3,9 +3,9 @@ module Shapter
     class Comments < Grape::API
       format :json
 
-      before do 
-        check_confirmed_account!
-      end
+      #before do 
+      #  check_confirmed_account!
+      #end
 
       namespace :users do 
         namespace ":user_id" do 
@@ -47,6 +47,7 @@ module Shapter
               end
             end
             post :create do
+              check_confirmed_account!
               error!("forbidden",401) unless @item.user_can_comment?(current_user)
 
               #could be nicer with proper params :permit handling
@@ -94,6 +95,7 @@ module Shapter
                 end
               end
               put do 
+                check_confirmed_account!
                 error!("forbidden",401) unless (@comment.author == current_user or current_user.shapter_admin)
 
                 if params[:comment][:context]
@@ -112,6 +114,7 @@ module Shapter
               # {{{ destroy 
               desc "destroy a comment"
               delete do
+                check_confirmed_account!
                 error!("forbidden",401) unless (@comment.author == current_user or current_user.shapter_admin)
                 @comment.destroy
                 {
@@ -126,6 +129,7 @@ module Shapter
                 requires :score, type: Integer, desc: "score"
               end
               put :score do 
+                check_confirmed_account!
                 error!("you can't score your own comment",403) if @comment.author == current_user
                 error!("you can't score this comment",403) unless @comment.user_can_view?(current_user)
                 s = params[:score].to_i

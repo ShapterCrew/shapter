@@ -4,7 +4,7 @@ angular.module( 'shapter.signupFunnel', [
   'security'
 ])
 
-.config(['$stateProvider', 'securityAuthorizationProvider', function config( $stateProvider, securityAuthorizationProvider ) {
+.config(['$stateProvider', function config( $stateProvider ) {
   $stateProvider.state( 'signupFunnel', {
     url: '/schools/:schoolId/signupFunnel',
     views: {
@@ -13,25 +13,19 @@ angular.module( 'shapter.signupFunnel', [
         templateUrl: 'signupFunnel/signupFunnel.tpl.html'
       }
     },
-    data:{ pageTitle: 'Renseigne ton cursus' },
-    resolve: {
-      authenticatedUser: securityAuthorizationProvider.requireAuthenticatedUser
-    }
+    data:{ pageTitle: 'Renseigne ton cursus' }
   });
 }])
 
 .controller( 'SignupFunnelCtrl', ['$scope', '$timeout', 'Item', '$location', 'User', 'Analytics', 'ConfirmAlertFactory', 'security', '$stateParams', 'AppText', function( $scope, $timeout, Item, $location, User, Analytics, ConfirmAlertFactory, security, $stateParams, AppText){
 
   $scope.AppText = AppText;
+  $scope.$on('login success', function(){
+    $scope.step = 0;
+    $scope.nextStep();
+  });
 
-  if( $location.search().fromApp ){
-    $scope.initialState = false;
-    $location.search( 'fromApp', null );
-  }
-  else {
-    $scope.hideNav = true;
-    $scope.initialState = false;
-  }
+  $scope.hideNav = true;
 
   Analytics.signupFunnel();
 
