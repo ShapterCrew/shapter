@@ -6,7 +6,7 @@ angular.module( 'shapter.contribute', [
   'services.appText'
 ])
 
-.config(['$stateProvider', 'securityAuthorizationProvider', function config( $stateProvider, securityAuthorizationProvider ) {
+.config(['$stateProvider', function config( $stateProvider ) {
   $stateProvider.state( 'schoolContribute', {
     url: '/schools/:schoolId/contribute',
     views: {
@@ -15,10 +15,7 @@ angular.module( 'shapter.contribute', [
         templateUrl: 'contribute/contribute.tpl.html'
       }
     },
-    data:{ pageTitle: 'Contribuer' },
-    resolve: {
-      authenticatedUser: securityAuthorizationProvider.requireConfirmedUser
-    }
+    data:{ pageTitle: 'Contribuer' }
   }).state( 'contribute', {
     url: '/contribute',
     views: {
@@ -27,10 +24,7 @@ angular.module( 'shapter.contribute', [
         templateUrl: 'contribute/contribute.tpl.html'
       }
     },
-    data:{ pageTitle: 'Contribuer' },
-    resolve: {
-      authenticatedUser: securityAuthorizationProvider.requireConfirmedUser
-    }
+    data:{ pageTitle: 'Contribuer' }
   });
 }])
 
