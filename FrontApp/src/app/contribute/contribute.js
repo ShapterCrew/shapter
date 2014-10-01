@@ -59,6 +59,12 @@ angular.module( 'shapter.contribute', [
   $scope.AppText = AppText;
   $scope.loading = true;
 
+  $scope.$on('login success', function(){
+    $scope.batchIndex = -1;
+    $scope.fullyLoaded = false;
+    $scope.loadMoreItems();
+  });
+
   $scope.editDiagramFactory = editDiagramFactory;
   $scope.security = security;
   $scope.ItemCommentsModal = ItemCommentsModal;

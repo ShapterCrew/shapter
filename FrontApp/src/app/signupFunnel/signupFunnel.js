@@ -20,15 +20,12 @@ angular.module( 'shapter.signupFunnel', [
 .controller( 'SignupFunnelCtrl', ['$scope', '$timeout', 'Item', '$location', 'User', 'Analytics', 'ConfirmAlertFactory', 'security', '$stateParams', 'AppText', function( $scope, $timeout, Item, $location, User, Analytics, ConfirmAlertFactory, security, $stateParams, AppText){
 
   $scope.AppText = AppText;
+  $scope.$on('login success', function(){
+    $scope.step = 0;
+    $scope.nextStep();
+  });
 
-  if( $location.search().fromApp ){
-    $scope.initialState = false;
-    $location.search( 'fromApp', null );
-  }
-  else {
-    $scope.hideNav = true;
-    $scope.initialState = false;
-  }
+  $scope.hideNav = true;
 
   Analytics.signupFunnel();
 

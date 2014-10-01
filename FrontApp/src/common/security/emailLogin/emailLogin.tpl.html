@@ -1,97 +1,187 @@
 <div class="row" ng-click="close()">
-  <div class="col-md-8 col-md-offset-2" ng-click="$event.stopPropagation()">
+  <div class="col-md-6 col-md-offset-3" ng-click="$event.stopPropagation()">
     <div class="modal-content">
-      <alert class="alert" ng-repeat="alert in alerts" type="alert.type" close="alert.close()" ng-show="alert.msg" style="margin-bottom: 0px">
-      {{ alert.msg | language }}
-      </alert>
-
       <div class="modal-body">
-        <div class="row">
-          <div class="form-group clearfix">
-                <span class="glyphicon glyphicon-remove pull-right" ng-click="close()"></span>
-            <div class="pull-right">
-              <a class="btn btn-facebook" ng-click="facebookConnect()">
-                <span class="fa-stack">
-                  <i class="fa fa-square fa-stack-2x"></i>
-                  <i class="fa fa-facebook fa-stack-1x text-facebook"></i>
-                </span>
-                {{ AppText.security.facebook_connect | language }}
-              </a>
+      <span class="glyphicon glyphicon-remove pull-right" ng-click="close()"></span>
+
+      <div style="margin-top: 40px; margin-bottom: 20px">
+        <alert class="alert" ng-repeat="alert in alerts" type="alert.type" close="alert.close()" ng-show="alert.msg" style="margin-bottom: 0px">
+        {{ alert.msg | language }}
+        </alert>
+      </div>
+
+
+        <span class="lead bold text-asphalt" ng-bind="AppText.security.connect | language"></span>
+
+        <div class="form-group" style="margin-top: 20px">
+          <a class="btn btn-facebook" ng-click="facebookConnect()" style="width: 100%">
+            <span class="fa-stack">
+              <i class="fa fa-square fa-stack-2x"></i>
+              <i class="fa fa-facebook fa-stack-1x text-facebook"></i>
+            </span>
+            {{ AppText.security.facebook_connect | language }}
+          </a>
+        </div>
+
+        <div style="text-align: center; width: 100%">
+          <div class="row">
+            <div class="col-xs-5">
+              <hr class="grey-hr" style="margin-top: 15px">
             </div>
-          </div>
-          <div class="col-md-6">
-            <div class="lead">
-              {{ AppText.security.signup | language }}
+
+            <div class="col-xs-2">
+              ou
             </div>
-            <form name="signupForm" class="css-form">
-              <div class="form-group">
-                <label>{{ AppText.security.first_name | language }}</label>
-                <input name="fname" type="text" ng-model="signupUser.firstname" class="form-control" required>
-              </div>
 
-              <div class="form-group">
-                <label>{{ AppText.security.last_name | language }}</label>
-                <input type="text" name="lname" ng-model="signupUser.lastname" class="form-control" required>
-              </div>
-
-              <div class="form-group">
-                <label>{{ AppText.security.email | language }}</label>
-                <input type="email" name="signupEmail" ng-model="signupUser.email" class="form-control" ng-change="checkEmail()" required>
-                <p class="text-danger" ng-show="(signupForm.signupEmail.$invalid || signupUser.email == '') && !signupForm.signupEmail.hasFocus && !signupForm.signupEmail.$pristine">{{ AppText.security.invalid_email | language }}</p>
-                <alert type="alert.type" ng-repeat="alert in emailSignupAlerts" type="success" ng-hide="signupForm.signupEmail.hasFocus" style="margin-top: 10px">
-                {{ alert.msg | language }}
-                <ul>
-                  <li ng-repeat="school in alert.schools">{{ school.name }}</li>
-                </ul>
-                </alert>
-              </div>
-
-              <div class="form-group">
-                <label>{{ AppText.security.password | language }}</label>
-                <input type="password" ng-model="signupUser.password" class="form-control" required>
-              </div>
-              <div class="form-group clearfix">
-                <button type="submit" class="btn btn-success pull-right" ng-click="signup()" ng-disabled="signupForm.$invalid">{{ AppText.security.signup | language }}</button>
-              </div>
-            </form>
-          </div>
-          <div class="col-md-6">
-            <div class="lead">
-              {{ AppText.security.signin | language }}
-            </div>
-            <form name="loginForm" class="css-form" novalidate>
-              <div class="form-group">
-                <label>{{ AppText.security.email | language }}</label>
-                <input type="email" name="email" ng-model="loginUser.email" class="form-control">
-                <p class="text-danger" ng-show="(loginForm.loginEmail.$invalid || loginUser.email == '') && !loginForm.loginEmail.hasFocus && !loginForm.loginEmail.$pristine">{{ AppText.security.invalid_email | language }}</p>
-              </div>
-              <div class="form-group">
-                <label>{{ AppText.security.password | language }} </label>
-                <input type="password" ng-model="loginUser.password" class="form-control">
-              </div>
-              <div class="form-group clearfix">
-                <button class="btn btn-success pull-right" ng-click="login()">{{ AppText.security.signin | language }}</button>
-              </div>
-
-              <div class="form-group clearfix" style="margin-bottom: 0px;">
-                <p class="pull-right" style="margin-top: 10px; margin-bottom: 0px;" ng-click="showForgotPassword()"><small>{{ AppText.security.forgot_password | language }}</small></p>
-              </div>
-              <div class="form-group clearfix">
-                <p class="pull-right" ng-click="showTelecomMsg = true" ng-hide="showTelecomMsg"><small>Je suis de Télécom ParisTech et je suis perdu.</small></p>
-                <p class="pull-right" ng-click="showTelecomMsg = false" ng-show="showTelecomMsg"><small>Je suis de Télécom ParisTech et je ne suis plus perdu.</small></p>
-                <p class="pull-right" style="margin-top: 10px" ng-show="showTelecomMsg"><small>
-                    Plusieurs choix :<br>
-                    1) Tu avais un compte sur le POUF : ton adresse mail est <strong>login@telecom-paristech.fr</strong>. Il faut que tu fasses un "Mot de passe oublié" pour pouvoir te loguer.<br>
-                    2) Tu avais un compte sur Shapter : ton adresse mail est celle que tu utilisais dessus.<br>
-                    3) non 1) et non 2) : tu peux te créer un compte avec l'adresse mail <strong>prenom.nom@telecom-paristech.fr.</strong><br>
-                    4) Ça marche toujours pas ? Écris-nous à teamshapter@gmail.com et on te répond dans la seconde (voire moins).<br>
-                    Plus de détails dans <a href="http://shaptercrew.github.io/blog/2014/06/13/linscription-par-un-email-decole/" target="_blank">cet article</a>.
-                </small></p>
-              </div>
+            <div class="col-xs-5">
+              <hr class="grey-hr" style="margin-top: 15px">
             </div>
           </div>
         </div>
-      </div>
+
+
+        <form name="loginForm" class="css-form" novalidate>
+          <div class="form-group">
+            <label>{{ AppText.security.email | language }}</label>
+            <input type="email" name="email" ng-model="loginUser.email" class="form-control">
+            <p class="text-danger" ng-show="(loginForm.loginEmail.$invalid || loginUser.email == '') && !loginForm.loginEmail.hasFocus && !loginForm.loginEmail.$pristine">{{ AppText.security.invalid_email | language }}</p>
+          </div>
+
+          <div class="form-group">
+            <label>{{ AppText.security.password | language }} </label>
+            <input type="password" ng-model="loginUser.password" class="form-control">
+          </div>
+
+
+          <div ng-show="signupState">
+
+            <div class="form-group">
+              <label>{{ AppText.security.first_name | language }}</label>
+              <input name="fname" type="text" ng-model="loginUser.firstname" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+              <label>{{ AppText.security.last_name | language }}</label>
+              <input type="text" name="lname" ng-model="loginUser.lastname" class="form-control" required>
+            </div>
+          </div><!-- signupState -->
+
+          <div class="form-group clearfix">
+            <span class="pull-right">
+              <span class="text-success bold" ng-click="signupState = true" ng-hide="signupState">
+                {{ AppText.security.create_account | language }}
+              </span>
+              <span class="text-success bold" ng-click="signupState = false" ng-show="signupState">
+                {{ AppText.security.back | language }}
+              </span>
+              <button class="btn btn-success" ng-hide="signupState" ng-click="login()">{{ AppText.security.signin | language }}</button>
+              <button class="btn btn-success" ng-show="signupState" ng-click="signup()">{{ AppText.security.signup | language }}</button>
+            </span>
+          </div>
+
+          <div class="form-group clearfix" style="margin-bottom: 0px;" ng-hide="signupState">
+            <p class="pull-right" style="margin-top: 10px; margin-bottom: 0px;" ng-click="showForgotPassword()"><small>{{ AppText.security.forgot_password | language }}</small></p>
+          </div>
+        </form>
+      </div><!-- modal-body -->
+
     </div><!-- modal-content -->
+  </div><!-- col -->
+</div><!-- row -->
+
+
+<div class="modal-content" ng-hide="true">
+  <alert class="alert" ng-repeat="alert in alerts" type="alert.type" close="alert.close()" ng-show="alert.msg" style="margin-bottom: 0px">
+  {{ alert.msg | language }}
+  </alert>
+
+  <div class="modal-body">
+    <div class="row">
+      <div class="form-group clearfix">
+        <span class="glyphicon glyphicon-remove pull-right" ng-click="close()"></span>
+        <div class="pull-right">
+          <a class="btn btn-facebook" ng-click="facebookConnect()">
+            <span class="fa-stack">
+              <i class="fa fa-square fa-stack-2x"></i>
+              <i class="fa fa-facebook fa-stack-1x text-facebook"></i>
+            </span>
+            {{ AppText.security.facebook_connect | language }}
+          </a>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="lead">
+          {{ AppText.security.signup | language }}
+        </div>
+        <form name="signupForm" class="css-form">
+          <div class="form-group">
+            <label>{{ AppText.security.first_name | language }}</label>
+            <input name="fname" type="text" ng-model="signupUser.firstname" class="form-control" required>
+          </div>
+
+          <div class="form-group">
+            <label>{{ AppText.security.last_name | language }}</label>
+            <input type="text" name="lname" ng-model="signupUser.lastname" class="form-control" required>
+          </div>
+
+          <div class="form-group">
+            <label>{{ AppText.security.email | language }}</label>
+            <input type="email" name="signupEmail" ng-model="signupUser.email" class="form-control" ng-change="checkEmail()" required>
+            <p class="text-danger" ng-show="(signupForm.signupEmail.$invalid || signupUser.email == '') && !signupForm.signupEmail.hasFocus && !signupForm.signupEmail.$pristine">{{ AppText.security.invalid_email | language }}</p>
+            <alert type="alert.type" ng-repeat="alert in emailSignupAlerts" type="success" ng-hide="signupForm.signupEmail.hasFocus" style="margin-top: 10px">
+            {{ alert.msg | language }}
+            <ul>
+              <li ng-repeat="school in alert.schools">{{ school.name }}</li>
+            </ul>
+            </alert>
+          </div>
+
+          <div class="form-group">
+            <label>{{ AppText.security.password | language }}</label>
+            <input type="password" ng-model="signupUser.password" class="form-control" required>
+          </div>
+          <div class="form-group clearfix">
+            <button type="submit" class="btn btn-success pull-right" ng-click="signup()" ng-disabled="signupForm.$invalid">{{ AppText.security.signup | language }}</button>
+          </div>
+        </form>
+      </div>
+      <div class="col-md-6">
+        <div class="lead">
+          {{ AppText.security.signin | language }}
+        </div>
+        <form name="loginForm" class="css-form" novalidate>
+          <div class="form-group">
+            <label>{{ AppText.security.email | language }}</label>
+            <input type="email" name="email" ng-model="loginUser.email" class="form-control">
+            <p class="text-danger" ng-show="(loginForm.loginEmail.$invalid || loginUser.email == '') && !loginForm.loginEmail.hasFocus && !loginForm.loginEmail.$pristine">{{ AppText.security.invalid_email | language }}</p>
+          </div>
+          <div class="form-group">
+            <label>{{ AppText.security.password | language }} </label>
+            <input type="password" ng-model="loginUser.password" class="form-control">
+          </div>
+          <div class="form-group clearfix">
+            <button class="btn btn-success pull-right" ng-click="login()">{{ AppText.security.signin | language }}</button>
+          </div>
+
+          <div class="form-group clearfix" style="margin-bottom: 0px;">
+            <p class="pull-right" style="margin-top: 10px; margin-bottom: 0px;" ng-click="showForgotPassword()"><small>{{ AppText.security.forgot_password | language }}</small></p>
+          </div>
+          <div class="form-group clearfix">
+            <p class="pull-right" ng-click="showTelecomMsg = true" ng-hide="showTelecomMsg"><small>Je suis de Télécom ParisTech et je suis perdu.</small></p>
+            <p class="pull-right" ng-click="showTelecomMsg = false" ng-show="showTelecomMsg"><small>Je suis de Télécom ParisTech et je ne suis plus perdu.</small></p>
+            <p class="pull-right" style="margin-top: 10px" ng-show="showTelecomMsg"><small>
+                Plusieurs choix :<br>
+                1) Tu avais un compte sur le POUF : ton adresse mail est <strong>login@telecom-paristech.fr</strong>. Il faut que tu fasses un "Mot de passe oublié" pour pouvoir te loguer.<br>
+                2) Tu avais un compte sur Shapter : ton adresse mail est celle que tu utilisais dessus.<br>
+                3) non 1) et non 2) : tu peux te créer un compte avec l'adresse mail <strong>prenom.nom@telecom-paristech.fr.</strong><br>
+                4) Ça marche toujours pas ? Écris-nous à teamshapter@gmail.com et on te répond dans la seconde (voire moins).<br>
+                Plus de détails dans <a href="http://shaptercrew.github.io/blog/2014/06/13/linscription-par-un-email-decole/" target="_blank">cet article</a>.
+            </small></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div><!-- modal-content -->
   </div>
 </div>

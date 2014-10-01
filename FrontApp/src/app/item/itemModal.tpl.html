@@ -36,7 +36,7 @@
           </li>
 
           <li class="h6">
-            <span ng-show="security.isConfirmedUser()">
+            <span ng-show="security.isConfirmedStudent()">
               <span ng-show="item.current_user_subscribed" ng-click="item.unsubscribe()" class="text-emerald">
                 <span class="fa fa-check-square-o"></span>
                 <span >{{ AppText.item.followed | language }}</span>
@@ -48,12 +48,18 @@
               </span>
             </span>
 
-            <span ng-hide="security.isConfirmedUser()">
-              <span ng-click="security.showLogin()">
+            <span ng-hide="security.isConfirmedStudent()">
+              <span ng-click="security.showLogin()" ng-hide="security.isAuthenticated()">
                 <span class="fa fa-square-o"></span>
                 <span>{{ AppText.item.followed | language }}</span>
               </span>
+
+              <a class="text-default" href="#/campusAuthentication" ng-show="security.isAuthenticated()">
+                <span class="fa fa-square-o"></span>
+                <span>{{ AppText.item.followed | language }}</span>
+              </a>
             </span>
+
           </li>
 
           <li class="text-blue h6">
@@ -144,8 +150,8 @@
         <div ng-show="item.comments | hiddenComments" class="orange-infos" style="padding: 20px">
           <div class="bold ">{{ AppText.item.there_are | language }} {{ item.comments | hiddenComments }} {{ AppText.item.hidden_comments | language }}</div>
           <p>{{ AppText.item.to_see_the_comments | language }}</p>
-          <a ng-show="security.isConfirmedStudent()" href="#/campusAuthentication" class="btn btn-sun">{{ AppText.item.i_have_an_email | language }}</a>
-          <a ng-hide="security.isConfirmedStudent()" href="" ng-click="security.showLogin()" class="btn btn-sun">{{ AppText.item.i_have_an_email | language }}</a>
+          <a ng-show="security.isConfirmedUser()" href="#/campusAuthentication" class="btn btn-sun">{{ AppText.item.i_have_an_email | language }}</a>
+          <a ng-hide="security.isConfirmedUser()" href="" ng-click="security.showLogin()" class="btn btn-sun">{{ AppText.item.i_have_an_email | language }}</a>
         </div>
 
         <div ng-hide="item.comments.length">

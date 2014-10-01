@@ -180,6 +180,18 @@ angular.module( 'services.appText', [])
       }
     },
     security: {
+      back: {
+        en: 'back',
+        fr: 'retour'
+      },
+      create_account: {
+        en: 'Create account',
+        fr: 'Créer un compte'
+      },
+      connect: {
+        en: 'Connect',
+        fr: 'Connexion'
+      },
       facebook_connect: {
         en: 'Facebook Connect',
         fr: 'Connexion avec Facebook'
