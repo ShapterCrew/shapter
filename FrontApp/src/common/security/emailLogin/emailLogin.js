@@ -1,9 +1,9 @@
 angular.module('security.emailLogin', [
-  'services.localizedMessages',
-  'LocalStorageModule'
+  'services.localizedMessages'
+//  'LocalStorageModule'
 ])
 
-.controller('EmailLoginCtrl', ['Restangular', 'Item', '$scope', 'security', '$window', 'AppText', 'User', '$modalInstance', 'localStorageService', '$location', function(Restangular, Item, $scope, security, $window, AppText, User, $modalInstance, localStorageService, $location ){
+.controller('EmailLoginCtrl', ['Restangular', 'Item', '$scope', 'security', '$window', 'AppText', 'User', '$modalInstance', '$location', function(Restangular, Item, $scope, security, $window, AppText, User, $modalInstance, $location ){
 
   $scope.close = $modalInstance.close;
   $scope.AppText = AppText;
@@ -11,7 +11,7 @@ angular.module('security.emailLogin', [
   $scope.signupUser = {};
 
   $scope.facebookConnect = function(){
-    localStorageService.set('back url', $location.url());
+//    localStorageService.set('back url', $location.url());
     $window.location.href = "/api/v1/users/auth/facebook";
   };
 
