@@ -4,7 +4,7 @@ angular.module( 'shapter.signupFunnel', [
   'security'
 ])
 
-.config(['$stateProvider', function config( $stateProvider ) {
+.config(['$stateProvider', 'securityAuthorizationProvider', function config( $stateProvider, securityAuthorizationProvider ) {
   $stateProvider.state( 'signupFunnel', {
     url: '/schools/:schoolId/signupFunnel',
     views: {
@@ -13,7 +13,10 @@ angular.module( 'shapter.signupFunnel', [
         templateUrl: 'signupFunnel/signupFunnel.tpl.html'
       }
     },
-    data:{ pageTitle: 'Renseigne ton cursus' }
+    data:{ pageTitle: 'Renseigne ton cursus' },
+    resolve: {
+      authenticatedUser: securityAuthorizationProvider.requireAuthenticatedUser
+    }
   });
 }])
 

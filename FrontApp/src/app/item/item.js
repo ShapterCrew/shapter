@@ -5,7 +5,7 @@ angular.module('shapter.item', [
   'editItemTags'
 ])
 
-.config(['$stateProvider', function( $stateProvider ){
+.config(['$stateProvider', 'securityAuthorizationProvider', function( $stateProvider, securityAuthorizationProvider ){
   $stateProvider.state( 'item', {
     url: '/item/:itemId',
     views: {
@@ -16,6 +16,7 @@ angular.module('shapter.item', [
     },
     data: { pageTitle: 'Cours' },
     resolve: {
+      authenticatedUser: securityAuthorizationProvider.requireConfirmedUser,
       item: ['Item', '$stateParams', function( Item, $stateParams ){
         return Item.load( $stateParams.itemId );
       }]

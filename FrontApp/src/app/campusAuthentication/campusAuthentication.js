@@ -5,7 +5,7 @@ angular.module( 'shapter.campusAuthentication', [
   'resources.user'
 ])
 
-.config(['$stateProvider', function config( $stateProvider ) {
+.config(['$stateProvider', 'securityAuthorizationProvider', function config( $stateProvider, securityAuthorizationProvider ) {
   $stateProvider.state( 'campusAuthentication', {
     url: '/campusAuthentication',
     views: {
@@ -14,7 +14,10 @@ angular.module( 'shapter.campusAuthentication', [
         templateUrl: 'campusAuthentication/campusAuthentication.tpl.html'
       }
     },
-    data:{ pageTitle: 'Identification comme étudiant' }
+    data:{ pageTitle: 'Identification comme étudiant' },
+    resolve: {
+      authenticatedUser: securityAuthorizationProvider.requireConfirmedUser
+    }
   });
 }])
 

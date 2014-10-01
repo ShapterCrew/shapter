@@ -5,7 +5,7 @@ angular.module( 'shapter.schools', [
   'services.appText'
 ])
 
-.config(['$stateProvider', function config( $stateProvider ) {
+.config(['$stateProvider', 'securityAuthorizationProvider', function config( $stateProvider, securityAuthorizationProvider ) {
   $stateProvider.state( 'schools', {
     url: '/schools',
     views: {
@@ -14,7 +14,10 @@ angular.module( 'shapter.schools', [
         templateUrl: 'schools/schools.tpl.html'
       }
     },
-    data:{ pageTitle: 'Schools' }
+    data:{ pageTitle: 'Schools' },
+    resolve: {
+      authenticatedUser: securityAuthorizationProvider.requireConfirmedUser
+    }
   }).state( 'campusPageAdmin', {
     url: '/schools/:schoolId/admin',
     views: {
@@ -25,6 +28,7 @@ angular.module( 'shapter.schools', [
     },
     data:{ pageTitle: 'School Admin' },
     resolve: {
+      authenticatedUser: securityAuthorizationProvider.requireAdminUser,
       formation: ['Formation', '$stateParams', function( Formation, $stateParams ){
         var tag_ids = [
           $stateParams.schoolId
@@ -45,6 +49,7 @@ angular.module( 'shapter.schools', [
     },
     data:{ pageTitle: 'School' },
     resolve: {
+      authenticatedUser: securityAuthorizationProvider.requireConfirmedUser,
       school: ['Tag', '$stateParams', function( Tag, $stateParams ){
         return Tag.get( $stateParams.schoolId );
       }],
@@ -66,6 +71,7 @@ angular.module( 'shapter.schools', [
     },
     data:{ pageTitle: 'School' },
     resolve: {
+      authenticatedUser: securityAuthorizationProvider.requireConfirmedUser,
       formation: ['Formation', '$stateParams', function( Formation, $stateParams ){
         var tag_ids = [
           $stateParams.schoolId

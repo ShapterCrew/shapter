@@ -5,7 +5,7 @@ angular.module( 'shapter.people', [
   'resources.user'
 ])
 
-.config(['$stateProvider', function config( $stateProvider ) {
+.config(['$stateProvider', 'securityAuthorizationProvider', function config( $stateProvider, securityAuthorizationProvider ) {
   $stateProvider.state( 'people', {
     url: '/people',
     views: {
@@ -14,7 +14,10 @@ angular.module( 'shapter.people', [
         templateUrl: 'people/people.tpl.html'
       }
     },
-    data:{ pageTitle: 'People' }
+    data:{ pageTitle: 'People' },
+    resolve: {
+      authenticatedUser: securityAuthorizationProvider.requireConfirmedUser
+    }
   });
 }])
 

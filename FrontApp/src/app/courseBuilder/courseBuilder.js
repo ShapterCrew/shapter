@@ -6,7 +6,7 @@ angular.module( 'shapter.courseBuilder', [
   'security'
 ])
 
-.config(['$stateProvider', function config( $stateProvider ) {
+.config(['$stateProvider', 'securityAuthorizationProvider', function config( $stateProvider, securityAuthorizationProvider ) {
   $stateProvider.state( 'courseBuilder', {
     url: '/courseBuilder',
     views: {
@@ -15,7 +15,10 @@ angular.module( 'shapter.courseBuilder', [
         templateUrl: 'courseBuilder/courseBuilder.tpl.html'
       }
     },
-    data:{ pageTitle: 'Mon Cursus' }
+    data:{ pageTitle: 'Mon Cursus' },
+    resolve: {
+      authenticatedUser: securityAuthorizationProvider.requireConfirmedStudent
+    }
   });
 }])
 

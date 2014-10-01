@@ -3,7 +3,7 @@ angular.module('shapter.confirmationSent', [
   'ui.router'
 ])
 
-.config(['$stateProvider', function config( $stateProvider ) {
+.config(['$stateProvider', 'securityAuthorizationProvider', function config( $stateProvider, securityAuthorizationProvider ) {
   $stateProvider.state( 'confirmation sent', {
     url: '/confirmationSent',
     views: {

@@ -10,7 +10,7 @@ angular.module( 'shapter.browse', [
   'shapter.contribute'
 ])
 
-.config(['$stateProvider', function config( $stateProvider ) {
+.config(['$stateProvider', 'securityAuthorizationProvider', function config( $stateProvider, securityAuthorizationProvider ) {
   $stateProvider.state( 'browse', {
     url: '/schools/:schoolId/browse',
     reloadOnSearch: 'false',
@@ -22,6 +22,7 @@ angular.module( 'shapter.browse', [
     },
     data:{ pageTitle: 'Parcourir' },
     resolve: {
+      authenticatedUser: securityAuthorizationProvider.requireConfirmedUser,
       school: ['Tag', '$stateParams', function( Tag, $stateParams ){
         return Tag.get( $stateParams.schoolId );
       }]

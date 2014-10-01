@@ -4,7 +4,7 @@ angular.module( 'shapter.addCampus', [
   'security'
 ])
 
-.config(['$stateProvider', function config( $stateProvider ) {
+.config(['$stateProvider', 'securityAuthorizationProvider', function config( $stateProvider, securityAuthorizationProvider ) {
   $stateProvider.state( 'addCampus', {
     url: '/addCampus',
     views: {
