@@ -3,6 +3,7 @@ angular.module( 'shapter', [
   'templates-common',
   'ngSocial',
   'ngAnimate',
+  'LocalStorageModule',
   'ui.router',
   'ui-rangeSlider',
   'ui.keypress',
@@ -61,7 +62,6 @@ angular.module( 'shapter', [
   'directives.blurFocus',
   'security.service',
   'security.authorization',
-  'services.diagconv',
   'services.colors', 
   'services.appText', 
   'filters.ignoreAccents',
@@ -71,10 +71,26 @@ angular.module( 'shapter', [
   'filters.orderByAccent'
 ])
 
-.run( function( ENV ){
+.config(['localStorageServiceProvider', function(localStorageServiceProvider){
+    localStorageServiceProvider.setPrefix('shapter');
+}])
+
+.run(['localStorageService', '$window', function( localStorageService, $window ){
+  if( localStorageService.get('back url')){
+    var url = '#' + localStorageService.get('back url');
+    localStorageService.remove('back url');
+    $window.location.href = url;
+  }
+}])
+
+.run(['ENV', function( ENV ){
   mixpanel.init( ENV.mixpanel_id );
   behave.init( ENV.behave_api_token );
-})
+}])
+
+.run(['security', function( security ){
+  security.requestCurrentUser();
+}])
 
 .run(['$rootScope', '$state', '$stateParams', function ($rootScope, $state, $stateParams) {
   $rootScope.$state = $state;
@@ -228,8 +244,8 @@ angular.module( 'shapter', [
     en: "Please login to access the application"
   },
   'login.error.invalidCredentials': {
-    fr: "Mauvaise combinaison login/mot de passe.",
-    en: "Wrong password / login combination"
+    fr: "Mauvaise combinaison login/mot de passe. Pour créer un nouveau compte, clique sur \"créér un compte\" à côté du bouton !",
+    en: "Wrong password / login combination. To create a new account, click on \"create account\" beside the button!"
   },
   'login.error.serverError': {
     en: "Il y a eu un problème d'authentification.", //Use {{exception}} for more details

@@ -19,12 +19,13 @@ module Shapter
         #}}}
 
         namespace :me do 
-          before do 
-            check_user_login!
-          end
+          #before do 
+          #  check_user_login!
+          #end
 
           #{{{ /users/me
           post do 
+            check_user_login!
             present current_user, with: Shapter::Entities::User, entity_options: entity_options
           end
           #}}}
@@ -110,6 +111,7 @@ module Shapter
             optional :constructor_max       , type: Integer, desc: "maximum items in constructor list. default = 10", default: 10
           end
           post :latest_comments do
+            check_confirmed_student!
 
             unless params[:hide_my_items]
               my_items             = current_user.items            .not.where(comments: nil).flat_map(&:comments).sort_by{|c| c.updated_at}.reverse.take(params[:my_max])
@@ -130,7 +132,6 @@ module Shapter
 
         resource ":user_id" do 
           before do 
-            check_confirmed_account!
             params do 
               requires :user_id, type: String, desc: "id of the user"
             end
@@ -140,14 +141,12 @@ module Shapter
           #{{{ alike
           desc "get a list of users that ressemble the user"
           post :alike do 
-            check_confirmed_student!
             present :alike_users, alike_users(@user), with: Shapter::Entities::User, entity_options: entity_options
           end
           #}}}
 
           #{{{ get user
           post do 
-            #check_confirmed_student!
             present @user, with: Shapter::Entities::User, entity_options: entity_options
           end
           #}}}
@@ -155,9 +154,40 @@ module Shapter
           #{{{ friends
           desc "get user's friends from facebook x shapter"
           post :friends do 
+            check_confirmed_account!
             present @user.friends, with: Shapter::Entities::User, entity_options: entity_options
           end
           #}}}
+
+            #{{{ courses 
+            desc "for each constructor_funnel step, get the list of items that intersect constructor_funnel & current_user cart/items/constructor_items"
+            params do 
+              requires :schoolTagId, type: String, desc: "id of the tag that represent the user's school"
+              optional :displayCart, type: Boolean, desc: "choose wether the cart items should be displayed", default: false
+              optional :displayConstructor, type: Boolean, desc: "choose wether the constructor items should be displayed", default: false
+            end
+            post :courses do 
+              school = Tag.schools.find(params[:schoolTagId]) || error!("tag not found",404)
+              error!("forbidden" ,401) unless @user.schools.include? school
+
+              error!("school #{school.name} has no constructor funnel") if school.constructor_funnel.blank?
+
+              cart = @user.cart_item_ids
+              builder = school.constructor_funnel.map do |h|
+                OpenStruct.new({
+                  name: h["name"],
+                  subscribed_items: @user.items.all_in(tag_ids: h["tag_ids"]),
+                }
+                .merge( !!params[:displayCart] ? {cart_items: @user.cart_items.all_in(tag_ids: h["tag_ids"])} : {} )
+                .merge( !!params[:displayConstructor] ? {constructor_items: @user.constructor_items.all_in(tag_ids: h["tag_ids"])} : {})
+                      )
+
+              end
+
+              present builder, with: Shapter::Entities::CourseBuilder, entity_options: entity_options, this_user: @user
+
+            end
+            #}}}
 
         end
       end

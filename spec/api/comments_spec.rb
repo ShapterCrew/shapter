@@ -79,7 +79,7 @@ describe Shapter::V7::Comments do
   describe :destroy do
     it "should require login" do 
       delete "/items/123/comments/#{@comment.id}"
-      response.status.should == 401
+      response.status.should == 404
       response.body.should =~ /error/
     end
 
@@ -140,7 +140,7 @@ describe Shapter::V7::Comments do
   describe :score do 
     it "should require login" do 
       put "items/1234/comments/#{@comment.id}/score", :score => 1
-      response.status.should == 401
+      response.status.should == 404
       response.body.should =~ /error/
     end
 

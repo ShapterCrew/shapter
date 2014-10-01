@@ -1,5 +1,19 @@
 <div style="position: relative">
-  <span class="add-internship-in-map" ng-show="isOneOfMySchools()"><button class="btn btn-orange bold" ng-click="onNew()"><span class="fa fa-plus"></span> {{ AppText.internships.me_too | language }}</button></span>
+  <span class="add-internship-in-map">
+
+    <button class="btn btn-orange bold" ng-click="onNew()" ng-show="isOneOfMySchools()">
+      <span class="fa fa-plus"></span> {{ AppText.internships.me_too | language }}
+    </button>
+
+    <a href="#/campusAuthentication" class="btn btn-orange bold" ng-show="security.isAuthenticated() && !security.isConfirmedStudent()">
+      <span class="fa fa-plus"></span> {{ AppText.internships.me_too | language }}
+    </a>
+
+    <button ng-click="security.showLogin()" class="btn btn-orange bold" ng-show="!security.isAuthenticated()">
+      <span class="fa fa-plus"></span> {{ AppText.internships.me_too | language }}
+    </button>
+
+  </span>
   <leaflet markers="markers" defaults="options" height="420px" width="100%" id="map"></leaflet>
   <small class="text-muted" style="position: absolute; bottom: 0; left: 0">&nbsp Spéciale dédicasse à Matthieu Allègre :-)</small>
 </div>
