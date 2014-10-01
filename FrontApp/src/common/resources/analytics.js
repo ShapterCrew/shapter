@@ -67,7 +67,6 @@ angular.module('resources.analytics', [
 .factory('Analytics', [function(){
 
   user = {}, 
-  mixpanel = mixpanel || {},
 
   Analytics = {
 
