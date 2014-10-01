@@ -4,7 +4,9 @@
       <div class="modal-body">
       <span class="glyphicon glyphicon-remove pull-right" ng-click="close()"></span>
 
-      <div style="margin-top: 40px; margin-bottom: 20px">
+        <span class="lead bold text-asphalt" ng-bind="AppText.security.connect | language"></span>
+
+      <div style="margin-top: 20px; margin-bottom: 20px">
         <alert class="alert" ng-repeat="alert in reasonAlerts" type="alert.type" ng-show="alert.msg" style="margin-bottom: 0px">
         {{ alert.msg | language }}
         </alert>
@@ -17,7 +19,6 @@
       </div>
 
 
-        <span class="lead bold text-asphalt" ng-bind="AppText.security.connect | language"></span>
 
         <div class="form-group" style="margin-top: 20px">
           <a class="btn btn-facebook" ng-click="facebookConnect()" style="width: 100%">
