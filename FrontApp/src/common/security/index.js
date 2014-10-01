@@ -5,5 +5,4 @@ angular.module('security', [
   'security.login',
   'security.forgotPassword',
   'security.signup',
-  'security.authorization'
-]);
+  'security.authorization']);

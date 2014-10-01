@@ -37,9 +37,9 @@ angular.module( 'shapter.contribute', [
         windowClass: 'show',
         controller: 'ItemCommentsModalCtrl',
         resolve: {
-          item: [function(){
+          item: function(){
             return item.loadComments();
-          }]
+          }
         }
       });
     }
