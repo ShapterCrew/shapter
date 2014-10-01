@@ -83,10 +83,10 @@ angular.module( 'shapter', [
   }
 }])
 
-.run( function( ENV ){
+.run(['ENV', function( ENV ){
   mixpanel.init( ENV.mixpanel_id );
   behave.init( ENV.behave_api_token );
-})
+}])
 
 .run(['security', function( security ){
   security.requestCurrentUser();
