@@ -8,7 +8,8 @@
           <div class="row">
             <div class="col-md-6">
               <p ng-bind="AppText.contribute.contribute_not_student | language"></p>
-              <a href="#/campusAuthentication" class="btn btn-info">{{ AppText.contribute.go_identify | language }}</a>
+              <a ng-hide="security.isConfirmedStudent()" href="" ng-click="security.showLogin()" class="btn btn-info">{{ AppText.contribute.go_identify | language }}</a>
+              <a ng-show="security.isConfirmedStudent()" href="#/campusAuthentication" class="btn btn-info">{{ AppText.contribute.go_identify | language }}</a>
             </div>
           </div>
         </div>

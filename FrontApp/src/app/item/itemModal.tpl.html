@@ -144,7 +144,8 @@
         <div ng-show="item.comments | hiddenComments" class="orange-infos" style="padding: 20px">
           <div class="bold ">{{ AppText.item.there_are | language }} {{ item.comments | hiddenComments }} {{ AppText.item.hidden_comments | language }}</div>
           <p>{{ AppText.item.to_see_the_comments | language }}</p>
-          <a href="#/campusAuthentication" class="btn btn-sun">{{ AppText.item.i_have_an_email | language }}</a>
+          <a ng-show="security.isConfirmedStudent()" href="#/campusAuthentication" class="btn btn-sun">{{ AppText.item.i_have_an_email | language }}</a>
+          <a ng-hide="security.isConfirmedStudent()" href="" ng-click="security.showLogin()" class="btn btn-sun">{{ AppText.item.i_have_an_email | language }}</a>
         </div>
 
         <div ng-hide="item.comments.length">
