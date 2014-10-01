@@ -5,7 +5,6 @@ angular.module( 'shapter.browse', [
   'resources.tag',
   'resources.item',
   'resources.category',
-  'services.appText',
   'shapter.item',
   'services.appText',
   'shapter.contribute'
