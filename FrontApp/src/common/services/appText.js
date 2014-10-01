@@ -154,10 +154,6 @@ angular.module( 'services.appText', [])
       }
     },
     startpage: {
-      guest_mode: {
-        en: 'Enter in guest mode',
-        fr: 'Entrer comme invité'
-      },
       terms_of_use: {
         en: 'Terms of use',
         fr: 'Conditions générales d\'utilisation'
@@ -717,12 +713,12 @@ angular.module( 'services.appText', [])
         fr: 'Demande des commentaires'
       },
       facebook_need_comment_title: {
-        en: 'Anyone to share some insight on',
-        fr: 'Quelqu\'un a-t-il suivi'
+        en: 'I\'m looking for someone who took',
+        fr: 'Je cherche quelqu\'un qui a suivi'
       },
       facebook_need_comment_description: {
-        en: 'I\'d like to have feedbacks on it on Shapter please!',
-        fr: 'Je voudrais avoir des retours dessus sur Shapter !'
+        en: 'I\'d like to have feedbacks on it on Shapter, who clan help me?',
+        fr: 'Je voudrais avoir des retours dessus sur Shapter, quelqu\'un peut-il m\'aider ?'
       },
       comment: {
         en: 'Leave a comment!',
@@ -736,9 +732,9 @@ angular.module( 'services.appText', [])
         en: 'Characteristics: ',
         fr: 'Caractéristiques :'
       },
-      connect: {
-        en: 'connect',
-        fr: 'connexion'
+      i_have_an_email: {
+        en: 'Identify as a student',
+        fr: 'Identifie-toi comme étudiant'
       },
       add_an_authorization: {
         en: 'Add a campus',
@@ -1237,10 +1233,6 @@ angular.module( 'services.appText', [])
       }
     },
     system: {
-      question_mark: {
-        en: '?',
-        fr: ' ?'
-      },
       exclamation: {
         en: '!',
         fr: ' !'

@@ -15,7 +15,7 @@
 
     <div class="navbar-collapse" collapse="isCollapsed">
       <!-- active school name -->
-      <ul class="nav navbar-nav navbar-center" ng-show="security.isAuthenticated()">
+      <ul class="nav navbar-nav navbar-center">
 
         <li class="dropdown">
           <a class="navbar-school dropdown-toggle">
@@ -24,11 +24,11 @@
             <span class="caret white-caret"></span>
           </a>
           <ul class="dropdown-menu">
-            <li class="dropdown-header" ng-show="security.isAuthenticated()">{{ AppText.header.my_institutions | language }}</li>
+            <li class="dropdown-header">{{ AppText.header.my_institutions | language }}</li>
             <li ng-repeat="school in security.currentUser.schools" ng-show="security.currentUser.schools.length > 0">
               <a ng-href="#/schools/{{ school.id }}">{{ school.name }}</a>
             </li>
-            <li ng-show="security.isAuthenticated()"><a href="#/campusAuthentication"><small class="fa fa-plus"></small> {{ AppText.header.add_an_authorization | language }}</a></li>
+            <li><a href="#/campusAuthentication"><small class="fa fa-plus"></small> {{ AppText.header.add_an_authorization | language }}</a></li>
             <li class="divider"></li>
             <li class="dropdow-header">{{ AppText.header.others | language }}</li>
             <li><a href="#/schools">{{ AppText.header.all_institutions | language }}</a></li>

@@ -1,11 +1,10 @@
 angular.module('security.emailLogin', ['services.localizedMessages'])
 
-.controller('EmailLoginCtrl', ['Restangular', 'Item', '$scope', 'security', '$window', 'AppText', 'User', '$modalInstance', function(Restangular, Item, $scope, security, $window, AppText, User, $modalInstance ){
+.controller('EmailLoginCtrl', ['Restangular', 'Item', '$scope', 'security', '$window', 'AppText', 'User', function(Restangular, Item, $scope, security, $window, AppText, User ){
 
   $scope.AppText = AppText;
   $scope.loginUser = {};
   $scope.signupUser = {};
-  $scope.close = $modalInstance.close;
 
   $scope.facebookConnect = function(){
     $window.location.href = "/api/v1/users/auth/facebook";

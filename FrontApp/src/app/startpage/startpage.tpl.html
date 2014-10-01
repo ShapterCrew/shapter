@@ -2,13 +2,13 @@
   <div class="col-md-8 start-col">
     <img src="assets/img/logo_blanc.png" style="width: 70%; margin-bottom: 50px">
     <h2 class="text-start">{{ AppText.startpage.choose_courses_that_correspond_to_your_profile | language }}</h2>
-    <h6 class="text-asphalt bold">
+    <h6>
       {{ AppText.startpage.benefit_from_feedbacks | language }}
       <br>
       {{ AppText.startpage.share_your_experience | language }}
     </h6> 
   </div>
-  <div class="col-md-4 start-col-2">
+  <div class="col-md-4" style="height: 100%; padding-top: 70px;">
     <alert class="alert alert-info" ng-repeat="alert in alerts" type="alert.type" close="alert.close()" ng-show="alert.msg">
     {{alert.msg | language}}
     </alert>
@@ -24,12 +24,7 @@
     <div class="form-group" style="margin-top: 20px">
       <button class="btn btn-lg btn-enter" ng-click="emailLogin()">{{ AppText.startpage.email_connect | language }}</button>
     </div>
-
-    <div class="form-group" style="margin-top: 80px" ng-hide="security.isAuthenticated()">
-      <a class="btn btn-lg btn-enter" href="#/schools">{{ AppText.startpage.guest_mode | language }}</a>
-    </div>
-
-    <div class="text-silver start-contact">
+    <div class="text-silver" style="position: absolute; bottom: 10px; right: 20px; text-align: right">
       <div>contact : teamshapter@gmail.com</div>
       <div ng-click="navToCgu()">{{ AppText.startpage.terms_of_use | language }}</div>
     </div>
