@@ -8,5 +8,7 @@
   mixpanel.track('Followed Facebook Share Link', { url: "<%= @permalink %>" }, function(){
       window.location = "<%= @permalink %>";
       });
+
+setTimeout(function(){window.location="<%= @permalink%>"}, 500); // au cas ou il y a un do_not_track_me
 </script>
 
