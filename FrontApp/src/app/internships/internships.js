@@ -6,7 +6,7 @@ angular.module( 'shapter.internships', [
   'services.appText'
 ])
 
-.config(['$stateProvider', 'securityAuthorizationProvider', function config( $stateProvider, securityAuthorizationProvider ) {
+.config(['$stateProvider', function config( $stateProvider ) {
   $stateProvider.state( 'Internships', {
     url: '/schools/:schoolId/internships',
     reloadOnSearch: 'false',
@@ -16,10 +16,7 @@ angular.module( 'shapter.internships', [
         templateUrl: 'internships/internships.tpl.html'
       }
     },
-    data:{ pageTitle: 'Internships' },
-    resolve: {
-      authenticatedUser: securityAuthorizationProvider.requireConfirmedUser
-    }
+    data:{ pageTitle: 'Internships' }
   });
 }])
 
