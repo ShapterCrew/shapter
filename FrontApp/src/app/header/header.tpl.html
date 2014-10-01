@@ -45,7 +45,7 @@
         <li ng-show="security.isAuthenticated() && !$stateParams.schoolId"><a ng-href="#/student/{{ security.currentUser.id }}">{{ security.currentUser.firstname + ' ' + security.currentUser.lastname }}</a></li>
         <li ng-show="security.isAuthenticated() && $stateParams.schoolId"><a ng-href="#/schools/{{ $stateParams.schoolId }}/student/{{ security.currentUser.id }}">{{ security.currentUser.firstname + ' ' + security.currentUser.lastname }}</a></li>
 
-        <li ng-hide="security.isAuthenticated()" ng-click="security.showLogin()"><a class="navbar-connect">{{ AppText.header.connect | language }}</a></li>
+        <li ng-hide="security.isAuthenticated()" ng-click="security.showLogin( null, '/schools')"><a class="navbar-connect">{{ AppText.header.connect | language }}</a></li>
         <li class="dropdown" ng-show="security.isAuthenticated()">
           <a href="#" class="dropdown-toggle glyphicon glyphicon-cog" data-toggle="dropdown" ></a>
           <ul class="dropdown-menu">

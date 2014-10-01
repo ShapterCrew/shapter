@@ -3,12 +3,20 @@ angular.module('security.emailLogin', [
   'LocalStorageModule'
 ])
 
-.controller('EmailLoginCtrl', ['Restangular', 'Item', '$scope', 'security', '$window', 'AppText', 'User', '$modalInstance', '$location', 'localStorageService', function(Restangular, Item, $scope, security, $window, AppText, User, $modalInstance, $location, localStorageService ){
+.controller('EmailLoginCtrl', ['Restangular', 'Item', '$scope', 'security', '$window', 'AppText', 'User', '$modalInstance', '$location', 'localStorageService', 'reason', function(Restangular, Item, $scope, security, $window, AppText, User, $modalInstance, $location, localStorageService, reason ){
 
   $scope.close = $modalInstance.close;
   $scope.AppText = AppText;
   $scope.loginUser = {};
   $scope.signupUser = {};
+  $scope.reasonAlerts = [];
+
+  if( reason ){
+    $scope.reasonAlerts.push({
+      msg: AppText.security[ reason ],
+      type: 'info'
+    });
+  }
 
   $scope.facebookConnect = function(){
     localStorageService.set('back url', $location.url());

@@ -134,7 +134,7 @@
                   <span class="fa fa-lg fa-star-o" ng-hide="item.current_user_has_in_cart" ng-click="item.cart()"></span>
                 </span>
                 <span ng-hide="security.isConfirmedUser()">
-                  <span class="fa fa-lg fa-star-o" ng-click="security.showLogin()"></span>
+                  <span class="fa fa-lg fa-star-o" ng-click="security.showLogin('login_needed_for_favourite')"></span>
                 </span>
                 <span class="item-name" sh-item-modal="item" items-list="itemsList">{{ item.name }}</span>
               </div>

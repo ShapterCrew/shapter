@@ -5,6 +5,12 @@
       <span class="glyphicon glyphicon-remove pull-right" ng-click="close()"></span>
 
       <div style="margin-top: 40px; margin-bottom: 20px">
+        <alert class="alert" ng-repeat="alert in reasonAlerts" type="alert.type" close="reasonAlerts.splice( $index, 1)" ng-show="alert.msg" style="margin-bottom: 0px">
+        {{ alert.msg | language }}
+        </alert>
+      </div>
+
+      <div style="margin-bottom: 20px">
         <alert class="alert" ng-repeat="alert in alerts" type="alert.type" close="alert.close()" ng-show="alert.msg" style="margin-bottom: 0px">
         {{ alert.msg | language }}
         </alert>

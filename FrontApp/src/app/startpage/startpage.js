@@ -24,7 +24,6 @@ angular.module('shapter.startpage', [
   security.requestCurrentUser().then( function( response ){
     // has at least one school
     if( security.isConfirmedStudent() ){
-
       var schoolId = security.currentUser.schools[0].id;
       // if first connexion
       if( ( security.currentUser.provider == 'facebook' && security.currentUser.sign_in_count < 2 ) || ( security.currentUser.provider != 'facebook' && security.currentUser.sign_in_count < 3) ){
@@ -34,7 +33,6 @@ angular.module('shapter.startpage', [
       else{
         $location.path( "/schools/" + schoolId );
       }
-
     }
 
     // has no school but confirmed email
@@ -56,7 +54,7 @@ angular.module('shapter.startpage', [
     }
 
     // has an account but email not confirmed 
-    else if ( security.isAuthenticated() ){
+    else if ( security.isAuthenticated() && security.isConfirmedUser() ){
       $location.path("/confirmationSent");
     }
 

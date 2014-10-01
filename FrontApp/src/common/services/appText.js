@@ -154,6 +154,14 @@ angular.module( 'services.appText', [])
       }
     },
     startpage: {
+      connect: {
+        en: 'Connect',
+        fr: 'Connexion'
+      },
+      guest_connect: {
+        en: 'Enter as a guest',
+        fr: 'Entrer comme invité'
+      },
       terms_of_use: {
         en: 'Terms of use',
         fr: 'Conditions générales d\'utilisation'
@@ -180,6 +188,22 @@ angular.module( 'services.appText', [])
       }
     },
     security: {
+      login_needed_for_favourite: {
+        en: 'You need to be logged to add a class to your favourites!',
+        fr: 'Tu dois être connecté pour ajouter un cours à tes favoris !'
+      },
+      login_needed_for_follow: {
+        en: 'You need to be identified as a student to add classes to your profile!',
+        fr: 'Tu dois être identifié comme étudiant pour pouvoir ajouter des cours à ton profil !'
+      },
+      login_needed_to_see_comments: {
+        en: 'You need to be identified as a student to see other students comments!',
+        fr: 'Tu dois être identifié comme étudiant pour voir les commentaires des autres étudiants !'
+      },
+      login_needed_to_contribute: {
+        en: 'You need to be identified as a student to contribute on Shapter!',
+        fr: 'Tu dois être identifié comme étudiant pour pouvoir contribuer sur Shapter !'
+      },
       back: {
         en: 'back',
         fr: 'retour'
@@ -713,12 +737,12 @@ angular.module( 'services.appText', [])
         fr: 'Demande des commentaires'
       },
       facebook_need_comment_title: {
-        en: 'Anyone to share some insights about',
+        en: 'Who took',
         fr: 'Quelqu\'un a-t-il suivi'
       },
       facebook_need_comment_description: {
-        en: 'I\'d like to have feedbacks on it on Shapter, who clan help me?',
-        fr: 'Je voudrais avoir des retours dessus sur Shapter, quelqu\'un peut-il m\'aider ?'
+        en: 'I\'d like to know more. Can someone share some insight on this class ?',
+        fr: 'Je cherche à me renseigner, quelqu\'un peut-il témoigner dessus ?'
       },
       comment: {
         en: 'Leave a comment!',

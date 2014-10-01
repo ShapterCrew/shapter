@@ -48,18 +48,23 @@ angular.module('security.service', [
 
   // Login form dialog stuff
   var loginModal = null;
-  function openLoginModal () {
+  function openLoginModal( reason, access ) {
     if ( loginModal ) {
       throw new Error('Trying to open a modal that is already open!');
     }
     loginModal = $modal.open({
       templateUrl: 'security/emailLogin/emailLogin.tpl.html',
       controller : 'EmailLoginCtrl',
-      windowClass : 'show'
+      windowClass : 'show',
+      resolve: {
+        reason: function(){
+          return reason;
+        }
+      }
     });
 
     loginModal.result.then(function(success){
-      onLoginModalClose(success);
+      onLoginModalClose(success, access);
     }, function(error){
       loginModal = null;
       queue.cancelAll();
@@ -73,12 +78,15 @@ angular.module('security.service', [
     }
   }
 
-  function onLoginModalClose(success) {
+  function onLoginModalClose(success, access) {
     loginModal = null;
     if ( success ) {
       console.log( "retrying queue" );
       $rootScope.$broadcast('login success');
-      queue.retryAll();
+      //queue.retryAll();
+      if( access ){
+        redirect( access );
+      }
     } else {
       console.log( "canceling queue" );
       queue.cancelAll();
@@ -143,8 +151,8 @@ angular.module('security.service', [
     },
 
     // Show the modal login dialog
-    showLogin: function() {
-      openLoginModal();
+    showLogin: function( reason, access ) {
+      openLoginModal( reason, access );
       Analytics.showLogin();
     },
 
