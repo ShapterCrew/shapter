@@ -63,7 +63,7 @@ angular.module('security.service', [
     }, function(error){
       loginModal = null;
       queue.cancelAll();
-      //redirect();
+      redirect();
     });
   }
 
@@ -77,11 +77,11 @@ angular.module('security.service', [
     loginModal = null;
     if ( success ) {
       console.log( "retrying queue" );
-      //queue.retryAll();
+      queue.retryAll();
     } else {
       console.log( "canceling queue" );
       queue.cancelAll();
-      //redirect();
+      redirect();
     }
   }
 
@@ -467,7 +467,7 @@ angular.module('security.service', [
       return !!service.currentUser;
     },
 
-    isConfirmed: function(){
+    isConfirmedUser: function(){
       return !!(service.currentUser && service.currentUser.confirmed);
     },
 

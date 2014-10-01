@@ -532,17 +532,9 @@ angular.module( 'services.appText', [])
     },
 
     contribute: {
-      contribute_not_logged: {
-        en: 'You need to be identified as a student of one of our partner institutions to be able to contribute on Shapter.',
-        fr: 'Tu dois être connecté en tant qu\'étudiant d\'un de nos campus partenaires pour pouvoir contribuer sur Shapter.'
-      },
-      go_login: {
-        en: 'Login',
-        fr: 'Connexion'
-      },
       contribute_not_student: {
-        en: 'Your account needs to be linked to a school to be able to contribute on Shapter.',
-        fr: 'Ton compte doit être associé à un établissement pour que tu puisses contribuer sur Shapter.'
+        en: 'You need to be identified as a student from one of our partner schools to contribute on Shapter!',
+        fr: 'Tu dois être identifié comme étudiant de l\'un de nos établissements partenaires pour contribuer sur Shapter !'
       },
       go_identify: {
         en: 'I\'m a student',
@@ -734,11 +726,7 @@ angular.module( 'services.appText', [])
       },
       i_have_an_email: {
         en: 'Identify as a student',
-        fr: 'Identifie-toi comme étudiant'
-      },
-      add_an_authorization: {
-        en: 'Add a campus',
-        fr: 'Ajoute un établissement'
+        fr: 'M\'identifier comme étudiant'
       },
       there_are: {
         en: 'There are',
@@ -750,7 +738,7 @@ angular.module( 'services.appText', [])
       },
       to_see_the_comments: {
         en: 'To see someone\'s comment, you need to be identified as a student from the same institution as them.',
-        fr: 'Pour voir le commentaire laissé par un étudiant, il faut que tu sois identifié comme étudiant du même établissement que lui.'
+        fr: 'Pour voir le commentaire d\'un étudiant, il faut que tu sois identifié comme étudiant du même établissement que lui.'
       },
       followed: {
         en: 'took the class',
@@ -894,10 +882,6 @@ angular.module( 'services.appText', [])
       }
     },
     header: {
-      connect: {
-        en: 'connect',
-        fr: 'connexion'
-      },
       home: {
         en: 'Home',
         fr: 'Accueil'
