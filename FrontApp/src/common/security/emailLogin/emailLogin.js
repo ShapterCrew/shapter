@@ -1,5 +1,6 @@
 angular.module('security.emailLogin', [
-  'services.localizedMessages'
+  'services.localizedMessages',
+  'LocalStorageModule'
 ])
 
 .controller('EmailLoginCtrl', ['Restangular', 'Item', '$scope', 'security', '$window', 'AppText', 'User', '$modalInstance', 'localStorageService', '$location', function(Restangular, Item, $scope, security, $window, AppText, User, $modalInstance, localStorageService, $location ){
