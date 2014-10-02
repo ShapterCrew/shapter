@@ -48,22 +48,27 @@ angular.module('security.service', [
 
   // Login form dialog stuff
   var loginModal = null;
-  function openLoginModal () {
+  function openLoginModal( reason, access ) {
     if ( loginModal ) {
       throw new Error('Trying to open a modal that is already open!');
     }
     loginModal = $modal.open({
       templateUrl: 'security/emailLogin/emailLogin.tpl.html',
       controller : 'EmailLoginCtrl',
-      windowClass : 'show'
+      windowClass : 'show',
+      resolve: {
+        reason: function(){
+          return reason;
+        }
+      }
     });
 
     loginModal.result.then(function(success){
-      onLoginModalClose(success);
+      onLoginModalClose(success, access);
     }, function(error){
       loginModal = null;
       queue.cancelAll();
-      redirect();
+      //redirect();
     });
   }
 
@@ -73,15 +78,19 @@ angular.module('security.service', [
     }
   }
 
-  function onLoginModalClose(success) {
+  function onLoginModalClose(success, access) {
     loginModal = null;
     if ( success ) {
       console.log( "retrying queue" );
-      queue.retryAll();
+      $rootScope.$broadcast('login success');
+      //queue.retryAll();
+      if( access ){
+        redirect( access );
+      }
     } else {
       console.log( "canceling queue" );
       queue.cancelAll();
-      redirect();
+      //redirect();
     }
   }
 
@@ -102,7 +111,7 @@ angular.module('security.service', [
     }, function(error){
       forgotPasswordModal = null;
       queue.cancelAll();
-      redirect();
+      //redirect();
     });
   }
 
@@ -132,14 +141,20 @@ angular.module('security.service', [
   // The public API of the service
   var service = {
 
+    isLoginModalOpen: function(){
+      return !!loginModal;
+    },
+
     // Get the first reason for needing a login
     getLoginReason: function() {
       return queue.retryReason();
     },
 
     // Show the modal login dialog
-    showLogin: function() {
-      openLoginModal();
+    showLogin: function( reason, access ) {
+      console.log( 'show login' );
+      console.log( access );
+      openLoginModal( reason, access );
       Analytics.showLogin();
     },
 
@@ -183,7 +198,7 @@ angular.module('security.service', [
           if( service.isConfirmedStudent() ){
             closeEmailLoginModal(true);
             if( !queue.hasMore()){
-              redirect();
+              //redirect();
             }
             Analytics.identify( response );
             Analytics.loginSuccess( response );
@@ -194,7 +209,7 @@ angular.module('security.service', [
           else if ( service.isConfirmedUser() ) {
             closeEmailLoginModal(true);
             if( !queue.hasMore()){
-              redirect();
+              //redirect();
             }
             Analytics.identify( response );
             Analytics.loginSuccess( response );
@@ -227,8 +242,8 @@ angular.module('security.service', [
         alerts.clear();
         if (angular.isDefined(x.data.error)) {
           alerts.add("danger", {
-            fr: "Combinaison email/mot de passe invalide.",
-            en: "Invalid email / password combination"
+            fr: "Mauvaise combinaison email/mot de passe. Pour créer un nouveau compte, clique en bas sur \"créér un compte\" !",
+            en: "Wrong password / login combination. To create a new account, click on \"create account\" below!"
           });
         }
       });
@@ -238,7 +253,7 @@ angular.module('security.service', [
     cancelLogin: function() {
       closeLoginModal(false);
       Analytics.cancelLogin();
-      redirect();
+      //redirect();
     },
 
     // Logout the current user and redirect
@@ -251,7 +266,7 @@ angular.module('security.service', [
         });
         service.currentUser = null;
         Analytics.logout();
-        redirect(redirectTo);
+        //redirect(redirectTo);
       });
     },
 
@@ -384,7 +399,7 @@ angular.module('security.service', [
       return Restangular.all('users').customPUT({user: {password:password, password_confirmation:password, reset_password_token:token}}, "password", {}, {}).then(function(response) {
         alerts.clear();
         alerts.add("success", localizedMessages.get('forgotPassword.success'));
-        redirect();
+        //redirect();
         return response;
       }, function(x) {
         alerts.clear();
@@ -451,7 +466,7 @@ angular.module('security.service', [
           return service.currentUser;
         },
         function(error) {
-          redirect();
+          //redirect();
         });
       }
     },

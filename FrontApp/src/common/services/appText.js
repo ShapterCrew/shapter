@@ -20,6 +20,26 @@ angular.module( 'services.appText', [])
       return $filter( 'language' )( $parse( code )( AppText.categories ));
     },
     internships: {
+      internship_created: {
+        en: 'Great, your internship has been created!',
+        fr: 'Super, ton stage a bien été créé !'
+      },
+      share_your_internship: {
+        en: 'Share your internship and tell your friends to add theirs!',
+        fr: 'Partage ton stage et dis à tes amis d\'ajouter les leurs !'
+      },
+      new_internship: {
+        en: 'Add another internship',
+        fr: 'Ajouter un autre stage'
+      },
+      facebook_share_title: {
+        en: 'Come add your internships on Shapter!',
+        fr: 'Venez ajouter vos stages sur Shapter !'
+      },
+      facebook_share_description: {
+        en: 'Shapter makes it easy to find the best internships for your profile. Share your internships and discover where your friends took theirs!',
+        fr: 'Shapter rend la recherche de stages super facile : venez partagez vos stages et découvrir ceux qu\'ont faits les autres !'
+      },
       me_too: {
         en: 'Add your internship!',
         fr: 'Ajoute ton stage !'
@@ -49,7 +69,7 @@ angular.module( 'services.appText', [])
         fr: 'Si tu devais décrire ton poste en un mot ?'
       },
       position_examples: {
-        en: 'ex: data analyst, researcher, marketing, photocopies ...',
+        en: 'ex: data analyst, research scientist, marketing, photocopies ...',
         fr: 'ex : data analyst, chercheur, marketing, stagiaire photocopies ...'
       },
       description: {
@@ -134,6 +154,14 @@ angular.module( 'services.appText', [])
       }
     },
     startpage: {
+      connect: {
+        en: 'Connect',
+        fr: 'Connexion'
+      },
+      guest_connect: {
+        en: 'Enter as a guest',
+        fr: 'Entrer comme invité'
+      },
       terms_of_use: {
         en: 'Terms of use',
         fr: 'Conditions générales d\'utilisation'
@@ -160,6 +188,42 @@ angular.module( 'services.appText', [])
       }
     },
     security: {
+      accept_cgu: {
+        en: 'By clicking on \'signup\', I accept the general terms of use',
+        fr: 'En cliquant sur \"Inscription\", j\'accèpte les conditions générales d\'utilisation'
+      },
+      prefer_school_email: {
+        en: 'If possible, prefer your student email',
+        fr: 'Si possible, préfère l\'email fourni par ton établissement'
+      },
+      login_needed_for_favourite: {
+        en: 'You need to be logged to add a class to your favourites!',
+        fr: 'Tu dois être connecté pour ajouter un cours à tes favoris !'
+      },
+      login_needed_for_follow: {
+        en: 'You need to be identified as a student to add classes to your profile!',
+        fr: 'Tu dois être identifié comme étudiant pour pouvoir ajouter des cours à ton profil !'
+      },
+      login_needed_to_see_comments: {
+        en: 'You need to be identified as a student to see other students comments!',
+        fr: 'Tu dois être identifié comme étudiant pour voir les commentaires des autres étudiants !'
+      },
+      login_needed_to_contribute: {
+        en: 'You need to be identified as a student to contribute on Shapter!',
+        fr: 'Tu dois être identifié comme étudiant pour pouvoir contribuer sur Shapter !'
+      },
+      back: {
+        en: 'back to connect',
+        fr: 'retour vers connexion'
+      },
+      create_account: {
+        en: 'Create account',
+        fr: 'Créer un compte'
+      },
+      connect: {
+        en: 'Connect',
+        fr: 'Connexion'
+      },
       facebook_connect: {
         en: 'Facebook Connect',
         fr: 'Connexion avec Facebook'
@@ -181,8 +245,8 @@ angular.module( 'services.appText', [])
         fr: 'Nom : '
       },
       email: {
-        en: 'Email: ',
-        fr: 'Email : '
+        en: 'Email',
+        fr: 'Email'
       },
       invalid_email: {
         en: 'Invalid Email', 
@@ -198,6 +262,18 @@ angular.module( 'services.appText', [])
       }
     },
     comment: {
+      give_report_reason: {
+        en: 'briefly explain why this comment is inappropriate',
+        fr: 'explique brièvement pourquoi ce commentaire est inapproprié'
+      },
+      your_report_has_been_sent: {
+        en: 'Thanks, a report has been sent to the moderation.',
+        fr: 'Merci, un message a été envoyé à la modération.'
+      },
+      report_comment: {
+        en: 'report this comment',
+        fr: 'dénoncer un contenu inapproprié'
+      },
       problem: {
         en: 'There was a problem when adding your comment. Please report your problem to us: teamshapter@shapter.com',
         fr: 'Il y a eu un problème lors de l\'ajout de ton commentaire. Fais-nous en part à teamshapter@shapter.com'
@@ -517,8 +593,8 @@ angular.module( 'services.appText', [])
         fr: 'J\'ai suivi de nouveaux cours !'
       },
       need_feedback: {
-        en: 'There are not enough feedbacks on',
-        fr: 'Il n\'y a pas assez de témoignages sur'
+        en: 'Need feedback!',
+        fr: 'On a besoin de ton avis !'
       },
       how_did_you_feel: {
         en: 'What\'s your feeling ? Share it to the community !',
@@ -625,7 +701,7 @@ angular.module( 'services.appText', [])
         fr: 'Profils similaires'
       },
       manage_my_course: {
-        en: 'Manage my course at', 
+        en: 'Manage my courses at', 
         fr: 'Gérer mes cours à'
       },
       in_common: {
@@ -660,6 +736,22 @@ angular.module( 'services.appText', [])
       }
     },
     item: {
+      want_more_comments: {
+        en: 'Want more comments? Ask your friends!',
+        fr: 'Tu veux plus de commentaires ? Demande autour de toi !'
+      },
+      ask_for_comments: {
+        en: 'Ask for comments',
+        fr: 'Demande des commentaires'
+      },
+      facebook_need_comment_title: {
+        en: 'Who took',
+        fr: 'Quelqu\'un a-t-il suivi'
+      },
+      facebook_need_comment_description: {
+        en: 'I\'d like to know more. Can someone share some insight about this class ?',
+        fr: 'Je cherche à me renseigner, quelqu\'un peut-il témoigner sur Shapter ?'
+      },
       comment: {
         en: 'Leave a comment!',
         fr: 'Laisse un commentaire !'
@@ -697,15 +789,15 @@ angular.module( 'services.appText', [])
         fr: 'favoris'
       },
       no_comments: {
-        en: 'Class hasn\'t been commented yet. Comment it or ask someone who took the class to give their feedback!',
-        fr: 'Pas de commentaires pour le moment. Commente le cours ou demande à quelqu\'un qui l\'a suivi de le faire !'
+        en: 'Class hasn\'t been commented yet.',
+        fr: 'Pas de commentaires pour le moment.'
       },
       no_diagram: {
         en: 'Class hasn\'t been rated yet. Evaluate it or ask someone who took the class to do it!',
         fr: 'Pas d\'évaluations pour le moment. Évalue le cours ou demande à quelqu\'un qui l\'a suivi de le faire !'
       },
       no_description: {
-        en: 'We don\'t have the official description for this course. Could you upload it ? Click on the blue button above and coppy-paste it!',
+        en: 'We don\'t have the official description for this course. Could you upload it ? Click on the blue button above and copy-paste it!',
         fr: 'Nous n\'avons pas la description du cours. Clique sur "Editer la description" et copie-colle la pour que les autres puissent en profiter !'
       },
       diagram: {
@@ -830,6 +922,14 @@ angular.module( 'services.appText', [])
       }
     },
     header: {
+      schools_history: {
+        en: 'recently visited',
+        fr: 'visites récentes'
+      },
+      connect: {
+        en: 'Connect',
+        fr: 'Connexion'
+      },
       home: {
         en: 'Home',
         fr: 'Accueil'
@@ -838,7 +938,7 @@ angular.module( 'services.appText', [])
         en: 'Classes', 
         fr: 'Les cours'
       },
-      ohters: {
+      others: {
         en: 'Other',
         fr: 'Autres'
       },
@@ -1009,6 +1109,22 @@ angular.module( 'services.appText', [])
       }
     },
     school: {
+      share: {
+        en: 'share',
+        fr: 'partager'
+      },
+      best_comments_share_title: {
+        en: 'Five of the best classes of',
+        fr: 'Cinq des meilleurs cours de'
+      },
+      best_comments_share_description_1: {
+        en: 'Come and see the five best classes of',
+        fr: 'Venez decouvrir les cinq cours les mieux notes de'
+      },
+      best_comments_share_description_2: {
+        en: 'according to students on Shapter, the Trip Advisor for your classes!',
+        fr: 'selon les etudiants sur Shapter, le Trip Advisor des cours !'
+      },
       on_shapter: {
         en: 'according to students on @shapter_ !',
         fr: 'selon les étudiants sur @shapter_ !'
@@ -1149,6 +1265,22 @@ angular.module( 'services.appText', [])
       }
     },
     system: {
+      or: {
+        en: 'or',
+        fr: 'ou'
+      },
+      question_mark: {
+        en: '?',
+        fr: ' ?'
+      },
+      exclamation: {
+        en: '!',
+        fr: ' !'
+      },
+      send: {
+        en: 'send',
+        fr: 'envoyer'
+      },
       edit: {
         en: 'edit',
         fr: 'éditer'
@@ -1184,6 +1316,10 @@ angular.module( 'services.appText', [])
       loading: {
         en: 'loading',
         fr: 'chargement'
+      },
+      close: {
+        en: 'close',
+        fr: 'fermer'
       }
     },
     categories: {

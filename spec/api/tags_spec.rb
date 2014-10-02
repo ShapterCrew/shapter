@@ -70,9 +70,9 @@ describe Shapter::V7::Tags do
   describe :suggested do 
 
     context "when logged of" do 
-      it "denies access" do 
+      it "does NOT deny access" do 
         post 'tags/suggested'
-        access_denied(@response).should be true
+        access_denied(@response).should be false
       end
     end
 

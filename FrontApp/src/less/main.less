@@ -146,7 +146,7 @@
 
 @import '../../src/common/directives/confirmAlert/confirmAlert.less';
 
-@import '../../vendor/angular-social/angular-social.less';
+@import 'social.less';
 
 html, body{
   height: 100%;
@@ -176,7 +176,10 @@ a {
 }
 
 .text-default {
-  color: @brand-primary;
+  color: @wet-asphalt;
+  &:hover {
+    color: @wet-asphalt;
+  }
 }
 
 [ng-click],
@@ -377,7 +380,7 @@ background-color: #1abc9c;
   color: @concrete;
 }
 
-@light-asphalt: mix(@wet-asphalt, @blue-pastel-d2, 75%);
+@light-asphalt: mix(@wet-asphalt, @blue-pastel-d2, 65%);
 .text-asphalt {
   color: @light-asphalt;
 }
@@ -394,8 +397,8 @@ background-color: #1abc9c;
   color: @peter-river;
 }
 
-.text-midnight {
-  color: @midnight-blue;
+.text-carrot {
+  color: @carrot;
 }
 
 .btn-pink {
@@ -403,6 +406,10 @@ background-color: #1abc9c;
 }
 
 .btn-emerald {
+  .button-variant(@btn-default-color, @emerald-pastel, @emerald-pastel, @emerald-pastel);
+}
+
+.btn-turquoise {
   .button-variant(@btn-default-color, @green-pastel, @green-pastel, @green-pastel);
 }
 
@@ -466,8 +473,9 @@ background-color: #1abc9c;
 
 
 @sun-blood: mix(@sun-pastel, @alizarin, 90%);
-@blue-clouds-1: mix(#f6f9fb, @blue-pastel, 96%);
-@blue-clouds: mix( @blue-clouds-1, white, 55%);
+
+@blue-clouds-1: mix(#f6f9fb, @blue-pastel-d2, 92%);
+@blue-clouds: mix( @blue-clouds-1, white, 40%);
 
 //@peter-river: #4CA0FF;
 //@peter-river: #5CA5FD;
@@ -741,6 +749,7 @@ background-color: #1abc9c;
   padding-top: 20px;
   padding-bottom: 20px;
   background-color: mix(@blue-pastel, white, 30%);
+  color: @blue-pastel-d2;
 }
 
 .shapter-well {
@@ -751,7 +760,7 @@ background-color: #1abc9c;
   //background-color: @well-bg;
   //background-color: mix(@clouds, white, 30%);
   background-color: @blue-clouds;
-  border: 1px solid darken(@blue-clouds, 3%); 
+  //border: 1px solid darken(@blue-clouds, 1%); 
   &.shapter-well-turquoise {
     background-color: @green-pastel;
     color: white;
@@ -778,7 +787,7 @@ background-color: #1abc9c;
 }
 
 .emerald-caret {
-  border-top-color: @emerald-pastel;
+  border-top-color: @emerald-pastel-d2;
 }
 
 .dark-blue-caret {

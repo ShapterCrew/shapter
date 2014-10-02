@@ -47,6 +47,13 @@ angular.module('resources.comment', [])
     });
   };
 
+  var report = function(description){
+    // report comment 
+    return Restangular.one('items', this.item_id).one('comments',this.id).customPOST({description: description},'report').then(function(response) {
+      return response;
+    });
+  };
+
   var edit = function(){
     var comment = this;
     if( this.newContent ){
@@ -102,6 +109,7 @@ angular.module('resources.comment', [])
     model.like = like;
     model.dislike = dislike;
     model.unlike = unlike;
+    model.report = report;
     model.edit = edit;
     model.getLikers = getLikers;
     model.getDislikers = getDislikers;

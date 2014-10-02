@@ -24,12 +24,6 @@ describe Shapter::V7::ConfirmStudents do
       end
     end
 
-    context "when NOT logged in" do 
-      it "denies access" do 
-        post "users/me"
-        access_denied(@response).should be true
-      end
-    end
   end
 
   #}}}

@@ -5,7 +5,7 @@ angular.module( 'shapter.schools', [
   'services.appText'
 ])
 
-.config(['$stateProvider', 'securityAuthorizationProvider', function config( $stateProvider, securityAuthorizationProvider ) {
+.config(['$stateProvider', function config( $stateProvider ) {
   $stateProvider.state( 'schools', {
     url: '/schools',
     views: {
@@ -14,10 +14,7 @@ angular.module( 'shapter.schools', [
         templateUrl: 'schools/schools.tpl.html'
       }
     },
-    data:{ pageTitle: 'Schools' },
-    resolve: {
-      authenticatedUser: securityAuthorizationProvider.requireConfirmedUser
-    }
+    data:{ pageTitle: 'Schools' }
   }).state( 'campusPageAdmin', {
     url: '/schools/:schoolId/admin',
     views: {
@@ -28,7 +25,6 @@ angular.module( 'shapter.schools', [
     },
     data:{ pageTitle: 'School Admin' },
     resolve: {
-      authenticatedUser: securityAuthorizationProvider.requireAdminUser,
       formation: ['Formation', '$stateParams', function( Formation, $stateParams ){
         var tag_ids = [
           $stateParams.schoolId
@@ -49,7 +45,6 @@ angular.module( 'shapter.schools', [
     },
     data:{ pageTitle: 'School' },
     resolve: {
-      authenticatedUser: securityAuthorizationProvider.requireConfirmedUser,
       school: ['Tag', '$stateParams', function( Tag, $stateParams ){
         return Tag.get( $stateParams.schoolId );
       }],
@@ -71,7 +66,6 @@ angular.module( 'shapter.schools', [
     },
     data:{ pageTitle: 'School' },
     resolve: {
-      authenticatedUser: securityAuthorizationProvider.requireConfirmedUser,
       formation: ['Formation', '$stateParams', function( Formation, $stateParams ){
         var tag_ids = [
           $stateParams.schoolId
@@ -85,14 +79,41 @@ angular.module( 'shapter.schools', [
   });
 }])
 
-.run(['$rootScope', '$stateParams', 'Tag', function( $rootScope, $stateParams, Tag ){
+.run(['$rootScope', '$stateParams', 'Tag', 'security', function( $rootScope, $stateParams, Tag, security ){
+
+  $rootScope.schoolsHistory = $rootScope.schoolsHistory ? $rootScope.schoolsHistory : [];
+
+  var isOneOfMySchools = function( schoolId ){
+    return !security.isAuthenticated() ? false : security.currentUser.schools.map( function( school ){
+      return school.id == schoolId;
+    }).reduce( function( previous, current ){
+      return previous || current;
+    }, false);
+  };
+
+  var isInHistory = function( schoolId ){
+    return $rootScope.schoolsHistory.map( function( school ){
+      return school.id == schoolId;
+    }).reduce( function( previous, current ){
+      return previous || current;
+    }, false);
+  };
+
+  var isPresent = function( schoolId ){
+    return isOneOfMySchools( schoolId ) || isInHistory( schoolId );
+  };
+
+
   $rootScope.$watch( function(){
     return $stateParams.schoolId;
-  }, function( newValue ){
-    if( newValue ){
-    Tag.get( $stateParams.schoolId ).then( function( school ){
-      $rootScope.school = school;
-    });
+  }, function( newValue, oldValue ){
+    if( newValue != oldValue ){
+      Tag.get( $stateParams.schoolId ).then( function( school ){
+        $rootScope.school = school;
+        if( !isPresent( $stateParams.schoolId ) ){
+          $rootScope.schoolsHistory.push( school );
+        }
+      });
     }
     else {
       $rootScope.school = null;
@@ -106,6 +127,7 @@ angular.module( 'shapter.schools', [
   Analytics.schoolsIndex();
   $scope.AppText = AppText;
   $scope.limit = 3;
+
 
   $scope.areComments = function( input ){
     return input.comments_count > 10 && input.students_count > 10;
@@ -128,7 +150,18 @@ angular.module( 'shapter.schools', [
 }])
 
 
-.controller('FormationCtrl', [ '$scope', 'Tag', 'security', '$location', 'formation', '$stateParams', 'school', 'Formation', 'AppText', 'Analytics', 'Internship', 'shAddInternshipModalFactory', function( $scope, Tag, security, $location, formation, $stateParams, school, Formation, AppText, Analytics, Internship, shAddInternshipModalFactory){
+.controller('FormationCtrl', [ '$scope', 'Tag', 'security', '$location', 'formation', '$stateParams', 'school', 'Formation', 'AppText', 'Analytics', 'Internship', 'shAddInternshipModalFactory', '$filter', function( $scope, Tag, security, $location, formation, $stateParams, school, Formation, AppText, Analytics, Internship, shAddInternshipModalFactory, $filter){
+
+  facebookData = {
+    permalink: '#' + $location.url(),
+    type: "best_comments",
+    title: $filter( 'language' )( AppText.school.best_comments_share_title ) + ' ' + school.name + ' !',
+    description: $filter( 'language' )( AppText.school.best_comments_share_description_1 ) + ' ' + school.name + ' ' + $filter( 'language' )( AppText.school.best_comments_share_description_2 )
+  };
+
+  // permalink type title description
+
+  $scope.facebookData = btoa( JSON.stringify( facebookData ));
 
   $scope.shAddInternshipModalFactory = shAddInternshipModalFactory;
   $scope.n = 0;
@@ -176,9 +209,9 @@ angular.module( 'shapter.schools', [
   var tag_ids = $stateParams.formationId ? [ $stateParams.formationId ] : [];
   tag_ids.push( $stateParams.schoolId );
 
-    Internship.getListFromTags( tag_ids, false).then(function(response){
-      $scope.internshipsList = response.internships;
-    });
+  Internship.getListFromTags( tag_ids, false).then(function(response){
+    $scope.internshipsList = response.internships;
+  });
 
   Formation.subFormations( tag_ids ).then( function( response ){
     $scope.formation.sub_choices = response.sub_choices;

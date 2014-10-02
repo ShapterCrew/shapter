@@ -1,9 +1,19 @@
 <div style="padding-right: 10px; margin-bottom: 30px">
 
-
   <div class="row" style="margin-top: 5px">
     <div class="col-md-12">
+
+      <div class="pull-right dropdown" style="margin: 0px 0px 0px 5px" ng-show="security.isConfirmedStudent()">
+        <small class="fa fa-chevron-down text-muted dropdown-toggle"></small>
+        <ul class="dropdown-menu">
+          <li ng-hide="ownComment()" ng-click="comment.displayReportComment = true"><a><span class="fa fa-exclamation-triangle"></span> {{ AppText.comment.report_comment | language }}</a></li>
+          <li ng-show="ownComment()"><a ng-click="comment.displayEditComment = true; comment.newContent = comment.content"><span class="glyphicon glyphicon-pencil"></span> editer</a></li>
+          <li ng-show="ownComment()"><a confirmed-click="$event.stopPropagation(); removeComment()" ng-confirm-click="{{ AppText.comment.sure_want_to_delete_it | language }}"><span class="glyphicon glyphicon-remove"></span> {{ AppText.comment.remove | language }}</a></li>
+        </ul>
+      </div>
+
       <span class="badge badge-success pull-right"><span ng-repeat="val in comment.item.averaged_diagram" ng-show="val.name == 'Satisfaction'">{{ val.value | floor }}% de satisfaction</span></span>
+
       <h6 ng-show="displayCourseName" style="margin-top: 0px" sh-item-modal="comment.item" class="text-asphalt bold">{{ comment.item.name }}<span class="transparent">l</span></h6>
       <span ng-show="displayCourseName && displayStudentName"> - </span>
       <h6 ng-show="displayStudentName" class="media-heading bold text-asphalt" ng-click="navToStudent( comment.author.id )">{{ comment.author.firstname }} {{ comment.author.lastname }}
@@ -25,7 +35,6 @@
 
               <div ng-show="ownComment()">
                 <div ng-hide="hideLikes">
-                  <small class="text-muted" ng-click="comment.displayEditComment = true; comment.newContent = comment.content">{{ AppText.comment.edit | language }}</small>
                   <small class="text-muted"> - </small>
                   <small class="text-muted pointer" confirmed-click="$event.stopPropagation(); removeComment()" ng-confirm-click="Veux-tu vraiment supprimer ce commentaire ?">{{ AppText.comment.remove | language }}</small>
                 </div>
@@ -41,9 +50,6 @@
                 <div class="media-body">
                   <span class="badge badge-info">{{ comment.created_at | date:'dd/MM/yyyy'}}</span>
                   <div ng-show="ownComment()">
-                    <small class="text-muted" ng-click="comment.displayEditComment = true; comment.newContent = comment.content">editer</small>
-                    <small class="text-muted"> - </small>
-                    <small class="text-muted pointer" confirmed-click="$event.stopPropagation(); removeComment()" ng-confirm-click="{{ AppText.comment.sure_want_to_delete_it | language }}">{{ AppText.comment.remove | language }}</small>
                   </div>
                 </div>
               </div>
@@ -75,7 +81,8 @@
         </div>
 
 
-        <div class="comment-text"><!-- media body -->
+        <div class="comment-text">
+          <div ng-include="'directives/comment/reportComment.tpl.html'"></div>
           <div ng-hide="comment.displayEditComment" style="text-align: justify; white-space: pre-line; text-align: justify">{{ comment.content | commentCut:300:comment.displayAll}} <a ng-click="comment.displayAll = true" class="text-info" ng-show="comment.content.length > 300 && !comment.displayAll">... {{ AppText.comment.display_more | language }}</a><a class="text-muted" ng-click="comment.displayAll = false" ng-show="comment.content.length > 300 && comment.displayAll"> {{ AppText.comment.hide | language }}</a></div>
           <div class="media-body" ng-show="comment.displayEditComment">
             <textarea ng-model="comment.newContent" rows="8" class="form-control"></textarea>

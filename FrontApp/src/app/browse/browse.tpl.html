@@ -57,7 +57,7 @@
           <ul class="list-inline cat-list nav-justified" style="margin-bottom: 0px; margin-top: 20px; width: auto">
             <!-- some categories -->
             <li class="dropdown" ng-repeat="cat in (categories | catFilter ).display">
-              <a class="dropdown-toggle" style="white-space: nowrap" ng-mouseover="getSuggestedTags( cat )">{{ AppText.translateCode( cat )}}<span class="caret dark-blue-caret"></span> </a>
+              <a class="dropdown-toggle" style="white-space: nowrap" ng-mouseover="getSuggestedTags( cat )">{{ AppText.translateCode( cat )}}<span class="caret emerald-caret"></span> </a>
               <ul class="dropdown-menu">
                 <li ng-hide="tagsSuggestions[ cat ] === undefined || tagsSuggestions[ cat ] == 'loading'" ng-repeat="tag in tagsSuggestions[ cat ]" ng-click="addTag( tag )"><a>{{ tag.name }}</a></li>
                 <li ng-show="tagsSuggestions[cat] !== undefined && tagsSuggestions[ cat ].length === 0" class="disabled">
@@ -75,7 +75,7 @@
 
             <!-- more categories ! -->
             <li class="dropdown">
-              <a class="dropdown-toggle" style="white-space: nowrap" ng-mouseover="getRemainingCatSuggestions()">{{ AppText.browse.more | language }}<span class="caret dark-blue-caret"></span></a>
+              <a class="dropdown-toggle" style="white-space: nowrap" ng-mouseover="getRemainingCatSuggestions()">{{ AppText.browse.more | language }}<span class="caret emerald-caret"></span></a>
 
               <ul class="dropdown-menu">
                 <!-- repat remaining categories -->
@@ -119,8 +119,8 @@
         </p>
 
         <div class="shapter-well">
-          <div class="list-group">
-            <div class="list-group-item clearfix" ng-repeat="item in itemsList">
+          <div class="">
+            <div class="campus-comment clearfix" ng-repeat="item in itemsList">
 
               <div class="pull-right" ng-show="security.isConfirmedStudent()">
                 <label ng-click="item.subscribe()" class="text-muted" ng-hide="item.current_user_subscribed">{{ AppText.browse.subscribed | language }}</label>
@@ -129,9 +129,12 @@
               </div>
 
               <div class="item-title">
-                <span  ng-show="security.isConfirmedStudent()">
+                <span  ng-show="security.isConfirmedUser()">
                   <span class="fa fa-lg fa-star" ng-show="item.current_user_has_in_cart" ng-click="item.uncart()"></span>
                   <span class="fa fa-lg fa-star-o" ng-hide="item.current_user_has_in_cart" ng-click="item.cart()"></span>
+                </span>
+                <span ng-hide="security.isConfirmedUser()">
+                  <span class="fa fa-lg fa-star-o" ng-click="security.showLogin('login_needed_for_favourite')"></span>
                 </span>
                 <span class="item-name" sh-item-modal="item" items-list="itemsList">{{ item.name }}</span>
               </div>

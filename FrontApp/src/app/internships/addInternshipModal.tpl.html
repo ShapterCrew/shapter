@@ -94,6 +94,38 @@
 
               </form>
             </div>
+
+            <div ng-show="step == 3">
+              <div class="lead text-asphalt">{{ AppText.internships.internship_created | language }}</div>
+              <div class="form-group">
+                <button class="btn btn-info" ng-click="toStepOne()"><span class="glyphicon glyphicon-plus"></span> {{ AppText.internships.new_internship | language }}</button>
+              </div>
+              <div class="form-group">
+                <span>{{ AppText.internships.share_your_internship | language }}</span>
+
+                <!-- facebook output -->
+                <ul ng-social-buttons 
+                  data-url="'http://shapter.com/api/v1/facebook_pages/' + facebookData"
+                  data-title="'Shapter: les cours qui te correspondent'"
+                  data-description="'Choisis tes cours grâce à l\' avis des
+                  anciens et donne le tiens !'"
+                  data-image="'http://shapter.com/assets/img/logo_blue_square.png'"
+                  style="display: inline; margin-left: 20px;">
+                  <li class="ng-social-facebook">
+                    <span class="fa-stack">
+                      <i class="fa fa-square fa-stack-2x"></i>
+                      <i class="fa fa-facebook fa-stack-1x text-facebook"></i>
+                    </span>
+                    {{ AppText.school.share | language }}
+                  </li>
+                </ul>
+              </div>
+              <div class="form-group">
+                <div class="clearfix">
+                  <a class="pull-right" ng-click="close()">{{ AppText.system.close | language }}</a>
+                </div>
+              </div>
+            </div><!-- step 3 -->
           </div>
         </div>
       </div>

@@ -1,10 +1,11 @@
 angular.module('shapter.item', [
   'angularFileUpload',
-  'services.appText' ,
+  'services.appText',
+  'ui.router',
   'editItemTags'
 ])
 
-.config(['$stateProvider', 'securityAuthorizationProvider', function( $stateProvider, securityAuthorizationProvider ){
+.config(['$stateProvider', function( $stateProvider ){
   $stateProvider.state( 'item', {
     url: '/item/:itemId',
     views: {
@@ -15,7 +16,6 @@ angular.module('shapter.item', [
     },
     data: { pageTitle: 'Cours' },
     resolve: {
-      authenticatedUser: securityAuthorizationProvider.requireConfirmedUser,
       item: ['Item', '$stateParams', function( Item, $stateParams ){
         return Item.load( $stateParams.itemId );
       }]
@@ -197,7 +197,7 @@ angular.module('shapter.item', [
   $scope.close = $modalInstance.close;
 }])
 
-.controller('itemModalCtrl', ['$scope', 'item', 'itemsList', 'loadMoreItems',  'numberOfItems', '$window', '$modalInstance', '$location', '$q', 'Item', 'Analytics', 'security', 'editDiagramFactory', '$upload', '$http', 'AppText', 'itemFactory', '$stateParams', '$rootScope', 'StoJ', function($scope, item, itemsList, loadMoreItems, numberOfItems, $window, $modalInstance, $location, $q, Item, Analytics, security, editDiagramFactory, $upload, $http, AppText, itemFactory, $stateParams, $rootScope, StoJ ) {
+.controller('itemModalCtrl', ['$scope', 'item', 'itemsList', 'loadMoreItems',  'numberOfItems', '$window', '$modalInstance', '$location', '$q', 'Item', 'Analytics', 'security', 'editDiagramFactory', '$upload', '$http', 'AppText', 'itemFactory', '$stateParams', '$rootScope', '$filter', function($scope, item, itemsList, loadMoreItems, numberOfItems, $window, $modalInstance, $location, $q, Item, Analytics, security, editDiagramFactory, $upload, $http, AppText, itemFactory, $stateParams, $rootScope, $filter ) {
 
   $scope.$rootScope = $rootScope;
   item.open = true;
@@ -213,16 +213,20 @@ angular.module('shapter.item', [
   $scope.numberOfItems = numberOfItems;
   $location.search( 'item', item.id );
 
-  $scope.diagjpg = function(){
-    var svg = document.getElementById('diagram') ? document.getElementById.innerHTML : null;
-    if( svg ){
-      console.log( svg );
-      return StoJ.convert(svg);
-    }
-    else {
-      return null;
-    }
+  $scope.$on('login success', function(){
+    item.loadComments();
+  });
+
+  facebookData = {
+    permalink: '#/start?item=' + item.id,
+    type: "default",
+    title: $filter( 'language' )( AppText.item.facebook_need_comment_title ) + ' ' + item.name + $filter( 'language' )( AppText.system.question_mark ),
+    description: $filter( 'language' )( AppText.item.facebook_need_comment_description )
   };
+
+  $scope.facebookData = $filter('shareEncoding')(btoa( JSON.stringify( facebookData )));
+
+  console.log( btoa('é') );
 
   $scope.$watch( function(){
     return $location.search().item;
@@ -285,8 +289,6 @@ angular.module('shapter.item', [
   else{ 
     $scope.item.displayAddComment = false;
   }
-
-
 
   $scope.hideAddComment = function(){
     $scope.item.displayAddComment = false;
