@@ -19,8 +19,8 @@
 
         <li class="dropdown">
           <a class="navbar-school dropdown-toggle">
-            <span class="bold" ng-show="root.school">{{ root.school.name }}</span>
-            <span ng-hide="root.school">{{ AppText.header.choose_a_campus | language }}</span>
+            <span class="bold" ng-show="$rootScope.school">{{ $rootScope.school.name }}</span>
+            <span ng-hide="$rootScope.school">{{ AppText.header.choose_a_campus | language }}</span>
             <span class="caret white-caret"></span>
           </a>
           <ul class="dropdown-menu">
@@ -29,8 +29,11 @@
               <a ng-href="#/schools/{{ school.id }}">{{ school.name }}</a>
             </li>
             <li><a href="#/campusAuthentication"><small class="fa fa-plus"></small> {{ AppText.header.add_an_authorization | language }}</a></li>
+            <li class="divider" ng-show="$rootScope.schoolsHistory.length"></li>
+            <li ng-show="$rootScope.schoolsHistory.length" class="dropdown-header">{{ AppText.header.schools_history | language }}</li>
+            <li ng-repeat="school in $rootScope.schoolsHistory" ng-click="schoolNav( school.id )"><a ng-bind="school.name"></a></li>
             <li class="divider"></li>
-            <li class="dropdow-header">{{ AppText.header.others | language }}</li>
+            <li class="dropdown-header">{{ AppText.header.others | language }}</li>
             <li><a href="#/schools">{{ AppText.header.all_institutions | language }}</a></li>
           </ul>
         </li>

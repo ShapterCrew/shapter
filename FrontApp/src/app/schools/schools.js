@@ -79,14 +79,40 @@ angular.module( 'shapter.schools', [
   });
 }])
 
-.run(['$rootScope', '$stateParams', 'Tag', function( $rootScope, $stateParams, Tag ){
+.run(['$rootScope', '$stateParams', 'Tag', 'security', function( $rootScope, $stateParams, Tag, security ){
+
+  var isOneOfMySchools = function( schoolId ){
+    return !security.isAuthenticated() ? false : security.currentUser.schools.map( function( school ){
+      return school.id == schoolId;
+    }).reduce( function( previous, current ){
+      return previous || current;
+    }, false);
+  };
+
+  var isInHistory = function( schoolId ){
+    return $rootScope.schoolsHistory.map( function( school ){
+      return school.id == schoolId;
+    }).reduce( function( previous, current ){
+      return previous || current;
+    }, false);
+  };
+
+  var isPresent = function( schoolId ){
+    return isOneOfMySchools( schoolId ) || isInHistory( schoolId );
+  };
+
+
   $rootScope.$watch( function(){
     return $stateParams.schoolId;
   }, function( newValue ){
     if( newValue ){
-    Tag.get( $stateParams.schoolId ).then( function( school ){
-      $rootScope.school = school;
-    });
+      Tag.get( $stateParams.schoolId ).then( function( school ){
+        $rootScope.school = school;
+        $rootScope.schoolsHistory = $rootScope.schoolsHistory ? $rootScope.schoolsHistory : [];
+        if( !isPresent( $stateParams.schoolId ) ){
+          $rootScope.schoolsHistory.push( school );
+        }
+      });
     }
     else {
       $rootScope.school = null;

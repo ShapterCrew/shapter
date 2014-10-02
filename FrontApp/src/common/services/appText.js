@@ -922,6 +922,10 @@ angular.module( 'services.appText', [])
       }
     },
     header: {
+      schools_history: {
+        en: 'recently visited',
+        fr: 'visites récentes'
+      },
       connect: {
         en: 'Connect',
         fr: 'Connexion'
@@ -934,7 +938,7 @@ angular.module( 'services.appText', [])
         en: 'Classes', 
         fr: 'Les cours'
       },
-      ohters: {
+      others: {
         en: 'Other',
         fr: 'Autres'
       },

@@ -9,7 +9,7 @@ angular.module('shapter.header', ['directives.confirmAlert', 'directives.behaveA
 
       scope.$stateParams = $stateParams;
       scope.$state = $state;
-      scope.root = $rootScope;
+      scope.$rootScope = $rootScope;
       scope.isCollapsed = true;
       scope.AppText = AppText;
 
