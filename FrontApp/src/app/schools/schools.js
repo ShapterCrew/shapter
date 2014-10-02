@@ -81,6 +81,8 @@ angular.module( 'shapter.schools', [
 
 .run(['$rootScope', '$stateParams', 'Tag', 'security', function( $rootScope, $stateParams, Tag, security ){
 
+  $rootScope.schoolsHistory = $rootScope.schoolsHistory ? $rootScope.schoolsHistory : [];
+
   var isOneOfMySchools = function( schoolId ){
     return !security.isAuthenticated() ? false : security.currentUser.schools.map( function( school ){
       return school.id == schoolId;
@@ -104,11 +106,10 @@ angular.module( 'shapter.schools', [
 
   $rootScope.$watch( function(){
     return $stateParams.schoolId;
-  }, function( newValue ){
-    if( newValue ){
+  }, function( newValue, oldValue ){
+    if( newValue != oldValue ){
       Tag.get( $stateParams.schoolId ).then( function( school ){
         $rootScope.school = school;
-        $rootScope.schoolsHistory = $rootScope.schoolsHistory ? $rootScope.schoolsHistory : [];
         if( !isPresent( $stateParams.schoolId ) ){
           $rootScope.schoolsHistory.push( school );
         }

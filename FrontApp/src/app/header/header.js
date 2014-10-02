@@ -109,4 +109,17 @@ angular.module('shapter.header', ['directives.confirmAlert', 'directives.behaveA
       };
     }
   };
+}])
+
+.filter('notCurrentSchool', [function(){
+  return function( schools, schoolId ){
+    return schools.length ? schools.map( function( school ){
+      return school.id == schoolId ? null : school;
+    }).reduce( function( previous, current ){
+      if( current !== null ){
+        previous.push( current );
+      }
+      return previous;
+    }, []) : [];
+  };
 }]);
