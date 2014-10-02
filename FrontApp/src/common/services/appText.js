@@ -1419,11 +1419,16 @@ angular.module( 'services.appText', [])
       }
     },
     cursus: {
+
+      internship: {
+        en: 'Internship',
+        fr: 'Stage'
+      },
       add_step: {
         en: 'Add a step to your profile',
         fr: 'Ajoute une étape à ton cursus'
       },
-      internship: {
+      add_internship: {
         en: 'Add an internship',
         fr: 'Ajoute un stage'
       },

@@ -5,7 +5,7 @@ angular.module( 'shapter.cursus', [
   'services.appText'
 ])
 
-.config(['$stateProvider', 'securityAuthorizationProvider', function config( $stateProvider, securityAuthorizationProvider ) {
+.config(['$stateProvider',function config( $stateProvider ) {
   $stateProvider.state( 'cursus', {
     url: '/schools/:schoolId/cursus',
     views: {
@@ -16,7 +16,6 @@ angular.module( 'shapter.cursus', [
     },
     data:{ pageTitle: 'Cursus' },
     resolve: {
-      authenticatedUser: securityAuthorizationProvider.requireConfirmedUser,
       schools: ['School', function( School ){
         return School.index();
       }]
@@ -51,6 +50,9 @@ angular.module( 'shapter.cursus', [
     $scope.itemsList = [];
   };
   $scope.activeTag = null;
+  $scope.firstOfASchool = function( $index, boxes, box ){
+    return $index === 0 || boxes[ $index - 1 ].type != 'classes' || ( boxes[ $index - 1 ].type == 'classes' && ($filter( 'filter' )( boxes[ $index - 1 ].tags,  {category: 'school'})[0].id != ($filter( 'filter' )( box.tags,  {category: 'school'})[0].id)));
+  };
 
   $scope.initializeNewBox = function(){
     $scope.newBox = {
