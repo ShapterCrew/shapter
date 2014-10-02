@@ -188,6 +188,10 @@ angular.module( 'services.appText', [])
       }
     },
     security: {
+      accept_cgu: {
+        en: 'By clicking on \'signup\', I accept the general terms of use',
+        fr: 'En cliquant sur \"Inscription\", j\'accèpte les conditions générales d\'utilisation'
+      },
       prefer_school_email: {
         en: 'If possible, prefer your student email',
         fr: 'Si possible, préfère l\'email fourni par ton établissement'

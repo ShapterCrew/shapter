@@ -74,6 +74,11 @@
             </div>
           </div><!-- signupState -->
 
+
+          <div class="form-group clearfix" style="margin-bottom: 0px;" ng-show="signupState">
+            <a target=_blank href="#/cgu" class="pull-right" style="margin-top: 10px; margin-bottom: 0px;"><small class="text-asphalt">{{ AppText.security.accept_cgu | language }}</small></a>
+          </div>
+
           <div class="form-group clearfix">
             <span class="pull-right">
               <span class="text-success bold" ng-click="signupState = true" ng-hide="signupState">
