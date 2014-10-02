@@ -4,42 +4,52 @@
   <div class="row">
     <div class="col-md-10 col-md-offset-1">
       <div class="box-container">
-        <div class="box" ng-class="{'internship-box': box.type=='internship', 'first-of-a-school': firstOfASchool( $index, boxes, box )}" ng-repeat="box in boxes">
+
+        <div class="add-box">
           <div class="row">
-            <div class="col-md-2">
-              <div ng-show="firstOfASchool( $index, boxes, box )">
-              <span 
-                class="text-orange bold" 
-                ng-repeat="tag in box.tags | filter: {category: 'school'}">
-                {{ tag.name }}
-              </span>
-            </div>
-            </div>
+            <div class="col-md-12">
+              <div class="btn-add-box">
+                <span class="fa fa-stack fa-lg">
+                  <span class="fa fa-circle fa-stack-2x"></span>
+                  <span class="fa fa-plus fa-stack fa-inverse"></span>
+                </span>
+                <span class="bold" ng-bind="AppText.cursus.add_step | language"></span>
+              </div>
+            </div><!-- col -->
+          </div><!-- row -->
+        </div>
 
-            <div class="col-md-10 box-content-col">
-              <span class="badge badge-orange" ng-show="box.type == 'internship'" ng-bind="AppText.cursus.internship | language"></span>
-              <span class="text-dark-blue bold" ng-bind="box.title" ng-click="box.unfolded = !box.unfolded"></span>
-              <span class="label label-info pull-right" ng-bind="(box.start_date | date: 'MM/yy') + ' - ' + (box.end_date | date : 'MM/yy')"></span> 
-
-              <div class="box-tags">
-                <span ng-repeat="tag in box.tags | filter: {category: '!school'}" class="bold text-emerald" >{{ tag.name }}<span ng-hide="$last">, </span></span>
-              </div><!-- box-tags -->
-
-
-              <div class="box-unfolded" ng-show="box.unfolded">
-                <div ng-show="box.unfolded" class="box-description" ng-bind="box.description"></div>
-                <div ng-show="box.type=='classes'">
-                  <div class="box-class" ng-repeat="item in box.items">
-                    <span sh-item-modal="item" itemsList="box.items">{{ item.name }}</span>
-                  </div>
+        <div><!-- wrapper to use first-child selecotr on first first-of-a-school -->
+          <div class="box" ng-class="{'internship-box': box.type=='internship', 'first-of-a-school': firstOfASchool( $index, boxes, box )}" ng-repeat="box in boxes">
+            <div class="row">
+              <div class="col-md-2">
+                <div ng-show="firstOfASchool( $index, boxes, box )">
+                  <span class="text-orange bold" 
+                    ng-repeat="tag in box.tags | filter: {category: 'school'}">
+                    {{ tag.name }}
+                  </span>
                 </div>
-              </div><!-- bow-unfolded -->
-            </div>
-
-
-
+              </div>
+              <div class="col-md-10 box-content-col">
+                <span class="badge badge-success" ng-show="box.type == 'internship'" ng-bind="AppText.cursus.internship | language"></span>
+                <span class="text-dark-blue bold" ng-bind="box.title" ng-click="box.unfolded = !box.unfolded"></span>
+                <span class="label label-info pull-right" ng-bind="(box.start_date | date: 'MMMM yyyy') + ' -> ' + (box.end_date | date : 'MMMM yyyy')"></span> 
+                <div class="box-tags">
+                  <span ng-repeat="tag in box.tags | filter: {category: '!school'}" class="bold text-emerald" >{{ tag.name }}<span ng-hide="$last">, </span></span>
+                </div><!-- box-tags -->
+                <div class="box-unfolded" ng-show="box.unfolded">
+                  <div ng-show="box.unfolded" class="box-description" ng-bind="box.description"></div>
+                  <div ng-show="box.type=='classes'">
+                    <div class="box-class" ng-repeat="item in box.items">
+                      <span sh-item-modal="item" itemsList="box.items">{{ item.name }}</span>
+                    </div>
+                  </div>
+                </div><!-- bow-unfolded -->
+              </div><!-- col -->
+            </div><!-- row -->
           </div><!-- box -->
-        </div><!-- col -->
-      </div><!-- row -->
-    </div><!-- bow container -->
-  </div><!-- container -->
+        </div><!-- wrapper -->
+      </div><!-- box-container -->
+    </div><!-- col -->
+  </div><!-- row -->
+</div><!-- container -->
