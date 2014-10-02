@@ -181,8 +181,6 @@
         <div ng-hide="item.comments.length">
           {{ AppText.item.no_comments | language }}
         </div>
-      </div>
-      <div>
 
         <div class="campus-comment" ng-repeat="comment in item.comments | filter: {content: '!hidden'} | reverse">
           <div sh-comment close="close()" comment="comment" display-student-name="true" current-user="security.currentUser" comments='item.comments'></div>
