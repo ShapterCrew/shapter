@@ -124,6 +124,7 @@ class User
     end
   end
 
+  validates_uniqueness_of :email
   before_validation :set_names!
 
   after_save :items_touch
