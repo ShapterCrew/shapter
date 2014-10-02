@@ -9,7 +9,7 @@ angular.module('shapter.header', ['directives.confirmAlert', 'directives.behaveA
 
       scope.$stateParams = $stateParams;
       scope.$state = $state;
-      scope.root = $rootScope;
+      scope.$rootScope = $rootScope;
       scope.isCollapsed = true;
       scope.AppText = AppText;
 
@@ -108,5 +108,18 @@ angular.module('shapter.header', ['directives.confirmAlert', 'directives.behaveA
         $location.path("/admin");
       };
     }
+  };
+}])
+
+.filter('notCurrentSchool', [function(){
+  return function( schools, schoolId ){
+    return schools.length ? schools.map( function( school ){
+      return school.id == schoolId ? null : school;
+    }).reduce( function( previous, current ){
+      if( current !== null ){
+        previous.push( current );
+      }
+      return previous;
+    }, []) : [];
   };
 }]);
