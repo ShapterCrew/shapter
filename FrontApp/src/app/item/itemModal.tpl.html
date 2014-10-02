@@ -1,35 +1,35 @@
-<div class="modal-content" ng-hide="security.isLoginModalOpen()">
+<div class="modal-content shapter-well" ng-hide="security.isLoginModalOpen()">
   <div class="modal-body">
     <div class="row modal-row" >
       <div class="col-md-12">
-        <div class="title-well center">
+        <div class="title-well">
           <span class="pull-right">
-            <span class="glyphicon glyphicon-remove" ng-click="close()"></span>
+            <span class="glyphicon glyphicon-remove text-asphalt" ng-click="close()"></span>
           </span>
 
-          <h3 style="margin-bottom: 25px">
-            <span class="text-dark-blue">
-              {{ item.name }}<small sh-edit-item-tags-modal="item" class="glyphicon glyphicon-pencil"></small>
+          <h3 class="thin" style="margin-bottom: 25px">
+            <span class="text-asphalt">
+              {{ item.name }}<small sh-edit-item-tags-modal="item" class="glyphicon glyphicon-pencil" ng-hide="true"></small>
             </span>
           </h3>
 
         </div>
-        <div class="padding-well bordered-well">
+        <div class="padding-well bordered-well" ng-hide="true">
         <ul class="list-inline stats-list" style="margin-bottom: 0px">
           <li class="h6">
             <span ng-show="security.isConfirmedUser()">
-              <span ng-click="item.uncart()" ng-show="item.current_user_has_in_cart" class="text-emerald">
+              <span ng-click="item.uncart()" ng-show="item.current_user_has_in_cart" class="text-sun">
                 <span class="fa fa-lg fa-star"></span>
                 <span >{{ AppText.item.favourite | language }}</span>
               </span>
 
-              <span ng-hide="item.current_user_has_in_cart" ng-click="item.cart()">
+              <span ng-hide="item.current_user_has_in_cart" ng-click="item.cart()" class="text-muted">
                 <span class="fa fa-lg fa-star-o"></span>
                 <span >{{ AppText.item.favourite | language }}</span>
               </span>
             </span>
 
-            <span ng-hide="security.isConfirmedUser()" ng-click="security.showLogin('login_needed_for_favourite')">
+            <span ng-hide="security.isConfirmedUser()" ng-click="security.showLogin('login_needed_for_favourite')" class="text-muted">
               <span class="fa fa-lg fa-star-o"></span>
               <span>{{ AppText.item.favourite | language }}</span>
             </span>
@@ -37,19 +37,19 @@
 
           <li class="h6">
             <span ng-show="security.isConfirmedStudent()">
-              <span ng-show="item.current_user_subscribed" ng-click="item.unsubscribe()" class="text-emerald">
+              <span ng-show="item.current_user_subscribed" ng-click="item.unsubscribe()" class="text-sun">
                 <span class="fa fa-check-square-o"></span>
                 <span >{{ AppText.item.followed | language }}</span>
               </span>
 
-              <span ng-hide="item.current_user_subscribed" ng-click="item.subscribe()">
+              <span ng-hide="item.current_user_subscribed" ng-click="item.subscribe()" class="text-muted">
                 <span class="fa fa-square-o"></span>
                 <span >{{ AppText.item.followed | language }}</span>
               </span>
             </span>
 
             <span ng-hide="security.isConfirmedStudent()">
-              <span ng-click="security.showLogin('login_needed_for_follow')" ng-hide="security.isAuthenticated('login_needed_for_follow')">
+              <span ng-click="security.showLogin('login_needed_for_follow')" ng-hide="security.isAuthenticated('login_needed_for_follow')" class="text-muted">
                 <span class="fa fa-square-o"></span>
                 <span>{{ AppText.item.followed | language }}</span>
               </span>
@@ -83,10 +83,12 @@
 
 
   <div class="row">
-    <div class="col-md-6" style="height: 273px">
-      <div class="padding-well bordered-well" style="height: 100%; margin: 0px">
+    <div class="col-md-6" style="">
+      <div class="padding-well bordered-well" style="height: 100%;">
 
         <button class="pull-right btn btn-sun" ng-click="editDiagramFactory.openModal( item )" ng-show="security.isConfirmedStudent()">Évaluer</button>
+        <button class="pull-right btn btn-sun" ng-click="security.showLogin('login_needed_to_contribute')" ng-hide="security.isConfirmedStudent()">Évaluer</button>
+
         <div class="lead text-dark-blue bold ">
           {{ AppText.item.diagram | language }} <span ng-show="item.diagrams_count">({{ item.diagrams_count }})</span>
         </div>
@@ -100,21 +102,29 @@
       </div>
     </div><!-- col left -->
 
-    <div class="col-md-6" style="height: 273px">
-      <div class="padding-well bordered-well" style="height: 100%; overflow: auto; margin: 0px">
+    <div class="col-md-6">
+      <div class="padding-well">
+        <div style="word-break: break-all; max-height: 232px; overflow-y: auto;">
         <button class="pull-right btn btn-sun" ng-click="item.updatingSyllabus = true" ng-show="security.isConfirmedStudent() && !item.syllabus">{{ AppText.item.update_syllabus | language }}</button>
 
-        <div class="lead text-dark-blue bold ">
+        <div class="lead text-dark-blue bold" style="white-space: normal">
           {{ AppText.item.description | language }} 
         </div>
 
-        <div style="font-style: italic" ng-hide="!item.syllabus || item.updatingSyllabus">{{ item.syllabus | textCut:400:item.displayAllSyllabus }} <a class="text-info" ng-click="item.displayAllSyllabus = true" ng-show="item.syllabus.length > 400 && !item.displayAllSyllabus">... {{ AppText.comment.display_more | language }}</a><a class="text-muted" ng-hide="item.syllabus.length > 400 && !item.displayAllSyllabus" ng-click="item.updatingSyllabus = true">[{{ AppText.system.edit  | language }}]</a>  <a class="text-info" ng-click="item.displayAllSyllabus = false" ng-show="item.syllabus.length > 400 && item.displayAllSyllabus">{{ AppText.comment.hide | language }}</a> </div>
+        <div style="font-style: italic" ng-hide="!item.syllabus || item.updatingSyllabus">
+          {{ item.syllabus | textCut:400:item.displayAllSyllabus }} 
+          <a class="text-info" ng-click="item.displayAllSyllabus = true" ng-show="item.syllabus.length > 400 && !item.displayAllSyllabus">... {{ AppText.comment.display_more | language }}</a>
+          <a class="text-muted" ng-show="security.isConfirmedStudent() && (item.syllabus.length < 400 || item.displayAllSyllabus)" ng-click="item.updatingSyllabus = true">[{{ AppText.system.edit  | language }}]</a>
+          <a class="text-info" ng-click="item.displayAllSyllabus = false" ng-show="item.syllabus.length > 400 && item.displayAllSyllabus">{{ AppText.comment.hide | language }}</a> 
+        </div>
+
         <div style="font-stule: italic" class="text-muted" ng-hide="item.syllabus.length || item.updatingSyllabus">{{ AppText.item.no_description | language }}</div>
 
         <div ng-show="item.updatingSyllabus">
           <div id="updatingSyllabus" sh-update-item-syllabus item="item" ng-repeat="item in [ item ]"></div>
         </div>
       </div>
+    </div>
     </div>
   </div>
 
@@ -123,8 +133,16 @@
   <div class="row" >
     <div class="col-md-8" >
       <div class="padding-well bordered-well">
-        <button class="pull-right btn btn-sun" ng-click="item.displayAddComment = true" ng-show="security.isConfirmedStudent() && item.displayAddComment === false">{{ AppText.item.comment | language }}</button>
-        <button class="pull-right btn btn-sun" ng-click="item.displayAddComment = false" ng-show="security.isConfirmedStudent() && item.displayAddComment === true">{{ AppText.item.hide_comment | language }}</button>
+
+        <button class="pull-right btn btn-sun" ng-click="item.displayAddComment = !item.displayAddComment" ng-show="security.isConfirmedStudent()">
+          <span ng-hide="item.displayAddComment" ng-bind="AppText.item.comment | language"></span>
+          <span ng-show="item.displayAddComment" ng-bind="AppText.item.hide_comment | language"></span>
+        </button>
+
+        <button class="pull-right btn btn-sun" ng-click="security.showLogin('login_needed_to_contribute')" ng-hide="security.isConfirmedStudent()">
+          <span ng-bind="AppText.item.comment | language"></span>
+        </button>
+
         <div class="lead text-dark-blue bold ">
           {{ AppText.item.comments | language }} 
         </div>
@@ -133,8 +151,8 @@
           <div id="addComment" sh-add-comment item="item" ng-repeat="item in [ item ]" cb="hideAddComment()"></div>
         </div>
 
-        <div class="turquoise-infos padding-well">
-          {{ AppText.item.want_more_comments | language }}
+        <div class="blue-infos padding-well">
+          <p>{{ AppText.item.want_more_comments | language }}</p>
           <!-- facebook output -->
           <ul ng-social-buttons 
             data-url="'http://shapter.com/api/v1/facebook_pages/' + facebookData"
@@ -153,16 +171,18 @@
         </div>
 
 
-        <div ng-show="item.comments | hiddenComments" class="orange-infos" style="padding: 20px">
+        <div ng-show="item.comments | hiddenComments" class="turquoise-infos" style="padding: 20px">
           <div class="bold ">{{ AppText.item.there_are | language }} {{ item.comments | hiddenComments }} {{ AppText.item.hidden_comments | language }}</div>
           <p>{{ AppText.item.to_see_the_comments | language }}</p>
-          <a ng-show="security.isConfirmedUser()" href="#/campusAuthentication" class="btn btn-sun">{{ AppText.item.i_have_an_email | language }}</a>
-          <a ng-hide="security.isConfirmedUser()" href="" ng-click="security.showLogin('login_needed_to_see_comments')" class="btn btn-sun">{{ AppText.item.i_have_an_email | language }}</a>
+          <a ng-show="security.isConfirmedUser()" href="#/campusAuthentication" class="btn btn-info">{{ AppText.item.i_have_an_email | language }}</a>
+          <a ng-hide="security.isConfirmedUser()" href="" ng-click="security.showLogin('login_needed_to_see_comments')" class="btn btn-info">{{ AppText.item.i_have_an_email | language }}</a>
         </div>
 
         <div ng-hide="item.comments.length">
           {{ AppText.item.no_comments | language }}
         </div>
+      </div>
+      <div>
 
         <div class="campus-comment" ng-repeat="comment in item.comments | filter: {content: '!hidden'} | reverse">
           <div sh-comment close="close()" comment="comment" display-student-name="true" current-user="security.currentUser" comments='item.comments'></div>

@@ -6,7 +6,9 @@
       <div class="pull-right dropdown" style="margin: 0px 0px 0px 5px" ng-show="security.isConfirmedStudent()">
         <small class="fa fa-chevron-down text-muted dropdown-toggle"></small>
         <ul class="dropdown-menu">
-          <li ng-click="comment.displayReportComment = true"><a><span class="fa fa-exclamation-triangle"></span> {{ AppText.comment.report_comment | language }}</a></li>
+          <li ng-hide="ownComment()" ng-click="comment.displayReportComment = true"><a><span class="fa fa-exclamation-triangle"></span> {{ AppText.comment.report_comment | language }}</a></li>
+          <li ng-show="ownComment()"><a ng-click="comment.displayEditComment = true; comment.newContent = comment.content"><span class="glyphicon glyphicon-pencil"></span> editer</a></li>
+          <li ng-show="ownComment()"><a confirmed-click="$event.stopPropagation(); removeComment()" ng-confirm-click="{{ AppText.comment.sure_want_to_delete_it | language }}"><span class="glyphicon glyphicon-remove"></span> {{ AppText.comment.remove | language }}</a></li>
         </ul>
       </div>
 
@@ -33,7 +35,6 @@
 
               <div ng-show="ownComment()">
                 <div ng-hide="hideLikes">
-                  <small class="text-muted" ng-click="comment.displayEditComment = true; comment.newContent = comment.content">{{ AppText.comment.edit | language }}</small>
                   <small class="text-muted"> - </small>
                   <small class="text-muted pointer" confirmed-click="$event.stopPropagation(); removeComment()" ng-confirm-click="Veux-tu vraiment supprimer ce commentaire ?">{{ AppText.comment.remove | language }}</small>
                 </div>
@@ -49,9 +50,6 @@
                 <div class="media-body">
                   <span class="badge badge-info">{{ comment.created_at | date:'dd/MM/yyyy'}}</span>
                   <div ng-show="ownComment()">
-                    <small class="text-muted" ng-click="comment.displayEditComment = true; comment.newContent = comment.content">editer</small>
-                    <small class="text-muted"> - </small>
-                    <small class="text-muted pointer" confirmed-click="$event.stopPropagation(); removeComment()" ng-confirm-click="{{ AppText.comment.sure_want_to_delete_it | language }}">{{ AppText.comment.remove | language }}</small>
                   </div>
                 </div>
               </div>

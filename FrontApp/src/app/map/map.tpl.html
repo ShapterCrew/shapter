@@ -9,7 +9,7 @@
       <span class="fa fa-plus"></span> {{ AppText.internships.me_too | language }}
     </a>
 
-    <button ng-click="security.showLogin()" class="btn btn-orange bold" ng-show="!security.isAuthenticated()">
+    <button ng-click="security.showLogin('login_needed_to_contribute')" class="btn btn-orange bold" ng-show="!security.isAuthenticated()">
       <span class="fa fa-plus"></span> {{ AppText.internships.me_too | language }}
     </button>
 

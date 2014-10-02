@@ -59,7 +59,7 @@
 
             <!-- some categories -->
             <li class="dropdown" ng-repeat="cat in (categories | internshipsCatFilter ).display">
-              <a class="dropdown-toggle" style="white-space: nowrap" ng-mouseover="getSuggestedTags( cat )">{{ AppText.translateCode( cat )}}<span class="caret"></span> </a>
+              <a class="dropdown-toggle" style="white-space: nowrap" ng-mouseover="getSuggestedTags( cat )">{{ AppText.translateCode( cat )}}<span class="caret emerald-caret"></span> </a>
               <ul class="dropdown-menu" style="z-index: 1001">
                 <li ng-hide="tagsSuggestions[ cat ] === undefined || tagsSuggestions[ cat ] == 'loading'" ng-repeat="tag in tagsSuggestions[ cat ]" ng-click="addTag( tag )"><a>{{ tag.name }}</a></li>
                 <li ng-show="tagsSuggestions[cat] !== undefined && tagsSuggestions[ cat ].length === 0" class="disabled">
@@ -77,7 +77,7 @@
 
             <!-- more categories ! -->
             <li class="dropdown">
-              <a class="dropdown-toggle" style="white-space: nowrap" ng-mouseover="getRemainingCatSuggestions()">{{ AppText.browse.more | language }}<span class="caret"></span></a>
+              <a class="dropdown-toggle" style="white-space: nowrap" ng-mouseover="getRemainingCatSuggestions()">{{ AppText.browse.more | language }}<span class="caret emerald-caret"></span></a>
 
               <ul class="dropdown-menu">
                 <!-- repat remaining categories -->

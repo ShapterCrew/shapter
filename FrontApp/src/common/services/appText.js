@@ -188,6 +188,10 @@ angular.module( 'services.appText', [])
       }
     },
     security: {
+      prefer_school_email: {
+        en: 'If possible, prefer your student email',
+        fr: 'Si possible, préfère l\'email fourni par ton établissement'
+      },
       login_needed_for_favourite: {
         en: 'You need to be logged to add a class to your favourites!',
         fr: 'Tu dois être connecté pour ajouter un cours à tes favoris !'
@@ -237,8 +241,8 @@ angular.module( 'services.appText', [])
         fr: 'Nom : '
       },
       email: {
-        en: 'Email: ',
-        fr: 'Email : '
+        en: 'Email',
+        fr: 'Email'
       },
       invalid_email: {
         en: 'Invalid Email', 
