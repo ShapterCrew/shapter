@@ -27,7 +27,7 @@
 
     <div class="col-md-3">
       <!-- {{{ side nav -->
-      <div class="shapter-well">
+      <div class="padding-well">
         <ul class="nav browse-nav vertical-nav">
           <li ng-click="nav( null )" ng-class="{'active': !$location.search().nav }"><a>{{ AppText.internships.all_internships | language }}</a></li>
 
@@ -39,7 +39,7 @@
 
     <div class="col-md-9">
       <!-- {{{ input -->
-        <div class="shapter-well" style="padding-bottom: 10px; padding-top: 10px; margin-bottom: 5px">
+        <div class="padding-well" style="padding-bottom: 10px; padding-top: 10px; margin-bottom: 5px">
         <div style="width: 100%;">
           <span class="glyphicon glyphicon-search"></span>
           <span ng-repeat="tag in activeTags">
@@ -58,7 +58,7 @@
         <ul class="list-inline cat-list nav-justified" style="margin-bottom: 0px; margin-top: 20px">
 
             <!-- some categories -->
-            <li class="dropdown" ng-repeat="cat in (categories | internshipsCatFilter ).display">
+            <li class="dropdown" ng-repeat="cat in ($rootScope.internship_categories | internshipsCatFilter ).display">
               <a class="dropdown-toggle" style="white-space: nowrap" ng-mouseover="getSuggestedTags( cat )">{{ AppText.translateCode( cat )}}<span class="caret emerald-caret"></span> </a>
               <ul class="dropdown-menu" style="z-index: 1001">
                 <li ng-hide="tagsSuggestions[ cat ] === undefined || tagsSuggestions[ cat ] == 'loading'" ng-repeat="tag in tagsSuggestions[ cat ]" ng-click="addTag( tag )"><a>{{ tag.name }}</a></li>
@@ -81,7 +81,7 @@
 
               <ul class="dropdown-menu">
                 <!-- repat remaining categories -->
-                <li ng-repeat="cat in (categories | internshipsCatFilter).others" ng-show="tagsSuggestions[ cat ].length > 0 && tagsSuggestions[ cat ] != 'loading'">
+                <li ng-repeat="cat in ($rootScope.internship_categories | internshipsCatFilter).others" ng-show="tagsSuggestions[ cat ].length > 0 && tagsSuggestions[ cat ] != 'loading'">
                     <a class="list-in-dropdown-title">{{ AppText.translateCode( cat ) }}</a>
                     <ul class="list-in-dropdown-list">
                       <li ng-repeat="tag in tagsSuggestions[ cat ]" ng-click="addTag( tag )"><a>{{ tag.name }}</a></li>
@@ -96,23 +96,23 @@
               </ul>
             </li>
         </ul>
-      </div><!-- shapter-well -->
+      </div><!-- padding-well -->
 
       <div ng-show="displayCumulateFilters">
-        <div class="shapter-well shapter-well-blue" type="info" style="margin-bottom: 15px; padding-top: 5px; padding-bottom: 5px; padding-right: 10px">
-          <label style="margin-right: 10px">
+        <div class="" type="info" style="margin-bottom: 5px; padding: 10px 30px 10px 30px">
+          <label style="margin-right: 10px" class="text-asphalt">
             {{ AppText.browse.cumulate_tip | language }} 
           </label>
           <span style="white-space: nowrap">
-            <input type="checkbox" id="cumulateFilters" ng-model="cumulateFilters" style="margin: 0" ng-change="toggleCumulateTags()">&nbsp;<label class="bold" for="cumulateFilters" style="margin: 0">{{ AppText.browse.cumulate_next_keywords | language }}</label>
+            <input type="checkbox" id="cumulateFilters" ng-model="cumulateFilters" style="margin: 0" ng-change="toggleCumulateTags()">&nbsp;<label class="bold text-asphalt" for="cumulateFilters" style="margin: 0">{{ AppText.browse.cumulate_next_keywords | language }}</label>
           </span>
         </div>
       </div>
       <!-- }}} -->
 
       <!-- {{{ results -->
-      <p class="center bold">
-        <span ng-hide="batchLoading">
+      <p class="center bold" style="margin-top: 10px; margin-bottom: 0">
+        <span ng-hide="batchLoading" class="text-asphalt">
           {{ nbInternships }} 
           <span ng-hide="$location.search().nav === 'current'">{{ AppText.internships.internships | language }}</span>
           <span ng-show="$location.search().nav === 'current'">{{ AppText.internships.in_favourites | language }}</span>
@@ -120,15 +120,15 @@
         </span>
         <span ng-show="batchLoading"><span class="fa fa-refresh fa-spin"></span></span>
       </p>
-      <p ng-show="activeTags.length" class="center"><small class="text-muted" ng-bind="AppText.browse.posessing_keywords | language"></small>
+      <p ng-show="activeTags.length" class="center text-asphalt"><small ng-bind="AppText.browse.posessing_keywords | language"></small>
       </p>
 
-      <div class="shapter-well" ng-show="view == 'map'">
+      <div class="padding-well" ng-show="view == 'map'">
         <sh-map internships-list="internshipsList" on-new="shAddInternshipModalFactory.open()" on-internship-created="onCreated()"></sh-map>
       </div>
 
       <!--
-      <div class="shapter-well" ng-hide="view == 'map'">
+      <div class="padding-well" ng-hide="view == 'map'">
         <div class="list-group">
           <div class="list-group-item clearfix" ng-repeat="item in internshipsList">
           </div>

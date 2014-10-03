@@ -30,7 +30,7 @@ angular.module( 'shapter.internships', [
   $scope.activeTags = [];
   $scope.internshipTags = [];
   $scope.tagsSuggestions = {};
-  $scope.categories = $rootScope.internship_categories;
+  $scope.$rootScope = $rootScope;
 
   $scope.toggleCumulateTags = function(){
     Analytics.toggleCumulateTags();
@@ -121,7 +121,7 @@ angular.module( 'shapter.internships', [
   };
 
   $scope.getRemainingCatSuggestions = function(){
-    angular.forEach( $filter( 'internshipsCatFilter')( $scope.categories ).others, function( cat ){
+    angular.forEach( $filter( 'internshipsCatFilter')( $rootScope.internship_categories ).others, function( cat ){
       $scope.getSuggestedTags( cat );
     });
   };

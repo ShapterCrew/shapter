@@ -29,7 +29,7 @@
     <div class="row">
 
       <div class="col-md-3">
-        <div class="shapter-well">
+        <div class="padding-well">
           <ul class="nav browse-nav vertical-nav">
             <li ng-click="nav( null )" ng-class="{'active': !$location.search().nav }"><a>{{ AppText.browse.all_classes | language }}</a></li>
             <li ng-click="nav('favourites')" ng-class="{'active': $location.search().nav == 'favourites' }"><a><span class="fa fa-star-o"></span> {{ AppText.browse.favourite_classes | language }}</a></li>
@@ -38,7 +38,7 @@
       </div><!-- col -->
 
       <div class="col-md-9">
-        <div class="shapter-well" style="padding-bottom: 10px; padding-top: 10px; margin-bottom: 5px">
+        <div class="padding-well" style="padding-bottom: 10px; padding-top: 10px; margin-bottom: 5px">
           <div style="width: 100%;">
             <span class="glyphicon glyphicon-search"></span>
             <span ng-repeat="tag in activeTags">
@@ -94,33 +94,33 @@
               </ul>
             </li>
           </ul>
-        </div><!-- shapter-well -->
+        </div><!-- padding-well -->
 
         <div ng-show="displayCumulateFilters">
-          <div class="shapter-well shapter-well-blue" type="info" style="margin-bottom: 15px; padding-top: 5px; padding-bottom: 5px; padding-right: 10px">
-            <label style="margin-right: 10px">
+        <div class="" type="info" style="margin-bottom: 5px; padding: 10px 30px 10px 30px">
+            <label style="margin-right: 10px" class="text-asphalt">
               {{ AppText.browse.cumulate_tip | language }} 
           </label>
             <span style="white-space: nowrap">
-              <input type="checkbox" id="cumulateFilters" ng-model="cumulateFilters" style="margin: 0" ng-change="toggleCumulateTags()">&nbsp;<label class="bold" for="cumulateFilters" style="margin: 0">{{ AppText.browse.cumulate_next_keywords | language }}</label>
+              <input type="checkbox" id="cumulateFilters" ng-model="cumulateFilters" style="margin: 0" ng-change="toggleCumulateTags()">&nbsp;<label class="bold text-asphalt" for="cumulateFilters" style="margin: 0">{{ AppText.browse.cumulate_next_keywords | language }}</label>
             </span>
           </div>
         </div>
 
         <p class="center bold text-asphalt" style="margin-bottom: 0px; margin-top: 10px">
-          <span ng-hide="batchLoading">
+          <span ng-hide="batchLoading" class="text-asphalt">
             {{ nbItems }} 
             {{ AppText.browse.result | language }}
             <span ng-show="$location.search().nav === 'favourites'">{{ AppText.browse.in_favourites | language }}</span>
           </span>
           <span ng-show="batchLoading"><span class="fa fa-refresh fa-spin"></span></span>
         </p>
-        <p class="center"><small class="text-muted" ng-bind="AppText.browse.posessing_keywords | language"></small>
+        <p class="center"><small class="text-asphalt" ng-bind="AppText.browse.posessing_keywords | language"></small>
         </p>
 
-        <div class="shapter-well">
+        <div class="">
           <div class="">
-            <div class="campus-comment clearfix" ng-repeat="item in itemsList">
+            <div class="padding-well clearfix" ng-repeat="item in itemsList" style="padding-top: 15px">
 
               <div class="pull-right" ng-show="security.isConfirmedStudent()">
                 <label ng-click="item.subscribe()" class="text-muted" ng-hide="item.current_user_subscribed">{{ AppText.browse.subscribed | language }}</label>
@@ -166,7 +166,7 @@
               -->
             </div>
           </div>
-        </div><!-- shapter-well -->
+        </div><!-- padding-well -->
       </div><!-- col -->
     </div><!-- row -->
   </div><!-- container -->
