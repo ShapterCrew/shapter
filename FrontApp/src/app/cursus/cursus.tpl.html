@@ -63,9 +63,9 @@
               </div>
             </div>
             <div class="col-md-10">
-              <span class="badge badge-success" ng-show="box.type == 'internship'" ng-bind="AppText.cursus.internship | language"></span>
+              <span class="badge badge-success" ng-show="box.type == 'internship'" ng-bind="AppText.cursus.internship | language" style="margin-left: -25px"></span>
               <span class="text-dark-blue bold" ng-bind="box.title" ng-click="box.unfolded = !box.unfolded"></span>
-              <span class="label label-info pull-right" ng-bind="(box.start_date | date: 'MMMM yyyy') + ' -> ' + (box.end_date | date : 'MMMM yyyy')"></span> 
+              <span class="label label-info pull-right" ng-bind="(box.start_date | date: 'MM/yy') + ' -> ' + (box.end_date | date : 'MM/yy')"></span> 
               <div class="box-tags">
                 <span ng-repeat="tag in box.tags | filter: {category: '!school'}" class="bold text-emerald" >{{ tag.name }}<span ng-hide="$last">, </span></span>
               </div><!-- box-tags -->
