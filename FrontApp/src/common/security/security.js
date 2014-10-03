@@ -84,7 +84,8 @@ angular.module('security.service', [
       console.log( "retrying queue" );
       $rootScope.$broadcast('login success');
       //queue.retryAll();
-      if( access ){
+      if( !!access ){
+        console.log( access );
         redirect( access );
       }
     } else {
@@ -124,7 +125,7 @@ angular.module('security.service', [
   function onForgotPasswordModalClose(success) {
     forgotPasswordModal = null;
     if ( success ) {
-      queue.retryAll();
+      //queue.retryAll();
     } else {
       queue.cancelAll();
     }
