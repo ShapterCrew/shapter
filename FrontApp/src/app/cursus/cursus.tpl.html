@@ -7,16 +7,50 @@
         <div class="row">
           <div class="col-md-12">
             <div class="btn-add-box">
-              <span class="fa fa-stack fa-lg">
-                <span class="fa fa-circle fa-stack-2x"></span>
-                <span class="fa fa-plus fa-stack fa-inverse"></span>
-              </span>
               <span class="bold" ng-bind="AppText.cursus.add_step | language"></span>
             </div>
           </div><!-- col -->
-        </div><!-- row -->
-      </div>
+          <!-- add courses -->
+          <div class="col-sm-6">
+            <div class="bold text-asphalt" style="margin-bottom: 0">Des cours : </div>
+            <div ng-repeat="suggestion in classesSuggestions" class="box-suggestion" ng-click="followBoxModalFactory.openModal( suggestion.tags, suggestion.name)">
+                <span class="fa fa-stack" style="text-align: center">
+                  <span class="fa fa-circle fa-stack-2x"></span>
+                  <span class="fa fa-plus fa-stack fa-inverse"></span>
+                </span>
+                {{ suggestion.name }}
+            </div>
 
+            <div class="box-suggestion box-suggestion-other">
+                <span class="fa fa-stack" style="text-align: center">
+                  <span class="fa fa-circle fa-stack-2x"></span>
+                  <span class="fa fa-plus fa-stack fa-inverse"></span>
+                </span>
+                {{ AppText.cursus.something_else | language }}
+            </div>
+
+          </div>
+          <!-- add internship -->
+          <div class="col-sm-6">
+            <div class="bold text-asphalt" style="margin-bottom: 0">Un stage : </div>
+            <div ng-repeat="suggestion in internshipsSuggestions" class="box-suggestion">
+                <span class="fa fa-stack" style="text-align: center">
+                  <span class="fa fa-circle fa-stack-2x"></span>
+                  <span class="fa fa-plus fa-stack fa-inverse"></span>
+                </span>
+                {{ suggestion.name }}
+            </div>
+
+            <div class="box-suggestion box-suggestion-other">
+                <span class="fa fa-stack" style="text-align: center">
+                  <span class="fa fa-circle fa-stack-2x"></span>
+                  <span class="fa fa-plus fa-stack fa-inverse"></span>
+                </span>
+                {{ AppText.cursus.another_internship | language }}
+            </div>
+          </div>
+        </div><!-- row -->
+      </div><!-- add-box -->
       <div><!-- wrapper to use first-child selecotr on first first-of-a-school -->
         <div class="box" ng-class="{'internship-box': box.type=='internship', 'first-of-a-school': firstOfASchool( $index, boxes, box )}" ng-repeat="box in boxes">
           <div class="row">
@@ -28,7 +62,7 @@
                 </span>
               </div>
             </div>
-            <div class="col-md-10 box-content-col">
+            <div class="col-md-10">
               <span class="badge badge-success" ng-show="box.type == 'internship'" ng-bind="AppText.cursus.internship | language"></span>
               <span class="text-dark-blue bold" ng-bind="box.title" ng-click="box.unfolded = !box.unfolded"></span>
               <span class="label label-info pull-right" ng-bind="(box.start_date | date: 'MMMM yyyy') + ' -> ' + (box.end_date | date : 'MMMM yyyy')"></span> 

@@ -1,0 +1,33 @@
+<div class="container">
+  <div class="row" ng-click="close()">
+    <div class="col-md-8 col-md-offset-2">
+      <div class="modal-content" ng-click="$event.stopPropagation()">
+        <div class="modal-body">
+          <div class="lead bold text-asphalt center" ng-bind="title"></div>
+
+          <!-- dates -->
+          <div class="form-group" style="text-align: justify">
+            <div style="display: inline-block; position: relative; padding: 10px" ng-repeat="date in ['start_date', 'end_date']">
+              <label ng-bind="AppText.cursus[ date ] | language"></label>
+                      <p class="input-group">
+                        <input class="form-control" name="date" type="text" show-weeks="false" show-button-bar="false" datepicker-popup="MM/yyyy" ng-model="box[ date ]" is-open="dateOpened[ date ]" ng-required="true" close-text="Close" editable="false" required/>
+                      </p>
+            </div>
+          </div>
+
+          <div><!-- wrapper -->
+          <!-- classes -->
+          <div class="select-item" ng-click="item.selected = !item.selected" ng-repeat="item in items" ng-class="{'active': item.selected}"><span class="fa" ng-class="{'fa-check-square-o': item.selected, 'fa-square-o': !item.selected}"></span> {{ item.name }}</div>
+
+          <div class="form-group" style="margin-top: 30px">
+            <div class="clearfix">
+              <div class="pull-right btn btn-success" ng-click="validate()">{{ AppText.system.validate | language }}</div>
+            </div>
+          </div>
+        </div><!-- wrapper -->
+
+        </div><!-- modal-body -->
+      </div><!-- modal-content -->
+    </div>
+  </div>
+</div><!-- container -->

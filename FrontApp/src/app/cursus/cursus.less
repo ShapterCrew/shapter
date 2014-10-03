@@ -1,7 +1,10 @@
 .add-box {
+  padding: 5px 30px 30px 30px;
+  margin: 10px 0px 25px 0px;
+  background-color: white;
   & .btn-add-box {
-    &:extend( .btn, .btn-lg );
-    .button-variant(@blue-pastel, white, white, white);
+    &:extend( .bold, .text-turquoise );
+    margin: 15px 0 0 0;
     width: 100%;
   }
 }
@@ -25,3 +28,50 @@
   }
 }
 
+.add-box-module {
+}
+
+.add-box .box-suggestion {
+  cursor: pointer;
+  text-align: left;
+  background-color: white;
+  border: 1px solid white;
+  color: @blue-pastel;
+  margin: 0;
+  padding: 6px 18px;
+  width: 100%;
+  &:hover {
+    border: 1px solid lighten( @blue-pastel, 3%);
+    color: white;
+    background-color: lighten( @blue-pastel, 3%);
+    & .fa-inverse {
+      color: @blue-pastel;
+    }
+  }
+  &.box-suggestion-other {
+    color: @green-pastel;
+    &:hover {
+    border: 1px solid lighten( @green-pastel, 3%);
+    color: white;
+    background-color: lighten( @green-pastel, 3%);
+      & .fa-inverse {
+        color: @green-pastel;
+      }
+    }
+  }
+}
+
+.select-item {
+  border-bottom: 1px solid @blue-clouds;
+  border-right: 1px solid @blue-clouds;
+  border-left: 1px solid @blue-clouds;
+  &:first-child {
+    border-top: 1px solid @blue-clouds;
+  }
+  padding: 10px 30px;
+  background-color: white;
+  &.active {
+    color: white;
+    background-color: @blue-pastel;
+  }
+}

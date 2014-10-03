@@ -322,6 +322,14 @@ angular.module('resources.item', [
     }
   };
 
+  var toggleSubscribe = function(){
+    if( this.current_user_subscribed ){
+      this.unsubscribe();
+    }
+    else{
+      this.subscribe();
+    }
+  };
   var cart = function(){
     this.current_user_has_in_cart = true;
     return Restangular.one( 'items', this.id ).customPOST({}, 'cart').then( function( response ){
@@ -434,6 +442,7 @@ angular.module('resources.item', [
       removeDoc: removeDoc,
       loadComments: loadComments,
       toggleCart: toggleCart,
+      toggleSubscribe: toggleSubscribe,
       loadUserDiagram: loadUserDiagram,
       loadDiagram: loadDiagram,
       loadSyllabus: loadSyllabus, 

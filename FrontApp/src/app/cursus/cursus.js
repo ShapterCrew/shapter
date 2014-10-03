@@ -39,8 +39,9 @@ angular.module( 'shapter.cursus', [
   $scope.AppText = AppText;
 }])
 
-.controller('CursusCtrl', ['$scope', 'schools', 'Tag', 'Item', '$stateParams', '$filter', 'AppText', function( $scope, schools, Tag, Item, $stateParams, $filter, AppText ){
+.controller('CursusCtrl', ['$scope', 'schools', 'Tag', 'Item', '$stateParams', '$filter', 'AppText', 'followBoxModalFactory', function( $scope, schools, Tag, Item, $stateParams, $filter, AppText, followBoxModalFactory ){
 
+  $scope.followBoxModalFactory = followBoxModalFactory;
   $scope.AppText = AppText;
   $scope.addClasses = function(){
     $scope.boxes.push( angular.copy( $scope.newBox.classes ));
@@ -50,8 +51,9 @@ angular.module( 'shapter.cursus', [
     $scope.itemsList = [];
   };
   $scope.activeTag = null;
+
   $scope.firstOfASchool = function( $index, boxes, box ){
-    return $index === 0 || boxes[ $index - 1 ].type != 'classes' || ( boxes[ $index - 1 ].type == 'classes' && ($filter( 'filter' )( boxes[ $index - 1 ].tags,  {category: 'school'})[0].id != ($filter( 'filter' )( box.tags,  {category: 'school'})[0].id)));
+    return $index === 0 || ($filter( 'filter' )( boxes[ $index - 1 ].tags,  {category: 'school'})[0].id != $filter( 'filter' )( box.tags,  {category: 'school'})[0].id);
   };
 
   $scope.initializeNewBox = function(){
@@ -110,6 +112,20 @@ angular.module( 'shapter.cursus', [
   $scope.previousClassesStep = function(){
     $scope.classesStep -= 1;
   };
+
+  $scope.classesSuggestions = [{
+    name: 'Cours de lol',
+    tags: [ '538310614d61631781010000', '538310614d616317811f0000' ]
+  }, {
+    name: 'Cours de haha'
+  }];
+  $scope.internshipsSuggestions = [{
+    name: 'Stage ouvrier'
+  }, {
+    name: 'Stage d\'application'
+  }, {
+    name: 'Travail de fin d\'études'
+  }];
   $scope.boxes = [{
     title: "TFE",
     unfolded: true,
@@ -257,4 +273,34 @@ angular.module( 'shapter.cursus', [
       id: 1
     }]
   }];
+}])
+
+.factory('followBoxModalFactory', ['$modal', function( $modal ){
+  return {
+    openModal: function( tags, title ) {
+      return $modal.open({
+        templateUrl: 'cursus/selectBoxItemsModal.tpl.html',
+        controller: 'SelectBoxItemsCtrl',
+        windowClass: 'show',
+        resolve: {
+          title: function() {
+            return title;
+          },
+          items: ['Item', function( Item ){
+            return Item.getListFromTags( tags, true );
+          }]
+        }
+      });
+    }
+  };
+}])
+
+.controller('SelectBoxItemsCtrl', ['$scope','items', 'title', '$modalInstance', 'AppText', function( $scope, items, title, $modalInstance, AppText ){
+  $scope.box = {};
+  $scope.AppText = AppText;
+  $scope.close = $modalInstance.close;
+  $scope.title = title;
+  $scope.items = items.items;
+  $scope.validate = function(){
+  };
 }]);

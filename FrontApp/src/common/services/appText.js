@@ -1419,13 +1419,29 @@ angular.module( 'services.appText', [])
       }
     },
     cursus: {
+      start_date: {
+        en: 'Start date',
+        fr: 'Date de début'
+      },
+      end_date: {
+        en: 'End date',
+        fr: 'Date de fin'
+      },
+      something_else: {
+        en: 'Another set of classes',
+        fr: 'D\'autres cours'
+      },
+      another_internship: {
+        en: 'Another kind of internship',
+        fr: 'Un autre type de stage'
+      },
       internship: {
         en: 'Internship',
         fr: 'Stage'
       },
       add_step: {
         en: 'What did you do next?',
-        fr: 'Qu\'as tu fait après ?'
+        fr: 'Qu\'as tu fait ensuite ?'
       },
       add_internship: {
         en: 'Add an internship',
