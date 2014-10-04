@@ -224,9 +224,13 @@ angular.module('shapter.item', [
     description: $filter( 'language' )( AppText.item.facebook_need_comment_description )
   };
 
-  $scope.facebookData = $filter('shareEncoding')(btoa( JSON.stringify( facebookData )));
-
-  console.log( btoa('é') );
+  $scope.facebookData = null;
+  try {
+    $scope.facebookData = $filter('shareEncoding')(btoa( JSON.stringify( facebookData )));
+  } 
+  catch(err) {
+    console.log( err );
+  }
 
   $scope.$watch( function(){
     return $location.search().item;
