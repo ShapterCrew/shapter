@@ -737,8 +737,8 @@ angular.module( 'services.appText', [])
     },
     item: {
       want_more_comments: {
-        en: 'Want more comments? Ask your friends!',
-        fr: 'Tu veux plus de commentaires ? Demande autour de toi !'
+        en: 'The more feedbacks we have the better : help the community by asking around yourself!',
+        fr: 'Plus on a de commentaires mieux c\'est : aide la communauté en demandant autour de toi !'
       },
       ask_for_comments: {
         en: 'Ask for comments',
@@ -1194,8 +1194,8 @@ angular.module( 'services.appText', [])
         fr: 'Quelques étudiants de'
       },
       they_love_it: {
-        en: 'The five best courses: ',
-        fr: 'Les cinq meilleurs cours :'
+        en: 'Five courses they love: ',
+        fr: 'Cinq cours que les étudiants adorent :'
       },
       browse_all_courses: {
         en: 'All courses in',
@@ -1419,6 +1419,22 @@ angular.module( 'services.appText', [])
       }
     },
     cursus: {
+      load_more_suggestions: {
+        en: 'Load more suggestions',
+        fr: 'Voir plus de suggestions'
+      },
+      my_course: {
+        en: 'My course:',
+        fr: 'Mon cursus :'
+      },
+      electives: {
+        en: 'Elective classes',
+        fr: 'Cours à choisir'
+      },
+      common_classes: {
+        en: 'Core classes',
+        fr: 'Tronc commun'
+      },
       start_date: {
         en: 'Start date',
         fr: 'Date de début'
@@ -1428,8 +1444,8 @@ angular.module( 'services.appText', [])
         fr: 'Date de fin'
       },
       something_else: {
-        en: 'Another set of classes',
-        fr: 'D\'autres cours'
+        en: 'I did something else!',
+        fr: 'J\'ai fait quelque chose d\'autre !'
       },
       another_internship: {
         en: 'Another kind of internship',
@@ -1440,8 +1456,8 @@ angular.module( 'services.appText', [])
         fr: 'Stage'
       },
       add_step: {
-        en: 'What did you do next?',
-        fr: 'Qu\'as tu fait ensuite ?'
+        en: 'What did you do after',
+        fr: 'Qu\'est-ce que tu as fait après'
       },
       add_internship: {
         en: 'Add an internship',

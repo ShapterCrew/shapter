@@ -1,6 +1,6 @@
 .add-box {
-  padding: 5px 30px 30px 30px;
-  margin: 10px 0px 25px 0px;
+  padding: 10px 30px 10px 30px;
+  margin: 1px 0px 0px 0px;
   background-color: white;
   & .btn-add-box {
     &:extend( .bold, .text-turquoise );
@@ -10,50 +10,59 @@
 }
 
 .box {
+  &.header-box {
+    margin-top: 28px;
+  }
   & .box-description {
-    margin-bottom: 20px;
+  //  margin-bottom: 20px;
   }
   background-color: white;
   padding: 15px 30px 15px 30px;
-  margin: 3px 0 0 0;
+  margin: 1px 0 0 0;
   &.internship-box {
-    //border: 3px dashed @blue-pastel;
+    //border: 2px dashed @blue-pastel;
   }
+}
+
+.box-classes {
+  margin-top: 20px;
 }
 
 .first-of-a-school {
   margin-top: 25px;
   &:first-child {
-    margin-top: 3px;
+    margin-top: 1px;
   }
 }
 
 .add-box-module {
 }
 
-.add-box .box-suggestion {
+
+.box-suggestion {
   cursor: pointer;
-  text-align: left;
   background-color: white;
   border: 1px solid white;
-  color: @blue-pastel;
   margin: 0;
   padding: 6px 18px;
   width: 100%;
-  &:hover {
-    border: 1px solid lighten( @blue-pastel, 3%);
-    color: white;
-    background-color: lighten( @blue-pastel, 3%);
-    & .fa-inverse {
-      color: @blue-pastel;
+  &.box-suggestion-blue {
+    color: @blue-pastel;
+    &:hover {
+      border: 1px solid lighten( @blue-pastel, 3%);
+      color: white;
+      background-color: lighten( @blue-pastel, 3%);
+      & .fa-inverse {
+        color: @blue-pastel;
+      }
     }
   }
   &.box-suggestion-other {
     color: @green-pastel;
     &:hover {
-    border: 1px solid lighten( @green-pastel, 3%);
-    color: white;
-    background-color: lighten( @green-pastel, 3%);
+      border: 1px solid lighten( @green-pastel, 3%);
+      color: white;
+      background-color: lighten( @green-pastel, 3%);
       & .fa-inverse {
         color: @green-pastel;
       }

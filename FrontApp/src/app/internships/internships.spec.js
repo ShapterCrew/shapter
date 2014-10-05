@@ -185,7 +185,7 @@ describe('AddInternshipModal Test', function() {
     }));
   });
 
-  describe('AddInternshipModalController', function(){
+  describe('AddInternshipController', function(){
     var $stateParams;
     beforeEach( inject (function( $injector ){
       $stateParams = $injector.get( '$stateParams' );
@@ -194,7 +194,7 @@ describe('AddInternshipModal Test', function() {
     /* --------------------------------- */
     it('should have an user and an addInternship function in the scope', inject(function($rootScope, $controller) {
       var scope = $rootScope.$new();
-      var ctrl = $controller('AddInternshipModalCtrl', {$scope: scope});
+      var ctrl = $controller('AddInternshipCtrl', {$scope: scope});
       expect(angular.isFunction(scope.addInternship)).toBe(true);
     }));
 

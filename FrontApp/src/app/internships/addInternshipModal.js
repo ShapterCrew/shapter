@@ -15,6 +15,18 @@ angular.module( 'directives.addInternshipModal', [
   };
 })
 
+.directive( 'shAddInternship', [function(){
+  return {
+    restrict: 'E',
+    templateUrl: 'internships/addInternship.tpl.html',
+    controller: 'AddInternshipCtrl',
+    scope: {
+      close: '&',
+      internship: '='
+    }
+  };
+}])
+
 .directive( 'shAddInternshipModal', ['Internship', 'shAddInternshipModalFactory', function( Internship, shAddInternshipModalFactory){
   return {
     restrict: 'A',
@@ -26,14 +38,17 @@ angular.module( 'directives.addInternshipModal', [
   };
 }])
 
-.controller( 'AddInternshipModalCtrl', ['$scope', 'Internship', '$stateParams', 'Map', '$filter', '$modalInstance', 'AppText', '$rootScope', 'Tag', 'Analytics', 'ConfirmAlertFactory', function($scope, Internship, $stateParams, Map, $filter, $modalInstance, AppText, $rootScope, Tag, Analytics, ConfirmAlertFactory ){
+.controller( 'AddInternshipModalCtrl', ['$modalInstance', '$scope', function( $modalInstance, $scope ){
+  $scope.close = $modalInstance.close;
+}])
+
+.controller( 'AddInternshipCtrl', ['$scope', 'Internship', '$stateParams', 'Map', '$filter', 'AppText', '$rootScope', 'Tag', 'Analytics', 'ConfirmAlertFactory', function($scope, Internship, $stateParams, Map, $filter, AppText, $rootScope, Tag, Analytics, ConfirmAlertFactory){
 
   Analytics.addInternshipModule();
   $scope.step = 1;
   $scope.AppText = AppText;
-  $scope.internship = {};
+  $scope.internship = $scope.internship || {};
   $scope.internship.schoolId = $stateParams.schoolId;
-  $scope.close = $modalInstance.close;
   $scope.sizeOptions = [
     "1-9",
     "10-49",

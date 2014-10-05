@@ -1,12 +1,12 @@
 <div style="height: 100%; overflow: auto" infinite-scroll="loadMoreItems()" infinite-scroll-distance="1" infinite-scroll-disabled="loading">
   <sh-header></sh-header>
 
-  <div class="turquoise-infos" ng-hide="security.isConfirmedStudent()">
+  <div class="" ng-hide="security.isConfirmedStudent()">
     <div class="container">
       <div class="row">
         <div class="col-md-10 col-md-offset-1">
           <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-8">
               <p ng-bind="AppText.contribute.contribute_not_student | language"></p>
               <a ng-hide="security.isConfirmedUser()" href="" ng-click="security.showLogin('login_needed_to_contribute')" class="btn btn-info">{{ AppText.contribute.go_identify | language }}</a>
               <a ng-show="security.isConfirmedUser()" href="#/campusAuthentication" class="btn btn-info">{{ AppText.contribute.go_identify | language }}</a>
@@ -29,14 +29,14 @@
           </div>
 
           <div class="col-md-10 col-md-offset-1">
-            <div class="padding-well" ng-repeat="item in commentPipe.commentable_items" style="margin-bottom: 30px">
+            <div class="padding-well" ng-repeat="item in commentPipe.commentable_items" style="margin-bottom: 30px; padding: 20px 30px">
 
               <div class="">
                 <!--
                 <div class="text-muted" ng-hide="item.current_user_comments_count && item.current_user_has_diagram"> {{ AppText.contribute.need_feedback | language }} </div>
                 -->
                 <!--<div class="pull-right" ng-show="item.current_user_has_diagram && item.current_user_comments_count"><span class="fa fa-check text-emerald fa-3x"></span></div>-->
-                <div style="margin-bottom: 10px"><span class="bold lead text-asphalt">{{ item.name }} <span class="badge badge-danger" style="vertical-align: middle">{{ AppText.contribute.need_feedback | language }}</span></span></div>
+                <div style="margin-bottom: 10px"><span class="bold lead text-asphalt">{{ item.name }} <span class="badge badge-orange" style="vertical-align: middle">{{ AppText.contribute.need_feedback | language }}</span></span></div>
 
                 <div class="row">
                   <div class="col-md-4">

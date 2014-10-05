@@ -329,7 +329,15 @@ background-color: #1abc9c;
   background-color: @pink;
 }
 
-.badge-pink {
+.badge-purple {
+  background-color: lighten(@wisteria, 20%);
+}
+
+.badge-asphalt {
+  background-color: mix(@wet-asphalt, @blue-pastel-d2, 50%);
+}
+
+.badge-emerald {
   background-color: @emerald-pastel;
 }
 
@@ -349,6 +357,9 @@ background-color: #1abc9c;
 }
 .badge-silver {
   background-color: @silver;
+}
+.badge-pumpkin {
+  background-color: @pumpkin;
 }
 
 .text-sun {
@@ -662,10 +673,18 @@ background-color: #1abc9c;
   margin-top: 30px;
   padding-top: 20px;
   padding-bottom: 20px;
-  background-color: @clouds;
+  background-color: @blue-clouds;
   & .h6 {
     color: @silver;
 }
+}
+.white-infos {
+  margin-bottom: 30px;
+  margin-top: 30px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  background-color: white;
+  color: @light-asphalt;
 }
 
 .orange-infos {

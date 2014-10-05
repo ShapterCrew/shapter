@@ -39,96 +39,115 @@ angular.module( 'shapter.cursus', [
   $scope.AppText = AppText;
 }])
 
-.controller('CursusCtrl', ['$scope', 'schools', 'Tag', 'Item', '$stateParams', '$filter', 'AppText', 'followBoxModalFactory', function( $scope, schools, Tag, Item, $stateParams, $filter, AppText, followBoxModalFactory ){
+.controller('CursusCtrl', ['$scope', 'schools', 'Tag', 'Item', '$stateParams', '$filter', 'AppText', 'followBoxModalFactory', 'School', '$location', function( $scope, schools, Tag, Item, $stateParams, $filter, AppText, followBoxModalFactory, School, $location ){
 
-  $scope.followBoxModalFactory = followBoxModalFactory;
+  School.index().then( function( schools ){
+    $scope.schools = schools.schools;
+  });
+
+  $location.search('state', null);
+  $scope.$location = $location;
+  $scope.alerts = [];
   $scope.AppText = AppText;
-  $scope.addClasses = function(){
-    $scope.boxes.push( angular.copy( $scope.newBox.classes ));
-    $scope.initializeNewBox();
-    $scope.displayAddClasses = false;
-    $scope.classesStep = 1;
-    $scope.itemsList = [];
-  };
-  $scope.activeTag = null;
-
   $scope.firstOfASchool = function( $index, boxes, box ){
-    return $index === 0 || ($filter( 'filter' )( boxes[ $index - 1 ].tags,  {category: 'school'})[0].id != $filter( 'filter' )( box.tags,  {category: 'school'})[0].id);
+      return $index === 0 || ($filter( 'filter' )( boxes[ $index - 1 ].tags,  {category: 'school'})[0].id != $filter( 'filter' )( box.tags,  {category: 'school'})[0].id);
   };
 
-  $scope.initializeNewBox = function(){
-    $scope.newBox = {
-      classes: {
-        unfolded: true,
+  $scope.displayAddSuggestion = function( suggestion ){
+    $location.search('state', 'addingBox');
+    if( !!suggestion ){
+    $scope.newBox = angular.copy( suggestion );
+    }
+    else {
+      $scope.newBox = {
         type: 'classes',
+        displayDetails: true,
         tags: [],
         items: []
-      },
-      internship: {}
-    };
-  };
-
-  $scope.initializeNewBox();
-
-  $scope.schools = schools.schools;
-  angular.forEach( $scope.schools, function( school ){
-    if( school.id == $stateParams.schoolId ){
-      $scope.addClassesSchool = school;
+      };
     }
-  });
-  $scope.classesStep = 1;
-  $scope.toggleSelectItem = function( item ){
-    item.selected = !item.selected;
-    $scope.newBox.classes.items = $filter( 'filter' )( $scope.itemsList, { 'selected': true });
   };
 
-  $scope.selectTagTitle = function( tag ){
-    $scope.newBox.classes.title = tag.name;
-    $scope.activeTag = tag;
-    $scope.loadItems();
-  };
-
-  $scope.loadItems = function(){
-    if( $scope.addClassesSchool && $scope.activeTag ){
-      var tags = [ $scope.addClassesSchool.id, $scope.activeTag.id ];
-      $scope.newBox.classes.tags = [ $scope.addClassesSchool, $scope.activeTag ];
-      return Item.getListFromTags( tags, true ).then( function( response ){
-        $scope.itemsList = response.items;
+  $scope.loadSuggestionItems = function( box ){
+    getIdsList = function( tags ){
+      return tags.map( function( tag ){
+        return( tag.id );
       });
-    }
+    };
+    box.itemsLoading = true;
+    Item.getListFromTags( getIdsList( box.tags), true ).then( function( response ){
+      box.itemsLoading = false;
+      box.items = response.items;
+    });
   };
 
-  $scope.nextClassesStep = function(){
-    $scope.classesStep += 1;
+  $scope.cancelAddBox = function(){
+    $location.search('state', null);
+    delete $scope.newBox;
+  };
+
+  $scope.addBox = function(){
+    $scope.alerts.push({
+      type: 'info',
+      msg: 'L\'étape a bien été ajoutée à ton parcours !'
+    });
+    $scope.cancelAddBox();
   };
 
   $scope.getTypeahead = function( string ){
-    var tag_ids = [ $scope.addClassesSchool.id ];
+    var tag_ids = [ $scope.newBox.school.id ];
     return Tag.typeahead( string, tag_ids, 'item', 30, null ).then( function( response ){
       return response.tags;
     });
   };
 
-  $scope.previousClassesStep = function(){
-    $scope.classesStep -= 1;
+  $scope.addTextTag = function(){
+    $scope.newBox.tags = $scope.newBox.tags || [];
+    $scope.newBox.tags.push( $scope.newBox.typedTag );
+    $scope.newBox.typedTag = null;
   };
+
+  $scope.$watch( function(){
+    return $scope.newBox ? $scope.newBox.tags : null;
+  }, function( newVal, oldVal ){
+    $scope.newBox.items = [];
+    if( newVal && newVal.length > 0 ){
+      $scope.loadSuggestionItems( $scope.newBox );
+    }
+  }, true);
 
   $scope.classesSuggestions = [{
     name: 'Cours de lol',
-    tags: [ '538310614d61631781010000', '538310614d616317811f0000' ]
+    type: 'classes',
+    school: {
+      name: 'Centrale Lyon',
+      id: '538310614d61631781010000'
+    },
+    tags: [ {
+      id: '538310614d61631781010000',
+      name: 'lol'
+    }, {
+      id: '538310614d616317811f0000',
+      name: 'haha'
+    }]
   }, {
-    name: 'Cours de haha'
+    name: 'Cours de haha',
+    type: 'classes'
   }];
   $scope.internshipsSuggestions = [{
-    name: 'Stage ouvrier'
+    title: 'Stage ouvrier',
+    type: 'internship'
   }, {
-    name: 'Stage d\'application'
+    title: 'Stage d\'application',
+    type: 'internship'
+
   }, {
-    name: 'Travail de fin d\'études'
+    title: 'Travail de fin d\'études',
+    type: 'internship'
   }];
   $scope.boxes = [{
     title: "TFE",
-    unfolded: true,
+    unfolded: false,
     start_date: '2014-07-08T13:05:59.679Z',
     end_date: '2014-09-08T13:05:59.679Z',
     description: "lol haha c'était kikoulol j\'ai bien rigolé",
@@ -176,9 +195,9 @@ angular.module( 'shapter.cursus', [
       category: "admin"
     }]
   }, {
-    title: "Modules Ouverts Disciplinaires",
+    title: "Métier 3A",
     description: "lol haha c'était kikoulol j\'ai bien rigolé",
-    unfolded: true,
+    unfolded: false,
     start_date: '2014-07-08T13:05:59.679Z',
     end_date: '2014-09-08T13:05:59.679Z',
     type: "classes",
@@ -205,7 +224,7 @@ angular.module( 'shapter.cursus', [
       current_user_has_diagram: true
     }]
   }, {
-    title: "Modules Ouverts Sectoriels",
+    title: "Option 3A",
     description: "Ldf d qdfqsdfqsd qsd qsd qsdf qsdfqsdf qsdq dfqsdf qsqqq q q qq qq qdsf q qsd qsdf qsdf dfsq qsdfqsdfsqdf fqds sdq qfdfqds fdsqqsdq q qsd fqsdfqd qsdf qsdf qsdf dsq fqsd",
     unfolded: false,
     start_date: '2014-07-08T13:05:59.679Z',
@@ -223,7 +242,7 @@ angular.module( 'shapter.cursus', [
       category: "admin"
     }]
   },{
-    title: "Modules Ouverts Sectoriels",
+    title: "Modules Ouverts Métiers",
     description: "Les modules ouverts sectoriels c'set tagada tagad, et j'ai fait ceci et j'ai fait cela et j'ai tagada",
     unfolded: false,
     start_date: '2014-07-08T13:05:59.679Z',
@@ -258,6 +277,36 @@ angular.module( 'shapter.cursus', [
       category: "admin"
     }]
   }, {
+    title: "Électifs semestre 7",
+    unfolded: false,
+    start_date: '2014-07-08T13:05:59.679Z',
+    end_date: '2014-09-08T13:05:59.679Z',
+    description: "sisi",
+    type: "classes",
+    company: "",
+    lat: 35,
+    lng: 32,
+    tags: [{
+      name: "Centrale Lyon",
+      category: "school",
+      id: 1
+    }]
+  }, {
+    title: "Semestre 7",
+    unfolded: false,
+    start_date: '2014-07-08T13:05:59.679Z',
+    end_date: '2014-09-08T13:05:59.679Z',
+    description: "sisi",
+    type: "common",
+    company: "",
+    lat: 35,
+    lng: 32,
+    tags: [{
+      name: "Centrale Lyon",
+      category: "school",
+      id: 1
+    }]
+  }, {
     title: "Stage ouvrier",
     unfolded: false,
     start_date: '2014-07-08T13:05:59.679Z',
@@ -265,6 +314,36 @@ angular.module( 'shapter.cursus', [
     description: "sisi",
     type: "internship",
     company: "Le Louvre",
+    lat: 35,
+    lng: 32,
+    tags: [{
+      name: "Centrale Lyon",
+      category: "school",
+      id: 1
+    }]
+  }, {
+    title: "Semestre 6",
+    unfolded: false,
+    start_date: '2014-07-08T13:05:59.679Z',
+    end_date: '2014-09-08T13:05:59.679Z',
+    description: "sisi",
+    type: "common",
+    company: "",
+    lat: 35,
+    lng: 32,
+    tags: [{
+      name: "Centrale Lyon",
+      category: "school",
+      id: 1
+    }]
+  }, {
+    title: "Semestre 5",
+    unfolded: false,
+    start_date: '2014-07-08T13:05:59.679Z',
+    end_date: '2014-09-08T13:05:59.679Z',
+    description: "sisi",
+    type: "common",
+    company: "",
     lat: 35,
     lng: 32,
     tags: [{

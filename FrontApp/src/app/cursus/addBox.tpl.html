@@ -1,0 +1,53 @@
+<div class="row">
+  <div class="col-md-10 col-md-offset-1">
+    <span class="text-turquoise" ng-click="cancelAddBox()"><span class="fa fa-arrow-left"></span>&nbsp; retour</span>
+    <div class="padding-well">
+      <div>
+        <span class="lead bold text-dark-blue" ng-bind="newBox.name" style="margin-bottom: 0"></span> 
+        <div ng-show="newBox.displayDetails">
+          <label>Nom de l'étape: </label>
+          <input ng-model="newBox.name" class="form-control" placeholder="nom de l'étape">
+        </div>
+      </div>
+      <small class="text-turquoise pull-right">
+        <span class="text-turquoise" ng-click="newBox.displayDetails = true" ng-hide="newBox.displayDetails">Afficher les détails</span>
+      </small>
+    <div ng-show="newBox.displayDetails">
+      <div class="text-turquoise">Les cours de cette étape sont référencés sur Shapter avec les mots-clefs suivants :</div>
+
+      <span class="tag" ng-repeat="tag in newBox.tags">
+        {{ tag.name }}
+        <span ng-show="newBox.editTags === true" class="glyphicon glyphicon-remove" ng-click="newBox.tags.splice( $index, 1)"></span>
+      </span>
+
+      <small class="text-turquoise" ng-click="newBox.editTags = true" ng-hide="newBox.editTags">Editer</small>
+      <small class="text-turquoise" ng-click="newBox.editTags = false" ng-show="newBox.editTags">Terminer</small>
+      <div ng-show="newBox.editTags">
+        <!-- input -->
+        <input sh-auto-focus="true" type="text" class="form-control" placeholder="+ {{ AppText.browse.add_a_keyword | language }}" typeahead="tag as tag.name for tag in getTypeahead( $viewValue ) | limitTo: 50" typeahead-min-length="3" ng-model="newBox.typedTag" typeahead-editable="false" typeahead-on-select="addTextTag()" style="margin-top: 10px"/>
+      </div>
+    </div>
+    <small class="text-turquoise pull-right">
+        <span class="text-turquoise" ng-click="newBox.displayDetails = false" ng-show="newBox.displayDetails">Masquer les détails</span>
+    </small>
+  </div>
+
+    <div class="padding-well" ng-show="newBox.tags.length">
+      <div class="bold text-turquoise">Sélectionne les cours que tu as suivis lors de cette étape :</div>
+      <div ng-show="newBox.itemsLoading">chargement ...</div>
+      <div class="clearfix form-group" ng-hide="newBox.itemsLoading || newBox.items.length === 0 || newBox.tags.length === 0">
+        <button class="pull-right btn btn-success" ng-click="addBox()" ng-disabled=" newBox.items.length === 0 || (newBox.items | filter: {'selected': true}).length === 0">Valider !</button>
+      </div>
+      <div class="list-group">
+        <div class="list-group-item" ng-repeat="item in newBox.items" ng-class="{'active': item.selected === true}" ng-click="item.selected = !item.selected">
+          <span class="fa" ng-class="{'fa-check-square-o': item.selected === true, 'fa-square-o': item.selected !== true}"></span>
+          &nbsp;
+          {{ item.name }}
+        </div>
+      </div>
+      <div class="clearfix form-group" ng-hide="newBox.itemsLoading || newBox.items.length === 0 || newBox.tags.length === 0">
+        <button class="pull-right btn btn-success" ng-click="addBox()" ng-disabled=" newBox.items.length === 0 || (newBox.items | filter: {'selected': true}).length === 0">Valider !</button>
+      </div>
+    </div>
+  </div>
+</div>
