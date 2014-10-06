@@ -84,8 +84,18 @@ angular.module( 'shapter', [
 }])
 
 .run(['ENV', function( ENV ){
-  mixpanel.init( ENV.mixpanel_id );
-  behave.init( ENV.behave_api_token );
+  try {
+    mixpanel.init( ENV.mixpanel_id );
+  }
+  catch( err ){
+    console.log( err );
+  }
+  try {
+    behave.init( ENV.behave_api_token );
+  } 
+  catch( err ){
+    console.log( err );
+  }
 }])
 
 .run(['security', function( security ){
