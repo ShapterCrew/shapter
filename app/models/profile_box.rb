@@ -11,6 +11,10 @@ class ProfileBox
   field :tag_ids, type: Array
   field :saved_tag_ids, type: Array
 
+  def pretty_id
+    id.to_s
+  end
+
   has_and_belongs_to_many :users, class_name: "User", inverse_of: :profile_boxes
 
   validates_presence_of :name, :type, :users

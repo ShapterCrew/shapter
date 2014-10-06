@@ -9,6 +9,10 @@ class ProfileBoxInternship < ProfileBox
     internship.tags.where(category: "type").only(:id).map(&:id)
   end
 
+  def type
+    "internship"
+  end
+
   private
 
   def set_users
