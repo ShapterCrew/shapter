@@ -5,6 +5,7 @@ class User
   include Facebookable
   include Skilled
   include Schools
+  include Profile
 
   field :firstname, type: String
   field :lastname,  type: String
@@ -24,7 +25,6 @@ class User
 
   has_and_belongs_to_many :schools, class_name: "Tag", inverse_of: :students
 
-  has_and_belongs_to_many :profile_boxes, class_name: "ProfileBox", inverse_of: :user
   has_many :syllabus_edited_items, class_name: "Item", inverse_of: :syllabus_author
   has_many :reported_comments, class_name: "Report", inverse_of: :reporter
 

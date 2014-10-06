@@ -3,6 +3,24 @@ module Shapter
     class ProfileBoxes < Grape::API
       format :json
 
+      namespace :users do 
+        namespace ':user_id' do 
+          before do 
+            params do 
+              requires :user_id, desc: "user id"
+            end
+            @user = User.find(params[:user_id]) || error!("user not found",404)
+          end
+
+          namespace :profile_boxes do 
+            desc "get the profile boxes for a given user"
+            post do 
+              present @user.profile, with: Shapter::Entities::ProfileBox, entity_options: entity_options
+            end
+          end
+        end
+      end
+
       namespace :profile_boxes do 
 
         #{{{ create
@@ -33,26 +51,46 @@ module Shapter
         end
         #}}}
 
-        namespace ':id' do 
+        namespace ':profile_box_id' do 
           before do 
             params do 
               requires :profile_box_id, desc: "id of the profile box"
             end
             @pb = ProfileBox.find(params[:profile_box_id])
           end
-        end
 
-        #{{{ update
-        desc "update a profile box"
-        put do 
-        end
-        #}}}
+          #{{{ update
+          desc "update a profile box"
+          params do 
+            optional :name
+            optional :start_date, type: Date,desc: "starting date"
+            optional :end_date, type: Date, desc: "end date"
+            optional :item_ids, type: Array, desc: "item_ids"
+          end
+          put do 
+            check_confirmed_account!
+            error!("forbidden",403) unless @pb.user unless @pb.user == current_user or current_user.shapter_admin
+            clean_p = permit_params(params, [:name, :start_date,  :end_date, :item_ids])
+            if @pb.update_attributes(clean_p)
+              present @pb, with: Shapter::Entities::ProfileBox, entity_options: entity_options
+            else
+              error!(@p.errors.messages)
+            end
+          end
+          #}}}
 
-        #{{{ delete
-        desc "delete a profile box"
-        delete do 
+          #{{{ delete
+          desc "delete a profile box"
+          delete do 
+            check_confirmed_account!
+            error!("forbidden",403) unless @pb.user unless @pb.user == current_user or current_user.shapter_admin
+
+            @pb.destroy
+            present :status, :destroyed
+          end
+          #}}}
+
         end
-        #}}}
 
       end
     end

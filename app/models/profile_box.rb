@@ -17,10 +17,14 @@ class ProfileBox
 
   has_and_belongs_to_many :users, class_name: "User", inverse_of: :profile_boxes
 
-  validates_presence_of :name, :type, :users
+  validates_presence_of :name, :type, :users, :start_date
 
   def tags
     tag_ids.blank? ? [] : Tag.find(tag_ids)
+  end
+
+  def user
+    users.first
   end
 
   before_validation :set_tag_ids
