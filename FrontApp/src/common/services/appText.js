@@ -196,6 +196,10 @@ angular.module( 'services.appText', [])
         en: 'If possible, prefer your student email',
         fr: 'Si possible, préfère l\'email fourni par ton établissement'
       },
+      login_needed_for_auth: {
+        en: 'You need to be logged in to add campus authorizations to your profile.',
+        fr: 'Tu dois être connecté pour ajotuer des autorisations à ton profil.'
+      },
       login_needed_for_favourite: {
         en: 'You need to be logged to add a class to your favourites!',
         fr: 'Tu dois être connecté pour ajouter un cours à tes favoris !'
@@ -1055,6 +1059,18 @@ angular.module( 'services.appText', [])
 
     },
     campus_authentication: {
+      _continue: {
+        en: 'continue',
+        fr: 'continuer'
+      },
+      you_are_already_student: {
+        en: 'You are already registered as a student.',
+        fr: 'Tu es déjà identifié comme étudiant.'
+      },
+      you_are_already_student2: {
+        en: 'You can add authorizations for other institutions if you have a matching email at your disposal.', 
+        fr: 'Tu peux ajouter des autorisations pour d\'autres campus si tu disposes d\'emails étudiants de ces campus.'
+      },
       your_school_email: {
         en: 'The email provided by your school',
         fr: 'L\'email fourni par ton établissement'

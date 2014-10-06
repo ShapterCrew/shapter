@@ -1,82 +1,118 @@
 <sh-header></sh-header>
-<div class="container">
-  <div class="row main-row">
-    <div class="col-md-8 col-md-offset-2">
-      <h2>{{ AppText.campus_authentication.subscribe_to_my_campus | language }}</h2>
-      <div style="margin-bottom: 30px">
-        <span class="lead bold text-turquoise">{{ AppText.campus_authentication.to_benefit_from_shapter | language }}</span> 
-      </div>
-    </div><!-- col -->
-  </div>
-</div><!-- container -->
 
-  <div class="orange-infos">
+<div class="orange-infos" ng-hide="security.isAuthenticated()">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8 col-md-offset-2">
+        <div class="row">
+          <div class="col-md-8">
+            <p ng-bind="AppText.security.login_needed_for_auth | language"></p>
+            <button class="btn btn-info" ng-click="security.showLogin('login_needed_for_auth')">{{ AppText.security.connect | language }}</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div ng-show="security.isAuthenticated()">
+  <div class="container" ng-hide="security.isConfirmedStudent()">
+    <div class="row main-row">
+      <div class="col-md-8 col-md-offset-2">
+        <h2>{{ AppText.campus_authentication.subscribe_to_my_campus | language }}</h2>
+        <div style="margin-bottom: 30px">
+          <span class="lead bold text-turquoise">{{ AppText.campus_authentication.to_benefit_from_shapter | language }}</span> 
+        </div>
+      </div><!-- col -->
+    </div>
+  </div><!-- container -->
+
+  <div class="orange-infos" ng-hide="security.isConfirmedStudent()">
     <div class="container">
       <div class="row">
         <div class="col-md-8 col-md-offset-2">
-      <div class="row">
-        <div class="col-md-6">
-          <p ng-bind="AppText.campus_authentication.ignore_this_step | language"></p>
-          <button class="btn btn-info" ng-click="schoolsNav()">{{ AppText.campus_authentication.visitor_mode | language }}</button>
+          <div class="row">
+            <div class="col-md-8">
+              <p ng-bind="AppText.campus_authentication.ignore_this_step | language"></p>
+              <button class="btn btn-info" ng-click="schoolsNav()">{{ AppText.campus_authentication.visitor_mode | language }}</button>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
       </div>
     </div>
   </div>
 
-<div class="container">
-  <div class="row">
-    <div class="col-md-8 col-md-offset-2">
+  <div class="blue-infos" ng-show="security.isConfirmedStudent()">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+          <div class="row">
+            <div class="col-md-8">
+              <div class="bold lead" ng-bind="AppText.campus_authentication.you_are_already_student | language">
+              </div>
+              <div ng-bind="AppText.campus_authentication.you_are_already_student2 | language"></div>
+              <button class="btn btn-info" ng-click="schoolNav()">{{ AppText.campus_authentication._continue | language }}</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
-      <alert ng-repeat="alert in alerts" type="alert.type">
-      {{ alert.msg | language}}
-      </alert>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8 col-md-offset-2">
 
-      <p class="lead bold text-turquoise">{{ AppText.campus_authentication.add_an_authorization | language }}</p>
-      <form name="authenticationForm" class="css-form">
-        <div class="form-group well" style="margin-bottom: 5px">
-          <label>{{ AppText.campus_authentication.where_from | language}}</label>
-          </br>
-          <select ng-model="newAuthorization.school" required="true" ng-options="school as school.name for school in (schools | orderBy: 'name': false)">
-            <option value="">-- {{ AppText.campus_authentication.choose_uni | language }} --</option>
-          </select>
-        </div>
-        <div class="clearfix">
-          <p style="maring-top: 0px; margin-bottom: 20px" class="pull-right"><a href="#/addCampus" class="text-info">{{ AppText.campus_authentication.not_in_list | language }}</a></p>
-        </div>
-        <div class="form-group well" ng-show="newAuthorization.school">
-          <label>{{ AppText.campus_authentication.your_campus_email | language }}</label>
-          <input class="form-control" type="email" ng-model="newAuthorization.email" placeholder="{{ AppText.campus_authentication.your_school_email | language }}">
-        </div>
-        <div class="form-group" ng-show="displayPassword">
-          <label>{{ AppText.campus_authentication.password | language }}</label>
-          <input class="form-control" ng-model="newAuthorization.password">
-        </div>
-        <div class="form-group clearfix" ng-show="newAuthorization.school">
-          <button type="submit" class="btn btn-success pull-right" ng-click="submitAuthorization()">{{ AppText.campus_authentication.receive_confirmation | language }}</button>
-        </div>
-      </form>
+        <alert ng-repeat="alert in alerts" type="alert.type">
+        {{ alert.msg | language}}
+        </alert>
 
-      <div style="margin-top: 50px">
-        <div ng-click="thisSchoolNav( school )" class="well types-well" ng-repeat="school in security.currentUser.schools">
-          <span class="pull-right h5 text-emerald">
-            {{ AppText.campus_authentication.validated | language }} <span class="fa fa-check"></span>
+        <p class="lead bold text-turquoise">{{ AppText.campus_authentication.add_an_authorization | language }}</p>
+        <form name="authenticationForm" class="css-form">
+          <div class="form-group well" style="margin-bottom: 5px">
+            <label>{{ AppText.campus_authentication.where_from | language}}</label>
+            </br>
+            <select ng-model="newAuthorization.school" required="true" ng-options="school as school.name for school in (schools | orderBy: 'name': false)">
+              <option value="">-- {{ AppText.campus_authentication.choose_uni | language }} --</option>
+            </select>
+          </div>
+          <div class="clearfix">
+            <p style="maring-top: 0px; margin-bottom: 20px" class="pull-right"><a href="#/addCampus" class="text-info">{{ AppText.campus_authentication.not_in_list | language }}</a></p>
+          </div>
+          <div class="form-group well" ng-show="newAuthorization.school">
+            <label>{{ AppText.campus_authentication.your_campus_email | language }}</label>
+            <input class="form-control" type="email" ng-model="newAuthorization.email" placeholder="{{ AppText.campus_authentication.your_school_email | language }}">
+          </div>
+          <div class="form-group" ng-show="displayPassword">
+            <label>{{ AppText.campus_authentication.password | language }}</label>
+            <input class="form-control" ng-model="newAuthorization.password">
+          </div>
+          <div class="form-group clearfix" ng-show="newAuthorization.school">
+            <button type="submit" class="btn btn-success pull-right" ng-click="submitAuthorization()">{{ AppText.campus_authentication.receive_confirmation | language }}</button>
+          </div>
+        </form>
+
+        <div style="margin-top: 50px">
+          <div ng-click="thisSchoolNav( school )" class="well types-well" ng-repeat="school in security.currentUser.schools">
+            <span class="pull-right h5 text-emerald">
+              {{ AppText.campus_authentication.validated | language }} <span class="fa fa-check"></span>
+            </span>
+            <h5>{{ school.name }}</h5>
+          </div>
+        </div>
+
+        <!--
+        <div class="btn btn-orange btn-hg">
+          <span class="fa-stack fa-hg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-plus fa-stack-1x text-orange"></i>
           </span>
-          <h5>{{ school.name }}</h5>
+          <span class="lead">Ajouter un campus à mon parcours</span>
         </div>
-      </div>
+        -->
 
-      <!--
-      <div class="btn btn-orange btn-hg">
-        <span class="fa-stack fa-hg">
-          <i class="fa fa-circle fa-stack-2x"></i>
-          <i class="fa fa-plus fa-stack-1x text-orange"></i>
-        </span>
-        <span class="lead">Ajouter un campus à mon parcours</span>
       </div>
-      -->
-
     </div>
   </div>
 </div>

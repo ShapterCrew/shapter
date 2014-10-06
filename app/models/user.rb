@@ -124,6 +124,7 @@ class User
     end
   end
 
+  validates_uniqueness_of :email
   before_validation :set_names!
 
   after_save :items_touch
@@ -133,6 +134,7 @@ class User
   before_create :skip_confirmation_notification!
   after_create :send_confirmation_if_required
   after_create :track_signup_if_valid_student!
+  after_create :send_welcome_email
 
   def track_signup_if_valid_student!
     if confirmed_student?
@@ -213,6 +215,10 @@ class User
   end
 
   private
+
+  def send_welcome_email
+    WelcomeMailer.delay(run_at: 1.hours.from_now).welcome_user(self)
+  end
 
   def items_touch
     items.each(&:touch) 
