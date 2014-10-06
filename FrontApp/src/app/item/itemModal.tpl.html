@@ -81,9 +81,9 @@
           </div>
         </div>
       </div><!-- row -->
-      <div class="row">
-        <div class="col-md-6" style="">
-          <div class="padding-well bordered-well" style="height: 100%;">
+      <div class="row" style="margin-bottom: 3px">
+        <div class="col-md-6 no-padding-right-col">
+          <div class="padding-well" style="height: 100%;">
 
             <button class="pull-right btn btn-sun" ng-click="editDiagramFactory.openModal( item )" ng-show="security.isConfirmedStudent()">Évaluer</button>
             <button class="pull-right btn btn-sun" ng-click="security.showLogin('login_needed_to_contribute')" ng-hide="security.isConfirmedStudent()">Évaluer</button>
@@ -91,19 +91,16 @@
             <div class="lead text-dark-blue bold ">
               {{ AppText.item.diagram | language }} <span ng-show="item.diagrams_count">({{ item.diagrams_count }})</span>
             </div>
-            <div class="center" ng-repeat="item in [item]" style="margin-top: 20px; margin-bottom: 20px" ng-show="item.diagrams_count">
-
+            <div class="center padding-well" ng-repeat="item in [item]" style="margin-top: 20px; margin-bottom: 20px" ng-show="item.diagrams_count">
               <sh-diagram diagram="item.averaged_diagram" width="60" with-text="true" id="diagram"></sh-diagram>
-
-
             </div>
             <div class="text-muted" ng-hide="item.diagrams_count">{{ AppText.item.no_diagram | language }}</div>
           </div>
         </div><!-- col left -->
 
-        <div class="col-md-6">
+        <div class="col-md-6 no-padding-left-col">
           <div class="padding-well">
-            <div style="word-break: break-all; max-height: 232px; overflow-y: auto;">
+            <div style="height: 231px; overflow-y: auto;">
               <button class="pull-right btn btn-sun" ng-click="item.updatingSyllabus = true" ng-show="security.isConfirmedStudent() && !item.syllabus">{{ AppText.item.update_syllabus | language }}</button>
 
               <div class="lead text-dark-blue bold" style="white-space: normal">
@@ -127,11 +124,9 @@
         </div>
       </div>
 
-
-
-      <div class="row" >
-        <div class="col-md-8" >
-          <div class="padding-well bordered-well" style="margin-bottom: 1px">
+      <div class="row">
+        <div class="col-md-8 no-padding-right-col">
+          <div class="padding-well" style="margin-bottom: 1px">
 
             <button class="pull-right btn btn-sun" ng-click="item.displayAddComment = !item.displayAddComment" ng-show="security.isConfirmedStudent()">
               <span ng-hide="item.displayAddComment" ng-bind="AppText.item.comment | language"></span>
@@ -150,19 +145,18 @@
               <div id="addComment" sh-add-comment item="item" ng-repeat="item in [ item ]" cb="hideAddComment()"></div>
             </div>
 
-
             <div ng-hide="item.comments.length">
               {{ AppText.item.no_comments | language }}
             </div>
-          </div>
-            <div ng-show="item.comments | hiddenComments" class="padding-well turquoise-infos" style="padding: 20px; margin: 0">
+
+            <div ng-show="item.comments | hiddenComments" class="padding-well turquoise-infos">
               <div class="bold ">{{ AppText.item.there_are | language }} {{ item.comments | hiddenComments }} {{ AppText.item.hidden_comments | language }}</div>
               <p>{{ AppText.item.to_see_the_comments | language }}</p>
               <a ng-show="security.isConfirmedUser()" href="#/campusAuthentication" class="btn btn-info">{{ AppText.item.i_have_an_email | language }}</a>
               <a ng-hide="security.isConfirmedUser()" href="" ng-click="security.showLogin('login_needed_to_see_comments')" class="btn btn-info">{{ AppText.item.i_have_an_email | language }}</a>
             </div>
 
-            <div class="blue-infos padding-well" style="margin-bottom: 0; margin-top: 0">
+            <div class="blue-infos padding-well">
               <p>{{ AppText.item.want_more_comments | language }}</p>
               <!-- facebook output -->
               <ul ng-social-buttons 
@@ -180,16 +174,17 @@
                 </li>
               </ul>
             </div>
+          </div>
 
-            <div class="campus-comment" ng-repeat="comment in item.comments | filter: {content: '!hidden'} | reverse" style="margin-bottom: 1px">
-              <div sh-comment close="close()" comment="comment" display-student-name="true" current-user="security.currentUser" comments='item.comments'></div>
-            </div>
+          <div class="padding-well" ng-repeat="comment in item.comments | filter: {content: '!hidden'} | reverse" style="margin-bottom: 1px">
+            <div sh-comment close="close()" comment="comment" display-student-name="true" current-user="security.currentUser" comments='item.comments'></div>
+          </div>
 
 
 
         </div><!-- col -->
 
-        <div class="col-md-4" >
+        <div class="col-md-4 no-padding-left-col">
           <div class="padding-well bordered-well" style="margin-bottom: 0">
             <div class="lead text-dark-blue bold ">
               {{ AppText.item.attending_students | language }} 

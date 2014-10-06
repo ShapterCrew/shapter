@@ -16,7 +16,7 @@
 
   <div ng-hide="$location.search().state">
     <div class="row">
-      <div class="col-md-12">
+      <div class="col-md-10 col-md-offset-1">
 
         <div class="alert" ng-class="{'alert-info': alert.type == 'info'}" ng-repeat="alert in alerts">{{ alert.msg }} <small class="glyphicon glyphicon-remove pull-right" ng-click="alerts.splice( $index, 1)"></small></div>
 
@@ -65,12 +65,12 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-md-6">
+      <div class="col-md-10 col-md-offset-1">
         <div><!-- wrapper to use first-child selecotr on first first-of-a-school -->
           <div class="box header-box text-turquoise bold">{{ AppText.cursus.my_course | language }}</div>
           <div class="box" ng-class="{'first-of-a-school': $index !== 0 && firstOfASchool( $index, boxes, box )}" ng-repeat="box in boxes">
             <div class="row">
-              <div class="col-md-4">
+              <div class="col-md-3">
                 <div ng-show="firstOfASchool( $index, boxes, box )">
                   <span class="text-orange bold" 
                     ng-repeat="tag in box.tags | filter: {category: 'school'}">
@@ -78,7 +78,7 @@
                   </span>
                 </div>
               </div>
-              <div class="col-md-8">
+              <div class="col-md-9">
                 <span class="label label-info pull-right" ng-bind="(box.start_date | date: 'MM/yy') + ' -> ' + (box.end_date | date : 'MM/yy')"></span> 
                 <span class="badge badge-emerald" ng-show="box.type == 'internship'" ng-bind="AppText.cursus.internship | language"></span>
                 <span class="text-dark-blue bold" ng-bind="box.title" ng-click="box.unfolded = !box.unfolded"></span>

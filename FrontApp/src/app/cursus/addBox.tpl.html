@@ -4,7 +4,7 @@
     <div class="padding-well">
       <div>
         <span class="lead bold text-dark-blue" ng-bind="newBox.name" style="margin-bottom: 0"></span> 
-        <div ng-show="newBox.displayDetails">
+        <div ng-show="newBox.displayDetails" class="form-group">
           <label>Nom de l'étape: </label>
           <input ng-model="newBox.name" class="form-control" placeholder="nom de l'étape">
         </div>
@@ -13,7 +13,7 @@
         <span class="text-turquoise" ng-click="newBox.displayDetails = true" ng-hide="newBox.displayDetails">Afficher les détails</span>
       </small>
     <div ng-show="newBox.displayDetails">
-      <div class="text-turquoise">Les cours de cette étape sont référencés sur Shapter avec les mots-clefs suivants :</div>
+      <p class="text-turquoise">Les cours de cette étape sont référencés sur Shapter avec les mots-clefs suivants :</p>
 
       <span class="tag" ng-repeat="tag in newBox.tags">
         {{ tag.name }}

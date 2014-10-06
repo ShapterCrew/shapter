@@ -1424,8 +1424,8 @@ angular.module( 'services.appText', [])
         fr: 'Voir plus de suggestions'
       },
       my_course: {
-        en: 'My course:',
-        fr: 'Mon cursus :'
+        en: 'Your profile:',
+        fr: 'Ton cursus :'
       },
       electives: {
         en: 'Elective classes',
