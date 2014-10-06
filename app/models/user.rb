@@ -217,7 +217,7 @@ class User
   private
 
   def send_welcome_email
-    WelcomeMailer.delay(run_at: 1.minutes.from_now).welcome_user(self)
+    WelcomeMailer.delay(run_at: 1.hours.from_now).welcome_user(self)
   end
 
   def items_touch
