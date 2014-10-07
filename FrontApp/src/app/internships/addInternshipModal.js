@@ -78,6 +78,7 @@ angular.module( 'directives.addInternshipModal', [
   };
 
   $scope.addInternship = function() {
+    $scope.internship.schoolId = $stateParams.schoolId;
     Internship.create($filter( 'formatInternshipToPost' )($scope.internship)).then(function(response) {
       $scope.internship = response;
       $rootScope.$broadcast( 'InternshipCreated' );

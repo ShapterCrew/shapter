@@ -1,16 +1,15 @@
 <sh-header></sh-header>
-
 <div class="container" style="margin-bottom: 100px">
   <!-- add courses box -->
-  <div ng-show="$location.search().state == 'addingBox' && newBox.type == 'classes'" ng-include="'cursus/addBox.tpl.html'"></div>
+  <div ng-show="$location.search().state == 'addingBox'" ng-include="'cursus/addBox.tpl.html'"></div>
 
   <!-- add internship -->
-  <div ng-show="$location.search().state == 'addingBox' && newBox.type == 'internship'">
+  <div ng-show="$location.search().state == 'addingInternship'">
     <div class="row">
       <div class="col-md-8 col-md-offset-2">
         <div class="text-turquoise" ng-click="cancelAddBox()"><span class="fa fa-arrow-left"></span> Retour</div>
         <div class="padding-well">
-          <sh-add-internship internship="newBox" close="cancelAddBox()"></sh-add-internship>
+          <sh-add-internship internship="" close="cancelAddBox()"></sh-add-internship>
         </div>
       </div>
     </div>
@@ -21,7 +20,7 @@
       <div class="col-md-8 col-md-offset-2">
         <div class="alert" ng-class="{'alert-info': alert.type == 'info'}" ng-repeat="alert in alerts">{{ alert.msg }} <small class="glyphicon glyphicon-remove pull-right" ng-click="alerts.splice( $index, 1)"></small></div>
         <div class="h6 bold text-orange box">
-          <span ng-bind="AppText.cursus.add_step | language"></span> <span ng-bind="boxes[ 0 ].title"></span><span ng-bind="AppText.system.question_mark | language"></span>
+          <span ng-bind="AppText.cursus.add_step | language"></span> <span ng-bind="boxes[ 0 ].name"></span><span ng-bind="AppText.system.question_mark | language"></span>
         </div>
       </div>
       <div class="col-md-8 col-md-offset-2">
@@ -39,16 +38,13 @@
             </div>
             <!-- add internship -->
             <div class="col-sm-6">
-              <div ng-repeat="suggestion in internshipsSuggestions" class="box-suggestion box-suggestion-blue" ng-click="displayAddSuggestion( suggestion )">
+              <div ng-repeat="suggestion in internshipsSuggestions" class="box-suggestion box-suggestion-blue" ng-click="displayAddInternship( suggestion )">
                 <span class="fa fa-stack" style="text-align: center">
                   <span class="fa fa-circle fa-stack-2x"></span>
                   <span class="fa fa-plus fa-stack fa-inverse"></span>
                 </span>
-                {{ suggestion.title }}
+                {{ suggestion.name }}
               </div>
-            </div>
-            <div class="col-md-12" style="margin-top: 15px">
-              <small class="badge badge-info" style="margin-left: 18px">afficher plus de suggestions</small>
             </div>
           </div><!-- row -->
         </div><!-- add-box -->
@@ -89,16 +85,16 @@
                 </div>
                 <div class="col-md-10">
                   <span class="badge badge-pinkrose pull-right" ng-show="box.type == 'internship'">{{ AppText.cursus.internship | language}} 1 mois</span>
-                  <span class="badge badge-lavander pull-right" ng-show="box.type == 'classes' && box.items.length"> {{ box.items.length }} cours parmi 30</span>
+                  <span class="badge badge-lavander pull-right" ng-show="box.type == 'items' && box.items.length"> {{ box.items.length }} cours parmi 30</span>
                   <span class="badge badge-bluejeans pull-right" ng-show="box.type == 'common'"> 18 cours obligatoires </span>
-                  <span class="text-turquoise bold" ng-bind="box.title" ng-click="box.unfolded = !box.unfolded"></span>
+                  <span class="text-turquoise bold" ng-bind="box.name" ng-click="box.unfolded = !box.unfolded"></span>
                   <div class="box-unfolded" ng-show="box.unfolded">
                     <div class="box-tags">
                       <span ng-repeat="tag in box.tags | filter: {category: '!school'}" class="bold text-emerald" >{{ tag.name }}<span ng-hide="$last">, </span></span>
                     </div><!-- box-tags -->
-                    <div ng-show="box.type=='classes'" class="box-classes">
+                    <div ng-show="box.type=='items'" class="box-classes">
                       <div ng-repeat="item in box.items" class="item-in-box">
-                        <span class="" sh-item-modal="item" itemsList="box.items">{{ item.name }}</span>
+                        <span class="" sh-item-modal="item" itemsList="box.items" number-of-items="box.items.length" load-more-items="">{{ item.name }} - <small class="text-bittersweet">afficher</small></span>
                         <span class="pull-right">
                           <span class="badge badge-info">
                             <span class="fa fa-comment text-white"></span>

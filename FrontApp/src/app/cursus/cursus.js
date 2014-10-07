@@ -5,7 +5,7 @@ angular.module( 'shapter.cursus', [
   'services.appText'
 ])
 
-.config(['$stateProvider',function config( $stateProvider ) {
+.config(['$stateProvider', function config( $stateProvider ) {
   $stateProvider.state( 'cursus', {
     url: '/schools/:schoolId/cursus',
     views: {
@@ -18,6 +18,11 @@ angular.module( 'shapter.cursus', [
     resolve: {
       schools: ['School', function( School ){
         return School.index();
+      }],
+      boxes: ['User', 'security', '$q', function( User, security, $q ){
+        return security.requestCurrentUser().then( function( user ){
+          return User.profileBoxes( security.currentUser.id );
+        });
       }]
     }
   });
@@ -39,8 +44,9 @@ angular.module( 'shapter.cursus', [
   $scope.AppText = AppText;
 }])
 
-.controller('CursusCtrl', ['$scope', 'schools', 'Tag', 'Item', '$stateParams', '$filter', 'AppText', 'followBoxModalFactory', 'School', '$location', function( $scope, schools, Tag, Item, $stateParams, $filter, AppText, followBoxModalFactory, School, $location ){
+.controller('CursusCtrl', ['$scope', 'schools', 'Tag', 'Item', '$stateParams', '$filter', 'AppText', 'followBoxModalFactory', 'School', '$location', 'ProfileBox', 'boxes', function( $scope, schools, Tag, Item, $stateParams, $filter, AppText, followBoxModalFactory, School, $location, ProfileBox, boxes ){
 
+  $scope.boxes = boxes;
   School.index().then( function( schools ){
     $scope.schools = schools.schools;
   });
@@ -56,7 +62,7 @@ angular.module( 'shapter.cursus', [
   $scope.displayAddSuggestion = function( suggestion ){
     $location.search('state', 'addingBox');
     if( !!suggestion ){
-    $scope.newBox = angular.copy( suggestion );
+      $scope.newBox = angular.copy( suggestion );
     }
     else {
       $scope.newBox = {
@@ -66,6 +72,13 @@ angular.module( 'shapter.cursus', [
         items: []
       };
     }
+  };
+
+  $scope.displayAddInternship = function( suggestion ){
+    $scope.newInternship = {
+      tags: suggestion.tags
+    };
+    $location.search('state', 'addingInternship' );
   };
 
   $scope.loadSuggestionItems = function( box ){
@@ -87,11 +100,20 @@ angular.module( 'shapter.cursus', [
   };
 
   $scope.addBox = function(){
-    $scope.alerts.push({
-      type: 'info',
-      msg: 'L\'étape a bien été ajoutée à ton parcours !'
+    ProfileBox.create( $filter( 'formatBoxToPost' )( $scope.newBox ) ).then( function( box ){
+      $scope.boxes.push( box );
+      $scope.alerts.push({
+        type: 'info',
+        msg: 'L\'étape a bien été ajoutée à ton parcours !'
+      });
+      $scope.cancelAddBox();
+    }, function(){
+      $scope.alerts.push({
+        type: 'danger',
+        msg: 'Il y a eu une erreur'
+      });
+      $scope.cancelAddBox();
     });
-    $scope.cancelAddBox();
   };
 
   $scope.getTypeahead = function( string ){
@@ -110,7 +132,9 @@ angular.module( 'shapter.cursus', [
   $scope.$watch( function(){
     return $scope.newBox ? $scope.newBox.tags : null;
   }, function( newVal, oldVal ){
-    $scope.newBox.items = [];
+    if( $scope.newBox ){
+      $scope.newBox.items = [];
+    }
     if( newVal && newVal.length > 0 ){
       $scope.loadSuggestionItems( $scope.newBox );
     }
@@ -134,224 +158,40 @@ angular.module( 'shapter.cursus', [
     name: 'Cours de haha',
     type: 'classes'
   }];
-  $scope.internshipsSuggestions = [{
-    title: 'Stage ouvrier',
-    type: 'internship'
-  }, {
-    title: 'Stage d\'application',
-    type: 'internship'
 
+  $scope.internshipsSuggestions = [{
+    name: 'Stage ouvrier',
+    type: 'internship',
+    tags: ['54101eab4d61631e55b61600']
   }, {
-    title: 'Travail de fin d\'études',
-    type: 'internship'
+    name: 'Stage d\'application',
+    type: 'internship',
+    tags: ['54101eab4d61631e55b61600']
+  }, {
+    name: 'Travail de fin d\'études',
+    type: 'internship',
+    tags: ['54101eab4d61631e55b61600']
   }];
-  $scope.boxes = [{
-    title: "TFE",
-    unfolded: false,
-    start_date: '2014-07-08T13:05:59.679Z',
-    end_date: '2014-09-08T13:05:59.679Z',
-    description: "lol haha c'était kikoulol j\'ai bien rigolé",
-    type: "internship",
-    company: "Shapter",
-    lat: 35,
-    lng: 32,
-    tags: [{
-      name: "Centrale Lyon",
-      category: "school",
-      id: 1
-    }]
-  }, {
-    title: "Master qq chose",
-    unfolded: false,
-    start_date: '2014-07-08T13:05:59.679Z',
-    end_date: '2014-09-08T13:05:59.679Z',
-    type: "classes",
-    tags: [{
-      name: "Telecom",
-      category: "school",
-      id: 2
-    }, {
-      name: "Cycle master",
-      category: "choice"
-    }, {
-      name: "2A",
-      category: "admin"
-    }]
-  }, {
-    title: "Master qq chose",
-    unfolded: false,
-    start_date: '2014-07-08T13:05:59.679Z',
-    end_date: '2014-09-08T13:05:59.679Z',
-    type: "classes",
-    tags: [{
-      name: "Telecom",
-      category: "school",
-      id: 2
-    }, {
-      name: "Cycle master",
-      category: "choice"
-    }, {
-      name: "2A",
-      category: "admin"
-    }]
-  }, {
-    title: "Métier 3A",
-    description: "lol haha c'était kikoulol j\'ai bien rigolé",
-    unfolded: false,
-    start_date: '2014-07-08T13:05:59.679Z',
-    end_date: '2014-09-08T13:05:59.679Z',
-    type: "classes",
-    tags: [{
-      name: "Centrale Lyon",
-      category: "school",
-      id: 1
-    }, {
-      name: "MOD",
-      category: "choice"
-    }, {
-      name: "3A",
-      category: "admin"
-    }],
-    items: [{
-      name: 'cours de lol',
-      id: '538310624d616317813f0100',
-      current_user_comments_count: 1,
-      current_user_has_diagram: true
-    }, {
-      name: 'cours de haha',
-      id: '538310624d61631781f10000',
-      current_user_comments_count: 0,
-      current_user_has_diagram: true
-    }]
-  }, {
-    title: "Option 3A",
-    description: "Ldf d qdfqsdfqsd qsd qsd qsdf qsdfqsdf qsdq dfqsdf qsqqq q q qq qq qdsf q qsd qsdf qsdf dfsq qsdfqsdfsqdf fqds sdq qfdfqds fdsqqsdq q qsd fqsdfqd qsdf qsdf qsdf dsq fqsd",
-    unfolded: false,
-    start_date: '2014-07-08T13:05:59.679Z',
-    end_date: '2014-09-08T13:05:59.679Z',
-    type: "classes",
-    tags: [{
-      name: "Centrale Lyon",
-      category: "school",
-      id: 1
-    }, {
-      name: "MOS",
-      category: "choice"
-    }, {
-      name: "3A",
-      category: "admin"
-    }]
-  },{
-    title: "Modules Ouverts Métiers",
-    description: "Les modules ouverts sectoriels c'set tagada tagad, et j'ai fait ceci et j'ai fait cela et j'ai tagada",
-    unfolded: false,
-    start_date: '2014-07-08T13:05:59.679Z',
-    end_date: '2014-09-08T13:05:59.679Z',
-    type: "classes",
-    tags: [{
-      name: "Centrale Lyon",
-      category: "school",
-      id: 1
-    }, {
-      name: "MOS",
-      category: "choice"
-    }, {
-      name: "3A",
-      category: "admin"
-    }]
-  }, {
-    title: "Modules Ouverts Sectoriels",
-    unfolded: false,
-    start_date: '2014-07-08T13:05:59.679Z',
-    end_date: '2014-09-08T13:05:59.679Z',
-    type: "classes",
-    tags: [{
-      name: "Centrale Lyon",
-      category: "school",
-      id: 1
-    }, {
-      name: "MOS",
-      category: "choice"
-    }, {
-      name: "3A",
-      category: "admin"
-    }]
-  }, {
-    title: "Électifs semestre 7",
-    unfolded: false,
-    start_date: '2014-07-08T13:05:59.679Z',
-    end_date: '2014-09-08T13:05:59.679Z',
-    description: "sisi",
-    type: "classes",
-    company: "",
-    lat: 35,
-    lng: 32,
-    tags: [{
-      name: "Centrale Lyon",
-      category: "school",
-      id: 1
-    }]
-  }, {
-    title: "Semestre 7",
-    unfolded: false,
-    start_date: '2014-07-08T13:05:59.679Z',
-    end_date: '2014-09-08T13:05:59.679Z',
-    description: "sisi",
-    type: "common",
-    company: "",
-    lat: 35,
-    lng: 32,
-    tags: [{
-      name: "Centrale Lyon",
-      category: "school",
-      id: 1
-    }]
-  }, {
-    title: "Stage ouvrier",
-    unfolded: false,
-    start_date: '2014-07-08T13:05:59.679Z',
-    end_date: '2014-09-08T13:05:59.679Z',
-    description: "sisi",
-    type: "internship",
-    company: "Le Louvre",
-    lat: 35,
-    lng: 32,
-    tags: [{
-      name: "Centrale Lyon",
-      category: "school",
-      id: 1
-    }]
-  }, {
-    title: "Semestre 6",
-    unfolded: false,
-    start_date: '2014-07-08T13:05:59.679Z',
-    end_date: '2014-09-08T13:05:59.679Z',
-    description: "sisi",
-    type: "common",
-    company: "",
-    lat: 35,
-    lng: 32,
-    tags: [{
-      name: "Centrale Lyon",
-      category: "school",
-      id: 1
-    }]
-  }, {
-    title: "Semestre 5",
-    unfolded: false,
-    start_date: '2014-07-08T13:05:59.679Z',
-    end_date: '2014-09-08T13:05:59.679Z',
-    description: "sisi",
-    type: "common",
-    company: "",
-    lat: 35,
-    lng: 32,
-    tags: [{
-      name: "Centrale Lyon",
-      category: "school",
-      id: 1
-    }]
-  }];
+
+}])
+
+.filter('formatBoxToPost', [function(){
+  return function( newBox ){
+    return {
+      'name': newBox.name,
+      'start_date': newBox.start_date,
+      'end_date': newBox.end_date,
+      'item_ids': newBox.items.length ? newBox.items.map( function( item ){
+        return item.selected ? item : null;
+      }).reduce( function( previousVal, currentVal ){
+        out = previousVal;
+        if( currentVal !== null ){
+          out.push( currentVal.id );
+        }
+        return out;
+      }, []) : null
+    };
+  };
 }])
 
 .factory('followBoxModalFactory', ['$modal', function( $modal ){

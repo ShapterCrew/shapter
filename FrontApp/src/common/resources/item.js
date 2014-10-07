@@ -145,6 +145,8 @@ angular.module('resources.item', [
       }
 
       return item;
+    }, function( err ){
+      item.loading = false;
     });
   };
 
