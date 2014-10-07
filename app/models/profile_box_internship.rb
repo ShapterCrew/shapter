@@ -5,6 +5,7 @@ class ProfileBoxInternship < ProfileBox
   validates_presence_of :internship_id
   after_initialize :set_users
   after_initialize :set_dates
+  after_initialize :set_name
 
   def tag_ids
     internship.tags.where(category: "type").only(:id).map(&:id)
@@ -15,6 +16,10 @@ class ProfileBoxInternship < ProfileBox
   end
 
   private
+
+  def set_name
+    self.name = internship.title
+  end
 
   def set_users
     self.users = [internship.trainee] if internship and internship.trainee
