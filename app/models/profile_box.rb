@@ -7,8 +7,6 @@ class ProfileBox
   field :start_date, type: Date
   field :end_date  , type: Date
 
-  field :type
-  field :tag_ids, type: Array
   field :saved_tag_ids, type: Array
 
   def pretty_id
