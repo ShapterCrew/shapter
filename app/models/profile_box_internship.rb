@@ -18,7 +18,7 @@ class ProfileBoxInternship < ProfileBox
   private
 
   def set_name
-    self.name = internship.title
+    self.name = internship.title if internship and internship.title
   end
 
   def set_users
