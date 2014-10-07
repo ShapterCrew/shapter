@@ -10,8 +10,8 @@ module Shapter
 
       expose :tags, using: Shapter::Entities::Tag, if: lambda{|pb,o| o[:entity_options]["profile_box"][:tags]}
 
-      expose :internship, using: Shapter::Entities::Internship, if: lambda{|pb,o| pb.type == "items" and o[:entity_options]["profile_box"][:internships]}
-      expose :items, using: Shapter::Entities::Item, if: lambda{|pb,o| pb.type == "internship" and o[:entity_options]["profile_box"][:items]}
+      expose :internship, using: Shapter::Entities::Internship, if: lambda{|pb,o| pb.type == "internship" and o[:entity_options]["profile_box"][:internships]}
+      expose :items, using: Shapter::Entities::Item, if: lambda{|pb,o| pb.type == "items" and o[:entity_options]["profile_box"][:items]}
     end
   end
 end
