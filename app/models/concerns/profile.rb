@@ -6,20 +6,22 @@ module Profile
   end
 
   def profile
-    (internships_profile + items_profile).sort_by(&:start_date)
+    profile_boxes.asc(:start_date)
   end
 
-  private
+  # Will (re)compute chained lists to order the user's ProfileBoxes
+  def order_profile!
+    ary = profile
+    ary.each_with_index do |pb,i|
 
-  def internships_profile
-    self.internships.map do |internship|
-      ProfileBoxInternship.new(internship: internship)
+      prev = (i == 0 ? nil : ary[i-1].id)
+      nnext = (i == ary.size - 1 ? nil : ary[i+1].id)
+
+      pb.update_attribute(:next_1_id, nnext ) unless pb.next_1_id == nnext
+      pb.update_attribute(:prev_1_id, prev) unless pb.prev_1_id == prev
     end
   end
 
-  def items_profile
-    self.profile_boxes
-  end
 
 end
 

@@ -83,12 +83,17 @@ class Internship
   after_save :user_touch
 
   after_create :create_profile_box
+  after_destroy :delete_profile_box
 
   private
 
   def create_profile_box
     p = ProfileBoxInternship.new(internship: self)
     p.save
+  end
+
+  def delete_profile_box
+    profile_box_internship.destroy if profile_box_internship
   end
 
   def tags_touch

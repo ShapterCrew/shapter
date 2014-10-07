@@ -33,4 +33,22 @@ describe Internship do
   end
   #}}}
 
+  describe :has_profile_box do 
+    before do 
+      ProfileBox.any_instance.stub(:valid?).and_return(true)
+      Internship.any_instance.stub(:valid?).and_return(true)
+    end
+
+    it "new internship creates profile box" do 
+      expect{FactoryGirl.create(:internship)}.to change{ProfileBoxInternship.count}.by(1)
+    end
+
+    it "destroys profile box after destroy" do 
+      FactoryGirl.create(:internship)
+      expect{Internship.last.destroy}.to change{ProfileBoxInternship.count}.by(-1)
+    end
+
+  end
+
+
 end
