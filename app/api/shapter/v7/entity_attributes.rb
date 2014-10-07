@@ -29,6 +29,7 @@ module Shapter
           present :user, [:image, :firstname, :lastname, :schools, :admin, :confirmed, :confirmed_student, :comments, :comments_likes_count, :comments_dislikes_count, :user_diagram, :sign_in_count, :provider, :is_fb_friend, :comments_count, :items_count, :diagrams_count, :skills].sort
           present :formation_page, [:best_comments, :best_comments_count, :students_count, :comments_count, :diagrams_count, :image_url, :logo_url, :name, :website_url, :description, :sub_formations, :sub_departments, :sub_choices, :image_credits].sort
           present :internship, [:title, :trainee, :start_date, :end_date, :duration, :tags, :address, :lat, :lng, :description, :in_progress].sort
+          present :profile_box, [:name, :type, :start_date, :end_date, :tags, :internship, :items].sort
         end
 
       end

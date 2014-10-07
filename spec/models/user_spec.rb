@@ -55,5 +55,37 @@ describe User do
   end
   #}}}
 
+  #{{{ profile
+  describe :profile do 
+    before do 
+      @u = FactoryGirl.create(:user)
+      @it = FactoryGirl.create(:item)
+      @in = FactoryGirl.build(:internship)
+      @in.trainees = [@u]
+      @in.start_date = Date.today - 10
+      @in.end_date = Date.today - 5
+      @in.save
+
+      @pb = FactoryGirl.build(:profile_box_item)
+      @pb.users = [@u]
+      @pb.item_ids = [@it.id]
+      @pb.save
+
+      @profile = @u.profile
+    end
+
+
+    it "is sorted by start date" do 
+      l = @profile.map(&:start_date)
+      expect(l.sort).to eq l
+    end
+
+    it "contains both internships and items" do 
+      expect(@profile.map(&:type).include?("internship")).to be true
+      expect(@profile.map(&:type).include?("items")).to be true
+    end
+
+  end
+  #}}}
 
 end

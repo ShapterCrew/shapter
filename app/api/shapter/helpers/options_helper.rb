@@ -15,6 +15,7 @@ module Shapter
           "user"              => (params[:entities]["user"]              rescue nil )|| {},
           "formation_page"    => (params[:entities]["formation_page"]    rescue nil )|| {},
           "internship"        => (params[:entities]["internship"]        rescue nil )|| {},
+          "profile_box"       => (params[:entities]["profile_box"]       rescue nil )|| {},
         }
 
         empty_h.merge({:current_user => current_user || User.new})
