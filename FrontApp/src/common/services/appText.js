@@ -1281,6 +1281,14 @@ angular.module( 'services.appText', [])
       }
     },
     system: {
+      display: {
+        en: 'Display',
+        fr: 'Afficher'
+      },
+      terminate: {
+        en: 'Terminate',
+        fr: 'Terminer'
+      },
       or: {
         en: 'or',
         fr: 'ou'
@@ -1435,6 +1443,30 @@ angular.module( 'services.appText', [])
       }
     },
     cursus: {
+      select_courses: {
+        en: 'Select the classes you took: ',
+        fr: 'Sélectionne les cours que tu as suivis :'
+      },
+      step_name: {
+        en: 'Step name',
+        fr: 'Nom de l\'étape: '
+      },
+      courses_referenced_with_those_keywords: {
+        en: 'Those courses are referenced on Shapter with the following keywords: ',
+        fr: 'Les cours sont référencés sur Shapter avec les mots-clefs suivants :'
+      },
+      show_details: {
+        en: 'Show details',
+        fr: 'Voir les détails'
+      },
+      hide_details: {
+        en: 'Hide details',
+        fr: 'Masquer les détails'
+      },
+      give_the_dates: {
+        en: 'When did you take those classes ? (Approximative dates are OK)',
+        fr: 'Quand as-tu suivi ces cours ? (Dates approximatives)'
+      },
       load_more_suggestions: {
         en: 'Load more suggestions',
         fr: 'Voir plus de suggestions'

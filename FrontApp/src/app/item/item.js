@@ -88,7 +88,6 @@ angular.module('shapter.item', [
         windowClass: 'show',
         resolve: {
           item: function() {
-            console.log( 'by id' );
             return Item.load( id );
           },
           itemsList: function() {
@@ -109,13 +108,13 @@ angular.module('shapter.item', [
       });
     },
     openModal: function( item, itemsList, loadMoreItems, numberOfItems ) {
+      item.loading = true;
       var modal =  $modal.open({
         templateUrl: 'item/itemModal.tpl.html',
         controller: 'itemModalCtrl',
         windowClass: 'show',
         resolve: {
           item: function() {
-            console.log( 'item existing' );
             return item.loadFullItem();
           },
           itemsList: function() {
@@ -156,7 +155,6 @@ angular.module('shapter.item', [
       element.bind('click', function (event) {
         if( scope.item.loading !== true ){
           scope.$apply( function(){
-            scope.item.loading = true;
             itemFactory.lastModals.unshift({ item: scope.item, itemsList: scope.itemsList, loadMoreItems: scope.loadMoreItems, numberOfItems: scope.numberOfItems});
 
             // in case id was already in url for some reason

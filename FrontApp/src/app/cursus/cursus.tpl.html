@@ -7,7 +7,7 @@
   <div ng-show="$location.search().state == 'addingInternship'">
     <div class="row">
       <div class="col-md-8 col-md-offset-2">
-        <div class="text-turquoise" ng-click="cancelAddBox()"><span class="fa fa-arrow-left"></span> Retour</div>
+        <div class="text-turquoise" ng-click="cancelAddBox()"><span class="fa fa-arrow-left"></span> {{ AppText.system.back | language }}</div>
         <div class="padding-well">
           <sh-add-internship internship="" close="cancelAddBox()"></sh-add-internship>
         </div>
@@ -94,7 +94,7 @@
                     </div><!-- box-tags -->
                     <div ng-show="box.type=='items'" class="box-classes">
                       <div ng-repeat="item in box.items" class="item-in-box">
-                        <span class="" sh-item-modal="item" itemsList="box.items" number-of-items="box.items.length" load-more-items="">{{ item.name }} - <small class="text-bittersweet">afficher</small></span>
+                        <span class="" sh-item-modal="item" itemsList="box.items" number-of-items="box.items.length" load-more-items="">{{ item.name }} - <small class="text-bittersweet">{{ AppText.system.display | language }}</small></span>
                         <span class="pull-right">
                           <span class="badge badge-info">
                             <span class="fa fa-comment text-white"></span>
