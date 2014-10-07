@@ -102,10 +102,16 @@ angular.module( 'shapter.admin', [
     angular.forEach( $scope.activeTags, function( tag ){
       tags.push( tag.id );
     });
-    Item.getListFromTags( tags, true ).then( function( response ){
-      $scope.nbItems = response.number_of_results;
-      $scope.activeItems = response.items;
-    }); 
+    $scope.tagsItemsLoading = true;
+    if( tags.length > 1 ){
+      Item.getListFromTags( tags, true ).then( function( response ){
+        if( $scope.tagsItemsLoading === true ){
+          $scope.nbItems = response.number_of_results;
+          $scope.activeItems = response.items;
+        }
+        $scope.tagsItemsLoading = false;
+      }); 
+    }
   };
 
   $scope.toggleItem = function( item ){
