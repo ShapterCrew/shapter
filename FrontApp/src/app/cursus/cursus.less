@@ -30,9 +30,6 @@
 
 .first-of-a-school {
   margin-top: 25px;
-  &:first-child {
-    margin-top: 1px;
-  }
 }
 
 .add-box-module {
@@ -58,16 +55,22 @@
     }
   }
   &.box-suggestion-other {
-    color: @green-pastel;
+    @color: @green-pastel;
+    color: @color;
     &:hover {
-      border: 1px solid lighten( @green-pastel, 3%);
+      border: 1px solid lighten( @color, 3%);
       color: white;
-      background-color: lighten( @green-pastel, 3%);
+      background-color: lighten( @color, 3%);
       & .fa-inverse {
-        color: @green-pastel;
+        color: @color;
       }
     }
   }
+}
+
+.item-in-box {
+  padding: 5px 0px;
+  border-top: 1px solid @clouds;
 }
 
 .select-item {

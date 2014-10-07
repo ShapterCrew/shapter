@@ -1,11 +1,13 @@
 <sh-header></sh-header>
 
 <div class="container" style="margin-bottom: 100px">
+  <!-- add courses box -->
   <div ng-show="$location.search().state == 'addingBox' && newBox.type == 'classes'" ng-include="'cursus/addBox.tpl.html'"></div>
 
+  <!-- add internship -->
   <div ng-show="$location.search().state == 'addingBox' && newBox.type == 'internship'">
     <div class="row">
-      <div class="col-md-10 col-md-offset-1">
+      <div class="col-md-8 col-md-offset-2">
         <div class="text-turquoise" ng-click="cancelAddBox()"><span class="fa fa-arrow-left"></span> Retour</div>
         <div class="padding-well">
           <sh-add-internship internship="newBox" close="cancelAddBox()"></sh-add-internship>
@@ -13,20 +15,18 @@
       </div>
     </div>
   </div>
-
+  <!-- default view -->
   <div ng-hide="$location.search().state">
     <div class="row">
-      <div class="col-md-10 col-md-offset-1">
-
+      <div class="col-md-8 col-md-offset-2">
         <div class="alert" ng-class="{'alert-info': alert.type == 'info'}" ng-repeat="alert in alerts">{{ alert.msg }} <small class="glyphicon glyphicon-remove pull-right" ng-click="alerts.splice( $index, 1)"></small></div>
-
-        <div class="bold text-turquoise box">
+        <div class="h6 bold text-orange box">
           <span ng-bind="AppText.cursus.add_step | language"></span> <span ng-bind="boxes[ 0 ].title"></span><span ng-bind="AppText.system.question_mark | language"></span>
         </div>
+      </div>
+      <div class="col-md-8 col-md-offset-2">
         <div class="add-box">
           <div class="row">
-            <div class="col-md-12">
-            </div><!-- col -->
             <!-- add courses -->
             <div class="col-sm-6">
               <div ng-repeat="suggestion in classesSuggestions" class="box-suggestion box-suggestion-blue" ng-click="displayAddSuggestion( suggestion )">
@@ -37,7 +37,6 @@
                 {{ suggestion.name }}
               </div>
             </div>
-
             <!-- add internship -->
             <div class="col-sm-6">
               <div ng-repeat="suggestion in internshipsSuggestions" class="box-suggestion box-suggestion-blue" ng-click="displayAddSuggestion( suggestion )">
@@ -48,7 +47,12 @@
                 {{ suggestion.title }}
               </div>
             </div>
+            <div class="col-md-12" style="margin-top: 15px">
+              <small class="badge badge-info" style="margin-left: 18px">afficher plus de suggestions</small>
+            </div>
           </div><!-- row -->
+        </div><!-- add-box -->
+        <div class="box" style="padding-top: 11px; padding-bottom: 12px">
           <div class="row">
             <div class="col-sm-6">
               <div class="box-suggestion box-suggestion-other" ng-click="">
@@ -56,46 +60,57 @@
                   <span class="fa fa-circle fa-stack-2x"></span>
                   <span class="fa fa-plus fa-stack fa-inverse"></span>
                 </span>
-                {{ AppText.cursus.something_else | language }}
+                <span class="bold">
+                  {{ AppText.cursus.something_else | language }}
+                </span>
               </div>
             </div>
           </div>
-        </div><!-- add-box -->
-
+        </div>
       </div>
     </div>
     <div class="row">
-      <div class="col-md-10 col-md-offset-1">
+      <div class="col-md-8 col-md-offset-2">
         <div><!-- wrapper to use first-child selecotr on first first-of-a-school -->
-          <div class="box header-box text-turquoise bold">{{ AppText.cursus.my_course | language }}</div>
-          <div class="box" ng-class="{'first-of-a-school': $index !== 0 && firstOfASchool( $index, boxes, box )}" ng-repeat="box in boxes">
-            <div class="row">
-              <div class="col-md-3">
-                <div ng-show="firstOfASchool( $index, boxes, box )">
-                  <span class="text-orange bold" 
-                    ng-repeat="tag in box.tags | filter: {category: 'school'}">
-                    {{ tag.name }}
-                  </span>
+          <div ng-repeat="box in boxes" ng-class="{'first-of-a-school': firstOfASchool( $index, boxes, box)}">
+            <div ng-show="firstOfASchool( $index, boxes, box )" class="box">
+              <div class="h6 header-box text-orange bold" ng-show="$index === 0">{{ AppText.cursus.my_course | language }}</div>
+              <div 
+                class="text-blue bold h3"
+                style="margin: 15px 0px 0px 0px"
+                ng-repeat="tag in box.tags | filter: {category: 'school'}">
+                {{ tag.name }}
+              </div>
+            </div>
+            <div class="box">
+              <div class="row">
+                <div class="col-md-2">
+                  <span class="badge badge-emerald" ng-bind="(box.start_date | date: 'MM/yy') + ' -> ' + (box.end_date | date : 'MM/yy')"></span> 
+                </div>
+                <div class="col-md-10">
+                  <span class="badge badge-pinkrose pull-right" ng-show="box.type == 'internship'">{{ AppText.cursus.internship | language}} 1 mois</span>
+                  <span class="badge badge-lavander pull-right" ng-show="box.type == 'classes' && box.items.length"> {{ box.items.length }} cours parmi 30</span>
+                  <span class="badge badge-bluejeans pull-right" ng-show="box.type == 'common'"> 18 cours obligatoires </span>
+                  <span class="text-turquoise bold" ng-bind="box.title" ng-click="box.unfolded = !box.unfolded"></span>
+                  <div class="box-unfolded" ng-show="box.unfolded">
+                    <div class="box-tags">
+                      <span ng-repeat="tag in box.tags | filter: {category: '!school'}" class="bold text-emerald" >{{ tag.name }}<span ng-hide="$last">, </span></span>
+                    </div><!-- box-tags -->
+                    <div ng-show="box.type=='classes'" class="box-classes">
+                      <div ng-repeat="item in box.items" class="item-in-box">
+                        <span class="" sh-item-modal="item" itemsList="box.items">{{ item.name }}</span>
+                        <span class="pull-right">
+                          <span class="badge badge-info">
+                            <span class="fa fa-comment text-white"></span>
+                          </span>
+                        </span>
+                      </div>
+                    </div>
+                  </div><!-- bow-unfolded -->
                 </div>
               </div>
-              <div class="col-md-9">
-                <span class="label label-info pull-right" ng-bind="(box.start_date | date: 'MM/yy') + ' -> ' + (box.end_date | date : 'MM/yy')"></span> 
-                <span class="badge badge-emerald" ng-show="box.type == 'internship'" ng-bind="AppText.cursus.internship | language"></span>
-                <span class="text-dark-blue bold" ng-bind="box.title" ng-click="box.unfolded = !box.unfolded"></span>
-                <div class="box-unfolded" ng-show="box.unfolded">
-                  <div class="box-tags">
-                    <span ng-repeat="tag in box.tags | filter: {category: '!school'}" class="bold text-emerald" >{{ tag.name }}<span ng-hide="$last">, </span></span>
-                  </div><!-- box-tags -->
-                  <div ng-show="box.unfolded" class="box-description" ng-bind="box.description"></div>
-                  <div ng-show="box.type=='classes'" class="box-classes">
-                    <div ng-repeat="item in box.items">
-                      <span sh-item-modal="item" itemsList="box.items">{{ item.name }}</span>
-                    </div>
-                  </div>
-                </div><!-- bow-unfolded -->
-              </div><!-- col -->
-            </div><!-- row -->
-          </div><!-- box -->
+            </div><!-- col -->
+          </div><!-- repeat in boxes -->
         </div><!-- wrapper -->
       </div><!-- col -->
     </div><!-- row -->
