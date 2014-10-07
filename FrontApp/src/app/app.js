@@ -45,6 +45,7 @@ angular.module( 'shapter', [
   'directives.confirmAlert',
   'directives.addInternshipModal',
   'resources.map',
+  'resources.profileBox',
   'resources.school',
   'resources.category',
   'resources.formation',

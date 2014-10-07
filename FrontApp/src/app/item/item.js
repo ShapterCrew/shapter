@@ -88,6 +88,7 @@ angular.module('shapter.item', [
         windowClass: 'show',
         resolve: {
           item: function() {
+            console.log( 'by id' );
             return Item.load( id );
           },
           itemsList: function() {
@@ -114,6 +115,7 @@ angular.module('shapter.item', [
         windowClass: 'show',
         resolve: {
           item: function() {
+            console.log( 'item existing' );
             return item.loadFullItem();
           },
           itemsList: function() {
@@ -167,6 +169,9 @@ angular.module('shapter.item', [
           });
 
         }
+        else {
+          console.log( 'was loading' );
+        }
       });
     }
   };
@@ -199,6 +204,9 @@ angular.module('shapter.item', [
 
 .controller('itemModalCtrl', ['$scope', 'item', 'itemsList', 'loadMoreItems',  'numberOfItems', '$window', '$modalInstance', '$location', '$q', 'Item', 'Analytics', 'security', 'editDiagramFactory', '$upload', '$http', 'AppText', 'itemFactory', '$stateParams', '$rootScope', '$filter', function($scope, item, itemsList, loadMoreItems, numberOfItems, $window, $modalInstance, $location, $q, Item, Analytics, security, editDiagramFactory, $upload, $http, AppText, itemFactory, $stateParams, $rootScope, $filter ) {
 
+  $scope.$apply( function(){
+    item.loading = false;
+  });
   $scope.$rootScope = $rootScope;
   item.open = true;
   $scope.AppText = AppText;

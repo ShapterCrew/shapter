@@ -253,7 +253,37 @@ angular.module( 'resources.user', [
         }
       };
       return Restangular.all('users').customPOST( {email: email, entities: entities}, 'schools_for' );
+    },
+
+    profileBoxes: function( userId ){
+      var params = {
+        entities: {
+          profile_box: {
+            "end_date": true,
+            "internship": true,
+            "items": true,
+            "name": true,
+            "start_date": true,
+            "tags": true,
+            "type": true
+          },
+          tag: {
+            "category": true,
+            "name": true
+          },
+          item: {
+            "name": true
+          }
+        }
+      };
+      return Restangular.one( 'users', userId ).customPOST( params, 'profile_boxes' ).then( function( response ){
+        return response.map( function( box ){
+          box.items = Restangular.restangularizeCollection( {}, box.items, 'items', {});
+          return box;
+        });
+      });
     }
+
   };
 
 
