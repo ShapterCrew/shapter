@@ -2,7 +2,6 @@
 <div class="container" style="margin-bottom: 100px">
   <!-- add courses box -->
   <div ng-show="$location.search().state == 'addingBox'" ng-include="'cursus/addBox.tpl.html'"></div>
-
   <!-- add internship -->
   <div ng-show="$location.search().state == 'addingInternship'">
     <div class="row">
@@ -10,8 +9,8 @@
         <div class="text-turquoise" ng-click="cancelAddBox()"><span class="fa fa-arrow-left"></span> {{ AppText.system.back | language }}</div>
         <div class="padding-well">
           <div ng-repeat="internship in [ newInternship ]">
-          <sh-add-internship close="cancelAddBox()"></sh-add-internship>
-        </div>
+            <sh-add-internship close="cancelAddBox()"></sh-add-internship>
+          </div>
         </div>
       </div>
     </div>
@@ -22,10 +21,10 @@
       <div class="col-md-8 col-md-offset-2">
         <div class="alert" ng-class="{'alert-info': alert.type == 'info'}" ng-repeat="alert in alerts">{{ alert.msg }} <small class="glyphicon glyphicon-remove pull-right" ng-click="alerts.splice( $index, 1)"></small></div>
         <div class="box">
-        <div class="h6 bold text-orange">
-          <span ng-bind="AppText.cursus.add_step | language"></span> <span ng-bind="boxes[ 0 ].name"></span><span ng-bind="AppText.system.question_mark | language"></span>
+          <div class="h6 bold text-orange">
+            <span ng-bind="AppText.cursus.add_step | language"></span> <span ng-bind="boxes[ 0 ].name"></span><span ng-bind="AppText.system.question_mark | language"></span>
+          </div>
         </div>
-      </div>
       </div>
       <div class="col-md-8 col-md-offset-2">
         <div class="add-box">

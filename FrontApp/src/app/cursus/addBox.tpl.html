@@ -6,13 +6,13 @@
       <div class="col-md-4">
         <div class="padding-well">
           <div class="form-group">
-            <div class="lead bold text-orange" style="margin-bottom: 0">Info</div>
+            <div class="h6 bold text-orange" style="margin-bottom: 0">Info</div>
             <p style="margin-bottom: 0; margin-top: 0" class="bold text-blue">Pour reseigner cette étape de ton cursus, nous te proposons de sélectionner des cours référencés avec les mots-clefs suivants :</p>
             <div>
               <span class="text-asphalt" ng-repeat="tag in newBox.commonTags">{{ tag.name }}<span ng-hide="$last"> - </span></span>
             </div>
             <p style="margin-bottom: 0; margin-top: 20px" class="bold text-blue">Pour spécifier la liste des cours proposés, certains utilisateurs ont ajouté d'autres mots-clefs que tu peux éventuellement ajouter aussi :</p>
-            <div ng-repeat="box in newBox.boxes" class="addBoxSuggestions">
+            <div ng-repeat="box in newBox.boxes" class="suggestion-hover-blue">
               <span class="text-asphalt" ng-repeat="tag in box.specificTags">{{ tag.name }}<span ng-hide="$last"> - </span></span>
             </div>
           </div>
