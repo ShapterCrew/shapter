@@ -36,9 +36,7 @@ module Shapter
             post :recommand do 
               check_confirmed_student!
               reco = current_user.profile_box_recommandation(params[:nmax])
-              reco.group_by(&:name).each do |k,v|
-                present k.to_sym,v, with: Shapter::Entities::ProfileBox, entity_options: entity_options
-              end
+              present :reco, reco, with: Shapter::Entities::ProfileBox, entity_options: entity_options
             end
             #}}}
 
