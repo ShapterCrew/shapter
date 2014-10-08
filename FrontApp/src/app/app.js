@@ -75,12 +75,12 @@ angular.module( 'shapter', [
     localStorageServiceProvider.setPrefix('shapter');
 }])
 
-.run(['localStorageService', '$window', function( localStorageService, $window ){
+.run(['localStorageService', '$window', '$rootScope', function( localStorageService, $window, $rootScope ){
   console.log( 'local storage access' );
   if( localStorageService.get('back url')){
     var url = '#' + localStorageService.get('back url');
     localStorageService.remove('back url');
-    $scope.$apply( function(){
+    $rootScope.$apply( function(){
       $window.location.href = url;
     });
   }
