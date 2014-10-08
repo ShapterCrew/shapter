@@ -64,8 +64,10 @@ angular.module('security.service', [
     });
 
     loginModal.result.then(function(success){
+      console.log( 'close success' );
       onLoginModalClose(success, access);
     }, function(error){
+      console.log( 'close error' );
       loginModal = null;
       queue.cancelAll();
       //redirect();
@@ -79,6 +81,7 @@ angular.module('security.service', [
   }
 
   function onLoginModalClose(success, access) {
+    console.log( 'on login modal close' );
     loginModal = null;
     if ( success ) {
       console.log( "retrying queue" );
@@ -254,7 +257,7 @@ angular.module('security.service', [
 
     // Give up trying to login and clear the retry queue
     cancelLogin: function() {
-      closeLoginModal(false);
+      closeEmailLoginModal(false);
       Analytics.cancelLogin();
       //redirect();
     },

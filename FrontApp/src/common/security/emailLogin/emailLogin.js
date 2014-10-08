@@ -3,7 +3,7 @@ angular.module('security.emailLogin', [
   'LocalStorageModule'
 ])
 
-.controller('EmailLoginCtrl', ['Restangular', 'Item', '$scope', 'security', '$window', 'AppText', 'User', '$modalInstance', '$location', 'localStorageService', 'reason', function(Restangular, Item, $scope, security, $window, AppText, User, $modalInstance, $location, localStorageService, reason ){
+.controller('EmailLoginCtrl', ['Restangular', 'Item', '$scope', 'security', '$window', 'AppText', 'User', '$modalInstance', '$location', 'localStorageService', 'reason', '$timeout', function(Restangular, Item, $scope, security, $window, AppText, User, $modalInstance, $location, localStorageService, reason, $timeout ){
 
   $scope.close = $modalInstance.close;
   $scope.AppText = AppText;
@@ -15,6 +15,13 @@ angular.module('security.emailLogin', [
     $scope.reasonAlerts.push({
       msg: AppText.security[ reason ],
       type: 'info'
+    });
+  }
+
+  if( security.isAuthenticated() && !security.isConfirmedStudent()){
+    $location.path('/confirmationSent').search('filter', null);
+    $timeout( function(){
+      $scope.close();
     });
   }
 
