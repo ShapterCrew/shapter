@@ -40,7 +40,7 @@ class ProfileBoxItem < ProfileBox
     end
   end
 
-  def tag_ids
+  def compute_tag_ids
     items.map(&:tag_ids).reduce(:&)
   end
 

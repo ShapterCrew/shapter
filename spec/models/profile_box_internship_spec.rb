@@ -18,6 +18,8 @@ describe ProfileBoxInternship do
 
     @pb = FactoryGirl.build(:profile_box_internship)
     @pb.internship = @i
+
+    @pb.instance_eval{set_tag_ids}
   end
 
   describe :tags do 
