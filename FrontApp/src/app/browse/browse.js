@@ -23,7 +23,6 @@ angular.module( 'shapter.browse', [
     data:{ pageTitle: 'Parcourir' },
     resolve: {
       school: ['Tag', '$stateParams', function( Tag, $stateParams ){
-        console.log( 'loading school in browse resolve' );
         return Tag.get( $stateParams.schoolId );
       }]
     }
@@ -32,7 +31,6 @@ angular.module( 'shapter.browse', [
 
 .controller( 'BrowseCtrl', [ '$scope', '$location', 'Item', 'Tag', '$q', '$filter', 'filterFilter', 'security', 'Analytics', '$rootScope', 'AppText', 'editDiagramFactory', 'ItemCommentsModal', '$document', '$stateParams', 'school', function BrowserCtrl( $scope, $location, Item, Tag, $q, $filter, filterFilter, security, Analytics, $rootScope, AppText, editDiagramFactory, ItemCommentsModal, $document, $stateParams, school ) {
 
-  console.log( 'browse' );
   Analytics.browse();
   $scope.root = $rootScope;
 

@@ -58,7 +58,6 @@ angular.module('resources.tag', [
     },
 
     get: function( id ){
-      console.log( 'getting tag' );
       var params = {
         entities: {
           tag: {
@@ -67,12 +66,8 @@ angular.module('resources.tag', [
         }
       };
       return Restangular.one( 'tags', id ).customPOST( params ).then( function( response ){
-        console.log( 'success' );
-        console.log( response );
         return response;
       }, function( error ){
-        console.log( 'error' );
-        console.log( error );
         return error;
       });
     },
