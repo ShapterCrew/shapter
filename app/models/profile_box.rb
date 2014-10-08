@@ -29,7 +29,7 @@ class ProfileBox
     users.first
   end
 
-  before_validation :set_tag_ids
+  before_save :set_tag_ids
 
   after_save :order_user_profile!
   after_create :force_order_user_profile!
