@@ -1477,7 +1477,7 @@ angular.module( 'services.appText', [])
       },
       give_the_dates: {
         en: 'When did you take those classes ? (Approximative dates are OK)',
-        fr: 'Quand as-tu suivi ces cours ? (Dates approximatives)'
+        fr: 'Quand as-tu suivi ces cours ? (A peu près)'
       },
       load_more_suggestions: {
         en: 'Load more suggestions',

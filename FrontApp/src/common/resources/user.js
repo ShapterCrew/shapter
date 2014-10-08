@@ -283,11 +283,6 @@ angular.module( 'resources.user', [
         });
       });
     }
-
   };
-
-
   return User;
-
-
 }]);

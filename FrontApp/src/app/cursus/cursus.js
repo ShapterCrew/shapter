@@ -23,6 +23,9 @@ angular.module( 'shapter.cursus', [
         return security.requestCurrentUser().then( function( user ){
           return User.profileBoxes( security.currentUser.id );
         });
+      }],
+      boxesRecommandations: ['ProfileBox', function( ProfileBox ){
+        return ProfileBox.getRecommandations();
       }]
     }
   });
@@ -44,9 +47,10 @@ angular.module( 'shapter.cursus', [
   $scope.AppText = AppText;
 }])
 
-.controller('CursusCtrl', ['$scope', 'schools', 'Tag', 'Item', '$stateParams', '$filter', 'AppText', 'followBoxModalFactory', 'School', '$location', 'ProfileBox', 'boxes', function( $scope, schools, Tag, Item, $stateParams, $filter, AppText, followBoxModalFactory, School, $location, ProfileBox, boxes ){
+.controller('CursusCtrl', ['$scope', 'schools', 'Tag', 'Item', '$stateParams', '$filter', 'AppText', 'followBoxModalFactory', 'School', '$location', 'ProfileBox', 'boxes', 'boxesRecommandations', function( $scope, schools, Tag, Item, $stateParams, $filter, AppText, followBoxModalFactory, School, $location, ProfileBox, boxes, boxesRecommandations ){
 
   $scope.boxes = boxes;
+  $scope.boxesRecommandations = boxesRecommandations;
   School.index().then( function( schools ){
     $scope.schools = schools.schools;
   });
@@ -61,17 +65,16 @@ angular.module( 'shapter.cursus', [
 
   $scope.displayAddSuggestion = function( suggestion ){
     $location.search('state', 'addingBox');
-    if( !!suggestion ){
-      $scope.newBox = angular.copy( suggestion );
-    }
-    else {
-      $scope.newBox = {
-        type: 'classes',
-        displayDetails: true,
-        tags: [],
-        items: []
-      };
-    }
+    var boxes = suggestion ? $filter('splitSharedTags')(suggestion.boxes) : [];
+    $scope.newBox = {
+      type: 'classes',
+      name: suggestion ? suggestion.name : '',
+      boxes: boxes, 
+      commonTags: boxes.length ? boxes[0].commonTags : [],
+      tags: boxes.length ? boxes[0].commonTags : [],
+      items: []
+    };
+    $scope.loadSuggestionItems( $scope.newBox );
   };
 
   $scope.displayAddInternship = function( suggestion ){
@@ -82,13 +85,13 @@ angular.module( 'shapter.cursus', [
   };
 
   $scope.loadSuggestionItems = function( box ){
-    getIdsList = function( tags ){
+    var getIdsList = function( tags ){
       return tags.map( function( tag ){
         return( tag.id );
       });
     };
     box.itemsLoading = true;
-    Item.getListFromTags( getIdsList( box.tags), true ).then( function( response ){
+    Item.getListFromTags( getIdsList(box.tags), true ).then( function( response ){
       box.itemsLoading = false;
       box.items = response.items;
     });
@@ -128,36 +131,6 @@ angular.module( 'shapter.cursus', [
     $scope.newBox.tags.push( $scope.newBox.typedTag );
     $scope.newBox.typedTag = null;
   };
-
-  $scope.$watch( function(){
-    return $scope.newBox ? $scope.newBox.tags : null;
-  }, function( newVal, oldVal ){
-    if( $scope.newBox ){
-      $scope.newBox.items = [];
-    }
-    if( newVal && newVal.length > 0 ){
-      $scope.loadSuggestionItems( $scope.newBox );
-    }
-  }, true);
-
-  $scope.classesSuggestions = [{
-    name: 'Cours de lol',
-    type: 'classes',
-    school: {
-      name: 'Centrale Lyon',
-      id: '538310614d61631781010000'
-    },
-    tags: [ {
-      id: '538310614d61631781010000',
-      name: 'lol'
-    }, {
-      id: '538310614d616317811f0000',
-      name: 'haha'
-    }]
-  }, {
-    name: 'Cours de haha',
-    type: 'classes'
-  }];
 
   $scope.internshipsSuggestions = [{
     name: 'Stage ouvrier',
@@ -221,5 +194,42 @@ angular.module( 'shapter.cursus', [
   $scope.title = title;
   $scope.items = items.items;
   $scope.validate = function(){
+  };
+}])
+
+.filter('splitSharedTags', [function(){
+  var intersectTags = function(arr1, arr2){
+    return arr1.filter(function(n) {
+      return tagIsInArray( n, arr2 );
+    });
+  };
+  var tagIsInArray = function( tag, array ){
+    out = false;
+    angular.forEach( array, function( arrayTag ){
+      if ( arrayTag.id == tag.id ){
+        out = true;
+      }
+    });
+    return out;
+  };
+  var substractIntersection = function( array, intersection ){
+    return array.map( function( tag ){
+      return tagIsInArray( tag, intersection ) ? null : tag;
+    }).reduce( function( oldVal, newVal ){
+      if( newVal !== null ){
+        oldVal.push( newVal );
+      }
+      return oldVal;
+    }, []);
+  };
+  return function( boxes ){
+    var intersection = boxes.reduce( function( oldVal, newVal ){
+      return intersectTags( oldVal, newVal.tags );
+    }, boxes[0].tags);
+    return boxes.map( function( box ){
+      box.commonTags = intersection;
+      box.specificTags = substractIntersection( box.tags, intersection );
+      return box;
+    });
   };
 }]);
