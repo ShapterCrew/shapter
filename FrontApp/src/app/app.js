@@ -82,7 +82,7 @@ angular.module( 'shapter', [
     var url = '#' + localStorageService.get('back url');
     localStorageService.remove('back url');
     $rootScope.$apply( function(){
-      window.location.href = url;
+      window.location.assign(url);
     });
   }
 }])

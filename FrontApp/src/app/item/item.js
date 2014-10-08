@@ -60,6 +60,7 @@ angular.module('shapter.item', [
 }])
 
 .run( ['$location', '$rootScope', 'itemFactory', function( $location, $rootScope, itemFactory ){
+  console.log( 'item run running !');
   $rootScope.$watch( function(){
     return $location.search().item;
   }, function( newVal, oldVal ){
