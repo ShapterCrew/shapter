@@ -4,6 +4,7 @@ module Shapter
       format :json
 
       namespace :users do 
+
         namespace ':user_id' do 
           before do 
             params do 
@@ -13,21 +14,11 @@ module Shapter
           end
 
           namespace :profile_boxes do 
+
+            #{{{ index
             desc "get the profile boxes for a given user"
             post do 
               present @user.profile, with: Shapter::Entities::ProfileBox, entity_options: entity_options
-            end
-
-            #{{{ recommand
-            desc "get a box recommandation for the given user"
-            params do 
-              optional :nmax, type: Integer, desc: "max number of results. default-10", default: 10
-            end
-            post :recommand do 
-              reco = @user.profile_box_recommandation(params[:nmax])
-              reco.group_by(&:name).each do |k,v|
-                present k.to_sym,v, with: Shapter::Entities::ProfileBox, entity_options: entity_options
-              end
             end
             #}}}
 
@@ -36,6 +27,20 @@ module Shapter
       end
 
       namespace :profile_boxes do 
+
+            #{{{ recommand
+            desc "get a box recommandation for the given user"
+            params do 
+              optional :nmax, type: Integer, desc: "max number of results. default-10", default: 10
+            end
+            post :recommand do 
+              check_confirmed_student!
+              reco = current_user.profile_box_recommandation(params[:nmax])
+              reco.group_by(&:name).each do |k,v|
+                present k.to_sym,v, with: Shapter::Entities::ProfileBox, entity_options: entity_options
+              end
+            end
+            #}}}
 
         #{{{ create
         desc "create a profile box to store items"
