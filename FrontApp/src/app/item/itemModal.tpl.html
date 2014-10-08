@@ -49,12 +49,12 @@
             </span>
 
             <span ng-hide="security.isConfirmedStudent()">
-              <span ng-click="security.showLogin('login_needed_for_follow')" ng-hide="security.isAuthenticated('login_needed_for_follow')" class="text-muted">
+              <span ng-click="security.showLogin('login_needed_for_follow')" ng-hide="security.isConfirmedUser()" class="text-muted">
                 <span class="fa fa-square-o"></span>
                 <span>{{ AppText.item.followed | language }}</span>
               </span>
 
-              <a class="text-default" href="#/campusAuthentication" ng-show="security.isAuthenticated()">
+              <a class="text-default" href="#/campusAuthentication" ng-show="security.isConfirmedUser()">
                 <span class="fa fa-square-o"></span>
                 <span>{{ AppText.item.followed | language }}</span>
               </a>

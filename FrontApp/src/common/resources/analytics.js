@@ -55,6 +55,7 @@ angular.module('resources.analytics', [])
         'nb_schools': user.schools.length || null
       });
 
+      // data passed with every event sent
       mixpanel.register({
         'provider': user.provider || 'email',
         'sign_in_count': user.sign_in_count || 0,

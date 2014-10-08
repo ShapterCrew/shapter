@@ -142,6 +142,8 @@ angular.module('security.service', [
   // The public API of the service
   var service = {
 
+    redirect: redirect,
+
     isLoginModalOpen: function(){
       return !!loginModal;
     },
@@ -336,13 +338,16 @@ angular.module('security.service', [
       return Restangular.all('users')
       .customGET('confirmation', {"confirmation_token": activationToken})
       .then(function(response) {
+        console.log( 'confirmation success' );
+        console.log( response );
         redirect("/start");
         alerts.clear();
         alerts.add("success", {
           fr: "Ton adresse mail est bien confirmée ! Enjoy :)",
           en: "Your email has been confirmed. Enjoy Shapter !"
         });
-      }, function(response) {
+      }, function(error) {
+        console.log( 'confirmation error' );
         alerts.clear();
         alerts.add("danger", {
           fr:  "La confirmation de ton adresse mail a échoué. Si l'erreur persiste, contacte-nous par mail à teamshapter@gmail.com.",
@@ -425,7 +430,13 @@ angular.module('security.service', [
     requestCurrentUser: function() {
       if ( service.isAuthenticated() ) {
         return $q.when(service.currentUser).then(function( response ){
+          try {
           behave.identify(service.currentUser.id, {name: service.currentUser.firstname + " " + service.currentUser.lastname});
+          }
+          catch( err ){
+            console.log( 'behave error' );
+            console.log( err );
+          }
           //Behave.identify(service.currentUser);
           Analytics.identify( service.currentUser );
         });
@@ -459,7 +470,13 @@ angular.module('security.service', [
         };
 
         return Restangular.all('users').customPOST(params, 'me' ).then(function(response) {
-          behave.identify(response.id, {name: response.firstname + " " + response.lastname});
+          try {
+            behave.identify(response.id, {name: response.firstname + " " + response.lastname});
+          }
+          catch( err ){
+            console.log( 'behave error' );
+            console.log( err );
+          }
 
           service.currentUser = response;
 

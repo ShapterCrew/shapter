@@ -19,7 +19,11 @@ angular.module('shapter.confirmationSent', [
 
 .controller('ConfirmationSentCtrl', ['$scope', 'AppText', 'security', function( $scope, AppText, security ){
   console.log( "confirmation sent" );
-  security.requestCurrentUser();
+  security.requestCurrentUser().then( function( response ){
+    if( security.isConfirmedUser()){
+      security.redirect();
+    }
+  });
   $scope.AppText = AppText;
 }]);
 

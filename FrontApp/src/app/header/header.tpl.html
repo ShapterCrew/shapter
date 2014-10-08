@@ -55,7 +55,7 @@
               <a ng-click="adminNav()">Tags Admin</a>
             </li>
             <li class="divider" ng-show="security.currentUser.admin"></li>
-            <li ng-show="security.isAuthenticated()"><a ng-click="campusAuthenticationNav()">{{ AppText.header.my_authorizations | language }}</a></li>
+            <li ng-show="security.isConfirmedUser()"><a ng-click="campusAuthenticationNav()">{{ AppText.header.my_authorizations | language }}</a></li>
             <li ng-show="security.isAuthenticated()"><a ng-click="logout()">{{ AppText.header.logout | language }}</a></li>
           </ul>
         </li>
