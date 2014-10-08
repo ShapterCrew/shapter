@@ -20,6 +20,10 @@ angular.module( 'services.appText', [])
       return $filter( 'language' )( $parse( code )( AppText.categories ));
     },
     internships: {
+      type: {
+        en: 'Internship type:',
+        fr: 'Type de stage :'
+      },
       internship_created: {
         en: 'Great, your internship has been created!',
         fr: 'Super, ton stage a bien été créé !'
@@ -1281,6 +1285,10 @@ angular.module( 'services.appText', [])
       }
     },
     system: {
+      back: {
+        en: 'back',
+        fr: 'retour'
+      },
       display: {
         en: 'Display',
         fr: 'Afficher'
@@ -1443,7 +1451,11 @@ angular.module( 'services.appText', [])
       }
     },
     cursus: {
-      select_courses: {
+      classes: {
+        en: 'classes',
+        fr: 'cours'
+      },
+      select_classes: {
         en: 'Select the classes you took: ',
         fr: 'Sélectionne les cours que tu as suivis :'
       },

@@ -76,7 +76,7 @@ angular.module( 'shapter.cursus', [
 
   $scope.displayAddInternship = function( suggestion ){
     $scope.newInternship = {
-      tags: suggestion.tags
+      type: suggestion.type
     };
     $location.search('state', 'addingInternship' );
   };
@@ -161,7 +161,7 @@ angular.module( 'shapter.cursus', [
 
   $scope.internshipsSuggestions = [{
     name: 'Stage ouvrier',
-    type: 'internship',
+    type: 'Stage ouvrier',
     tags: ['54101eab4d61631e55b61600']
   }, {
     name: 'Stage d\'application',

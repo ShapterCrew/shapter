@@ -21,8 +21,7 @@ angular.module( 'directives.addInternshipModal', [
     templateUrl: 'internships/addInternship.tpl.html',
     controller: 'AddInternshipCtrl',
     scope: {
-      close: '&',
-      internship: '='
+      close: '&'
     }
   };
 }])
@@ -47,7 +46,9 @@ angular.module( 'directives.addInternshipModal', [
   Analytics.addInternshipModule();
   $scope.step = 1;
   $scope.AppText = AppText;
-  $scope.internship = $scope.internship || {};
+  $scope.internship = {
+    tags: []
+  };
   $scope.internship.schoolId = $stateParams.schoolId;
   $scope.sizeOptions = [
     "1-9",
@@ -62,6 +63,27 @@ angular.module( 'directives.addInternshipModal', [
       return response.tags;
     });
   };
+
+  var add_new_type = {
+    name: 'Ajouter une catégorie de stages'
+  };
+
+  $scope.selectInternshipType = function(){
+    if( $scope.internship.tags[ 'type' ] == add_new_type.name ){
+      $scope.internship.tags[ 'type' ] = null;
+      $scope.displayCreateType = true;
+    }
+    else {
+      $scope.displayCreateType = false;
+    }
+  };
+
+  Tag.getSuggestedTags([ $stateParams.schoolId ], 'internship', 100, 'type').then( function( response ){
+    response.recommended_tags.push( add_new_type );
+    $scope.internshipTypes = response.recommended_tags;
+  }, function( err ){
+    console.log( err );
+  });
 
   $scope.getFormatedAdresses = function( string ){
     $scope.loadingAddresses = true;

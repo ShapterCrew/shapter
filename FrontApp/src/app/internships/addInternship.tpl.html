@@ -13,6 +13,17 @@
           <input sh-auto-focus="true" name="fname" type="text" ng-model="internship.title" class="form-control" ng-required="true" required>
         </div>
 
+        <div class="form-group">
+          <label>{{ AppText.internships.type | language }}</label>
+          &nbsp;
+          <select ng-options="type.name as type.name for type in internshipTypes" ng-model="internship.tags.type" ng-change="selectInternshipType()">
+            <option value="">-- {{ AppText.system.select | language }} --</option>
+          </select>
+          <div ng-show="displayCreateType">
+            <input class="form-control" ng-model="internship.tags.type" placeholder="ex: stage de fin d'études">
+          </div>
+        </div>
+
 
         <div class="form-group">
           <label>{{ AppText.internships.address | language }}</label>

@@ -33,9 +33,12 @@ describe('AddInternshipModal Test', function() {
         };
       });
       $provide.provider('Tag', function () { 
-        this.$get = function () {
+        this.$get = function ( $q ) {
           return {
             typeahead: function(){
+            },
+            getSuggestedTags: function(){
+              return $q.when({});
             }
           };
         };

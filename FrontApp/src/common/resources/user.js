@@ -278,7 +278,7 @@ angular.module( 'resources.user', [
       };
       return Restangular.one( 'users', userId ).customPOST( params, 'profile_boxes' ).then( function( response ){
         return response.map( function( box ){
-          box.items = Restangular.restangularizeCollection( {}, box.items, 'items', {});
+          box.items = box.items ? Restangular.restangularizeCollection( {}, box.items, 'items', {}): null;
           return box;
         });
       });

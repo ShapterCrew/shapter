@@ -9,7 +9,9 @@
       <div class="col-md-8 col-md-offset-2">
         <div class="text-turquoise" ng-click="cancelAddBox()"><span class="fa fa-arrow-left"></span> {{ AppText.system.back | language }}</div>
         <div class="padding-well">
-          <sh-add-internship internship="" close="cancelAddBox()"></sh-add-internship>
+          <div ng-repeat="internship in [ newInternship ]">
+          <sh-add-internship close="cancelAddBox()"></sh-add-internship>
+        </div>
         </div>
       </div>
     </div>
@@ -19,9 +21,11 @@
     <div class="row">
       <div class="col-md-8 col-md-offset-2">
         <div class="alert" ng-class="{'alert-info': alert.type == 'info'}" ng-repeat="alert in alerts">{{ alert.msg }} <small class="glyphicon glyphicon-remove pull-right" ng-click="alerts.splice( $index, 1)"></small></div>
-        <div class="h6 bold text-orange box">
+        <div class="box">
+        <div class="h6 bold text-orange">
           <span ng-bind="AppText.cursus.add_step | language"></span> <span ng-bind="boxes[ 0 ].name"></span><span ng-bind="AppText.system.question_mark | language"></span>
         </div>
+      </div>
       </div>
       <div class="col-md-8 col-md-offset-2">
         <div class="add-box">
@@ -50,7 +54,7 @@
         </div><!-- add-box -->
         <div class="box" style="padding-top: 11px; padding-bottom: 12px">
           <div class="row">
-            <div class="col-sm-6">
+            <div class="col-sm-8">
               <div class="box-suggestion box-suggestion-other" ng-click="">
                 <span class="fa fa-stack" style="text-align: center">
                   <span class="fa fa-circle fa-stack-2x"></span>
@@ -68,7 +72,7 @@
     <div class="row">
       <div class="col-md-8 col-md-offset-2">
         <div><!-- wrapper to use first-child selecotr on first first-of-a-school -->
-          <div ng-repeat="box in boxes" ng-class="{'first-of-a-school': firstOfASchool( $index, boxes, box)}">
+          <div ng-repeat="box in boxes | orderBy: 'start_date': true" ng-class="{'first-of-a-school': firstOfASchool( $index, boxes, box)}">
             <div ng-show="firstOfASchool( $index, boxes, box )" class="box">
               <div class="h6 header-box text-orange bold" ng-show="$index === 0">{{ AppText.cursus.my_course | language }}</div>
               <div 
@@ -85,7 +89,7 @@
                 </div>
                 <div class="col-md-10">
                   <span class="badge badge-pinkrose pull-right" ng-show="box.type == 'internship'">{{ AppText.cursus.internship | language}} 1 mois</span>
-                  <span class="badge badge-lavander pull-right" ng-show="box.type == 'items' && box.items.length"> {{ box.items.length }} cours parmi 30</span>
+                  <span class="badge badge-lavander pull-right" ng-show="box.type == 'items' && box.items.length"> {{ box.items.length }} {{ AppText.cursus.classes | language }}</span>
                   <span class="badge badge-bluejeans pull-right" ng-show="box.type == 'common'"> 18 cours obligatoires </span>
                   <span class="text-turquoise bold" ng-bind="box.name" ng-click="box.unfolded = !box.unfolded"></span>
                   <div class="box-unfolded" ng-show="box.unfolded">
