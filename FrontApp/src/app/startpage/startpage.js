@@ -18,7 +18,6 @@ angular.module('shapter.startpage', [
 
 .controller('StartPageCtrl', ['Analytics', '$scope', '$location', '$anchorScroll', '$http', 'security', '$window', 'AppText', function(Analytics, $scope, $location, $anchorScroll, $http, security, $window, AppText ){
 
-  console.log( 'startpage' );
   $scope.AppText = AppText;
   $scope.security = security;
   security.requestCurrentUser().then( function(){
