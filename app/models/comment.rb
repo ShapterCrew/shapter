@@ -84,7 +84,7 @@ class Comment
   end
 
   def user_can_view?(user)
-    user.shapter_admin? or prom_buddy(user) or fb_buddy(user) or his_campus(user)
+    user.confirmed_account? and (user.shapter_admin? or prom_buddy(user) or fb_buddy(user) or his_campus(user))
   end
 
   # An alien is someone who comments a course without being a verified student of the campus

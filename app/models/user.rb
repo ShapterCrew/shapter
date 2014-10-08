@@ -85,7 +85,7 @@ class User
   # Users should share at least one school to see each other's names
   def public_firstname(who_asks)
     raise "public_firstname: #{who_asks} is no User" unless who_asks.is_a? User
-    if (who_asks.shapter_admin or (who_asks.schools & self.schools).any? or self.is_friend_with?(who_asks) or who_asks == self)
+    if ((who_asks.confirmed_account? and ( who_asks.shapter_admin or (who_asks.schools & self.schools).any? or self.is_friend_with?(who_asks) )) or who_asks == self)
       firstname
     else
       "student"
@@ -95,7 +95,7 @@ class User
   # Users should share at least one school to see each other's names
   def public_lastname(who_asks)
     raise "public_lastname: #{who_asks} is no User" unless who_asks.is_a? User
-    if (who_asks.shapter_admin or (who_asks.schools & self.schools).any? or self.is_friend_with?(who_asks) or who_asks == self)
+    if ((who_asks.confirmed_account? and (who_asks.shapter_admin or (who_asks.schools & self.schools).any? or self.is_friend_with?(who_asks))) or who_asks == self)
       lastname
     else
       schools.any? ? "from #{schools.first.name}" : ""
@@ -105,7 +105,7 @@ class User
   # Users should share at least one school to see each other's names
   def public_image(who_asks)
     raise "public_lastname: #{who_asks} is no User" unless who_asks.is_a? User
-    if (who_asks.shapter_admin or (who_asks.schools & self.schools).any? or self.is_friend_with?(who_asks) or who_asks == self)
+    if ((who_asks.confirmed_account? and (who_asks.shapter_admin or (who_asks.schools & self.schools).any? or self.is_friend_with?(who_asks))) or who_asks == self)
       image
     else
       nil
