@@ -7,7 +7,7 @@ class ProfileBoxInternship < ProfileBox
   after_initialize :set_dates
   after_initialize :set_name
 
-  def tag_ids
+  def compute_tag_ids
     internship.tags.where(category: "type").only(:id).map(&:id)
   end
 

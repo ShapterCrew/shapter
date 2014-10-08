@@ -17,6 +17,20 @@ module Shapter
             post do 
               present @user.profile, with: Shapter::Entities::ProfileBox, entity_options: entity_options
             end
+
+            #{{{ recommand
+            desc "get a box recommandation for the given user"
+            params do 
+              optional :nmax, type: Integer, desc: "max number of results. default-10", default: 10
+            end
+            post :recommand do 
+              reco = @user.profile_box_recommandation(params[:nmax])
+              reco.group_by(&:name).each do |k,v|
+                present k.to_sym,v, with: Shapter::Entities::ProfileBox, entity_options: entity_options
+              end
+            end
+            #}}}
+
           end
         end
       end
