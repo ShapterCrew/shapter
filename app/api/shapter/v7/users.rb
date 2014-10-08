@@ -128,6 +128,18 @@ module Shapter
           end
           #}}}
 
+          namespace :lang do
+            #{{{ set language
+            desc "set the user's preferred language"
+            params do 
+              requires :lang, type: String, desc: "preferred language"
+            end
+            put do 
+              current_user.update_attribute(:lang,params[:lang].chomp.strip)
+              present current_user, with: Shapter::Entities::User, entity_options: entity_options
+            end
+            #}}}
+          end
         end
 
         resource ":user_id" do 

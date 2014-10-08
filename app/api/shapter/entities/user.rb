@@ -2,6 +2,7 @@ module Shapter
   module Entities
     class User < Grape::Entity
       expose :pretty_id                       , as: :id
+      expose :lang, if: lambda{|u,o| o[:entity_options]["user"][:lang]}
       expose :image , if: lambda {|u,o| o[:entity_options]["user"][:image] } do |u,o|
         u.public_image(o[:entity_options][:current_user])
       end
