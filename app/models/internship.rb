@@ -23,7 +23,7 @@ class Internship
   #}}}
 
   def public_description(who_ask)
-    if prom_buddy?(who_ask) or fb_friend?(who_ask) or who_ask.shapter_admin
+    if who_ask.confirmed_account? and (prom_buddy?(who_ask) or fb_friend?(who_ask) or who_ask.shapter_admin)
       description
     else
       "hidden"
