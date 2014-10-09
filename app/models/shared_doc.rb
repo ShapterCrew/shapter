@@ -27,7 +27,7 @@ class SharedDoc
 
   def public_file_url(who_asks)
     #ENSMA hack
-    return file_url if shared_docs.item.tags.schools.map(&:open_school?).reduce(:|)
+    return file_url if item.tags.schools.map(&:open_school?).reduce(:|)
     #/ENSMA hack
 
     raise "#{who_asks} is no user" unless who_asks.is_a? User
