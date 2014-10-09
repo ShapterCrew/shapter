@@ -7,7 +7,8 @@
       <input class="form-control" ng-model="item.newComment.context" placeholder="{{ AppText.comment.which_context | language }}" maxlength="150">
     </div>
 
-    <textarea ng-model="item.newComment.content" class="form-control" sh-auto-focus="displayAddComment" rows="6" placeholder="{{ AppText.addComment.your_comment_here | language }}"></textarea>
+    <textarea ng-show="security.hasTestSchool()" ng-model="item.newComment.content" class="form-control" sh-auto-focus="displayAddComment" rows="6" placeholder="{{ 'Explique au monde pourquoi choisir ' + item.name + ' !'}}"></textarea>
+    <textarea ng-hide="security.hasTestSchool()" ng-model="item.newComment.content" class="form-control" sh-auto-focus="displayAddComment" rows="6" placeholder="{{ AppText.addComment.your_comment_here | language }}"></textarea>
   </div>
 
 </div>

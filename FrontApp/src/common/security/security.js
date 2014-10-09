@@ -510,6 +510,22 @@ angular.module('security.service', [
       return !!service.currentUser;
     },
 
+    hasTestSchool: function(){
+      var nameInSchools = function( name ){
+        return service.currentUser.schools.map( function( school ){
+          return school.name == name;
+        }).reduce( function( oldVal, newVal ){
+          return oldVal || newVal;
+        }, false);
+      };
+      var list = [ 'ENSMA', 'Dauphine' ];
+      return list.map( function( school ){
+        return nameInSchools( school );
+      }).reduce( function( oldVal, newVal ){
+        return oldVal || newVal;
+      }, false);
+    },
+
     isConfirmedUser: function(){
       return !!(service.currentUser && service.currentUser.confirmed);
     },
