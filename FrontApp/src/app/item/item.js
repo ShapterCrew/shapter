@@ -218,6 +218,23 @@ angular.module('shapter.item', [
     item.loadComments();
   });
 
+  var nav = function( path ){
+    $location.path( path ).search( 'filter', null ).search( 'categories', null).search('item', null);
+  };
+  $scope.campusAuthenticationNav = function(){
+    var schoolId;
+    if( $stateParams.schoolId ){
+      nav("/schools/" + $stateParams.schoolId + "/campusAuthentication");
+    }
+    else if ( security.isConfirmedStudent() ){
+      schoolId = security.currentUser.schools[0].id;
+      nav("/schools/" + schoolId + "/campusAuthentication");
+    }
+    else {
+      nav("/campusAuthentication");
+    }
+  };
+
   facebookData = {
     permalink: '#/start?item=' + item.id,
     type: "default",

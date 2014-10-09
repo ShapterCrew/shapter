@@ -13,6 +13,8 @@ angular.module('security.service', [
   function redirect(url) {
     var string = "";
 
+    console.log('current user:');
+    console.log( service.currentUser );
     if( !!service.isConfirmedStudent() ){
 
       var schoolId = service.currentUser.schools[0].id;

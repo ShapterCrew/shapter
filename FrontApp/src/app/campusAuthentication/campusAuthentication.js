@@ -57,12 +57,13 @@ angular.module( 'shapter.campusAuthentication', [
             fr: "Wouhou, un message de confirmation vient de t'être envoyé :-) Clique dessus et enjoy Shapter !",
             en: "Yeah, a confirmation email has been sent to you. Please click on it to enjoy Shapter !"
           },
-          type: "success"
+          type: "info"
         });
         Analytics.facebookAuthConfirmSent();
         Analytics.confirmationMailSent( 'facebook' );
       }
       Analytics.facebookAddAuth();
+      $scope.newAuthorization = {};
     }, function( error ){
       $scope.clearAlerts();
       if( error.data.error == 'unrecognized student email format' ){
