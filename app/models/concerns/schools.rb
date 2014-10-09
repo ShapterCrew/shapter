@@ -36,16 +36,16 @@ module Schools
     end
   end
 
+  def set_schools!
+    self.schools += self.class.schools_for(self.email) if self.confirmed?
+  end
+
   protected 
 
   def valid_school?
     unless self.provider == "facebook"
       errors.add(:base,"user must belong to at least one school") if self.schools.empty?
     end
-  end
-
-  def set_schools!
-    self.schools += self.class.schools_for(self.email)
   end
 
 end
