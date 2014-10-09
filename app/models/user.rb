@@ -82,6 +82,15 @@ class User
     id.to_s
   end
 
+  #only own email can be viewed
+  def public_email(who_asks)
+    if who_asks == self
+      email
+    else
+      "hidden"
+    end
+  end
+
   # Users should share at least one school to see each other's names
   def public_firstname(who_asks)
     raise "public_firstname: #{who_asks} is no User" unless who_asks.is_a? User
