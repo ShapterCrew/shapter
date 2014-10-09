@@ -11,8 +11,9 @@ angular.module( 'directives.addComment', [])
   };
 }])
 
-.controller( 'AddCommentCtrl', ['$scope', 'Comment', 'AppText', '$filter', function($scope, Comment, AppText, $filter ){
+.controller( 'AddCommentCtrl', ['$scope', 'Comment', 'AppText', '$filter', 'security', function($scope, Comment, AppText, $filter, security ){
 
+  $scope.security = security;
   $scope.AppText = AppText;
   $scope.alerts = [
   ];
