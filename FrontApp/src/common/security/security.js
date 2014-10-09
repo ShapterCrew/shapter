@@ -174,6 +174,7 @@ angular.module('security.service', [
           entities: {
             user: {
               admin: true,
+              email: true,
               comments: false,
               comments_count: true,
               comments_dislikes_count: true,
@@ -454,6 +455,7 @@ angular.module('security.service', [
           entities: {
             user: {
               "admin": true,
+              "email": true,
               "comments": false,
               "comments_count": true,
               "comments_dislikes_count": true,
