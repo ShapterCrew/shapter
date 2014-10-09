@@ -55,7 +55,7 @@
         <input sh-auto-focus="true" type="text" class="form-control" placeholder="+ {{ AppText.browse.add_a_keyword | language }}" typeahead="tag as tag.name for tag in getTypeahead( $viewValue )" ng-model="typedTag" typeahead-min-length=3 typeahead-editable="false" typeahead-on-select="addTextTag()" style="margin-top: 10px"></input>
 
 
-        <ul class="list-inline cat-list nav-justified" style="margin-bottom: 0px; margin-top: 20px">
+        <ul class="list-inline cat-list" style="margin-bottom: 0px; margin-top: 20px">
 
             <!-- some categories -->
             <li class="dropdown" ng-repeat="cat in (categories | internshipsCatFilter ).display">

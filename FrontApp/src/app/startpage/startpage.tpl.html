@@ -3,7 +3,7 @@
     <img src="assets/img/logo_blanc.png" style="width: 70%; margin-bottom: 50px">
     <h2 class="text-start">{{ AppText.startpage.choose_courses_that_correspond_to_your_profile | language }}</h2>
     <h6>
-      {{ AppText.startpage.benefit_from_feedbacks | language }}
+      {{ AppText.startpage.benefit_from_feedback | language }}
       <br>
       {{ AppText.startpage.share_your_experience | language }}
     </h6> 
@@ -25,8 +25,8 @@
   </div>
 
   <div class="col-md-3" ng-hide="true">
-    <div class="list-group" ng-repeat="feedback in feedbacks">
-      <div class="list-group-item feedbacks">
+    <div class="list-group" ng-repeat="feedback in feedback">
+      <div class="list-group-item feedback">
         "{{ feedback.text }}"
       </div>
     </div>

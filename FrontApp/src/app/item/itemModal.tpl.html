@@ -54,7 +54,7 @@
                 <span>{{ AppText.item.followed | language }}</span>
               </span>
 
-              <a class="text-default" href="#/campusAuthentication" ng-show="security.isConfirmedUser()">
+              <a class="text-default" href="" ng-click="campusAuthenticationNav()" ng-show="security.isConfirmedUser()">
                 <span class="fa fa-square-o"></span>
                 <span>{{ AppText.item.followed | language }}</span>
               </a>
@@ -174,7 +174,7 @@
         <div ng-show="item.comments | hiddenComments" class="turquoise-infos" style="padding: 20px">
           <div class="bold ">{{ AppText.item.there_are | language }} {{ item.comments | hiddenComments }} {{ AppText.item.hidden_comments | language }}</div>
           <p>{{ AppText.item.to_see_the_comments | language }}</p>
-          <a ng-show="security.isConfirmedUser()" href="#/campusAuthentication" class="btn btn-info">{{ AppText.item.i_have_an_email | language }}</a>
+          <a ng-show="security.isConfirmedUser()" href="" ng-click="campusAuthenticationNav()" class="btn btn-info">{{ AppText.item.i_have_an_email | language }}</a>
           <a ng-hide="security.isConfirmedUser()" href="" ng-click="security.showLogin('login_needed_to_see_comments')" class="btn btn-info">{{ AppText.item.i_have_an_email | language }}</a>
         </div>
 

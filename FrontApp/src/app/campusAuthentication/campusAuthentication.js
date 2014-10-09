@@ -15,11 +15,20 @@ angular.module( 'shapter.campusAuthentication', [
       }
     },
     data:{ pageTitle: 'Identification comme étudiant' }
+  }).state( 'schoolCampusAuthentication', {
+    url: '/schools/:schoolId/campusAuthentication',
+    views: {
+      "main": {
+        controller: 'CampusAuthenticationCtrl',
+        templateUrl: 'campusAuthentication/campusAuthentication.tpl.html'
+      }
+    },
+    data:{ pageTitle: 'Identification comme étudiant' }
   });
 }])
 
 
-.controller("CampusAuthenticationCtrl", ['$scope', 'School', '$location', 'User', 'Analytics', function( $scope, School, $location, User, Analytics ){
+.controller("CampusAuthenticationCtrl", ['$scope', 'School', '$location', 'User', 'Analytics', '$stateParams', function( $scope, School, $location, User, Analytics, $stateParams ){
 
   Analytics.campusAuthorizationModule();
   School.index().then( function( response ){
@@ -48,12 +57,13 @@ angular.module( 'shapter.campusAuthentication', [
             fr: "Wouhou, un message de confirmation vient de t'être envoyé :-) Clique dessus et enjoy Shapter !",
             en: "Yeah, a confirmation email has been sent to you. Please click on it to enjoy Shapter !"
           },
-          type: "success"
+          type: "info"
         });
         Analytics.facebookAuthConfirmSent();
         Analytics.confirmationMailSent( 'facebook' );
       }
       Analytics.facebookAddAuth();
+      $scope.newAuthorization = {};
     }, function( error ){
       $scope.clearAlerts();
       if( error.data.error == 'unrecognized student email format' ){
