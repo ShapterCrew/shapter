@@ -28,7 +28,12 @@ class Comment
 
   # If asking_user is a facebook friend, or a student from same school, then the comment can be viewed. Otherwise, it is hidden.
   def public_content(asking_user,force=false)
-    pc = if force or user_can_view?(asking_user)
+
+    #ENSMA hack
+    return unescaped_content if item.tags.schools.map(&:open_school?).reduce(:|)
+    #/ENSMA hack
+
+    pc = if force or user_can_view?(asking_user) 
            unescaped_content
          else
            "hidden"
