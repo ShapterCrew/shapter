@@ -15,11 +15,20 @@ angular.module( 'shapter.campusAuthentication', [
       }
     },
     data:{ pageTitle: 'Identification comme étudiant' }
+  }).state( 'schoolCampusAuthentication', {
+    url: '/schools/:schoolId/campusAuthentication',
+    views: {
+      "main": {
+        controller: 'CampusAuthenticationCtrl',
+        templateUrl: 'campusAuthentication/campusAuthentication.tpl.html'
+      }
+    },
+    data:{ pageTitle: 'Identification comme étudiant' }
   });
 }])
 
 
-.controller("CampusAuthenticationCtrl", ['$scope', 'School', '$location', 'User', 'Analytics', function( $scope, School, $location, User, Analytics ){
+.controller("CampusAuthenticationCtrl", ['$scope', 'School', '$location', 'User', 'Analytics', '$stateParams', function( $scope, School, $location, User, Analytics, $stateParams ){
 
   Analytics.campusAuthorizationModule();
   School.index().then( function( response ){

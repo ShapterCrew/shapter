@@ -28,7 +28,7 @@
             <li ng-repeat="school in security.currentUser.schools" ng-show="security.currentUser.schools.length > 0">
               <a ng-href="#/schools/{{ school.id }}">{{ school.name }}</a>
             </li>
-            <li><a href="#/campusAuthentication"><small class="fa fa-plus"></small> {{ AppText.header.add_an_authorization | language }}</a></li>
+            <li><a href="" ng-click="campusAuthenticationNav()"><small class="fa fa-plus"></small> {{ AppText.header.add_an_authorization | language }}</a></li>
             <li ng-show="($rootScope.schoolsHistory | notCurrentSchool:$stateParams.schoolId).length" class="dropdown-header">{{ AppText.header.schools_history | language }}</li>
             <li ng-repeat="school in $rootScope.schoolsHistory | notCurrentSchool:$stateParams.schoolId" ng-click="schoolNav( school.id )"><a ng-bind="school.name"></a></li>
             <li class="divider"></li>
