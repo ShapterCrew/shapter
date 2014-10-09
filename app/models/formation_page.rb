@@ -55,9 +55,19 @@ class FormationPage
     Tag.any_in(id: tag_ids)
   end
 
+  def item_ids
+    Rails.cache.fetch("frmPgeitm_ids|#{cache_id}|#{tags.max(:updated_at).try(:utc).try(:to_s, :number)}", expires_in: 3.hours) do 
+      tags.distinct(:item_ids)
+    end
+  end
+
   def items
-    Rails.cache.fetch("frmPgeitms|#{cache_id}|#{tags.max(:updated_at).try(:utc).try(:to_s, :number)}", expires_in: 3.hours) do 
-      tags.map(&:items).reduce(:&).uniq rescue []
+    Item.any_in(id: item_ids)
+  end
+
+  def student_ids
+    Rails.cache.fetch("frmPgeStdt_ids|#{cache_id}|#{Item.any_in(id: items.map(&:id)).max(:updated_at).try(:utc).try(:to_s, :number)}", expires_in: 3.hours) do 
+      items.distinct(:subscriber_ids)
     end
   end
 
