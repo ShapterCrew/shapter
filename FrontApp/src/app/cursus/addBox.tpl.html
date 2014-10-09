@@ -12,7 +12,7 @@
               <span class="text-asphalt" ng-repeat="tag in newBox.commonTags">{{ tag.name }}<span ng-hide="$last"> - </span></span>
             </div>
             <p style="margin-bottom: 0; margin-top: 20px" class="bold text-blue">Pour spécifier la liste des cours proposés, certains utilisateurs ont ajouté d'autres mots-clefs que tu peux éventuellement ajouter aussi :</p>
-            <div ng-repeat="box in newBox.boxes" class="suggestion-hover-blue">
+            <div ng-repeat="box in newBox.boxes" class="suggestion-hover-blue" ng-click="addTagsFromBox( box )">
               <span class="text-asphalt" ng-repeat="tag in box.specificTags">{{ tag.name }}<span ng-hide="$last"> - </span></span>
             </div>
           </div>
@@ -42,6 +42,10 @@
             </p>
           </div>
 
+          <div class="form-group">
+            <span class="tag tag-orange" ng-repeat="tag in newBox.commonTags">{{ tag.name }}</span>
+            <span class="tag tag-orange" ng-repeat="tag in newBox.tags">{{ tag.name }}</span>
+          </div>
 
 
           <div class="form-group" style="margin-top: 40px">

@@ -63,6 +63,11 @@ angular.module( 'shapter.cursus', [
       return $index === 0 || ($filter( 'filter' )( boxes[ $index - 1 ].tags,  {category: 'school'})[0].id != $filter( 'filter' )( box.tags,  {category: 'school'})[0].id);
   };
 
+  $scope.addTagsFromBox = function( box ){
+    $scope.newBox.tags = box.tags;
+    $scope.loadSuggestionItems( $scope.newBox );
+  };
+
   $scope.displayAddSuggestion = function( suggestion ){
     $location.search('state', 'addingBox');
     var boxes = suggestion ? $filter('splitSharedTags')(suggestion.boxes) : [];
@@ -71,7 +76,7 @@ angular.module( 'shapter.cursus', [
       name: suggestion ? suggestion.name : '',
       boxes: boxes, 
       commonTags: boxes.length ? boxes[0].commonTags : [],
-      tags: boxes.length ? boxes[0].commonTags : [],
+      tags: [],
       items: []
     };
     $scope.loadSuggestionItems( $scope.newBox );
@@ -91,7 +96,9 @@ angular.module( 'shapter.cursus', [
       });
     };
     box.itemsLoading = true;
-    Item.getListFromTags( getIdsList(box.tags), true ).then( function( response ){
+    var tags = box.commonTags;
+    tags.push( box.tags );
+    Item.getListFromTags( getIdsList(tags), true ).then( function( response ){
       box.itemsLoading = false;
       box.items = response.items;
     });
