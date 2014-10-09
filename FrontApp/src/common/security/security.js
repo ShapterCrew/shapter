@@ -7,7 +7,7 @@ angular.module('security.service', [
   'services.localizedMessages'
 ])
 
-.factory('security', ['Analytics', '$http', '$q', '$location', 'securityRetryQueue', '$modal', 'Restangular', 'alerts', '$rootScope', '$timeout', 'localizedMessages', 'Behave', function( Analytics, $http, $q, $location, queue, $modal, Restangular, alerts, $rootScope, $timeout, localizedMessages, Behave ) {
+.factory('security', ['Analytics', '$http', '$q', '$location', 'securityRetryQueue', '$modal', 'Restangular', 'alerts', '$rootScope', 'localizedMessages', 'Behave', function( Analytics, $http, $q, $location, queue, $modal, Restangular, alerts, $rootScope, localizedMessages, Behave ) {
 
   // Redirect to the given url (defaults to '/')
   function redirect(url) {
@@ -224,11 +224,14 @@ angular.module('security.service', [
 
           // has an account but email not confirmed
           else if ( service.isAuthenticated() && !service.isConfirmedUser() ) {
+            closeEmailLoginModal(true);
+            /*
             alerts.add("danger", {
               fr: "Tu dois confirmer ton adresse : un mail t'a été envoyé, clique sur le lien d'activation qu'il contient !",
               en: "Sorry, you need to activate your account first. An activation email has been sent to you : click on the activation link it contains."
             });
-            return {success: false};
+            */
+            return {success: true};
           }
 
           // has no account

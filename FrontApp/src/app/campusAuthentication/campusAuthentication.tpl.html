@@ -6,15 +6,13 @@
       <div class="col-md-8 col-md-offset-2">
         <div class="row">
           <div class="col-md-8">
-            <p ng-bind="AppText.security.login_needed_for_auth | language"></p>
-            <button class="btn btn-info" ng-click="security.showLogin('login_needed_for_auth')">{{ AppText.security.connect | language }}</button>
+            <p ng-bind="AppText.security.auth_but_not_confirmed | language"></p>
           </div>
         </div>
       </div>
     </div>
   </div>
 </div>
-
 
 <div ng-show="security.isConfirmedUser()">
   <div class="container" ng-hide="security.isConfirmedStudent()">
