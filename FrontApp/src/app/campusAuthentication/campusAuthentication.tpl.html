@@ -6,7 +6,7 @@
       <div class="col-md-8 col-md-offset-2">
         <div class="row">
           <div class="col-md-8">
-            <p ng-bind="AppText.security.auth_but_not_confirmed | language"></p>
+            <p><span ng-bind="AppText.security.auth_but_not_confirmed | language"></span><span class="bold" ng-bind="security.currentUser.email"></span></p>
             <sh-new-confirmation-email></sh-new-confirmation-email>
           </div>
         </div>
@@ -50,7 +50,6 @@
             <div class="col-md-8">
               <div class="bold lead" ng-bind="AppText.campus_authentication.you_are_already_student | language">
               </div>
-              <div ng-bind="AppText.campus_authentication.you_are_already_student2 | language"></div>
               <button class="btn btn-info" ng-click="schoolNav()">{{ AppText.campus_authentication._continue | language }}</button>
             </div>
           </div>
@@ -59,7 +58,7 @@
     </div>
   </div>
 
-  <div class="container">
+  <div class="container" ng-hide="security.currentUser.schools.length > 0">
     <div class="row">
       <div class="col-md-8 col-md-offset-2">
 

@@ -24,14 +24,14 @@
             <span class="caret white-caret"></span>
           </a>
           <ul class="dropdown-menu">
-            <li class="dropdown-header">{{ AppText.header.my_institutions | language }}</li>
+            <li ng-show="security.isAuthenticated()" class="dropdown-header">{{ AppText.header.my_institutions | language }}</li>
             <li ng-repeat="school in security.currentUser.schools" ng-show="security.currentUser.schools.length > 0">
               <a ng-href="#/schools/{{ school.id }}">{{ school.name }}</a>
             </li>
-            <li ng-hide="security.currentUser.schools.length > 0"><a href="" ng-click="campusAuthenticationNav()"><small class="fa fa-plus"></small> {{ AppText.header.add_an_authorization | language }}</a></li>
+            <li ng-show="!security.currentUser.schools.length > 0 && security.isAuthenticated()"><a href="" ng-click="campusAuthenticationNav()"><small class="fa fa-plus"></small> {{ AppText.header.add_an_authorization | language }}</a></li>
             <li ng-show="($rootScope.schoolsHistory | notCurrentSchool:$stateParams.schoolId).length" class="dropdown-header">{{ AppText.header.schools_history | language }}</li>
             <li ng-repeat="school in $rootScope.schoolsHistory | notCurrentSchool:$stateParams.schoolId" ng-click="schoolNav( school.id )"><a ng-bind="school.name"></a></li>
-            <li class="divider"></li>
+            <li ng-show="security.isAuthenticated()" class="divider"></li>
             <li class="dropdown-header">{{ AppText.header.others | language }}</li>
             <li><a href="#/schools">{{ AppText.header.all_institutions | language }}</a></li>
           </ul>

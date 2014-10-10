@@ -30,6 +30,9 @@ angular.module( 'shapter.campusAuthentication', [
 
 .controller("CampusAuthenticationCtrl", ['$scope', 'School', '$location', 'User', 'Analytics', '$stateParams', 'security', function( $scope, School, $location, User, Analytics, $stateParams, security ){
 
+  if( !security.isAuthenticated() ){
+    $location.path( '/start' );
+  }
   Analytics.campusAuthorizationModule();
   School.index().then( function( response ){
     $scope.schools = response.schools;
@@ -69,7 +72,8 @@ angular.module( 'shapter.campusAuthentication', [
           Analytics.facebookChanged();
         }
         if( response.status == 'sent confirmation email' ){
-        security.currentUser.confirmed = false;
+        security.currentUser = null;
+        security.requestCurrentUser();
           $scope.alerts.push({
             msg: {
               fr: "Wouhou, un message de confirmation vient de t'être envoyé :-) Clique dessus et enjoy Shapter !",

@@ -189,8 +189,8 @@ angular.module( 'services.appText', [])
     },
     security: {
       auth_but_not_confirmed: {
-        en: 'Your account has been created but not confirmed. Click on the confirmation email you recieved !',
-        fr: 'Ton compte a été créé mais non confirmé : clique sur l\'email de confirmation que tu as reçu !'
+        en: 'Your account has been created but not confirmed. Click on the confirmation email you recieved at ',
+        fr: 'Tu dois confirmer ton email : clique sur l\'email de confirmation que tu as reçu à l\'adresse '
       },
       accept_cgu: {
         en: 'By clicking on \'signup\', I accept the general terms of use',
@@ -1418,8 +1418,8 @@ angular.module( 'services.appText', [])
     },
     confirmationSent: {
       confirmation_sent: {
-        en: 'A confirmation email has been sent to you !',
-        fr: 'Un email de confirmation t\'a été envoyé !'
+        en: 'A confirmation email has been sent to you at ',
+        fr: 'Un email de confirmation t\'a été envoyé à l\'adresse '
       },
       click_on_it: {
         en: 'Click on it to enjoy Shapter',
