@@ -50,7 +50,7 @@ angular.module('shapter.confirmationSent', [
   };
 }])
 
-.controller('NewConfirmationCtrl', ['$scope', 'User', 'security', function( $scope, User, security ){
+.controller('NewConfirmationCtrl', ['$scope', 'User', 'security', 'Analytics', function( $scope, User, security, Analytics ){
   $scope.newConfirmationEmail = function(){
     User.newConfirmationEmail( security.currentUser.email ).then( function( response ){
       $scope.successResent = true;
@@ -59,6 +59,7 @@ angular.module('shapter.confirmationSent', [
       $scope.failRessent = true;
       $scope.successResent = false;
     });
+    Analytics.newConfirmationEmailRequest();
   };
 }]);
 
