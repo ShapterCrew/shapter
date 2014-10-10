@@ -1084,19 +1084,19 @@ angular.module( 'services.appText', [])
         fr: 'Entrer comme visiteur'
       },
       subscribe_to_my_campus: {
-        en: 'Identify as a student', 
-        fr: 'M\'identifier comme étudiant'
+        en: 'Add your campus', 
+        fr: 'Ajoute ton campus'
       },
       ignore_this_step: {
         en: 'Ignore this step, I\'m from no campus',
         fr: 'Passer cette étape, je n\'ai pas de campus'
       },
       to_benefit_from_shapter: {
-        en: 'To benefit 100% from Shapter, identify yourself thanks to your student email adress',
-        fr: 'Pour profiter pleinement de Shapter, identifie-toi grâce à ton adresse email de campus'
+        en: 'To take full advantage of Shapter, select your campus',
+        fr: 'Pour profiter pleinement de Shapter, sélectionne ton campus'
       },
       add_an_authorization: {
-        en: 'Add an authorization: ',
+        en: 'Add a authorization: ',
         fr: 'Ajoute une autorisation : '
       },
       where_from: {

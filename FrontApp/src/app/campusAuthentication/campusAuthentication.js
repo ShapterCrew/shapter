@@ -43,6 +43,18 @@ angular.module( 'shapter.campusAuthentication', [
   };
   $scope.clearAlerts();
 
+  $scope.selectCampus = function(){
+    if( $scope.newAuthorization.school.name == 'Dapuhine' || $scope.newAuthorization.school.name == 'ENSMA' ){
+      $scope.hideEmail = true;
+      User.openSchoolAuth( $scope.newAuthorization.school ).then( function( response ){
+        $location.path('/schools/' + $scope.newAuthorization.school.id);
+      }, function( err ){
+        console.log( err );
+        $location.path('/schools/' + $scope.newAuthorization.school.id);
+      });
+    }
+  };
+
 
   $scope.submitAuthorization = function(){
     User.confirm_student_email( $scope.newAuthorization.email, $scope.newAuthorization.password ).then( function( response ){

@@ -253,7 +253,14 @@ angular.module( 'resources.user', [
         }
       };
       return Restangular.all('users').customPOST( {email: email, entities: entities}, 'schools_for' );
+    },
+
+    openSchoolAuth: function( school ){
+      //schoolid
+      return Restangular.one('users', 'me').customPOST({schoolId: school.id}, 'confirmed_open_student'); 
     }
+
+
   };
 
 
