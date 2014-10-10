@@ -53,6 +53,9 @@ angular.module( 'shapter.campusAuthentication', [
   $scope.submitAuthorization = function(){
     if( $scope.newAuthorization.school.name == 'Dauphine' || $scope.newAuthorization.school.name == 'ENSMA' ){
       User.openSchoolAuth( $scope.newAuthorization.school ).then( function( response ){
+        security.currentUser.schools.push( $scope.newAuthorization.school );
+        security.currentUser.confirmed = true;
+        security.currentUser.confirmed_student = true;
         $location.path('/schools/' + $scope.newAuthorization.school.id);
       }, function( err ){
         console.log( err );
