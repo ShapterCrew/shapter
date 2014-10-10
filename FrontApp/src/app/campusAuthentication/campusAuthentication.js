@@ -15,12 +15,24 @@ angular.module( 'shapter.campusAuthentication', [
       }
     },
     data:{ pageTitle: 'Identification comme étudiant' }
+  }).state( 'schoolCampusAuthentication', {
+    url: '/schools/:schoolId/campusAuthentication',
+    views: {
+      "main": {
+        controller: 'CampusAuthenticationCtrl',
+        templateUrl: 'campusAuthentication/campusAuthentication.tpl.html'
+      }
+    },
+    data:{ pageTitle: 'Identification comme étudiant' }
   });
 }])
 
 
-.controller("CampusAuthenticationCtrl", ['$scope', 'School', '$location', 'User', 'Analytics', function( $scope, School, $location, User, Analytics ){
+.controller("CampusAuthenticationCtrl", ['$scope', 'School', '$location', 'User', 'Analytics', '$stateParams', 'security', function( $scope, School, $location, User, Analytics, $stateParams, security ){
 
+  if( !security.isAuthenticated() ){
+    $location.path( '/start' );
+  }
   Analytics.campusAuthorizationModule();
   School.index().then( function( response ){
     $scope.schools = response.schools;
@@ -34,71 +46,96 @@ angular.module( 'shapter.campusAuthentication', [
   };
   $scope.clearAlerts();
 
+  $scope.$on('logout', function(){
+    $location.path("/start");
+  });
+
+  $scope.selectCampus = function(){
+    if( $scope.newAuthorization.school.name == 'Dauphine' || $scope.newAuthorization.school.name == 'ENSMA' ){
+      $scope.hideEmail = true;
+    }
+  };
+
 
   $scope.submitAuthorization = function(){
-    User.confirm_student_email( $scope.newAuthorization.email, $scope.newAuthorization.password ).then( function( response ){
-      $scope.clearAlerts();
-      if( response.status == 'changed' ){
-        $window.location.href = "/api/v1/users/auth/facebook";
-        Analytics.facebookChanged();
-      }
-      if( response.status == 'sent confirmation email' ){
-        $scope.alerts.push({
-          msg: {
-            fr: "Wouhou, un message de confirmation vient de t'être envoyé :-) Clique dessus et enjoy Shapter !",
-            en: "Yeah, a confirmation email has been sent to you. Please click on it to enjoy Shapter !"
-          },
-          type: "success"
-        });
-        Analytics.facebookAuthConfirmSent();
-        Analytics.confirmationMailSent( 'facebook' );
-      }
-      Analytics.facebookAddAuth();
-    }, function( error ){
-      $scope.clearAlerts();
-      if( error.data.error == 'unrecognized student email format' ){
-        $scope.alerts.push({
-          msg: {
-            fr: "Désolé, ton email ne nous permet pas de confirmer que tu es étudiant dans une école membre du réseau Shapter. Essaie avec l'email fourni par ton établissement ou avec l'email d'invitation que tu as reçu le cas échéant",
-            en: "Sorry, your email doesn't authenticates you as a student in one of our schools. Try with your student email maybe ?"
-          },
-          type: "danger"
-        });
-        Analytics.facebookAuthUnrecognized();
-      }
-      else if ( error.data.error =='existing account,please provide a password'){
-        $scope.displayPassword = true;
-        $scope.alerts.push({
-          msg: { 
-            fr: "Super, on a trouvé ton compte ! Renseigne ton mot de passe pour t'identifier :-)",
-            en: "We found your account ! Please enter your password for identification"
-          },
-          type: "info"
-        });
-        Analytics.facebookAuthPasswordPlease();
-      }
-      else if ( error.data.error == 'current account is valid and won\'t be deleted'){
-        $scope.alerts.push({
-          msg: {
-            fr: "Une erreur technique est survenue :/ contacte teamshapter@gmail.com !",
-            en: "There was a technical problem. Please contact us at teamshapter@shapter.com"
-          },
-          type: "danger"
-        });
-        Analytics.facebookAuthAccountExisting();
-      }
-      else if ( error.data.error == 'wrong email/password combination'){
-        $scope.displayMeme = true;
-        $scope.alerts.push({
-          msg: {
-            fr: "Mauvaise combinaison email password !",
-            en: "Wrong email / password conbination"
-          },
-          type: "danger"
-        });
-        Analytics.facebookAuthWrongCombinaison();
-      }
-    });
+    if( $scope.newAuthorization.school.name == 'Dauphine' || $scope.newAuthorization.school.name == 'ENSMA' ){
+      User.openSchoolAuth( $scope.newAuthorization.school ).then( function( response ){
+        security.currentUser.schools.push( $scope.newAuthorization.school );
+        security.currentUser.confirmed = true;
+        security.currentUser.confirmed_student = true;
+        $location.path('/schools/' + $scope.newAuthorization.school.id);
+      }, function( err ){
+        console.log( err );
+      });
+    }
+    else {
+      User.confirm_student_email( $scope.newAuthorization.email, $scope.newAuthorization.password ).then( function( response ){
+        $scope.clearAlerts();
+        if( response.status == 'changed' ){
+          $window.location.href = "/api/v1/users/auth/facebook";
+          Analytics.facebookChanged();
+        }
+        if( response.status == 'sent confirmation email' ){
+        security.currentUser = null;
+        security.requestCurrentUser();
+          $scope.alerts.push({
+            msg: {
+              fr: "Wouhou, un message de confirmation vient de t'être envoyé :-) Clique dessus et enjoy Shapter !",
+              en: "Yeah, a confirmation email has been sent to you. Please click on it to enjoy Shapter !"
+            },
+            type: "info"
+          });
+          Analytics.facebookAuthConfirmSent();
+          Analytics.confirmationMailSent( 'facebook' );
+        }
+        Analytics.facebookAddAuth();
+        $scope.newAuthorization = {};
+      }, function( error ){
+        $scope.clearAlerts();
+        if( error.data.error == 'unrecognized student email format' ){
+          $scope.alerts.push({
+            msg: {
+              fr: "Désolé, ton email ne nous permet pas de confirmer que tu es étudiant dans une école membre du réseau Shapter. Essaie avec l'email fourni par ton établissement ou avec l'email d'invitation que tu as reçu le cas échéant",
+              en: "Sorry, your email doesn't authenticates you as a student in one of our schools. Try with your student email maybe ?"
+            },
+            type: "danger"
+          });
+          Analytics.facebookAuthUnrecognized();
+        }
+        else if ( error.data.error =='existing account,please provide a password'){
+          $scope.displayPassword = true;
+          $scope.alerts.push({
+            msg: { 
+              fr: "Super, on a trouvé ton compte ! Renseigne ton mot de passe pour t'identifier :-)",
+              en: "We found your account ! Please enter your password for identification"
+            },
+            type: "info"
+          });
+          Analytics.facebookAuthPasswordPlease();
+        }
+        else if ( error.data.error == 'current account is valid and won\'t be deleted'){
+          $scope.alerts.push({
+            msg: {
+              fr: "Une erreur technique est survenue :/ contacte teamshapter@gmail.com !",
+              en: "There was a technical problem. Please contact us at teamshapter@shapter.com"
+            },
+            type: "danger"
+          });
+          Analytics.facebookAuthAccountExisting();
+        }
+        else if ( error.data.error == 'wrong email/password combination'){
+          $scope.displayMeme = true;
+          $scope.alerts.push({
+            msg: {
+              fr: "Mauvaise combinaison email password !",
+              en: "Wrong email / password conbination"
+            },
+            type: "danger"
+          });
+          Analytics.facebookAuthWrongCombinaison();
+        }
+      });
+    }
   };
 
   $scope.thisSchoolNav = function( school ){

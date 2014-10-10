@@ -2,6 +2,7 @@ class Tag
   include Mongoid::Document
   include Mongoid::Timestamps
   include Autocomplete
+  include OpenSchools #opening school hack: to see what happens.
 
   include Funnelable
   funnel_for :signup_funnel

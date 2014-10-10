@@ -20,7 +20,7 @@
             <div class="col-md-6">
               <p ng-bind="AppText.contribute.contribute_not_student | language"></p>
               <a ng-hide="security.isConfirmedUser()" href="" ng-click="security.showLogin('login_needed_to_contribute')" class="btn btn-info">{{ AppText.contribute.go_identify | language }}</a>
-              <a ng-show="security.isConfirmedUser()" href="#/campusAuthentication" class="btn btn-info">{{ AppText.contribute.go_identify | language }}</a>
+              <a ng-show="security.isConfirmedUser()" href="" ng-click="campusAuthenticationNav()" class="btn btn-info">{{ AppText.contribute.go_identify | language }}</a>
             </div>
           </div>
         </div>
