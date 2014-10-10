@@ -253,11 +253,17 @@ angular.module( 'resources.user', [
         }
       };
       return Restangular.all('users').customPOST( {email: email, entities: entities}, 'schools_for' );
+    },
+
+    newConfirmationEmail: function( email ){
+      var params = {
+        user: {
+          email: email
+        }
+      };
+      return Restangular.all('users').customPOST( params, 'confirmation' );
     }
   };
 
-
   return User;
-
-
 }]);
