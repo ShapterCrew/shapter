@@ -417,6 +417,10 @@ angular.module('resources.analytics', [])
 
     toggleCumulateTags: function(){
       mixpanel.track('Toggle Cumulate Tags');
+    },
+
+    newConfirmationEmailRequest: function(){
+      mixpanel.track('New Confirmation Email Request');
     }
 
   };

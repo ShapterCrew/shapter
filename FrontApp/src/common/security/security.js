@@ -271,6 +271,7 @@ angular.module('security.service', [
     // Logout the current user and redirect
     logout: function(redirectTo) {
       return Restangular.all('users').customGET('sign_out').then(function() {
+        $rootScope.$broadcast('logout');
         alerts.clear();
         alerts.add("success", {
           fr: "Tu as bien été déconnecté !",

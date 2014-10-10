@@ -27,13 +27,39 @@ angular.module('shapter.confirmationSent', [
   });
 }])
 
-.controller('ConfirmationSentCtrl', ['$scope', 'AppText', 'security', function( $scope, AppText, security ){
-  console.log( "confirmation sent" );
+.controller('ConfirmationSentCtrl', ['$scope', 'AppText', 'security', 'User', '$location', function( $scope, AppText, security, User, $location ){
+  if( !security.isAuthenticated()) {
+    $location.path( '/start' );
+  }
+  $scope.$on('logout', function(){
+    $location.path("/start");
+  });
   security.requestCurrentUser().then( function( response ){
     if( security.isConfirmedUser()){
       security.redirect();
     }
   });
   $scope.AppText = AppText;
+}])
+
+.directive('shNewConfirmationEmail', [function(){
+  return {
+    restrict: 'E',
+    controller: 'NewConfirmationCtrl',
+    templateUrl: 'confirmationSent/newConfirmationEmail.tpl.html'
+  };
+}])
+
+.controller('NewConfirmationCtrl', ['$scope', 'User', 'security', 'Analytics', 'AppText', function( $scope, User, security, Analytics, AppText ){
+  $scope.newConfirmationEmail = function(){
+    User.newConfirmationEmail( security.currentUser.email ).then( function( response ){
+      $scope.successResent = true;
+      $scope.failRessent = false;
+    }, function( err ){
+      $scope.failRessent = true;
+      $scope.successResent = false;
+    });
+    Analytics.newConfirmationEmailRequest();
+  };
 }]);
 
