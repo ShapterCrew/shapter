@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <h2>Commentaires postés du <%= @start_time %> au <%= @end_time %></h2>
+
+    <% @comments.each do |c| %>
+      <div class="comment">
+        <h3>Sur <i><%= c.item.name%></i> :</h3>
+        <p>
+          <%= c.content %>
+        </p>
+        <p>par: <%= c.author.email %></p>
+        <p>-----------------------------</p>
+    </div>
+  <% end %>
+
+  </body>
+</html>
