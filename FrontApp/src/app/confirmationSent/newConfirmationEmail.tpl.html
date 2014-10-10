@@ -1,6 +1,6 @@
 <div class="form-group">
-  <button class="btn btn-info" ng-click="newConfirmationEmail()">Recevoir un nouvel email de confirmation</button>
-  <div class="text-info" ng-show="successResent">Un nouvel email de confirmation vient de t'être envoyé. Check tes spams !</div>
-  <div class="text-danger" ng-show="failRessent">Il y a eu une erreur lors de l'envoie du nouvel email de confirmation. Contacte teamshapter@shapter.com</div>
+  <button class="btn btn-info" ng-click="newConfirmationEmail()">{{ AppText.confirmationSent.get_new_confirmation_email | language }}</button>
+  <div class="text-info" ng-show="successResent">{{ AppText.confirmationSent.a_new_email_has_been_sent | language }} </div>
+  <div class="text-danger" ng-show="failRessent">{{ AppText.confirmationSent.error_while_sending | language }}</div>
 </div>
 

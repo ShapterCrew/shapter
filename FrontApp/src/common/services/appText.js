@@ -1417,6 +1417,18 @@ angular.module( 'services.appText', [])
       }
     },
     confirmationSent: {
+      get_new_confirmation_email: {
+        en: 'Get a new confirmation email',
+        fr: 'Recevoir un nouvel email de confirmation'
+      },
+      a_new_email_has_been_sent: {
+        en: 'A new confirmation email has been sent to you. Check your spam folder if you can\'t find it !',
+        fr: 'Un nouvel email de confirmation vient de t\'être envoyé. Si tu ne le trouves pas, check ton dossier de spams !'
+      },
+      error_while_sending: {
+        en: 'There was an error sending your confirmation email. Please contact teamshapter@shapter.com',
+        fr: 'Il y a eu une erreur lors de l\'envoi du nouveau mail de confirmation. Contacte teamshapter@shapter.com'
+      },
       confirmation_sent: {
         en: 'A confirmation email has been sent to you at ',
         fr: 'Un email de confirmation t\'a été envoyé à l\'adresse '
