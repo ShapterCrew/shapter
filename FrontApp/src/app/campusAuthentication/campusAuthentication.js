@@ -69,6 +69,7 @@ angular.module( 'shapter.campusAuthentication', [
           Analytics.facebookChanged();
         }
         if( response.status == 'sent confirmation email' ){
+        security.currentUser.confirmed = false;
           $scope.alerts.push({
             msg: {
               fr: "Wouhou, un message de confirmation vient de t'être envoyé :-) Clique dessus et enjoy Shapter !",

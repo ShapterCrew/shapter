@@ -1,12 +1,13 @@
 <sh-header></sh-header>
 
-<div class="orange-infos" ng-hide="security.isConfirmedUser()">
+<div class="blue-infos" ng-hide="security.isConfirmedUser()">
   <div class="container">
     <div class="row">
       <div class="col-md-8 col-md-offset-2">
         <div class="row">
           <div class="col-md-8">
             <p ng-bind="AppText.security.auth_but_not_confirmed | language"></p>
+            <sh-new-confirmation-email></sh-new-confirmation-email>
           </div>
         </div>
       </div>

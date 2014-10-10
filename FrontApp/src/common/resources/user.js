@@ -258,12 +258,18 @@ angular.module( 'resources.user', [
     openSchoolAuth: function( school ){
       //schoolid
       return Restangular.one('users', 'me').customPOST({school_id: school.id}, 'confirm_open_student'); 
+    },
+
+    newConfirmationEmail: function( email ){
+      var params = {
+        user: {
+          email: email
+        }
+      };
+      return Restangular.all('users').customPOST( params, 'confirmation' );
     }
 
   };
 
-
   return User;
-
-
 }]);
