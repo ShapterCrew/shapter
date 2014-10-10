@@ -59,7 +59,6 @@ angular.module( 'shapter.campusAuthentication', [
         $location.path('/schools/' + $scope.newAuthorization.school.id);
       }, function( err ){
         console.log( err );
-        $location.path('/schools/' + $scope.newAuthorization.school.id);
       });
     }
     else {
