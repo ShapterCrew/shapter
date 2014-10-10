@@ -255,6 +255,11 @@ angular.module( 'resources.user', [
       return Restangular.all('users').customPOST( {email: email, entities: entities}, 'schools_for' );
     },
 
+    openSchoolAuth: function( school ){
+      //schoolid
+      return Restangular.one('users', 'me').customPOST({school_id: school.id}, 'confirm_open_student'); 
+    },
+
     newConfirmationEmail: function( email ){
       var params = {
         user: {
@@ -263,6 +268,7 @@ angular.module( 'resources.user', [
       };
       return Restangular.all('users').customPOST( params, 'confirmation' );
     }
+
   };
 
   return User;

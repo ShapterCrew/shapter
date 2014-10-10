@@ -67,19 +67,19 @@
         {{ alert.msg | language}}
         </alert>
 
-        <p class="lead bold text-turquoise">{{ AppText.campus_authentication.add_an_authorization | language }}</p>
+        <p ng-hide="true" class="lead bold text-turquoise">{{ AppText.campus_authentication.add_an_authorization | language }}</p>
         <form name="authenticationForm" class="css-form">
-          <div class="form-group well" style="margin-bottom: 5px">
+          <div class="form-group padding-well blue-infos" style="margin-bottom: 5px">
             <label>{{ AppText.campus_authentication.where_from | language}}</label>
             </br>
-            <select ng-model="newAuthorization.school" required="true" ng-options="school as school.name for school in (schools | orderBy: 'name': false)">
+            <select ng-model="newAuthorization.school" required="true" ng-options="school as school.name for school in (schools | orderBy: 'name': false)" ng-change="selectCampus()">
               <option value="">-- {{ AppText.campus_authentication.choose_uni | language }} --</option>
             </select>
           </div>
           <div class="clearfix">
             <p style="maring-top: 0px; margin-bottom: 20px" class="pull-right"><a href="#/addCampus" class="text-info">{{ AppText.campus_authentication.not_in_list | language }}</a></p>
           </div>
-          <div class="form-group well" ng-show="newAuthorization.school">
+          <div class="form-group well" ng-show="newAuthorization.school && !hideEmail">
             <label>{{ AppText.campus_authentication.your_campus_email | language }}</label>
             <input class="form-control" type="email" ng-model="newAuthorization.email" placeholder="{{ AppText.campus_authentication.your_school_email | language }}">
           </div>
@@ -87,8 +87,11 @@
             <label>{{ AppText.campus_authentication.password | language }}</label>
             <input class="form-control" ng-model="newAuthorization.password">
           </div>
-          <div class="form-group clearfix" ng-show="newAuthorization.school">
+          <div class="form-group clearfix" ng-show="newAuthorization.school && !hideEmail">
             <button type="submit" class="btn btn-success pull-right" ng-click="submitAuthorization()">{{ AppText.campus_authentication.receive_confirmation | language }}</button>
+          </div>
+          <div class="form-group clearfix" ng-show="newAuthorization.school && hideEmail">
+            <button type="submit" class="btn btn-success pull-right" ng-click="submitAuthorization()">{{ AppText.system.validate | language }}</button>
           </div>
         </form>
 

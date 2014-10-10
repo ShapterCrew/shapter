@@ -10,10 +10,31 @@ module Shapter
       namespace :users do 
         namespace :me do 
 
+          #{{{ confirm_open_student
+          desc "confirm a student's school, without email validation"
+          params do 
+            requires :school_id, desc: "if of the school (i.e. id of the tag, that is a school)"
+          end
+          post :confirm_open_student do
+            check_confirmed_account!
+            school = Tag.schools.find(params[:school_id]) || error!('school not found',404)
+            if school.open_school?
+              current_user.schools << school
+              if current_user.save
+                present current_user, with: Shapter::Entities::User, entity_options: entity_options
+              else
+                error!(current_user.errors.messages)
+              end
+            else
+              error!("#{school.name} is no open school")
+            end
+          end
+          #}}}
+
           #{{{ confirm_student
           desc "confirm student with different email address"
           params do 
-            requires :email   , type: String, desc: "school email to validate student with"
+            optional :email   , type: String, desc: "school email to validate student with"
             optional :password, type: String, desc: "If the email is already recorded in database, then a password will be asked to confirm ownership"
           end
           post :confirm_student_email do 

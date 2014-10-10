@@ -3,6 +3,7 @@ require 'spec_helper'
 describe Shapter::V7::ConfirmStudents do 
 
   before(:each) do 
+    Tag.delete_all
     User.delete_all
     @user = FactoryGirl.create(:user)
   end
@@ -27,5 +28,24 @@ describe Shapter::V7::ConfirmStudents do
   end
 
   #}}}
+
+  describe :confirm_open_student do 
+
+    it "confirms a student if school is open" do 
+      login(@user)
+      s = FactoryGirl.create(:tag)
+      s.update_attributes(category: "school")
+      @user.update_attributes(school_ids: [])
+      @user.confirm!
+      Tag.any_instance.stub(:open_school?).and_return(true)
+
+      expect{
+        post 'users/me/confirm_open_student', school_id: s.id.to_s
+        @user.reload
+      }.to change{@user.confirmed_student?}.from(false).to(true)
+    end
+
+  end
+
 
 end

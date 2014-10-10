@@ -28,7 +28,7 @@
             <li ng-repeat="school in security.currentUser.schools" ng-show="security.currentUser.schools.length > 0">
               <a ng-href="#/schools/{{ school.id }}">{{ school.name }}</a>
             </li>
-            <li><a href="" ng-click="campusAuthenticationNav()"><small class="fa fa-plus"></small> {{ AppText.header.add_an_authorization | language }}</a></li>
+            <li ng-hide="security.currentUser.schools.length > 0"><a href="" ng-click="campusAuthenticationNav()"><small class="fa fa-plus"></small> {{ AppText.header.add_an_authorization | language }}</a></li>
             <li ng-show="($rootScope.schoolsHistory | notCurrentSchool:$stateParams.schoolId).length" class="dropdown-header">{{ AppText.header.schools_history | language }}</li>
             <li ng-repeat="school in $rootScope.schoolsHistory | notCurrentSchool:$stateParams.schoolId" ng-click="schoolNav( school.id )"><a ng-bind="school.name"></a></li>
             <li class="divider"></li>
@@ -55,7 +55,7 @@
               <a ng-click="adminNav()">Tags Admin</a>
             </li>
             <li class="divider" ng-show="security.currentUser.admin"></li>
-            <li ng-show="security.isConfirmedUser()"><a ng-click="campusAuthenticationNav()">{{ AppText.header.my_authorizations | language }}</a></li>
+            <li ng-show="security.isConfirmedUser() && !security.currentUser.schools.length > 0"><a ng-click="campusAuthenticationNav()">{{ AppText.header.my_authorizations | language }}</a></li>
             <li ng-show="security.isAuthenticated()"><a ng-click="logout()">{{ AppText.header.logout | language }}</a></li>
           </ul>
         </li>
