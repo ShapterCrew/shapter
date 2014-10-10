@@ -27,7 +27,13 @@ angular.module('shapter.confirmationSent', [
   });
 }])
 
-.controller('ConfirmationSentCtrl', ['$scope', 'AppText', 'security', 'User', function( $scope, AppText, security, User ){
+.controller('ConfirmationSentCtrl', ['$scope', 'AppText', 'security', 'User', '$location', function( $scope, AppText, security, User, $location ){
+  if( !security.isAuthenticated()) {
+    $location.path( '/start' );
+  }
+  $scope.$on('logout', function(){
+    $location.path("/start");
+  });
   security.requestCurrentUser().then( function( response ){
     if( security.isConfirmedUser()){
       security.redirect();
@@ -44,7 +50,7 @@ angular.module('shapter.confirmationSent', [
   };
 }])
 
-.controller('NewConfirmationCtrl', ['$scope', 'User', 'security', function( $scope, User, security){
+.controller('NewConfirmationCtrl', ['$scope', 'User', 'security', function( $scope, User, security ){
   $scope.newConfirmationEmail = function(){
     User.newConfirmationEmail( security.currentUser.email ).then( function( response ){
       $scope.successResent = true;

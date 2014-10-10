@@ -46,6 +46,10 @@ angular.module( 'shapter.campusAuthentication', [
   };
   $scope.clearAlerts();
 
+  $scope.$on('logout', function(){
+    $location.path("/start");
+  });
+
   $scope.selectCampus = function(){
     if( $scope.newAuthorization.school.name == 'Dauphine' || $scope.newAuthorization.school.name == 'ENSMA' ){
       $scope.hideEmail = true;
