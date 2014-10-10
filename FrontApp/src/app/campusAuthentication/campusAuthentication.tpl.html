@@ -89,6 +89,9 @@
           <div class="form-group clearfix" ng-show="newAuthorization.school && !hideEmail">
             <button type="submit" class="btn btn-success pull-right" ng-click="submitAuthorization()">{{ AppText.campus_authentication.receive_confirmation | language }}</button>
           </div>
+          <div class="form-group clearfix" ng-show="newAuthorization.school && hideEmail">
+            <button type="submit" class="btn btn-success pull-right" ng-click="submitAuthorization()">{{ AppText.system.validate | language }}</button>
+          </div>
         </form>
 
         <div style="margin-top: 50px">

@@ -257,9 +257,8 @@ angular.module( 'resources.user', [
 
     openSchoolAuth: function( school ){
       //schoolid
-      return Restangular.one('users', 'me').customPOST({schoolId: school.id}, 'confirmed_open_student'); 
+      return Restangular.one('users', 'me').customPOST({school_id: school.id}, 'confirm_open_student'); 
     }
-
 
   };
 
