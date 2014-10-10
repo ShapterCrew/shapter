@@ -65,7 +65,11 @@ angular.module('resources.tag', [
           }
         }
       };
-      return Restangular.one( 'tags', id ).customPOST( params );
+      return Restangular.one( 'tags', id ).customPOST( params ).then( function( response ){
+        return response;
+      }, function( error ){
+        return error;
+      });
     },
 
     deleteTag: function( tag ){

@@ -77,17 +77,30 @@ angular.module( 'shapter', [
     localStorageServiceProvider.setPrefix('shapter');
 }])
 
-.run(['localStorageService', '$window', function( localStorageService, $window ){
+.run(['localStorageService', '$window', '$rootScope', '$state', function( localStorageService, $window, $rootScope, $state ){
   if( localStorageService.get('back url')){
     var url = '#' + localStorageService.get('back url');
     localStorageService.remove('back url');
-    $window.location.href = url;
+    $rootScope.$apply( function(){
+      $window.location.assign(url);
+      $state.reload();
+    });
   }
 }])
 
 .run(['ENV', function( ENV ){
-  mixpanel.init( ENV.mixpanel_id );
-  behave.init( ENV.behave_api_token );
+  try {
+    mixpanel.init( ENV.mixpanel_id );
+  }
+  catch( err ){
+    console.log( err );
+  }
+  try {
+    behave.init( ENV.behave_api_token );
+  } 
+  catch( err ){
+    console.log( err );
+  }
 }])
 
 .run(['security', function( security ){

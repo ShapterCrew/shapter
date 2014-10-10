@@ -7,12 +7,14 @@ angular.module('security.service', [
   'services.localizedMessages'
 ])
 
-.factory('security', ['Analytics', '$http', '$q', '$location', 'securityRetryQueue', '$modal', 'Restangular', 'alerts', '$rootScope', '$timeout', 'localizedMessages', 'Behave', function( Analytics, $http, $q, $location, queue, $modal, Restangular, alerts, $rootScope, $timeout, localizedMessages, Behave ) {
+.factory('security', ['Analytics', '$http', '$q', '$location', 'securityRetryQueue', '$modal', 'Restangular', 'alerts', '$rootScope', 'localizedMessages', 'Behave', function( Analytics, $http, $q, $location, queue, $modal, Restangular, alerts, $rootScope, localizedMessages, Behave ) {
 
   // Redirect to the given url (defaults to '/')
   function redirect(url) {
     var string = "";
 
+    console.log('current user:');
+    console.log( service.currentUser );
     if( !!service.isConfirmedStudent() ){
 
       var schoolId = service.currentUser.schools[0].id;
@@ -64,8 +66,10 @@ angular.module('security.service', [
     });
 
     loginModal.result.then(function(success){
+      console.log( 'close success' );
       onLoginModalClose(success, access);
     }, function(error){
+      console.log( 'close error' );
       loginModal = null;
       queue.cancelAll();
       //redirect();
@@ -79,6 +83,7 @@ angular.module('security.service', [
   }
 
   function onLoginModalClose(success, access) {
+    console.log( 'on login modal close' );
     loginModal = null;
     if ( success ) {
       console.log( "retrying queue" );
@@ -142,6 +147,8 @@ angular.module('security.service', [
   // The public API of the service
   var service = {
 
+    redirect: redirect,
+
     isLoginModalOpen: function(){
       return !!loginModal;
     },
@@ -167,6 +174,7 @@ angular.module('security.service', [
           entities: {
             user: {
               admin: true,
+              email: true,
               comments: false,
               comments_count: true,
               comments_dislikes_count: true,
@@ -219,11 +227,14 @@ angular.module('security.service', [
 
           // has an account but email not confirmed
           else if ( service.isAuthenticated() && !service.isConfirmedUser() ) {
+            closeEmailLoginModal(true);
+            /*
             alerts.add("danger", {
               fr: "Tu dois confirmer ton adresse : un mail t'a été envoyé, clique sur le lien d'activation qu'il contient !",
               en: "Sorry, you need to activate your account first. An activation email has been sent to you : click on the activation link it contains."
             });
-            return {success: false};
+            */
+            return {success: true};
           }
 
           // has no account
@@ -252,7 +263,7 @@ angular.module('security.service', [
 
     // Give up trying to login and clear the retry queue
     cancelLogin: function() {
-      closeLoginModal(false);
+      closeEmailLoginModal(false);
       Analytics.cancelLogin();
       //redirect();
     },
@@ -260,6 +271,7 @@ angular.module('security.service', [
     // Logout the current user and redirect
     logout: function(redirectTo) {
       return Restangular.all('users').customGET('sign_out').then(function() {
+        $rootScope.$broadcast('logout');
         alerts.clear();
         alerts.add("success", {
           fr: "Tu as bien été déconnecté !",
@@ -336,13 +348,16 @@ angular.module('security.service', [
       return Restangular.all('users')
       .customGET('confirmation', {"confirmation_token": activationToken})
       .then(function(response) {
+        console.log( 'confirmation success' );
+        console.log( response );
         redirect("/start");
         alerts.clear();
         alerts.add("success", {
           fr: "Ton adresse mail est bien confirmée ! Enjoy :)",
           en: "Your email has been confirmed. Enjoy Shapter !"
         });
-      }, function(response) {
+      }, function(error) {
+        console.log( 'confirmation error' );
         alerts.clear();
         alerts.add("danger", {
           fr:  "La confirmation de ton adresse mail a échoué. Si l'erreur persiste, contacte-nous par mail à teamshapter@gmail.com.",
@@ -425,7 +440,13 @@ angular.module('security.service', [
     requestCurrentUser: function() {
       if ( service.isAuthenticated() ) {
         return $q.when(service.currentUser).then(function( response ){
+          try {
           behave.identify(service.currentUser.id, {name: service.currentUser.firstname + " " + service.currentUser.lastname});
+          }
+          catch( err ){
+            console.log( 'behave error' );
+            console.log( err );
+          }
           //Behave.identify(service.currentUser);
           Analytics.identify( service.currentUser );
         });
@@ -435,6 +456,7 @@ angular.module('security.service', [
           entities: {
             user: {
               "admin": true,
+              "email": true,
               "comments": false,
               "comments_count": true,
               "comments_dislikes_count": true,
@@ -459,7 +481,13 @@ angular.module('security.service', [
         };
 
         return Restangular.all('users').customPOST(params, 'me' ).then(function(response) {
-          behave.identify(response.id, {name: response.firstname + " " + response.lastname});
+          try {
+            behave.identify(response.id, {name: response.firstname + " " + response.lastname});
+          }
+          catch( err ){
+            console.log( 'behave error' );
+            console.log( err );
+          }
 
           service.currentUser = response;
 
@@ -481,6 +509,22 @@ angular.module('security.service', [
     // Is the current user authenticated?
     isAuthenticated: function(){
       return !!service.currentUser;
+    },
+
+    hasTestSchool: function(){
+      var nameInSchools = function( name ){
+        return service.currentUser.schools.map( function( school ){
+          return school.name == name;
+        }).reduce( function( oldVal, newVal ){
+          return oldVal || newVal;
+        }, false);
+      };
+      var list = [ 'ENSMA', 'Dauphine' ];
+      return list.map( function( school ){
+        return nameInSchools( school );
+      }).reduce( function( oldVal, newVal ){
+        return oldVal || newVal;
+      }, false);
     },
 
     isConfirmedUser: function(){

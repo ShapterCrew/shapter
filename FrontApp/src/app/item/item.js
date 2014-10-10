@@ -60,6 +60,7 @@ angular.module('shapter.item', [
 }])
 
 .run( ['$location', '$rootScope', 'itemFactory', function( $location, $rootScope, itemFactory ){
+  console.log( 'item run running !');
   $rootScope.$watch( function(){
     return $location.search().item;
   }, function( newVal, oldVal ){
@@ -222,6 +223,23 @@ angular.module('shapter.item', [
   $scope.$on('login success', function(){
     item.loadComments();
   });
+
+  var nav = function( path ){
+    $location.path( path ).search( 'filter', null ).search( 'categories', null).search('item', null);
+  };
+  $scope.campusAuthenticationNav = function(){
+    var schoolId;
+    if( $stateParams.schoolId ){
+      nav("/schools/" + $stateParams.schoolId + "/campusAuthentication");
+    }
+    else if ( security.isConfirmedStudent() ){
+      schoolId = security.currentUser.schools[0].id;
+      nav("/schools/" + schoolId + "/campusAuthentication");
+    }
+    else {
+      nav("/campusAuthentication");
+    }
+  };
 
   facebookData = {
     permalink: '#/start?item=' + item.id,

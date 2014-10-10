@@ -55,37 +55,47 @@ class FormationPage
     Tag.any_in(id: tag_ids)
   end
 
+  def item_ids
+    Rails.cache.fetch("frmPgeitm_ids|#{cache_id}|#{tags.max(:updated_at).try(:utc).try(:to_s, :number)}", expires_in: 3.hours) do 
+      tags.distinct(:item_ids)
+    end
+  end
+
   def items
-    Rails.cache.fetch("frmPgeitms|#{cache_id}|#{tags.max(:updated_at).try(:utc).try(:to_s, :number)}", expires_in: 3.hours) do 
-      tags.map(&:items).reduce(:&).uniq rescue []
+    Item.any_in(id: item_ids)
+  end
+
+  def student_ids
+    Rails.cache.fetch("frmPgeStdt_ids|#{cache_id}|#{items.max(:updated_at).try(:utc).try(:to_s, :number)}", expires_in: 3.hours) do 
+      items.distinct(:subscriber_ids)
     end
   end
 
   def students
-    Rails.cache.fetch("frmPgeStdts|#{cache_id}|#{Item.any_in(id: items.map(&:id)).max(:updated_at).try(:utc).try(:to_s, :number)}", expires_in: 3.hours) do 
-      User.any_in(item_ids: items.map(&:id))
+    Rails.cache.fetch("frmPgeStdts|#{cache_id}|#{items.max(:updated_at).try(:utc).try(:to_s, :number)}", expires_in: 3.hours) do 
+      User.any_in(id: student_ids)
     end
   end
 
   def students_count
-    students.count
+    student_ids.count
   end
 
   def sub_formations
     Rails.cache.fetch("frmPgeSbFrmtn|#{cache_id}|#{Tag.max(:updated_at).try(:utc).try(:to_s, :number)}", expires_in: 3.hours) do 
-      (Tag.where(category: :formation) & items.flat_map(&:tags)).reject{|t| tag_ids.include?(t.id)}
+      Tag.where(category: :formation).any_in(id: items.distinct(:tag_ids)).not.any_in(id: tag_ids)
     end
   end
 
   def sub_choices
     Rails.cache.fetch("frmPgeSbChcs|#{cache_id}|#{Tag.max(:updated_at).try(:utc).try(:to_s, :number)}", expires_in: 3.hours) do 
-      (Tag.where(category: :choice) & items.flat_map(&:tags)).reject{|t| tag_ids.include?(t.id)}
+      Tag.where(category: :choice).any_in(id: items.distinct(:tag_ids)).not.any_in(id: tag_ids)
     end
   end
 
   def sub_departments
     Rails.cache.fetch("frmPgeSbDprtmnt|#{cache_id}|#{Tag.max(:updated_at).try(:utc).try(:to_s, :number)}", expires_in: 3.hours) do 
-      (Tag.where(category: :department) & items.flat_map(&:tags)).reject{|t| tag_ids.include?(t.id)}
+      Tag.where(category: :department).any_in(id: items.distinct(:tag_ids)).not.any_in(id: tag_ids)
     end
   end
 
@@ -98,7 +108,7 @@ class FormationPage
   end
 
   def best_comments(n=5)
-    Rails.cache.fetch("bestCmmt|#{cache_id}|#{Item.any_in(id: items.map(&:id)).max(:updated_at).try(:utc).try(:to_s, :number)}", expires_in: 3.hours) do 
+    Rails.cache.fetch("bestCmmt|#{cache_id}|#{items.max(:updated_at).try(:utc).try(:to_s, :number)}", expires_in: 3.hours) do 
       self.items
       .select{|i| [i.comments.map(&:author_id) & i.diagrams.map(&:author_id)].any?}
       .select{|i| i.diagrams.count > 1}

@@ -6,6 +6,9 @@ angular.module('shapter.header', ['directives.confirmAlert', 'directives.behaveA
     templateUrl: 'header/header.tpl.html',
     link: function(scope, element, attr){
 
+      var nav = function( path ){
+        $location.path( path ).search( 'filter', null ).search( 'categories', null);
+      };
 
       scope.$stateParams = $stateParams;
       scope.$state = $state;
@@ -42,77 +45,77 @@ angular.module('shapter.header', ['directives.confirmAlert', 'directives.behaveA
       };
 
       scope.campusAuthorizationNav = function(){
+        console.log( 'lol' );
         $location.path("/campusAuthentication");
       };
 
       scope.browseNav = function(){
         var schoolId = $stateParams.schoolId ? $stateParams.schoolId : security.currentUser.schools[0].id;
-        $location.path("/schools/" + schoolId + "/browse").search( 'filter', null ).search( 'categories', null).search( 'nav', null ).search('state', null);
+        nav("/schools/" + schoolId + "/browse");
       };
 
       scope.peopleNav = function(){
-        $location.path("/people").search( 'filter', null ).search( 'categories', null).search('state', null);
+        nav("/people");
       };
 
       scope.profileNav = function(){
-        $location.path("/student/" + scope.security.currentUser.id).search( 'filter', null ).search( 'categories', null).search('state', null);
-      };
-
-      scope.courseBuilderNav = function(){
-        $location.path("/courseBuilder").search('state', null);
+        nav("/student/" + scope.security.currentUser.id);
       };
 
       scope.campusAuthenticationNav = function(){
-        $location.path("/campusAuthentication").search('filter', null).search('categories', null).search('state', null);
+        var schoolId;
+        if( $stateParams.schoolId ){
+          nav("/schools/" + $stateParams.schoolId + "/campusAuthentication");
+        }
+        else if ( security.isConfirmedStudent() ){
+          schoolId = security.currentUser.schools[0].id;
+          nav("/schools/" + schoolId + "/campusAuthentication");
+        }
+        else {
+          nav("/campusAuthentication");
+        }
       };
 
       scope.home = function(){
         var id = $stateParams.schoolId;
         if( id ){
-          $location.path("/schools/" + id ).search('state', null);
+          nav("/schools/" + id );
         }
       };
 
 
       scope.schoolNav = function( id ){
         if( id ){
-          $location.path("/schools/" + id ).search( 'filter', null ).search( 'categories', null).search('state', null);
+          nav("/schools/" + id );
         }
         else if( $stateParams.schoolId ){
-          $location.path("/schools/" + $stateParams.schoolId ).search( 'filter', null ).search( 'categories', null).search('state', null);
+          nav("/schools/" + $stateParams.schoolId );
         }
         else if( security.currentUser.schools.length ){
-          $location.path("/schools/" + security.currentUser.schools[0].id ).search( 'filter', null ).search( 'categories', null).search('state', null);
+          nav("/schools/" + security.currentUser.schools[0].id );
         }
       };
 
       scope.contributeNav = function(){
         var id = $stateParams.schoolId ? $stateParams.schoolId : ( security.currentUser.schools.length ? security.currentUser.schools[0].id : null );
         if ( id ){
-          $location.path("/schools/" + id + "/contribute").search( 'filter', null ).search( 'categories', null).search('state', null);
+          nav("/schools/" + id + "/contribute");
         }
       };
 
       scope.schoolsNav = function(){
-        $location.path("/schools").search( 'filter', null ).search( 'categories', null).search('state', null);
-      };
-
-      scope.cursusNav = function(){
-        var schoolId = $stateParams.schoolId ? $stateParams.schoolId : ( security.isConfirmedStudent() ? security.currentUser.schools[ 0 ].id : null );
-        if( schoolId ){
-          $location.path("/schools/" + schoolId + "/cursus").search( 'filter', null ).search( 'categories', null).search('state', null);
-        }
+        nav("/schools");
       };
 
       scope.sfNav = function(){
         var schoolId = $stateParams.schoolId ? $stateParams.schoolId : ( security.isConfirmedStudent() ? security.currentUser.schools[ 0 ].id : null );
         if( schoolId ){
-          $location.path("/schools/" + schoolId + "/signupFunnel").search( 'filter', null ).search( 'categories', null).search('state', null);
+          nav("/schools/" + schoolId + "/signupFunnel");
         }
       };
 
       scope.adminNav = function(){
-        $location.path("/admin").search('state', null);
+        nav("/admin");
       };
     }
   };

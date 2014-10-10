@@ -14,7 +14,6 @@
                     {{ item.name }}<small sh-edit-item-tags-modal="item" class="glyphicon glyphicon-pencil" ng-hide="true"></small>
                   </span>
                 </h3>
-
               </div>
               <div class="padding-well bordered-well" ng-hide="true">
                 <ul class="list-inline stats-list" style="margin-bottom: 0px">
@@ -176,13 +175,9 @@
                   </ul>
                 </div>
               </div>
-
               <div class="padding-well" ng-repeat="comment in item.comments | filter: {content: '!hidden'} | reverse" style="margin-bottom: 1px">
                 <div sh-comment close="close()" comment="comment" display-student-name="true" current-user="security.currentUser" comments='item.comments'></div>
               </div>
-
-
-
             </div><!-- col -->
 
             <div class="col-md-4 no-padding-left-col">

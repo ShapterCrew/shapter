@@ -5,10 +5,12 @@
     <div class="container">
       <div class="row">
         <div class="col-md-10 col-md-offset-1">
-          <div class="padding-well">
-            <p ng-bind="AppText.contribute.contribute_not_student | language"></p>
-            <a ng-hide="security.isConfirmedUser()" href="" ng-click="security.showLogin('login_needed_to_contribute')" class="btn btn-info">{{ AppText.contribute.go_identify | language }}</a>
-            <a ng-show="security.isConfirmedUser()" href="#/campusAuthentication" class="btn btn-info">{{ AppText.contribute.go_identify | language }}</a>
+          <div class="row">
+            <div class="col-md-6">
+              <p ng-bind="AppText.contribute.contribute_not_student | language"></p>
+              <a ng-hide="security.isConfirmedUser()" href="" ng-click="security.showLogin('login_needed_to_contribute')" class="btn btn-info">{{ AppText.contribute.go_identify | language }}</a>
+              <a ng-show="security.isConfirmedUser()" href="" ng-click="campusAuthenticationNav()" class="btn btn-info">{{ AppText.contribute.go_identify | language }}</a>
+            </div>
           </div>
         </div>
       </div>
@@ -27,7 +29,8 @@
           </div>
 
           <div class="col-md-10 col-md-offset-1">
-            <div class="padding-well" ng-repeat="item in commentPipe.commentable_items" style="margin-bottom: 30px; padding: 20px 30px">
+            <div ng-show="security.hasTestSchool()" class="h2 center bold text-orange" style="margin-bottom: 30px; margin-top: 20px">Fais ressortir les meilleurs cours :-)</div>
+            <div class="shapter-well" ng-repeat="item in commentPipe.commentable_items" style="margin-bottom: 30px">
 
               <div class="">
                 <!--

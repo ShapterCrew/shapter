@@ -21,7 +21,7 @@ angular.module('shapter.usersConfirmation', [])
   }
   else {
     alerts.clear();
-    alerts.add("error", "La confirmation de ton adresse mail a échouée. N'hésite pas à nous contacter à teamshapter@gmail.com si le problème persiste.");
+    alerts.add("error", "La confirmation de ton adresse mail a échoué. N'hésite pas à nous contacter à teamshapter@shapter.com si le problème persiste.");
     $location.url("/start");
   }
 

@@ -18,48 +18,11 @@ angular.module('shapter.startpage', [
 
 .controller('StartPageCtrl', ['Analytics', '$scope', '$location', '$anchorScroll', '$http', 'security', '$window', 'AppText', function(Analytics, $scope, $location, $anchorScroll, $http, security, $window, AppText ){
 
+  console.log('startpage');
   $scope.AppText = AppText;
   $scope.security = security;
-  $scope.startpageRedirect = function(){
-    // has at least one school
-    if( security.isConfirmedStudent() ){
-      var schoolId = security.currentUser.schools[0].id;
-      // if first connexion
-      if( ( security.currentUser.provider == 'facebook' && security.currentUser.sign_in_count < 2 ) || ( security.currentUser.provider != 'facebook' && security.currentUser.sign_in_count < 3) ){
-        $location.path("/schools/" + schoolId + '/signupFunnel');
-      }
-      // else
-      else{
-        $location.path( "/schools/" + schoolId );
-      }
-    }
-
-    // has no school but confirmed email
-    else if ( security.isConfirmedUser() ) {
-
-      // if first connexion
-      if( ( security.currentUser.provider == 'facebook' && security.currentUser.sign_in_count < 2 ) || ( security.currentUser.provider != 'facebook' && security.currentUser.sign_in_count < 3) ){
-        $location.path("/campusAuthentication");
-      }
-
-      // else
-      else {
-        $location.path("/schools");
-      }
-
-      Analytics.identify( security.currentUser );
-      Analytics.loginSuccess( security.currentUser );
-      return {success: true};
-    }
-
-    // has an account but email not confirmed 
-    else if ( security.isAuthenticated() && security.isConfirmedUser() ){
-      $location.path("/confirmationSent");
-    }
-  };
-
   security.requestCurrentUser().then( function(){
-     $scope.startpageRedirect();
+    security.redirect();
   }, function(x){
     console.log( x );
   });
@@ -77,7 +40,7 @@ angular.module('shapter.startpage', [
   };
 
   $scope.$on('login success', function(){
-    $scope.startpageRedirect();
+    security.redirect();
   });
 
   $scope.emailLogin = function(){
@@ -89,7 +52,7 @@ angular.module('shapter.startpage', [
     $anchorScroll();
   };
 
-  $scope.feedbacks = [
+  $scope.feedback = [
     {
     text: "Je me tue à obtenir des infos en demandant à droite à gauche pour les stages, les options, et c\'est un boulot qui prend un temps de folie. Rien de mieux qu\'un site pour synthétiser tout ça !"
   },
