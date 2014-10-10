@@ -28,7 +28,7 @@ angular.module( 'shapter.campusAuthentication', [
 }])
 
 
-.controller("CampusAuthenticationCtrl", ['$scope', 'School', '$location', 'User', 'Analytics', '$stateParams', function( $scope, School, $location, User, Analytics, $stateParams ){
+.controller("CampusAuthenticationCtrl", ['$scope', 'School', '$location', 'User', 'Analytics', '$stateParams', 'security', function( $scope, School, $location, User, Analytics, $stateParams, security ){
 
   Analytics.campusAuthorizationModule();
   School.index().then( function( response ){
