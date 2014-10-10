@@ -52,7 +52,7 @@ angular.module('shapter.startpage', [
     $anchorScroll();
   };
 
-  $scope.feedbacks = [
+  $scope.feedback = [
     {
     text: "Je me tue à obtenir des infos en demandant à droite à gauche pour les stages, les options, et c\'est un boulot qui prend un temps de folie. Rien de mieux qu\'un site pour synthétiser tout ça !"
   },

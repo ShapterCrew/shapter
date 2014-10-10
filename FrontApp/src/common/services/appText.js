@@ -178,8 +178,8 @@ angular.module( 'services.appText', [])
         en: 'The courses you\'ll like',
         fr: 'Choisis les cours que tu vas aimer'
       },
-      benefit_from_feedbacks: {
-        en: 'Choose wisely thanks to alumni feedbacks',
+      benefit_from_feedback: {
+        en: 'Choose wisely thanks to alumni feedback',
         fr: 'Profite de l\'expérience des anciens pour mieux choisir'
       },
       share_your_experience: {
@@ -394,7 +394,7 @@ angular.module( 'services.appText', [])
         en: 'documents have been posted',
         fr: 'documents'
       },
-      gave_feedbacks: {
+      gave_feedback: {
         en: 'comments',
         fr: 'commentaires'
       },
@@ -593,7 +593,7 @@ angular.module( 'services.appText', [])
         fr: 'Je suis étudiant'
       },
       contribute_infos: {
-        en: 'There are not enough feedbacks on those classes to help next generation with their choices. Share your experience: there is always something to tell about a class!',
+        en: 'There are not enough feedback on those classes to help next generation with their choices. Share your experience: there is always something to tell about a class!',
         fr: 'On manque de contenu sur ces cours pour aider les suivants à choisir correctement. Partage ton expérience, il y a toujours quelque chose à raconter sur un cours !'
       },
       new_classes: {
@@ -636,8 +636,8 @@ angular.module( 'services.appText', [])
         en: 'Feel free to give a hand! :-)',
         fr: 'File un coup de main ! :-)'
       },
-      not_enough_feedbacks_on: {
-        en: 'There are not enough feedbacks on ',
+      not_enough_feedback_on: {
+        en: 'There are not enough feedback on ',
         fr: 'Il n\'y a pas assez d\'avis sur'
       },
       edit_your_diagram: {
