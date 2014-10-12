@@ -62,6 +62,13 @@ angular.module('shapter.header', ['directives.confirmAlert', 'directives.behaveA
         nav("/student/" + scope.security.currentUser.id);
       };
 
+      scope.cursusNav = function(){
+        var schoolId = $stateParams.schoolId ? $stateParams.schoolId : ( security.currentUser.isConfirmedStudent() ? security.currentUser.schools[0].id : null);
+        if( schoolId ){
+          nav("/schools/" + schoolId + "/cursus");
+        }
+      };
+
       scope.campusAuthenticationNav = function(){
         var schoolId;
         if( $stateParams.schoolId ){

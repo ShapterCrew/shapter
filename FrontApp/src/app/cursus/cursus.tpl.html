@@ -6,7 +6,6 @@
   <div ng-show="$location.search().state == 'addingInternship'">
     <div class="row">
       <div class="col-md-8 col-md-offset-2">
-        <div class="text-turquoise" ng-click="cancelAddBox()"><span class="fa fa-arrow-left"></span> {{ AppText.system.back | language }}</div>
         <div class="padding-well">
           <div ng-repeat="internship in [ newInternship ]">
             <sh-add-internship close="cancelAddBox()"></sh-add-internship>
@@ -25,8 +24,6 @@
             <span ng-bind="AppText.cursus.add_step | language"></span> <span ng-bind="boxes[ 0 ].name"></span><span ng-bind="AppText.system.question_mark | language"></span>
           </div>
         </div>
-      </div>
-      <div class="col-md-8 col-md-offset-2">
         <div class="add-box">
           <div class="row">
             <!-- add courses -->
@@ -41,17 +38,17 @@
             </div>
             <!-- add internship -->
             <div class="col-sm-6">
-              <div ng-repeat="suggestion in internshipsSuggestions" class="box-suggestion box-suggestion-blue" ng-click="displayAddInternship( suggestion )">
+              <div class="box-suggestion box-suggestion-blue" ng-click="displayAddInternship()">
                 <span class="fa fa-stack" style="text-align: center">
                   <span class="fa fa-circle fa-stack-2x"></span>
                   <span class="fa fa-plus fa-stack fa-inverse"></span>
                 </span>
-                {{ suggestion.name }}
+                {{ AppText.cursus.an_internship | language }}
               </div>
             </div>
           </div><!-- row -->
         </div><!-- add-box -->
-        <div class="box" style="padding-top: 11px; padding-bottom: 12px">
+        <div class="box" style="padding-top: 11px; padding-bottom: 12px" ng-hide="true">
           <div class="row">
             <div class="col-sm-8">
               <div class="box-suggestion box-suggestion-other" ng-click="">
@@ -67,8 +64,6 @@
           </div>
         </div>
       </div>
-    </div>
-    <div class="row">
       <div class="col-md-8 col-md-offset-2">
         <div><!-- wrapper to use first-child selecotr on first first-of-a-school -->
           <div ng-repeat="box in boxes | orderBy: 'start_date': true" ng-class="{'first-of-a-school': firstOfASchool( $index, boxes, box)}">
@@ -97,8 +92,8 @@
                     </div><!-- box-tags -->
                     <div ng-show="box.type=='items'" class="box-classes">
                       <div ng-repeat="item in box.items" class="item-in-box">
-                        <span class="" sh-item-modal="item" itemsList="box.items" number-of-items="box.items.length" load-more-items="">{{ item.name }} - <small class="text-bittersweet">{{ AppText.system.display | language }}</small></span>
-                        <span class="pull-right">
+                        <span class="" sh-item-modal="item" itemsList="box.items" number-of-items="box.items.length" load-more-items="">{{ item.name }} - <small class="text-turquoise">{{ AppText.system.display | language }}</small></span>
+                        <span class="pull-right" ng-show="item.current_user_has_comment">
                           <span class="badge badge-info">
                             <span class="fa fa-comment text-white"></span>
                           </span>

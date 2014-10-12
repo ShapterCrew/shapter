@@ -1467,6 +1467,10 @@ angular.module( 'services.appText', [])
       }
     },
     cursus: {
+      an_internship: {
+        en: 'An internship',
+        fr: 'Un stage'
+      },
       classes: {
         en: 'classes',
         fr: 'cours'

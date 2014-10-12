@@ -272,7 +272,22 @@ angular.module( 'resources.user', [
             "name": true
           },
           item: {
-            "name": true
+            "name": true,
+            "this_user_has_comment": true,
+            "current_user_has_comment": true
+          },
+          internship: {
+            "address": true,
+            "description": true,
+            "duration": true,
+            "end_date": true,
+            "in_progress": true,
+            "lat": true,
+            "lng": true,
+            "start_date": true,
+            "tags": true,
+            "title": true,
+            "trainee": false
           }
         }
       };

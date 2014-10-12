@@ -1,16 +1,23 @@
 <div class="row">
-  <div class="col-md-10 col-md-offset-1">
-    <span class="text-turquoise" ng-click="cancelAddBox()"><span class="fa fa-arrow-left"></span>&nbsp; {{ AppText.system.back | language }}</span>
-
-    <div class="row">
-      <div class="col-md-4">
-        <div class="padding-well">
-          <div class="form-group">
-            <div class="h6 bold text-orange" style="margin-bottom: 0">Info</div>
-            <p style="margin-bottom: 0; margin-top: 0" class="bold text-blue">Pour reseigner cette étape de ton cursus, nous te proposons de sélectionner des cours référencés avec les mots-clefs suivants :</p>
-            <div>
-              <span class="text-asphalt" ng-repeat="tag in newBox.commonTags">{{ tag.name }}<span ng-hide="$last"> - </span></span>
-            </div>
+  <div class="col-md-8 col-md-offset-2">
+    <div class="padding-well" style="margin-top: 0px">
+      <div>
+        <span class="h2 bold text-turquoise" style="margin-bottom: 0">
+          <span ng-bind="newBox.name"></span>
+          <small>
+            <span class="fa-question fa" ng-click="displayInfos = !displayInfos"></span>
+        </small>
+        </span>
+      </div>
+    </div>
+    <div ng-show="displayInfos">
+      <div class="padding-well" style="margin-top: 0px; padding-top: 0px">
+        <div class="form-group">
+          <p style="margin-bottom: 0; margin-top: 0" class="bold text-blue">Pour reseigner cette étape de ton cursus, nous te proposons de sélectionner des cours référencés avec les mots-clefs suivants :</p>
+          <div>
+            <span class="tag" ng-repeat="tag in newBox.boxes[0].commonTags">{{ tag.name }}</span>
+          </div>
+          <div ng-hide="true">
             <p style="margin-bottom: 0; margin-top: 20px" class="bold text-blue">Pour spécifier la liste des cours proposés, certains utilisateurs ont ajouté d'autres mots-clefs que tu peux éventuellement ajouter aussi :</p>
             <div ng-repeat="box in newBox.boxes" class="suggestion-hover-blue" ng-click="addTagsFromBox( box )">
               <span class="text-asphalt" ng-repeat="tag in box.specificTags">{{ tag.name }}<span ng-hide="$last"> - </span></span>
@@ -18,50 +25,41 @@
           </div>
         </div>
       </div>
-      <div class="col-md-8">
-        <div class="padding-well">
-          <div>
-            <span class="h2 bold text-turquoise" ng-bind="newBox.name" style="margin-bottom: 0"></span> 
+    </div>
+    <div class="padding-well" ng-show="(newBox.boxes[0].commonTags.length + newBox.tags.length) > 0" style="margin-top: 0; padding-top: 0">
+
+      <div class="form-group">
+        <p style="margin-bottom: 10px; margin-top: 0px" class="h6 bold text-emerald">{{ AppText.cursus.select_classes | language }}</p>
+        <div ng-show="newBox.itemsLoading">{{ AppText.system.loading | language }} ...</div>
+        <div class="list-group">
+          <div class="list-group-item" style="border: 0; border-radius: 0" ng-repeat="item in newBox.items" ng-class="{'active': item.selected === true}" ng-click="item.selected = !item.selected">
+            <span class="fa" ng-class="{'fa-check-square-o': item.selected === true, 'fa-square-o': item.selected !== true}"></span>
+            &nbsp;
+            {{ item.name }}
           </div>
         </div>
-        <div class="padding-well" ng-show="newBox.tags.length" style="margin-top: 0; padding-top: 0">
+      </div>
 
-          <p style="margin-bottom: 0px; margin-top: 0" class="h6 bold text-emerald">{{ AppText.cursus.give_the_dates | language }}</p>
-          <div style="display: inline-block; position: relativ; margin: 5px;">
-            <p class="input-group">
-              <label>{{ AppText.cursus.start_date | language }} 
-              </label>
-              <input class="form-control" name="fstart" type="text" show-weeks="false" show-button-bar="false" datepicker-popup="dd/MM/yyyy" ng-model="newBox.start_date" is-open="openedBegin" ng-required="true" close-text="Close" editable="false" required/>
-            </p>
-          </div>
+      <p style="margin-bottom: 0px; margin-top: 0" class="h6 bold text-emerald">{{ AppText.cursus.give_the_dates | language }}</p>
+      <div style="display: inline-block; position: relativ; margin: 5px;">
+        <p class="input-group">
+          <label>{{ AppText.cursus.start_date | language }} 
+          </label>
+          <input class="form-control" name="fstart" type="text" show-weeks="false" show-button-bar="false" datepicker-popup="dd/MM/yyyy" ng-model="newBox.start_date" is-open="openedBegin" ng-required="true" close-text="Close" editable="false" required/>
+        </p>
+      </div>
 
-          <div style="display: inline-block; position: relative; margin: 5px;">
-            <p class="input-group">
-              <label>{{ AppText.cursus.end_date | language }}</label>
-              <input class="form-control" name="fend" type="text" show-weeks="false" show-button-bar="false" datepicker-popup="dd/MM/yyyy" ng-model="newBox.end_date" is-open="openedEnd" ng-required="true" close-text="Close" editable="false" required/>
-            </p>
-          </div>
-
-          <div class="form-group">
-            <span class="tag tag-orange" ng-repeat="tag in newBox.commonTags">{{ tag.name }}</span>
-            <span class="tag tag-orange" ng-repeat="tag in newBox.tags">{{ tag.name }}</span>
-          </div>
-
-
-          <div class="form-group" style="margin-top: 40px">
-            <p style="margin-bottom: 10px" class="h6 bold text-emerald">{{ AppText.cursus.select_classes | language }}</p>
-            <div ng-show="newBox.itemsLoading">{{ AppText.system.loading | language }} ...</div>
-            <div class="list-group">
-              <div class="list-group-item" style="border: 0; border-radius: 0" ng-repeat="item in newBox.items" ng-class="{'active': item.selected === true}" ng-click="item.selected = !item.selected">
-                <span class="fa" ng-class="{'fa-check-square-o': item.selected === true, 'fa-square-o': item.selected !== true}"></span>
-                &nbsp;
-                {{ item.name }}
-              </div>
-            </div>
-          </div>
-          <div class="clearfix form-group" ng-hide="newBox.itemsLoading || newBox.items.length === 0 || newBox.tags.length === 0">
-            <button class="pull-right btn btn-success" ng-click="addBox()" ng-disabled=" newBox.items.length === 0 || (newBox.items | filter: {'selected': true}).length === 0">{{ AppText.system.validate | language }}</button>
-          </div>
+      <div style="display: inline-block; position: relative; margin: 5px;">
+        <p class="input-group">
+          <label>{{ AppText.cursus.end_date | language }}</label>
+          <input class="form-control" name="fend" type="text" show-weeks="false" show-button-bar="false" datepicker-popup="dd/MM/yyyy" ng-model="newBox.end_date" is-open="openedEnd" ng-required="true" close-text="Close" editable="false" required/>
+        </p>
+      </div>
+      <div class="clearfix form-group" ng-hide="newBox.itemsLoading || newBox.items.length === 0 || (newBox.tags.length + newBox.commonTags.length ) === 0">
+        <div class="pull-right">
+          <button class="btn btn-warning" ng-click="cancelAddBox()">{{ AppText.system.cancel | language }}</button>
+          &nbsp;
+          <button class="btn btn-success" ng-click="addBox()" ng-disabled=" newBox.items.length === 0 || (newBox.items | filter: {'selected': true}).length === 0">{{ AppText.system.validate | language }}</button>
         </div>
       </div>
     </div>

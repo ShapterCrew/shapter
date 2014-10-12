@@ -49,7 +49,10 @@ angular.module( 'shapter.cursus', [
 
 .controller('CursusCtrl', ['$scope', 'schools', 'Tag', 'Item', '$stateParams', '$filter', 'AppText', 'followBoxModalFactory', 'School', '$location', 'ProfileBox', 'boxes', 'boxesRecommandations', function( $scope, schools, Tag, Item, $stateParams, $filter, AppText, followBoxModalFactory, School, $location, ProfileBox, boxes, boxesRecommandations ){
 
-  $scope.boxes = boxes;
+  $scope.boxes = boxes.map( function( box ){
+    box.unfolded = true;
+    return box;
+  });
   $scope.boxesRecommandations = boxesRecommandations;
   School.index().then( function( schools ){
     $scope.schools = schools.schools;
@@ -64,18 +67,20 @@ angular.module( 'shapter.cursus', [
   };
 
   $scope.addTagsFromBox = function( box ){
-    $scope.newBox.tags = box.tags;
+    console.log( $scope.newBox );
+    console.log( box );
+    $scope.newBox.tags = box.specificTags;
     $scope.loadSuggestionItems( $scope.newBox );
   };
 
   $scope.displayAddSuggestion = function( suggestion ){
     $location.search('state', 'addingBox');
-    var boxes = suggestion ? $filter('splitSharedTags')(suggestion.boxes) : [];
+    var boxes = $filter('splitSharedTags')(suggestion.boxes);
     $scope.newBox = {
       type: 'classes',
       name: suggestion ? suggestion.name : '',
+      commonTags: boxes[0].commonTags,
       boxes: boxes, 
-      commonTags: boxes.length ? boxes[0].commonTags : [],
       tags: [],
       items: []
     };
@@ -83,21 +88,28 @@ angular.module( 'shapter.cursus', [
   };
 
   $scope.displayAddInternship = function( suggestion ){
-    $scope.newInternship = {
-      type: suggestion.type
-    };
     $location.search('state', 'addingInternship' );
   };
 
   $scope.loadSuggestionItems = function( box ){
     var getIdsList = function( tags ){
       return tags.map( function( tag ){
-        return( tag.id );
-      });
+          return tag.id;
+      }).reduce( function( oldVal, newVal ){
+        if( !!newVal ){
+          oldVal.push( newVal );
+        }
+        return oldVal;
+      }, []);
     };
     box.itemsLoading = true;
-    var tags = box.commonTags;
-    tags.push( box.tags );
+    var tags = box.commonTags || [];
+    angular.forEach( box.tags, function( tag ){
+      if( !!tag && !!tag.id ){
+        tags.push( box.tag );
+      }
+    });
+    console.log( getIdsList( tags ) );
     Item.getListFromTags( getIdsList(tags), true ).then( function( response ){
       box.itemsLoading = false;
       box.items = response.items;
@@ -223,7 +235,7 @@ angular.module( 'shapter.cursus', [
     return array.map( function( tag ){
       return tagIsInArray( tag, intersection ) ? null : tag;
     }).reduce( function( oldVal, newVal ){
-      if( newVal !== null ){
+      if( !!newVal ){
         oldVal.push( newVal );
       }
       return oldVal;
