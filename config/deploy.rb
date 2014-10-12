@@ -1,6 +1,7 @@
 # config valid only for Capistrano 3.1
 #lock '3.2.0'
 
+set :whenever_identifier, ->{ "#{fetch(:application)}_#{fetch(:stage)}" }
 set :default_shell, "bash -l"
 
 set :application, 'shapter_api'
