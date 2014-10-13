@@ -7,30 +7,42 @@
   }
 }
 
+.reco-buttons {
+}
+
+.emerald-bordered {
+  //border: 1px solid @silver;
+}
+
 .btn-special {
+  & .btn {
+    width: 100%;
+    border-radius: 5px;
+  }
   border: 1px solid;
-  display: inline-block;
   border-radius: 5px;
-  padding: 3px;
-  &.btn-special-recommand {
-    border-color: @emerald-pastel-d2;
+  padding: 2px;
+  margin: 10px;
+  &.btn-special-recommend {
+    border-color: @silver;
     & .btn {
-      border-radius: 5px;
-      .button-variant(@btn-default-color, @emerald-pastel-d2, @emerald-pastel-d2, @emerald-pastel-d2);
+      .button-variant(@btn-default-color, @emerald-pastel-d2, @emerald-pastel, @emerald-pastel-d2);
+      &:extend( .btn-hg );
     }
   }
-  &.btn-special-norecommand {
-      border-color: @sunflower-d;
-      & .btn {
-        border-radius: 5px;
-        &:extend( .btn-sunflower-d );
-      }
-  }
-  &.btn-special-unrecommand {
-    border-color: @alizarin;
+  &.btn-special-norecommend {
+    border-color: @silver;
     & .btn {
-      border-radius: 5px;
-      &:extend( .btn-danger );
+      .button-variant(@btn-default-color, @sunflower-d, @sunflower, @sunflower);
+      &:extend( .btn-hg );
+    }
+  }
+  &.btn-special-unrecommend {
+    @unrecommend-button-color: @grapefruit; 
+    border-color: @silver;
+    & .btn {
+      &:extend( .btn-hg );
+      .button-variant(@btn-default-color, @unrecommend-button-color, lighten( @unrecommend-button-color, 8% ), @unrecommend-button-color);
     }
   }
 }

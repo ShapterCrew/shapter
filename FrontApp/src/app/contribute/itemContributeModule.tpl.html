@@ -1,14 +1,34 @@
-<div class="padding-well">
-  <div class="lead bold text-asphalt" style="margin-bottom: 10px">{{ item.name }}</div> 
-  <div class="btn-special btn-special-recommand">
-    <button class="btn btn-lg">Je recommande</button>
-  </div>
+<div class="padding-well emerald-bordered">
+  <div class="row">
+    <div class="col-md-12">
 
-  <div class="btn-special btn-special-unrecommand">
-    <button class="btn btn-lg">Je ne recommande pas</button>
-  </div>
+      <span class="pull-right" style="position: relative; top: 15px">
+        <span class="badge badge-grapefruit" ng-show="item.current_user_recommended == 1">
+          Déconseillé
+        </span>
+        <span class="badge badge-sunflower-d" ng-show="item.current_user_recommended == 2">
+          Ça dépend
+        </span>
+        <span class="badge badge-emerald" ng-show="item.current_user_recommended == 3">
+          Recommandé
+        </span>
+        <small ng-show="item.current_user_recommended" class="text-muted glyphicon glyphicon-remove" ng-click="item.current_user_recommended = null"></small>
+      </span>
 
-  <div class="btn-special btn-special-norecommand">
-    <button class="btn btn-lg">Ça dépend !</button>
+      <div class="h4 thin text-turquoise" style="margin: 15px 0px 20px 0px;">{{ item.name }}</div> 
+      <div class="reco-buttons" ng-hide="item.current_user_recommended">
+        <div class="btn-special btn-special-recommend">
+          <div class="btn" ng-click="item.current_user_recommended = 3">Je recommande</div>
+        </div>
+        <div class="btn-special btn-special-unrecommend">
+          <div class="btn" ng-click="item.current_user_recommended = 1">Je déconseille</div>
+        </div>
+        <div class="btn-special btn-special-norecommend">
+          <div class="btn" ng-click="item.current_user_recommended = 2">Ça dépend !</div>
+        </div>
+      </div>
+
+      <div ng-show="item.current_user_recommended" sytle="margin-left: 10px" sh-add-comment item="item"></div>
+    </div>
   </div>
 </div>
