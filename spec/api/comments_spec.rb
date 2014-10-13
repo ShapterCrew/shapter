@@ -162,12 +162,12 @@ describe Shapter::V7::Comments do
         @comment.dislikers.include?(@user).should be false
       end
 
-      it "should not add to dislikers when -1 and user doesn't belong to school" do 
-        put "items/#{@item.id}/comments/#{@comment.id}/score", :score => -1
-        @comment.reload
-        @comment.likers.include?(@user).should be false
-        @comment.dislikers.include?(@user).should be false
-      end
+      #it "should not add to dislikers when -1 and user doesn't belong to school" do 
+      #  put "items/#{@item.id}/comments/#{@comment.id}/score", :score => -1
+      #  @comment.reload
+      #  @comment.likers.include?(@user).should be false
+      #  @comment.dislikers.include?(@user).should be false
+      #end
 
       it "should add to dislikers when -1 and user belongs to school" do 
         t = FactoryGirl.create(:tag)
