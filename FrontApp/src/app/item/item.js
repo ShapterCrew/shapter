@@ -109,6 +109,7 @@ angular.module('shapter.item', [
       });
     },
     openModal: function( item, itemsList, loadMoreItems, numberOfItems ) {
+      item.loading = true;
       var modal =  $modal.open({
         templateUrl: 'item/itemModal.tpl.html',
         controller: 'itemModalCtrl',
@@ -155,7 +156,6 @@ angular.module('shapter.item', [
       element.bind('click', function (event) {
         if( scope.item.loading !== true ){
           scope.$apply( function(){
-            scope.item.loading = true;
             itemFactory.lastModals.unshift({ item: scope.item, itemsList: scope.itemsList, loadMoreItems: scope.loadMoreItems, numberOfItems: scope.numberOfItems});
 
             // in case id was already in url for some reason
@@ -167,6 +167,9 @@ angular.module('shapter.item', [
             Analytics.selectItem( scope.item );
           });
 
+        }
+        else {
+          console.log( 'was loading' );
         }
       });
     }
@@ -200,6 +203,9 @@ angular.module('shapter.item', [
 
 .controller('itemModalCtrl', ['$scope', 'item', 'itemsList', 'loadMoreItems',  'numberOfItems', '$window', '$modalInstance', '$location', '$q', 'Item', 'Analytics', 'security', 'editDiagramFactory', '$upload', '$http', 'AppText', 'itemFactory', '$stateParams', '$rootScope', '$filter', function($scope, item, itemsList, loadMoreItems, numberOfItems, $window, $modalInstance, $location, $q, Item, Analytics, security, editDiagramFactory, $upload, $http, AppText, itemFactory, $stateParams, $rootScope, $filter ) {
 
+  $scope.$apply( function(){
+    item.loading = false;
+  });
   $scope.$rootScope = $rootScope;
   item.open = true;
   $scope.AppText = AppText;

@@ -17,7 +17,8 @@ angular.module('resources.school', [
             "comments_count": true,
             "diagrams_count": true,
             "fill_rate": true,
-            "students_count": true
+            "students_count": true,
+            category: true
           },
           school: {
             "name": true,

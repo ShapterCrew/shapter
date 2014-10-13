@@ -1,0 +1,52 @@
+<div class="cursus-box">
+  <div class="cursus-box-folded">
+    <div class="row">
+      <div class="col-md-3" ng-show="displaySchool">
+        <div class="box-type" ng-class="{'internship-type': box.type == 'internship', 'classes-type': box.type == 'classes' && displaySchool}">
+          <span ng-show="box.type == 'internship'">
+            {{ box.company }}
+          </span>
+          <span ng-show="box.type == 'classes' && displaySchool">
+            <span  ng-repeat="tag in box.tags" ng-show="tag.category == 'school'">
+              {{ tag.name }}
+            </span>
+          </span>
+        </div>
+      </div>
+      <div class="col-md-9" ng-class="{'col-md-offset-3': !displaySchool}">
+        <div class="box-content" ng-click="box.unfolded = !box.unfolded">
+          <span class="badge badge-info">
+            <span ng-bind="box.start_date | date :'MMMM yy'"></span>
+            <span ng-show="box.start_date && box.end_date"> - </span>
+            <span ng-bind="box.end_date | date :'MMMM yy'"></span>
+          </span>
+          <span class="bold text-dark-blue">
+            <span>{{ box.title }}<span ng-show="box.type == 'classes'"> ({{ box.items.length || 0}})</span></span>
+          </span>
+        </div>
+      </div><!-- col -->
+    </div><!-- row -->
+  </div><!-- cursus box folded -->
+
+  <div class="cursus-box-unfolded" ng-show="box.unfolded === true">
+    <div class="row">
+      <div class="col-md-9 col-md-offset-3">
+        <div class="unfolded-internship italic" ng-show="box.description">
+          "{{ box.description }}"
+        </div>
+        <div ng-show="box.type == 'classes'">
+          <div class="item-in-box" ng-repeat="item in box.items">
+            <span class="pull-right">
+            <span style="margin: 0px 3px;" class="fa fa-comment text-sun" ng-show="item.current_user_comments_count > 0 "></span>
+            <span style="margin: 0px 3px;" class="icomoon-diagram text-sun" ng-show="item.current_user_has_diagram === true"></span>
+          </span>
+            <span sh-item-modal="item" items-list="box.items" class="">
+              {{ item.name }}
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div><!-- cursus box -->
+

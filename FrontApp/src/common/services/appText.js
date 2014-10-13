@@ -20,6 +20,10 @@ angular.module( 'services.appText', [])
       return $filter( 'language' )( $parse( code )( AppText.categories ));
     },
     internships: {
+      type: {
+        en: 'Internship type:',
+        fr: 'Type de stage :'
+      },
       internship_created: {
         en: 'Great, your internship has been created!',
         fr: 'Super, ton stage a bien été créé !'
@@ -745,8 +749,8 @@ angular.module( 'services.appText', [])
     },
     item: {
       want_more_comments: {
-        en: 'Want more comments? Ask your friends!',
-        fr: 'Tu veux plus de commentaires ? Demande autour de toi !'
+        en: 'The more feedbacks we have the better : help the community by asking around yourself!',
+        fr: 'Plus on a de commentaires mieux c\'est : aide la communauté en demandant autour de toi !'
       },
       ask_for_comments: {
         en: 'Ask for comments',
@@ -1214,8 +1218,8 @@ angular.module( 'services.appText', [])
         fr: 'Quelques étudiants de'
       },
       they_love_it: {
-        en: 'The five best courses: ',
-        fr: 'Les cinq meilleurs cours :'
+        en: 'Five courses they love: ',
+        fr: 'Cinq cours que les étudiants adorent :'
       },
       browse_all_courses: {
         en: 'All courses in',
@@ -1285,6 +1289,18 @@ angular.module( 'services.appText', [])
       }
     },
     system: {
+      back: {
+        en: 'back',
+        fr: 'retour'
+      },
+      display: {
+        en: 'Display',
+        fr: 'Afficher'
+      },
+      terminate: {
+        en: 'Terminate',
+        fr: 'Terminer'
+      },
       or: {
         en: 'or',
         fr: 'ou'
@@ -1343,6 +1359,14 @@ angular.module( 'services.appText', [])
       }
     },
     categories: {
+      internship: {
+        en: 'Internship',
+        fr: 'Stage'
+      },
+      classes: {
+        en: 'Classes',
+        fr: 'Cours'
+      },
       school: {
         en: 'School',
         fr: 'Établissement'
@@ -1440,6 +1464,96 @@ angular.module( 'services.appText', [])
       check_spam: {
         en: 'If you don\'t recieve the email, check your spam folder',
         fr: 'Si tu ne reçois rien, vérifie ton dossier de spams'
+      }
+    },
+    cursus: {
+      an_internship: {
+        en: 'An internship',
+        fr: 'Un stage'
+      },
+      classes: {
+        en: 'classes',
+        fr: 'cours'
+      },
+      select_classes: {
+        en: 'Select the classes you took: ',
+        fr: 'Sélectionne les cours que tu as suivis :'
+      },
+      step_name: {
+        en: 'Step name',
+        fr: 'Nom de l\'étape: '
+      },
+      courses_referenced_with_those_keywords: {
+        en: 'Those courses are referenced on Shapter with the following keywords: ',
+        fr: 'Les cours sont référencés sur Shapter avec les mots-clefs suivants :'
+      },
+      show_details: {
+        en: 'Show details',
+        fr: 'Voir les détails'
+      },
+      hide_details: {
+        en: 'Hide details',
+        fr: 'Masquer les détails'
+      },
+      give_the_dates: {
+        en: 'When did you take those classes ? (Approximative dates are OK)',
+        fr: 'Quand as-tu suivi ces cours ? (A peu près)'
+      },
+      load_more_suggestions: {
+        en: 'Load more suggestions',
+        fr: 'Voir plus de suggestions'
+      },
+      my_course: {
+        en: 'Your profile:',
+        fr: 'Ton cursus :'
+      },
+      electives: {
+        en: 'Elective classes',
+        fr: 'Cours à choisir'
+      },
+      common_classes: {
+        en: 'Core classes',
+        fr: 'Tronc commun'
+      },
+      start_date: {
+        en: 'Start date',
+        fr: 'Date de début'
+      },
+      end_date: {
+        en: 'End date',
+        fr: 'Date de fin'
+      },
+      something_else: {
+        en: 'I did something else!',
+        fr: 'J\'ai fait quelque chose d\'autre !'
+      },
+      another_internship: {
+        en: 'Another kind of internship',
+        fr: 'Un autre type de stage'
+      },
+      internship: {
+        en: 'Internship',
+        fr: 'Stage'
+      },
+      add_step: {
+        en: 'What did you do after',
+        fr: 'Qu\'est-ce que tu as fait après'
+      },
+      add_internship: {
+        en: 'Add an internship',
+        fr: 'Ajoute un stage'
+      },
+      courses: {
+        en: 'Add some courses',
+        fr: 'Ajoute des cours'
+      },
+      comment: {
+        en: 'comment',
+        fr: 'commentaire'
+      },
+      diagram: {
+        en: 'diagram',
+        fr: 'diagramme'
       }
     }
   };

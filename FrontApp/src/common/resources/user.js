@@ -255,6 +255,50 @@ angular.module( 'resources.user', [
       return Restangular.all('users').customPOST( {email: email, entities: entities}, 'schools_for' );
     },
 
+    profileBoxes: function( userId ){
+      var params = {
+        entities: {
+          profile_box: {
+            "end_date": true,
+            "internship": true,
+            "items": true,
+            "name": true,
+            "start_date": true,
+            "tags": true,
+            "type": true
+          },
+          tag: {
+            "category": true,
+            "name": true
+          },
+          item: {
+            "name": true,
+            "this_user_has_comment": true,
+            "current_user_has_comment": true
+          },
+          internship: {
+            "address": true,
+            "description": true,
+            "duration": true,
+            "end_date": true,
+            "in_progress": true,
+            "lat": true,
+            "lng": true,
+            "start_date": true,
+            "tags": true,
+            "title": true,
+            "trainee": false
+          }
+        }
+      };
+      return Restangular.one( 'users', userId ).customPOST( params, 'profile_boxes' ).then( function( response ){
+        return response.map( function( box ){
+          box.items = box.items ? Restangular.restangularizeCollection( {}, box.items, 'items', {}): null;
+          return box;
+        });
+      });
+    },
+
     openSchoolAuth: function( school ){
       //schoolid
       return Restangular.one('users', 'me').customPOST({school_id: school.id}, 'confirm_open_student'); 

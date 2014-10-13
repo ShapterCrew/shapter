@@ -1,6 +1,6 @@
-<div  ng-show="formation.sub_formations.length">
-  <div class="shapter-well">
-    <div class="lead bold text-dark-blue" style="margin: 30px 0px 5px 0px">Formations: </div>
+<div ng-show="formation.sub_formations.length">
+  <div class="padding-well">
+    <div class="lead bold text-dark-blue" style="margin: 0px">Formations: </div>
     <ul class="list-unstyled">
       <li class="student-li" ng-click="formationNav( subformation.id )" ng-repeat="subformation in formation.sub_formations | orderByAccent: 'name': false | limitTo: formationsLimit">{{ subformation.name }}</li>
       <li ng-show="formation.sub_formations.length > formationsLimit" ng-click="formationsLimit = 1000"><a class="text-info">{{ AppText.school.show_more | language }}</a></li>
@@ -8,9 +8,9 @@
   </div>
 </div>
 
-<div ng-show="formation.sub_choices.length">
-  <div class="shapter-well">
-    <div class="lead bold text-dark-blue" style="margin: 30px 0px 5px 0px">{{ AppText.school.electives | language }}</div>
+<div ng-show="formation.sub_choices.length" style="margin-top: 25px">
+  <div class="padding-well">
+    <div class="lead bold text-dark-blue" style="margin: 0px">{{ AppText.school.electives | language }}</div>
     <ul class="list-unstyled">
       <li class="student-li" ng-click="formationNav( subformation.id )" ng-repeat="subformation in formation.sub_choices | orderByAccent: 'name': false | limitTo: choiceLimit">{{ subformation.name }}</li>
       <li ng-show="formation.sub_choices.length > choicesLimit" ng-click="choicesLimit = 1000"><a class="text-info">{{ AppText.shchool.show_more | language }}</a></li>
@@ -18,9 +18,9 @@
   </div>
 </div>
 
-<div ng-show="formation.sub_departments.length">
-  <div class="shapter-well" ng-show="formation.sub_departments.length">
-    <div class="lead bold text-dark-blue" style="margin: 30px 0px 5px 0px">{{ AppText.school.fields_of_study | language }}</div>
+<div ng-show="formation.sub_departments.length" style="margin-top: 25px">
+  <div class="padding-well" ng-show="formation.sub_departments.length">
+    <div class="lead bold text-dark-blue" style="margin: 0px">{{ AppText.school.fields_of_study | language }}</div>
     <ul class="list-unstyled">
       <li class="student-li" ng-click="formationNav( subformation.id )" ng-repeat="subformation in formation.sub_departments | orderByAccent: 'name': false | limitTo: departmentsLimit | orderBy: 'name': false">{{ subformation.name }}</li>
       <li ng-show="formation.sub_departments.length > departmentsLimit" ng-click="departmentsLimit = 1000"><a class="text-info">{{ AppText.school.show_more | language }}</a></li>
@@ -28,9 +28,9 @@
   </div>
 </div>
 
-<div ng-show="formation.typicalUsers.length"> 
-  <div class="shapter-well">
-    <div class="lead bold text-dark-blue" style="margin: 30px 0px 5px 0px">{{ AppText.school.some_students | language }} {{ formation.name }} : </div>
+<div ng-show="formation.typicalUsers.length" style="margin-top: 25px"> 
+  <div class="padding-well">
+    <div class="lead bold text-dark-blue" style="margin: 0px">{{ AppText.school.some_students | language }} {{ formation.name }} : </div>
     <div class="media" ng-repeat="student in formation.typicalUsers">
       <a class="pull-left">
         <img src="assets/img/logo_silver_square.png" style="width: 40px" class="thumbnail" ng-hide="student.image">

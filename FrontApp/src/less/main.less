@@ -129,6 +129,7 @@
  * TODO: In a later version of this boilerplate, I'd like to automate this.
  */
 
+@import '../../src/app/cursus/cursus.less';
 @import '../../src/app/map/map.less';
 @import '../../src/common/directives/comment/comment.less';
 @import '../../src/app/header/header.less';
@@ -150,7 +151,8 @@
 html, body{
   height: 100%;
   width: 100%;
-  background-color: white;
+  //background-color: white;
+  background-color: @blue-clouds;
   //background-color: #f5f5f5;
   //background-color:   rgb(238, 238, 238);
   overflow-x: hidden;
@@ -242,13 +244,12 @@ a {
   & .badge {
     color: @brand-success;
     background-color: white;
-}
+  }
 }
 
 .badge-concrete {
   background-color: @concrete;
 }
-
 
 .change-comment-like {
   display: none;
@@ -296,7 +297,7 @@ background-color: #1abc9c;
 
 .form-control {
   border-radius: 0px !important;
-  border: 1px solid @silver;
+  border: 1px solid darken(@blue-clouds, 8%);
 }
 
 .badge {
@@ -305,6 +306,14 @@ background-color: #1abc9c;
 
 .text-blue {
   color: @brand-info;
+}
+
+.text-white {
+  color: white;
+}
+
+.text-purple {
+  color: @amethyst;
 }
 
 [ readonly = "readonly" ] > i {
@@ -319,17 +328,60 @@ background-color: #1abc9c;
   background-color: @brand-info;
 }
 
-.badge-pink {
-  background-color: @pink;
+.badge-sunblood {
+  background-color: @sun-blood;
 }
 
 .badge-pink {
+  background-color: @pinkrose;
+}
+
+.badge-bittersweet {
+  background-color: @bittersweet;
+}
+
+.badge-pinkrose {
+  background-color: @pinkrose;
+}
+
+.badge-lavander {
+  background-color: @lavander;
+}
+
+.badge-bluejeans {
+  background-color: @bluejeans;
+}
+
+.badge-grapefruit {
+  background-color: @grapefruit;
+}
+
+.badge-purple {
+  background-color: lighten(@wisteria, 10%);
+}
+
+.badge-asphalt {
+  background-color: mix(@wet-asphalt, @blue-pastel-d2, 50%);
+}
+
+.badge-emerald {
   background-color: @emerald-pastel;
 }
 
 .badge-orange {
   background-color: @orange;
 }
+.badge-orange-d1 {
+  background-color: @orange-pastel-d1;
+}
+.badge-orange-c1 {
+  background-color: @orange-pastel-c1;
+}
+
+.badge-sun {
+  background-color: @sun-pastel;
+}
+
 .badge-wet {
   background-color: @wet-asphalt;
 }
@@ -339,9 +391,28 @@ background-color: #1abc9c;
 .badge-silver {
   background-color: @silver;
 }
+.badge-pumpkin {
+  background-color: @pumpkin;
+}
 
 .text-sun {
   color: @sun-flower;
+}
+
+.text-grapefruit {
+  color: @grapefruit;
+}
+
+.text-grass {
+  color: @grass;
+}
+
+.text-bittersweet {
+  color: @bittersweet;
+}
+
+.text-pinkrose {
+  color: @pinkrose;
 }
 
 .text-silver {
@@ -362,6 +433,10 @@ background-color: #1abc9c;
 
 .text-turquoise {
   color: @turquoise;
+}
+
+.text-mint {
+  color: @mint;
 }
 
 .text-orange {
@@ -435,13 +510,35 @@ background-color: #1abc9c;
 }
 
 .btn-sun {
-  // font-weight: bold;
   .button-variant(@btn-default-color, @sun-pastel, @sun-pastel, @sun-pastel);
+}
+
+.btn-bittersweet {
+  .button-variant(@btn-default-color, @bittersweet, @bittersweet, @bittersweet);
+}
+
+.btn-grapefruit {
+  .button-variant(@btn-default-color, @grapefruit, @grapefruit, @grapefruit);
+}
+
+.btn-mint {
+  .button-variant(@btn-default-color, @mint, @mint, @mint);
+}
+
+.btn-sunflower {
+  .button-variant(@btn-default-color, @sunflower, @sunflower, @sunflower);
+}
+
+.btn-sunflower-d {
+  .button-variant(@btn-default-color, @sunflower-d, @sunflower-d, @sunflower-d);
+}
+.btn-grass {
+  .button-variant(@btn-default-color, @grass, @grass, @grass);
 }
 
 .btn-purple {
   // font-weight: bold;
-  .button-variant(@btn-default-color, @amethyst, @amethyst, @amethyst);
+  .button-variant(@btn-default-color, @amethyst, lighten(@amethyst, 5%), @amethyst);
 }
 
 @orange-silver: mix(@orange, @silver, 80%);
@@ -458,6 +555,10 @@ background-color: #1abc9c;
   color: @sun-blood;
 }
 
+.text-sunflower {
+  color: @sunflower;
+}
+
 .text-pumpkin {
   color: mix(@pumpkin, white, 80%);
 }
@@ -470,7 +571,7 @@ background-color: #1abc9c;
 @sun-blood: mix(@sun-pastel, @alizarin, 90%);
 
 @blue-clouds-1: mix(#f6f9fb, @blue-pastel-d2, 92%);
-@blue-clouds: mix( @blue-clouds-1, white, 40%);
+@blue-clouds: mix( @blue-clouds-1, white, 80%);
 
 //@peter-river: #4CA0FF;
 //@peter-river: #5CA5FD;
@@ -524,6 +625,38 @@ background-color: #1abc9c;
 @emerald-pastel-d2: #3BD17C;
 
 @emerald: @emerald-pastel;
+
+
+/* other colors */
+@grapefruit: #ED5565;
+@grapefruit-d: #DA4453;
+
+@bittersweet: #FC6E51;
+@bittersweet-d: #E9573F;
+
+@sunflower: #FFCE54;
+@sunflower-d: #F6BB42;
+
+@grass: #A0D468;
+@grass-d: #8CC152;
+
+@mint: #48CFAD;
+@mint-d: #3TBC98;
+
+@aqua: #4FC1E9;
+@aqua-d: #3BAFDA;
+
+@bluejeans: #5D9CEC;
+@bluejeans-d: #4A89DC;
+
+@lavander: #AC92EC; 
+@lavander-d: #967ADC;
+
+@pinkrose: #EC87C0;
+@pinkrose-d: #D770AD;
+
+@darkgray: #656D78;
+@darkgray-d: #434A54;
 
 .student-li {
   &:hover {
@@ -651,10 +784,18 @@ background-color: #1abc9c;
   margin-top: 30px;
   padding-top: 20px;
   padding-bottom: 20px;
-  background-color: @clouds;
+  background-color: @blue-clouds;
   & .h6 {
     color: @silver;
 }
+}
+.white-infos {
+  margin-bottom: 30px;
+  margin-top: 30px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  background-color: white;
+  color: @light-asphalt;
 }
 
 .orange-infos {
@@ -755,6 +896,7 @@ background-color: #1abc9c;
   //background-color: @well-bg;
   //background-color: mix(@clouds, white, 30%);
   background-color: @blue-clouds;
+  border: 0;
   //border: 1px solid darken(@blue-clouds, 1%); 
   &.shapter-well-turquoise {
     background-color: @green-pastel;
@@ -804,6 +946,10 @@ background-color: #1abc9c;
   padding: 15px;
   margin-top: 0px;
   margin-bottom: 20px;
+  &.active {
+    color: white;
+    background-color: @blue-pastel;
+  }
 }
 
 a {
@@ -865,3 +1011,15 @@ ul.dropdown-menu[datepicker-popup-wrap] {
 .underline {
   text-decoration: underline;
 }
+
+.blue-clouds-container {
+  background-color: @blue-clouds;
+}
+
+/* all */
+@placeholder-color: darken( @blue-clouds, 10%);
+::-webkit-input-placeholder { color: @placeholder-color !important; }
+::-moz-placeholder { color: @placeholder-color; } /* firefox 19+ */
+:-ms-input-placeholder { color: @placeholder-color; } /* ie */
+input:-moz-placeholder { color: @placeholder-color; }
+

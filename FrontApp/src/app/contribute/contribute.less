@@ -7,3 +7,31 @@
   }
 }
 
+.btn-special {
+  border: 1px solid;
+  display: inline-block;
+  border-radius: 5px;
+  padding: 3px;
+  &.btn-special-recommand {
+    border-color: @emerald-pastel-d2;
+    & .btn {
+      border-radius: 5px;
+      .button-variant(@btn-default-color, @emerald-pastel-d2, @emerald-pastel-d2, @emerald-pastel-d2);
+    }
+  }
+  &.btn-special-norecommand {
+      border-color: @sunflower-d;
+      & .btn {
+        border-radius: 5px;
+        &:extend( .btn-sunflower-d );
+      }
+  }
+  &.btn-special-unrecommand {
+    border-color: @alizarin;
+    & .btn {
+      border-radius: 5px;
+      &:extend( .btn-danger );
+    }
+  }
+}
+

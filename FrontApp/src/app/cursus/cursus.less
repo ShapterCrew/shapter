@@ -1,0 +1,97 @@
+.add-box {
+  padding: 10px 30px 10px 30px;
+  margin: 1px 0px 0px 0px;
+  background-color: white;
+  & .btn-add-box {
+    &:extend( .bold, .text-turquoise );
+    margin: 15px 0 0 0;
+    width: 100%;
+  }
+}
+
+.box {
+  &.header-box {
+    margin-top: 28px;
+  }
+  & .box-description {
+  //  margin-bottom: 20px;
+  }
+  background-color: white;
+  padding: 15px 30px 15px 30px;
+  margin: 1px 0 0 0;
+  &.internship-box {
+    //border: 2px dashed @blue-pastel;
+  }
+}
+
+.box-classes {
+  margin-top: 20px;
+}
+
+.first-of-a-school {
+  margin-top: 25px;
+}
+
+.add-box-module {
+}
+
+
+.box-suggestion {
+  cursor: pointer;
+  background-color: white;
+  border: 1px solid white;
+  margin: 0;
+  padding: 6px 18px;
+  width: 100%;
+  &.box-suggestion-blue {
+    color: @blue-pastel;
+    &:hover {
+      border: 1px solid lighten( @blue-pastel, 3%);
+      color: white;
+      background-color: lighten( @blue-pastel, 3%);
+      & .fa-inverse {
+        color: @blue-pastel;
+      }
+    }
+  }
+  &.box-suggestion-other {
+    @color: @green-pastel;
+    color: @color;
+    &:hover {
+      border: 1px solid lighten( @color, 3%);
+      color: white;
+      background-color: lighten( @color, 3%);
+      & .fa-inverse {
+        color: @color;
+      }
+    }
+  }
+}
+
+.item-in-box {
+  padding: 5px 0px;
+  border-top: 1px solid @clouds;
+}
+
+.select-item {
+  border-bottom: 1px solid @blue-clouds;
+  border-right: 1px solid @blue-clouds;
+  border-left: 1px solid @blue-clouds;
+  &:first-child {
+    border-top: 1px solid @blue-clouds;
+  }
+  padding: 10px 30px;
+  background-color: white;
+  &.active {
+    color: white;
+    background-color: @blue-pastel;
+  }
+}
+.suggestion-hover-blue {
+  cursor: pointer;
+}
+
+.suggestion-hover-blue:hover > span.text-asphalt{
+  color: @blue-pastel !important;
+  cursor: pointer;
+}

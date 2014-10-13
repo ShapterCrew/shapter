@@ -5,6 +5,7 @@ class User
   include Facebookable
   include Skilled
   include Schools
+  include Profile
 
   field :firstname, type: String
   field :lastname,  type: String

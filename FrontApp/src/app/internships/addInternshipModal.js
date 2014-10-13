@@ -15,6 +15,17 @@ angular.module( 'directives.addInternshipModal', [
   };
 })
 
+.directive( 'shAddInternship', [function(){
+  return {
+    restrict: 'E',
+    templateUrl: 'internships/addInternship.tpl.html',
+    controller: 'AddInternshipCtrl',
+    scope: {
+      close: '&'
+    }
+  };
+}])
+
 .directive( 'shAddInternshipModal', ['Internship', 'shAddInternshipModalFactory', function( Internship, shAddInternshipModalFactory){
   return {
     restrict: 'A',
@@ -26,14 +37,19 @@ angular.module( 'directives.addInternshipModal', [
   };
 }])
 
-.controller( 'AddInternshipModalCtrl', ['$scope', 'Internship', '$stateParams', 'Map', '$filter', '$modalInstance', 'AppText', '$rootScope', 'Tag', 'Analytics', 'ConfirmAlertFactory', function($scope, Internship, $stateParams, Map, $filter, $modalInstance, AppText, $rootScope, Tag, Analytics, ConfirmAlertFactory ){
+.controller( 'AddInternshipModalCtrl', ['$modalInstance', '$scope', function( $modalInstance, $scope ){
+  $scope.close = $modalInstance.close;
+}])
+
+.controller( 'AddInternshipCtrl', ['$scope', 'Internship', '$stateParams', 'Map', '$filter', 'AppText', '$rootScope', 'Tag', 'Analytics', 'ConfirmAlertFactory', function($scope, Internship, $stateParams, Map, $filter, AppText, $rootScope, Tag, Analytics, ConfirmAlertFactory){
 
   Analytics.addInternshipModule();
   $scope.step = 1;
   $scope.AppText = AppText;
-  $scope.internship = {};
+  $scope.internship = {
+    tags: []
+  };
   $scope.internship.schoolId = $stateParams.schoolId;
-  $scope.close = $modalInstance.close;
   $scope.sizeOptions = [
     "1-9",
     "10-49",
@@ -47,6 +63,27 @@ angular.module( 'directives.addInternshipModal', [
       return response.tags;
     });
   };
+
+  var add_new_type = {
+    name: 'Ajouter une catégorie de stages'
+  };
+
+  $scope.selectInternshipType = function(){
+    if( $scope.internship.tags[ 'type' ] == add_new_type.name ){
+      $scope.internship.tags[ 'type' ] = null;
+      $scope.displayCreateType = true;
+    }
+    else {
+      $scope.displayCreateType = false;
+    }
+  };
+
+  Tag.getSuggestedTags([ $stateParams.schoolId ], 'internship', 100, 'type').then( function( response ){
+    response.recommended_tags.push( add_new_type );
+    $scope.internshipTypes = response.recommended_tags;
+  }, function( err ){
+    console.log( err );
+  });
 
   $scope.getFormatedAdresses = function( string ){
     $scope.loadingAddresses = true;
@@ -63,6 +100,7 @@ angular.module( 'directives.addInternshipModal', [
   };
 
   $scope.addInternship = function() {
+    $scope.internship.schoolId = $stateParams.schoolId;
     Internship.create($filter( 'formatInternshipToPost' )($scope.internship)).then(function(response) {
       $scope.internship = response;
       $rootScope.$broadcast( 'InternshipCreated' );
