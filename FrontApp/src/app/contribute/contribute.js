@@ -45,6 +45,20 @@ angular.module( 'shapter.contribute', [
   };
 }])
 
+.directive('shItemContribute', [function(){
+  return {
+    restrict: 'AE',
+    templateUrl: 'contribute/itemContributeModule.tpl.html',
+    controller: 'ItemConributeModuleCtrl',
+    scope: {
+      item: '='
+    }
+  };
+}])
+
+.controller('ItemConributeModuleCtrl', ['$scope', function( $scope ){
+}])
+
 .controller( 'ItemCommentsModalCtrl', ['$scope', 'item', '$modalInstance', 'AppText', function( $scope, item, $modalInstance, AppText ){
 
   $scope.AppText = AppText;
