@@ -2,6 +2,8 @@ class Item
   include Mongoid::Document
   include Mongoid::Timestamps
 
+  include Recommendable
+
   field :name                  , type: String
   field :syllabus              , type: String
   field :short_name            , type: String

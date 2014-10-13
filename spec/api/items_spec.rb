@@ -395,6 +395,16 @@ describe Shapter::V7::Items do
   end
   #}}}
 
+  #{{{ reco_score
+  describe :reco_score do
+    it "recommends item" do 
+      login(@user)
+      expect{put "/items/#{@item.id}/reco_score", score: 3 ; @item.reload}.to change{@item.user_reco_score(@user)}.from(0).to(3)
+
+    end
+  end
+  #}}}
+
   describe :comments do 
 
     #{{{ index
