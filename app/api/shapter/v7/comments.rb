@@ -131,13 +131,13 @@ module Shapter
               put :score do 
                 check_confirmed_account!
                 error!("you can't score your own comment",403) if @comment.author == current_user
-                error!("you can't score this comment",403) unless @comment.user_can_view?(current_user)
+                #error!("you can't score this comment",403) unless @comment.user_can_view?(current_user)
                 s = params[:score].to_i
 
-                # Only campus users are allowed to dislike :)
-                if s == -1
-                  error!("forbidden",401) unless (@comment.item.tag_ids & current_user.school_ids).any?
-                end
+                ## Only campus users are allowed to dislike :)
+                #if s == -1
+                #  error!("forbidden",401) unless (@comment.item.tag_ids & current_user.school_ids).any?
+                #end
 
                 old_score = if @comment.likers.include?(current_user)
                               1
