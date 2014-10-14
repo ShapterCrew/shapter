@@ -67,10 +67,11 @@ module Shapter
 
 
       expose :current_user_reco_score , if: lambda{ |u,o| o[:entity_options]["item"][:current_user_reco_score]} do |it,ops|
-        it.user_reco_score(ops[:current_user])
+        it.user_reco_score(ops[:entity_options][:current_user])
       end
+
       expose :this_user_reco_score , if: lambda{ |u,o| o[:entity_options]["item"][:this_user_reco_score]} do |it,ops|
-        it.user_reco_score(ops[:this_user])
+        it.user_reco_score(ops[:entity_options][:this_user])
       end
 
 
