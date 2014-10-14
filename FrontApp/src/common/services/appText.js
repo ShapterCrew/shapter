@@ -588,6 +588,34 @@ angular.module( 'services.appText', [])
     },
 
     contribute: {
+      unadvised: {
+        en: 'Unadvised',
+        fr: 'Déconseillé'
+      },
+      it_depends: {
+        en: 'Id depends', 
+        fr: 'Ça dépend'
+      },
+      recommended: {
+        en: 'Recommended',
+        fr: 'Recommandé'
+      },
+      do_you_recommend: {
+        en: 'Do you recommend this class?',
+        fr: 'Recommandes-tu ce cours ?'
+      },
+      explain_unadvise: {
+        en: 'Explain with tact why do you unadvise taking this class:',
+        fr: 'Explique avec tact pourquoi tu déconseilles ce cours :'
+      },
+      explain_it_depends: {
+        en: 'Explain why choose or not choose this class:',
+        fr: 'Explique pourquoi choisir ou ne pas choisir ce cours :'
+      },
+      explan_reco: {
+        en: 'Explain why do you recommend taking this class:',
+        fr: 'Explique pourquoi tu recommandes de prendre ce cours :'
+      },
       contribute_not_student: {
         en: 'You need to be identified as a student from one of our partner schools to contribute on Shapter!',
         fr: 'Tu dois être identifié comme étudiant de l\'un de nos établissements partenaires pour contribuer sur Shapter !'
@@ -1467,6 +1495,10 @@ angular.module( 'services.appText', [])
       }
     },
     cursus: {
+      cancel_reco: {
+        en: 'Cancel recommendation',
+        fr: 'Annuler la recommandation'
+      },
       an_internship: {
         en: 'An internship',
         fr: 'Un stage'

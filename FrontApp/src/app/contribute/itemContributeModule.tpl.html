@@ -1,31 +1,18 @@
-<div class="padding-well" style="margin-bottom: 3px">
   <div class="row">
     <div class="col-md-12">
-      <span class="pull-right">
-        <span class="badge badge-grapefruit" ng-show="item.current_user_reco_score == 1">
-          <span class="fa fa-exclamation-circle"></span> Déconseillé
-        </span>
-        <span class="badge badge-sun" ng-show="item.current_user_reco_score == 2">
-          <span class="fa fa-question-circle"></span> Ça dépend
-        </span>
-        <span class="badge badge-emerald" ng-show="item.current_user_reco_score == 3">
-          <span class="fa fa-check-circle"></span> Recommandé
-        </span>
-      </span>
-      <div class="h4 text-blue" style="margin: 15px 0px 20px 0px;">{{ item.name }}</div> 
-      <div ng-hide="item.current_user_reco_score" class="text-asphalt">Recommandes-tu ce cours ?</div>
+      <div ng-hide="item.current_user_reco_score" class="text-asphalt">{{ AppText.contribute.do_you_recommend | language }}</div>
       <div>
-        <span ng-show="item.current_user_reco_score" class="text-asphalt" ng-click="reco(item, 0)"><span class="fa fa-arrow-left"></span> revenir</span>
+        <span ng-show="item.current_user_reco_score && !item.current_user_has_comment" class="text-asphalt" ng-click="reco(item, 0)"><span class="fa fa-arrow-left"></span> {{ AppText.cursus.cancel_reco | language }}</span>
       </div>
-      <div class="lead bold" style="margin-bottom: 10px" ng-show="item.current_user_reco_score">
+      <div class="h6 bold" style="margin-bottom: 10px; margin-top: 10px" ng-show="item.current_user_reco_score && !item.current_user_has_comment">
         <span class="text-grapefruit" ng-show="item.current_user_reco_score == 1">
-          Explique pourquoi tu déconseilles ce cours, avec tact :-)
+          {{ AppText.contribute.explain_unadvise | language }}
         </span>
         <span class="text-sun" ng-show="item.current_user_reco_score == 2">
-          Explique pourquoi choisir ou ne pas choisir ce cours :
+          {{ AppText.contribute.explain_it_depends | language }}
         </span>
         <span class="text-emerald" ng-show="item.current_user_reco_score == 3">
-          Explique pourquoi tu recommandes ce cours :
+          {{ AppText.contribute.explan_reco | language }}
         </span>
       </div>
       <div class="reco-buttons" ng-hide="item.current_user_reco_score">
@@ -45,5 +32,3 @@
       </div>
     </div>
   </div>
-</div>
-
