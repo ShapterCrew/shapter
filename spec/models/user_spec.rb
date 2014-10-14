@@ -124,13 +124,17 @@ describe User do
       expect(@pb2.valid?).to be true
       expect(@internship.valid?).to be true
 
+      #byebug
+
       @user.order_profile!
 
       pb1 = @user.profile.select{|p| p.is_a? ProfileBoxItem}.select{|p| p.item_ids == [@i1.id] rescue nil}.first
       pb2 = @user.profile.select{|p| p.is_a? ProfileBoxItem}.select{|p| p.item_ids == [@i2.id] rescue nil}.first
       pb_int = @user.profile.select{|p|p.is_a? ProfileBoxInternship}.select{|p| p.internship_id == @internship.id rescue nil}.first
 
-      pb1.reload ; pb2.reload ; pb_int.reload
+      #pb1.reload
+      #pb2.reload
+      #pb_int.reload
 
       expect(pb2.next_1_id).to eq pb_int.id
       expect(pb_int.next_1_id).to eq pb1.id
