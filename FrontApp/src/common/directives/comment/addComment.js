@@ -29,6 +29,7 @@ angular.module( 'directives.addComment', [])
       console.log( response );
       $scope.item.current_user_comment = response;
       $scope.item.current_user_has_comment = true;
+      $scope.item.this_user_has_comment = true;
       $scope.item.current_user_comments_count = $scope.item.current_user_comments_count ? $scope.item.current_user_comments_count + 1 : 1;
       $scope.item.newComment.content = '';
       $scope.item.current_user_subscribed = true;
