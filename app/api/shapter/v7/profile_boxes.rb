@@ -18,7 +18,7 @@ module Shapter
             #{{{ index
             desc "get the profile boxes for a given user"
             post do 
-              present @user.profile, with: Shapter::Entities::ProfileBox, entity_options: entity_options
+              present @user.profile, with: Shapter::Entities::ProfileBox, entity_options: entity_options, this_user: @user
             end
             #}}}
 
