@@ -11,17 +11,15 @@
         <span class="badge badge-emerald" ng-show="item.current_user_reco_score == 3">
           <span class="fa fa-check-circle"></span> Recommandé
         </span>
-        <small ng-show="item.current_user_reco_score" class="text-muted glyphicon glyphicon-remove" ng-click="reco(item, 0)"></small>
       </span>
-
       <div class="h4 text-blue" style="margin: 15px 0px 20px 0px;">{{ item.name }}</div> 
       <div ng-hide="item.current_user_reco_score" class="text-asphalt">Recommandes-tu ce cours ?</div>
       <div>
-        <small ng-show="item.current_user_reco_score" class="text-asphalt" ng-click="reco(item, 0)"><span class="fa fa-arrow-left"></span> annuler la recommandation</small>
+        <span ng-show="item.current_user_reco_score" class="text-asphalt" ng-click="reco(item, 0)"><span class="fa fa-arrow-left"></span> revenir</span>
       </div>
       <div class="lead bold" style="margin-bottom: 10px" ng-show="item.current_user_reco_score">
         <span class="text-grapefruit" ng-show="item.current_user_reco_score == 1">
-          Explique (avec tact) pourquoi tu déconseilles ce cours :
+          Explique pourquoi tu déconseilles ce cours, avec tact :-)
         </span>
         <span class="text-sun" ng-show="item.current_user_reco_score == 2">
           Explique pourquoi choisir ou ne pas choisir ce cours :
@@ -41,10 +39,11 @@
           <div class="btn" ng-click="item.reco_score(2)"><span class="fa fa-question"></span></div>
         </div>
       </div>
-
       <div ng-show="item.current_user_reco_score" sytle="margin-left: 10px">
         <div ng-hide="item.current_user_has_comment" sh-add-comment item="item"></div>
         <div ng-show="item.current_user_has_comment" sh-comment-light remove="item.current_user_comment = null; item.current_user_has_comment = false" comment="item.current_user_comment"></div>
+      </div>
     </div>
   </div>
 </div>
+

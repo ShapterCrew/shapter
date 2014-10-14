@@ -109,8 +109,7 @@ angular.module( 'resources.user', [
           current_user_comments_count: true,
           current_user_diagram: true,
           requires_comment_score: true,
-          current_user_has_diagram: true,
-          current_user_reco_score: true
+          current_user_has_diagram: true
         },
         diagram: {
           front_values: true
@@ -275,7 +274,8 @@ angular.module( 'resources.user', [
           item: {
             "name": true,
             "this_user_has_comment": true,
-            "current_user_has_comment": true
+            "current_user_has_comment": true,
+            "current_user_reco_score": true
           },
           internship: {
             "address": true,
