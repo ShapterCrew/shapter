@@ -176,7 +176,7 @@ module Shapter
 
             tags = (new_tags + old_tags).uniq
 
-            @internship.tags << tags
+            @internship.tags += tags
 
             if @internship.save
               present @internship, with: Shapter::Entities::Internship, entity_options: entity_options
