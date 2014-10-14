@@ -2,7 +2,7 @@ module Profile
   extend ActiveSupport::Concern
 
   included do 
-    has_and_belongs_to_many :profile_boxes, class_name: "ProfileBox", inverse_of: :user
+    has_and_belongs_to_many :profile_boxes, class_name: "ProfileBox", inverse_of: :users
   end
 
   def profile

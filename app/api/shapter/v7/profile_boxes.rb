@@ -28,17 +28,17 @@ module Shapter
 
       namespace :profile_boxes do 
 
-            #{{{ recommand
-            desc "get a box recommandation for the given user"
-            params do 
-              optional :nmax, type: Integer, desc: "max number of results. default-10", default: 10
-            end
-            post :recommand do 
-              check_confirmed_student!
-              reco = current_user.profile_box_recommandation(params[:nmax])
-              present :reco, reco, with: Shapter::Entities::ProfileBox, entity_options: entity_options
-            end
-            #}}}
+        #{{{ recommand
+        desc "get a box recommandation for the given user"
+        params do 
+          optional :nmax, type: Integer, desc: "max number of results. default-10", default: 10
+        end
+        post :recommand do 
+          check_confirmed_student!
+          reco = current_user.profile_box_recommandation(params[:nmax])
+          present :reco, reco, with: Shapter::Entities::ProfileBox, entity_options: entity_options
+        end
+        #}}}
 
         #{{{ create
         desc "create a profile box to store items"
