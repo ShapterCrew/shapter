@@ -160,7 +160,7 @@ module Shapter
               requires :tag_category, desc: "tag category"
             end
           end
-          put :tags do
+          put :add_tags do
             check_user_login!
             error!("forbidden",401) unless (current_user.shapter_admin or @internship.trainee == current_user)
 

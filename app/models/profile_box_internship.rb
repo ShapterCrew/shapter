@@ -6,7 +6,7 @@ class ProfileBoxInternship < ProfileBox
   before_validation :save_floating_attributes!
 
   def compute_tag_ids
-    internship.tags.where(category: "type").only(:id).map(&:id)
+    internship.tags.only(:id).map(&:id)
   end
 
   def type
