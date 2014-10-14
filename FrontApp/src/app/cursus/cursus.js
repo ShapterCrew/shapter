@@ -47,7 +47,7 @@ angular.module( 'shapter.cursus', [
   $scope.AppText = AppText;
 }])
 
-.controller('CursusCtrl', ['$scope', 'schools', 'Tag', 'Item', '$stateParams', '$filter', 'AppText', 'followBoxModalFactory', 'School', '$location', 'ProfileBox', 'boxes', 'boxesRecommandations', function( $scope, schools, Tag, Item, $stateParams, $filter, AppText, followBoxModalFactory, School, $location, ProfileBox, boxes, boxesRecommandations ){
+.controller('CursusCtrl', ['$scope', 'schools', 'Tag', 'Item', '$stateParams', '$filter', 'AppText', 'followBoxModalFactory', 'School', '$location', 'ProfileBox', 'boxes', 'boxesRecommandations', 'security', 'User', function( $scope, schools, Tag, Item, $stateParams, $filter, AppText, followBoxModalFactory, School, $location, ProfileBox, boxes, boxesRecommandations, security, User ){
 
   $scope.boxes = boxes.map( function( box ){
     box.unfolded = true;
@@ -63,12 +63,23 @@ angular.module( 'shapter.cursus', [
   $scope.alerts = [];
   $scope.AppText = AppText;
   $scope.firstOfASchool = function( $index, boxes, box ){
-      return $index === 0 || ($filter( 'filter' )( boxes[ $index - 1 ].tags,  {category: 'school'})[0].id != $filter( 'filter' )( box.tags,  {category: 'school'})[0].id);
+    return $index === 0 || ($filter( 'filter' )( boxes[ $index - 1 ].tags,  {category: 'school'})[0].id != $filter( 'filter' )( box.tags,  {category: 'school'})[0].id);
   };
 
+
+  $scope.$on('InternshipCreated', function(){
+    ProfileBox.getRecommandations().then( function( response ){
+      $scope.boxesRecommandations = boxesRecommandations;
+    });
+    User.profileBoxes( security.currentUser.id ).then( function( boxes ){
+      $scope.boxes = boxes.map( function( box ){
+        box.unfolded = true;
+        return box;
+      });
+    });
+  });
+
   $scope.addTagsFromBox = function( box ){
-    console.log( $scope.newBox );
-    console.log( box );
     $scope.newBox.tags = box.specificTags;
     $scope.loadSuggestionItems( $scope.newBox );
   };
@@ -87,6 +98,24 @@ angular.module( 'shapter.cursus', [
     $scope.loadSuggestionItems( $scope.newBox );
   };
 
+  $scope.hideRecos = function( item ){
+    item.displayRecos = false;
+  };
+
+  $scope.toggleDisplayRecos = function( item ){
+    item.displayRecos = !item.displayRecos;
+    if( item.displayRecos === true ){
+      item.loadComments().then( function( response ){
+        angular.forEach( response.comments, function( comment ){
+          if( comment.author.id == security.currentUser.id ){
+            item.current_user_comment = comment;
+            item.current_user_has_comment = true;
+          }
+        });
+      });
+    }
+  };
+
   $scope.displayAddInternship = function( suggestion ){
     $location.search('state', 'addingInternship' );
   };
@@ -94,7 +123,7 @@ angular.module( 'shapter.cursus', [
   $scope.loadSuggestionItems = function( box ){
     var getIdsList = function( tags ){
       return tags.map( function( tag ){
-          return tag.id;
+        return tag.id;
       }).reduce( function( oldVal, newVal ){
         if( !!newVal ){
           oldVal.push( newVal );
@@ -109,7 +138,6 @@ angular.module( 'shapter.cursus', [
         tags.push( box.tag );
       }
     });
-    console.log( getIdsList( tags ) );
     Item.getListFromTags( getIdsList(tags), true ).then( function( response ){
       box.itemsLoading = false;
       box.items = response.items;
@@ -123,6 +151,10 @@ angular.module( 'shapter.cursus', [
 
   $scope.addBox = function(){
     ProfileBox.create( $filter( 'formatBoxToPost' )( $scope.newBox ) ).then( function( box ){
+      ProfileBox.getRecommandations().then( function( response ){
+        $scope.boxesRecommandations = boxesRecommandations;
+      });
+      box.unfolded = true;
       $scope.boxes.push( box );
       $scope.alerts.push({
         type: 'info',

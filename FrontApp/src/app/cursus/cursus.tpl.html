@@ -83,7 +83,7 @@
                 </div>
                 <div class="col-md-10">
                   <span class="badge badge-pinkrose pull-right" ng-show="box.type == 'internship'">{{ AppText.cursus.internship | language}} 1 mois</span>
-                  <span class="badge badge-lavander pull-right" ng-show="box.type == 'items' && box.items.length"> {{ box.items.length }} {{ AppText.cursus.classes | language }}</span>
+                  <!--<span class="badge badge-lavander pull-right" ng-show="box.type == 'items' && box.items.length"> {{ box.items.length }} {{ AppText.cursus.classes | language }}</span>-->
                   <span class="badge badge-bluejeans pull-right" ng-show="box.type == 'common'"> 18 cours obligatoires </span>
                   <span class="text-turquoise bold" ng-bind="box.name" ng-click="box.unfolded = !box.unfolded"></span>
                   <div class="box-unfolded" ng-show="box.unfolded">
@@ -92,12 +92,23 @@
                     </div><!-- box-tags -->
                     <div ng-show="box.type=='items'" class="box-classes">
                       <div ng-repeat="item in box.items" class="item-in-box">
-                        <span class="" sh-item-modal="item" itemsList="box.items" number-of-items="box.items.length" load-more-items="">{{ item.name }} - <small class="text-turquoise">{{ AppText.system.display | language }}</small></span>
-                        <span class="pull-right" ng-show="item.current_user_has_comment">
-                          <span class="badge badge-info">
-                            <span class="fa fa-comment text-white"></span>
+                        <span class="pull-right" ng-show="item.current_user_reco_score == 1">
+                          <span class="badge" ng-class="{'badge-grapefruit': item.this_user_has_comment}">
+                            <span class="fa fa-exclamation-circle"></span>
                           </span>
                         </span>
+                        <span class="pull-right" ng-show="item.current_user_reco_score == 2">
+                          <span class="badge" ng-class="{'badge-sun': item.this_user_has_comment}">
+                            <span class="fa fa-question-circle"></span>
+                          </span>
+                        </span>
+                        <span class="pull-right" ng-show="item.current_user_reco_score == 3">
+                          <span class="badge" ng-class="{'badge-emerald': item.this_user_has_comment}">
+                            <span class="fa fa-check-circle"></span>
+                          </span>
+                        </span>
+                        <span class="blue-hover" ng-class="{'text-blue': item.displayRecos}" ng-click="toggleDisplayRecos( item )">{{ item.name }}</span>
+                        <div ng-show="item.displayRecos" sh-item-contribute item="item" next="hideRecos( item )" previous="hideRecos( item )"></div>
                       </div>
                     </div>
                   </div><!-- bow-unfolded -->

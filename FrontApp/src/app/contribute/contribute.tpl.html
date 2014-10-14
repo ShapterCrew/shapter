@@ -24,39 +24,31 @@
             <button class="btn btn-hg btn-orange" ng-click="navSf()">{{ AppText.contribute.fill_in_your_cursus | language }}</button>
           </div>
         </div>
-
         <div class="col-md-2 col-sm-2 col-lg-2 col-lg-offset-1 hidden-xs">
           <div class="contribute-caret" ng-click="previous()" style="margin-top: 20px">
-
-
-
             <div style="display: inline-block; position: relative; vertical-align: middle;">
               <span class="fa fa-caret-left fa-2x"></span>
             </div>
             &nbsp;
-
-            <div class="h6 hidden-xs hidden-sm" style="display: inline-block; position: relative; vertical-align: middle; margin: 0">Précédent</div>
-
-
+            <div class="h6 hidden-xs hidden-sm" style="display: inline-block; position: relative; vertical-align: middle; margin: 0">{{ AppText.system.previous | language }}</div>
           </div>
         </div>
-
         <div class="col-sm-8 col-md-8 col-lg-6">
-          <div class="row visible-xs text-muted">
+          <div class="row visible-xs">
             <div class="col-xs-6" style="text-align: left">
-              <div style="padding-left: 20px" ng-click="previous()">
+              <div style="padding-left: 20px" ng-click="previous()" class="contribute-caret">
                 <div style="display: inline-block; position: relative; vertical-align: middle">
                   <span class="fa fa-2x fa-caret-left"></span>
                 </div>
                 <div style="display: inline-block; position: relative; vertical-align: middle">
-                  Précédent
+                  {{ AppText.system.previous | language }}
                 </div>
               </div>
             </div>
             <div class="col-xs-6" style="text-align: right">
-              <div style="padding-right: 20px" ng-click="next()">
+              <div style="padding-right: 20px" ng-click="next()" class="contribute-caret">
                 <div style="display: inline-block; position: relative; vertical-align: middle">
-                  Suivant
+                  {{ AppText.system.next | language }}
                 </div>
                 <div style="display: inline-block; position: relative; vertical-align: middle">
                   <span class="fa fa-2x fa-caret-right"></span>
@@ -64,18 +56,32 @@
               </div>
             </div>
           </div>
-
-          <div ng-show="security.hasTestSchool()" class="h2 center bold text-orange" style="margin-bottom: 30px; margin-top: 20px">Fais ressortir les meilleurs cours :-)</div>
-
           <div  style="margin-bottom: 30px; padding-top: 20px; margin-bottom: 170px">
             <div ng-repeat="item in [ activeItem ]">
               <div class="contribute-item-well" ng-hide="transitionning">
-                <sh-item-contribute next="next()" previous="previous()" item="item"></sh-item-contribute>
+                <div class="padding-well">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <span class="pull-right">
+                        <span class="badge badge-grapefruit" ng-show="item.current_user_reco_score == 1">
+                          <span class="fa fa-exclamation-circle"></span> {{ AppText.contribute.unadvised | language }}
+                        </span>
+                        <span class="badge badge-sun" ng-show="item.current_user_reco_score == 2">
+                          <span class="fa fa-question-circle"></span> {{ AppText.contribute.it_depends | language }}
+                        </span>
+                        <span class="badge badge-emerald" ng-show="item.current_user_reco_score == 3">
+                          <span class="fa fa-check-circle"></span> {{ AppText.contribute.recommended | language }}
+                        </span>
+                      </span>
+                      <div class="h4 text-blue" style="margin: 15px 0px 20px 0px;">{{ item.name }}</div> 
+                    </div>
+                  </div>
+                  <sh-item-contribute next="next()" previous="previous()" item="item"></sh-item-contribute>
+                </div>
               </div>
             </div>
           </div>
         </div>
-
         <div class="col-md-2 col-sm-2 col-lg-2 hidden-xs">
           <div class="contribute-caret" ng-click="next()" style="margin-top: 20px; text-align: right">
             <div class="h6 hidden-xs hidden-sm" style="display: inline-block; position: relative; vertical-align: middle; margin: 0">Suivant</div>
@@ -85,7 +91,6 @@
             </div>
           </div>
         </div>
-
       </div>
     </div>
   </div>
