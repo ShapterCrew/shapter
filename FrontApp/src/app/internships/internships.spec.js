@@ -87,7 +87,8 @@ describe('AddInternshipModal Test', function() {
         tag_category: 'skill'
       }],
       tags: {
-        company_name: 'Shapter'
+        company_name: 'Shapter',
+        type: 'Stage ouvrier'
       },
       address: {
         formatted_address: "35 Rue de Turbigo, 75003 Paris, France",
@@ -175,6 +176,10 @@ describe('AddInternshipModal Test', function() {
       {
         tag_name: 'Shapter',
         tag_category: 'company_name'
+      },
+      {
+        tag_name: 'Stage ouvrier',
+        tag_category: 'type'
       },
       {
         tag_category: 'geo',

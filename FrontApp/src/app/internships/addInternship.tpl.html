@@ -5,13 +5,10 @@
     </div>
     <div ng-show="step == 1">
       <form name="addInternshipForm" class="css-form" novalidate >
-
-
         <div class="form-group">
           <label>{{ AppText.internships.internship_title | language }}</label>
           <input sh-auto-focus="true" name="fname" type="text" ng-model="internship.title" class="form-control" ng-required="true" required>
         </div>
-
         <div class="form-group">
           <label>{{ AppText.internships.type | language }}</label>
           &nbsp;
@@ -22,35 +19,25 @@
             <input class="form-control" ng-model="internship.tags.type" placeholder="ex: stage de fin d'études">
           </div>
         </div>
-
-
         <div class="form-group">
           <label>{{ AppText.internships.address | language }}</label>
           <input typeahead-editable="false" typeahead="address as address.formatted_address for address in getFormatedAdresses( $viewValue )" name="faddress" typeahead-loading="loadingAddresses" type="text" ng-model="internship.address" class="form-control" required>
         </div>
-
-
         <div class="form-group">
           <div class="row">
             <div class="col-md-8">
-
               <label>{{ AppText.internships.company | language }}</label>
               <input name="fname" typeahead-min-length="3" type="text" typeahead="tag.name for tag in getTypeahead( $viewValue, 'company')" ng-model="internship.tags.company" class="form-control" typeahead-editable="true" required>
             </div>
-
             <div class="col-md-4">
               <label>{{ AppText.internships.company_size | language }}</label>
               <br/>
               <select ng-options="opt for opt in sizeOptions" ng-model="internship.tags.company_size">
                 <option value="">-- {{ AppText.system.select | language }} --</option>
               </select>
-
             </div>
           </div>
         </div>
-
-
-
         <div class="form-group">
           <div class="row">
             <div class="col-md-6">
@@ -59,7 +46,6 @@
                 <input class="form-control" name="fstart" type="text" show-weeks="false" show-button-bar="false" datepicker-popup="dd/MM/yyyy" ng-model="internship.start_date" is-open="openedBegin" ng-required="true" close-text="Close" editable="false" required/>
               </p>
             </div>
-
             <div class="col-md-6">
               <label>{{ AppText.internships.end_date | language }}</label>
               <p class="input-group">
@@ -68,22 +54,18 @@
             </div>
           </div>
         </div>
-
         <div class="form-group">
           <label>{{ AppText.internships.description | language }}</label>
           <textarea class="form-control" ng-model="internship.description"></textarea>
         </div>
-
         <div class="form-group">
           <button type="submit" class="btn btn-success" ng-click="addInternship()" ng-disabled="addInternshipForm.$invalid">{{ AppText.system.validate | language }}</button>
         </div>
       </form>
     </div>
-
     <div ng-show="step == 2">
       <div class="lead text-asphalt">{{ AppText.internships.skills | language }}</div>
       <form class="css-form" novalidate name="editInternshipForm">
-
         <div class="form-group shapter-well">
           <label>{{ AppText.internships.add_keywords | language }}</label>
           <input class="form-control" ng-model="internship.skillToBeAdded" typeahead="skill.name for skill in getTypeahead( $viewValue, 'skill')" typeahead-editable="true" typeahead-min-length="3" typeahead-on-select="addSelectedSkill()">
@@ -94,14 +76,11 @@
             </span>
           </div>
         </div>
-
         <div class="form-group">
           <button class="btn btn-success" type="submit" ng-click="updateInternship()" ng-disabled="editInternshipForm.$invalid">{{ AppText.system.validate | language }}</button>
         </div>
-
       </form>
     </div>
-
     <div ng-show="step == 3">
       <div class="lead text-asphalt">{{ AppText.internships.internship_created | language }}</div>
       <div class="form-group">
@@ -109,7 +88,6 @@
       </div>
       <div class="form-group">
         <span>{{ AppText.internships.share_your_internship | language }}</span>
-
         <!-- facebook output -->
         <ul ng-social-buttons 
           data-url="'http://shapter.com/api/v1/facebook_pages/' + facebookData"
