@@ -6,6 +6,7 @@ class User
   include Skilled
   include Schools
   include Profile
+  include CanRecommend
 
   field :firstname, type: String
   field :lastname,  type: String

@@ -337,8 +337,8 @@ angular.module( 'services.appText', [])
         fr: 'Valide ton commentaire'
       },
       your_comment_here: {
-        en: 'Feel free to explain your choice if you want to help. With tact :-)',
-        fr: 'Pour donner un coup de main, explique ta recommandation. Fais-le avec tact :-)'
+        en: 'What is this class ? Who should take it and why ?',
+        fr: 'Qu\'est-ce que ce cours ? Qui devrait le prendre et pourquoi ?'
       }
     },
     diagram: {

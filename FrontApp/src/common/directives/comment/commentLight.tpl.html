@@ -1,0 +1,16 @@
+<div ng-hide="comment.displayEditComment">
+  <div ng-hide="comment.displayEditComment" style="text-align: justify; white-space: pre-line; text-align: justify">{{ comment.content }}
+    <div class="text-muted"><span ng-click="comment.displayEditComment = true; comment.newContent = comment.content">{{ AppText.comment.edit | language }}</span> - <span class="pointer" ng-confirm-click confirmed-click="removeComment()">{{ AppText.comment.remove | language }}</span></div>
+  </div>  
+</div>
+
+<!-- edit mode -->
+<div ng-show="comment.displayEditComment">
+  <textarea ng-model="comment.newContent" rows="8" class="form-control"></textarea>
+  <div class="form-group clearfix" style="margin-top: 30px">
+    <div class="pull-right">
+      <button class="btn btn-sm btn-warning" ng-click="comment.displayEditComment = false">{{ AppText.comment.cancel | language }}</button>
+      <button class="btn btn-sm btn-success" ng-click="comment.edit()">{{ AppText.comment.edit | language }}</button>
+    </div>
+  </div>
+</div>

@@ -1,6 +1,31 @@
 angular.module( 'directives.comment', [
   'shapter.item'
 ])
+
+.directive( 'shCommentLight', [function(){
+  return {
+    restrict: 'A',
+    scope: {
+      comment: '=',
+      remove: '&'
+    },
+    controller: 'CommentLightCtrl',
+    templateUrl: 'directives/comment/commentLight.tpl.html'
+  };
+}])
+
+.controller('CommentLightCtrl', ['$scope', 'AppText', function( $scope, AppText ){
+  $scope.AppText = AppText;
+  $scope.removeComment = function(){
+    $scope.comment.remove().then( function(){
+      $scope.remove();
+    });
+  };
+  $scope.comment = $scope.comment || {
+  content: 'lol'
+  };
+}])
+
 .directive( 'shComment', ['Comment', 'security', function( Comment, security){
   return {
     restrict: 'A',

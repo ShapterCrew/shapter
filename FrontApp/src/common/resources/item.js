@@ -268,6 +268,12 @@ angular.module('resources.item', [
     });
   };
 
+  var reco_score = function( val ){
+    var item = this;
+    return Restangular.one( 'items', item.id ).customPUT({ score: val }, 'reco_score').then( function( response ){
+      item.current_user_reco_score = val;
+    });
+  };
 
   var subscribe = function() {
     if( this.current_user_subscribed === false ){
@@ -426,6 +432,7 @@ angular.module('resources.item', [
   // adding custom behavior
   var extendItem = function(item) {
     return angular.extend(item, {
+      reco_score: reco_score,
       editDiagram: editDiagram,
       getComments: getComments,
       subscribe: subscribe,

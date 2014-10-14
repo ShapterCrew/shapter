@@ -1,34 +1,50 @@
-<div class="padding-well emerald-bordered">
+<div class="padding-well" style="margin-bottom: 3px">
   <div class="row">
     <div class="col-md-12">
-
-      <span class="pull-right" style="position: relative; top: 15px">
-        <span class="badge badge-grapefruit" ng-show="item.current_user_recommended == 1">
-          Déconseillé
+      <span class="pull-right">
+        <span class="badge badge-grapefruit" ng-show="item.current_user_reco_score == 1">
+          <span class="fa fa-exclamation-circle"></span> Déconseillé
         </span>
-        <span class="badge badge-sunflower-d" ng-show="item.current_user_recommended == 2">
-          Ça dépend
+        <span class="badge badge-sun" ng-show="item.current_user_reco_score == 2">
+          <span class="fa fa-question-circle"></span> Ça dépend
         </span>
-        <span class="badge badge-emerald" ng-show="item.current_user_recommended == 3">
-          Recommandé
+        <span class="badge badge-emerald" ng-show="item.current_user_reco_score == 3">
+          <span class="fa fa-check-circle"></span> Recommandé
         </span>
-        <small ng-show="item.current_user_recommended" class="text-muted glyphicon glyphicon-remove" ng-click="item.current_user_recommended = null"></small>
+        <small ng-show="item.current_user_reco_score" class="text-muted glyphicon glyphicon-remove" ng-click="reco(item, 0)"></small>
       </span>
 
-      <div class="h4 thin text-turquoise" style="margin: 15px 0px 20px 0px;">{{ item.name }}</div> 
-      <div class="reco-buttons" ng-hide="item.current_user_recommended">
+      <div class="h4 text-blue" style="margin: 15px 0px 20px 0px;">{{ item.name }}</div> 
+      <div ng-hide="item.current_user_reco_score" class="text-asphalt">Recommandes-tu ce cours ?</div>
+      <div>
+        <small ng-show="item.current_user_reco_score" class="text-asphalt" ng-click="reco(item, 0)"><span class="fa fa-arrow-left"></span> annuler la recommandation</small>
+      </div>
+      <div class="lead bold" style="margin-bottom: 10px" ng-show="item.current_user_reco_score">
+        <span class="text-grapefruit" ng-show="item.current_user_reco_score == 1">
+          Explique (avec tact) pourquoi tu déconseilles ce cours :
+        </span>
+        <span class="text-sun" ng-show="item.current_user_reco_score == 2">
+          Explique pourquoi choisir ou ne pas choisir ce cours :
+        </span>
+        <span class="text-emerald" ng-show="item.current_user_reco_score == 3">
+          Explique pourquoi tu recommandes ce cours :
+        </span>
+      </div>
+      <div class="reco-buttons" ng-hide="item.current_user_reco_score">
         <div class="btn-special btn-special-recommend">
-          <div class="btn" ng-click="item.current_user_recommended = 3">Je recommande</div>
+          <div class="btn" ng-click="item.reco_score(3)"><span class="fa fa-check"></span></div>
         </div>
         <div class="btn-special btn-special-unrecommend">
-          <div class="btn" ng-click="item.current_user_recommended = 1">Je déconseille</div>
+          <div class="btn" ng-click="item.reco_score(1)"><span class="fa fa-exclamation"></span></div>
         </div>
         <div class="btn-special btn-special-norecommend">
-          <div class="btn" ng-click="item.current_user_recommended = 2">Ça dépend !</div>
+          <div class="btn" ng-click="item.reco_score(2)"><span class="fa fa-question"></span></div>
         </div>
       </div>
 
-      <div ng-show="item.current_user_recommended" sytle="margin-left: 10px" sh-add-comment item="item"></div>
+      <div ng-show="item.current_user_reco_score" sytle="margin-left: 10px">
+        <div ng-hide="item.current_user_has_comment" sh-add-comment item="item"></div>
+        <div ng-show="item.current_user_has_comment" sh-comment-light remove="item.current_user_comment = null; item.current_user_has_comment = false" comment="item.current_user_comment"></div>
     </div>
   </div>
 </div>

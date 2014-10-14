@@ -109,7 +109,8 @@ angular.module( 'resources.user', [
           current_user_comments_count: true,
           current_user_diagram: true,
           requires_comment_score: true,
-          current_user_has_diagram: true
+          current_user_has_diagram: true,
+          current_user_reco_score: true
         },
         diagram: {
           front_values: true

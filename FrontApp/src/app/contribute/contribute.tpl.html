@@ -1,38 +1,91 @@
-<div style="height: 100%; overflow: auto" infinite-scroll="loadMoreItems()" infinite-scroll-distance="1" infinite-scroll-disabled="loading">
-  <sh-header></sh-header>
-  <div class="" ng-hide="security.isConfirmedStudent()">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-10 col-md-offset-1">
-          <div class="row">
-            <div class="col-md-6">
-              <p ng-bind="AppText.contribute.contribute_not_student | language"></p>
-              <a ng-hide="security.isConfirmedUser()" href="" ng-click="security.showLogin('login_needed_to_contribute')" class="btn btn-info">{{ AppText.contribute.go_identify | language }}</a>
-              <a ng-show="security.isConfirmedUser()" href="" ng-click="campusAuthenticationNav()" class="btn btn-info">{{ AppText.contribute.go_identify | language }}</a>
-            </div>
+<sh-header></sh-header>
+<div class="" ng-hide="security.isConfirmedStudent()">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-10 col-md-offset-1">
+        <div class="row">
+          <div class="col-md-6">
+            <p ng-bind="AppText.contribute.contribute_not_student | language"></p>
+            <a ng-hide="security.isConfirmedUser()" href="" ng-click="security.showLogin('login_needed_to_contribute')" class="btn btn-info">{{ AppText.contribute.go_identify | language }}</a>
+            <a ng-show="security.isConfirmedUser()" href="" ng-click="campusAuthenticationNav()" class="btn btn-info">{{ AppText.contribute.go_identify | language }}</a>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <div class="container" ng-show="security.isConfirmedStudent()">
-    <div class="row">
-      <div class="col-md-12">
-        <div class="row">
-          <div class="col-md-6 col-md-offset-3 col-lg-4 col-lg-offset-4" ng-show="loading === false && commentPipe.commentable_items.length === 0" style="text-align: center">
-            <div class="shapter-well">
-              <p style="margin-top: 50px">{{ AppText.contribute.what_did_you_study | language }}</p>
-              <button class="btn btn-hg btn-orange" ng-click="navSf()">{{ AppText.contribute.fill_in_your_cursus | language }}</button>
+</div>
+<div class="container" ng-show="security.isConfirmedStudent()">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="row">
+        <div class="col-md-6 col-lg-4" ng-show="loading === false && commentPipe.commentable_items.length === 0" style="text-align: center">
+          <div class="shapter-well">
+            <p style="margin-top: 50px">{{ AppText.contribute.what_did_you_study | language }}</p>
+            <button class="btn btn-hg btn-orange" ng-click="navSf()">{{ AppText.contribute.fill_in_your_cursus | language }}</button>
+          </div>
+        </div>
+
+        <div class="col-md-2 col-sm-2 col-lg-2 col-lg-offset-1 hidden-xs">
+          <div class="contribute-caret" ng-click="previous()" style="margin-top: 20px">
+
+
+
+            <div style="display: inline-block; position: relative; vertical-align: middle;">
+              <span class="fa fa-caret-left fa-2x"></span>
+            </div>
+            &nbsp;
+
+            <div class="h6 hidden-xs hidden-sm" style="display: inline-block; position: relative; vertical-align: middle; margin: 0">Précédent</div>
+
+
+          </div>
+        </div>
+
+        <div class="col-sm-8 col-md-8 col-lg-6">
+          <div class="row visible-xs text-muted">
+            <div class="col-xs-6" style="text-align: left">
+              <div style="padding-left: 20px" ng-click="previous()">
+                <div style="display: inline-block; position: relative; vertical-align: middle">
+                  <span class="fa fa-2x fa-caret-left"></span>
+                </div>
+                <div style="display: inline-block; position: relative; vertical-align: middle">
+                  Précédent
+                </div>
+              </div>
+            </div>
+            <div class="col-xs-6" style="text-align: right">
+              <div style="padding-right: 20px" ng-click="next()">
+                <div style="display: inline-block; position: relative; vertical-align: middle">
+                  Suivant
+                </div>
+                <div style="display: inline-block; position: relative; vertical-align: middle">
+                  <span class="fa fa-2x fa-caret-right"></span>
+                </div>
+              </div>
             </div>
           </div>
-          <div class="col-sm-8 col-sm-offset-2 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3">
-            <div ng-show="security.hasTestSchool()" class="h2 center bold text-orange" style="margin-bottom: 30px; margin-top: 20px">Fais ressortir les meilleurs cours :-)</div>
 
-            <div ng-repeat="item in commentPipe.commentable_items" style="margin-bottom: 30px; padding-top: 20px; margin-bottom: 170px">
-                <sh-item-contribute item="item"></sh-item-contribute>
+          <div ng-show="security.hasTestSchool()" class="h2 center bold text-orange" style="margin-bottom: 30px; margin-top: 20px">Fais ressortir les meilleurs cours :-)</div>
+
+          <div  style="margin-bottom: 30px; padding-top: 20px; margin-bottom: 170px">
+            <div ng-repeat="item in [ activeItem ]">
+              <div class="contribute-item-well" ng-hide="transitionning">
+                <sh-item-contribute next="next()" previous="previous()" item="item"></sh-item-contribute>
+              </div>
             </div>
           </div>
         </div>
+
+        <div class="col-md-2 col-sm-2 col-lg-2 hidden-xs">
+          <div class="contribute-caret" ng-click="next()" style="margin-top: 20px; text-align: right">
+            <div class="h6 hidden-xs hidden-sm" style="display: inline-block; position: relative; vertical-align: middle; margin: 0">Suivant</div>
+            &nbsp;
+            <div style="display: inline-block; position: relative; vertical-align: middle;">
+              <span class="fa fa-caret-right fa-2x"></span>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
   </div>

@@ -228,6 +228,28 @@ module Shapter
           end
           #}}}
 
+          #{{{ reco_score
+          desc "user scores an item to recommend the item", {:notes => <<-NOTE
+                                                              - score = 0 => delete score
+                                                              - score = 1 => unrecommand item (do not recommend)
+                                                              - score = 2 => norecommand item (could recommend, it depends)
+                                                              - score = 3 => unrecommand item (does recommend)
+                                                              - score = anything_else => raise exception 
+                                                             NOTE
+          }
+          params do 
+            requires :score, type: Integer, desc: "score to put"
+          end
+          put :reco_score do 
+            check_confirmed_student!
+            if current_user.reco_score_item!(@item, params[:score])
+              present @item, with: Shapter::Entities::Item, entity_options: entity_options
+            else
+              error!(current_user.errors + @item.errors)
+            end
+          end
+          #}}}
+
         end
 
       end

@@ -65,6 +65,15 @@ module Shapter
         it.subscribers & ops[:entity_options][:current_user].friends
       end
 
+
+      expose :current_user_reco_score , if: lambda{ |u,o| o[:entity_options]["item"][:current_user_reco_score]} do |it,ops|
+        it.user_reco_score(ops[:current_user])
+      end
+      expose :this_user_reco_score , if: lambda{ |u,o| o[:entity_options]["item"][:this_user_reco_score]} do |it,ops|
+        it.user_reco_score(ops[:this_user])
+      end
+
+
       #please leave this guy at the bottom
       expose :front_avg_diag, as: :averaged_diagram, if: lambda{ |u,o| o[:entity_options]["item"][:averaged_diagram]}
 
