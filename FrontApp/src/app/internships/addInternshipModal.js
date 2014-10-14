@@ -79,7 +79,6 @@ angular.module( 'directives.addInternshipModal', [
   };
 
   Tag.getSuggestedTags([ $stateParams.schoolId ], 'internship', 100, 'type').then( function( response ){
-    console.log( response );
     response.recommended_tags.push( add_new_type );
     $scope.internshipTypes = response.recommended_tags;
   }, function( err ){
@@ -98,12 +97,16 @@ angular.module( 'directives.addInternshipModal', [
     $scope.step = 1;
     $scope.internship = {};
     $scope.internship.schoolId = $stateParams.schoolId;
+    Tag.getSuggestedTags([ $stateParams.schoolId ], 'internship', 100, 'type').then( function( response ){
+      response.recommended_tags.push( add_new_type );
+      $scope.internshipTypes = response.recommended_tags;
+    }, function( err ){
+      console.log( err );
+    });
   };
 
   $scope.addInternship = function() {
     $scope.internship.schoolId = $stateParams.schoolId;
-    console.log( $scope.internship );
-    console.log( $filter( 'formatInternshipToPost' )( $scope.internship ));
     Internship.create($filter( 'formatInternshipToPost' )($scope.internship)).then(function(response) {
       $scope.internship = response;
       $rootScope.$broadcast( 'InternshipCreated' );
