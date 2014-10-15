@@ -18,14 +18,6 @@ angular.module( 'shapter.cursus', [
     resolve: {
       schools: ['School', function( School ){
         return School.index();
-      }],
-      boxes: ['User', 'security', '$q', function( User, security, $q ){
-        return security.requestCurrentUser().then( function( user ){
-          return User.profileBoxes( security.currentUser.id );
-        });
-      }],
-      boxesRecommandations: ['ProfileBox', function( ProfileBox ){
-        return ProfileBox.getRecommandations();
       }]
     }
   });
@@ -47,18 +39,31 @@ angular.module( 'shapter.cursus', [
   $scope.AppText = AppText;
 }])
 
-.controller('CursusCtrl', ['$scope', 'schools', 'Tag', 'Item', '$stateParams', '$filter', 'AppText', 'followBoxModalFactory', 'School', '$location', 'ProfileBox', 'boxes', 'boxesRecommandations', 'security', 'User', function( $scope, schools, Tag, Item, $stateParams, $filter, AppText, followBoxModalFactory, School, $location, ProfileBox, boxes, boxesRecommandations, security, User ){
+.controller('CursusCtrl', ['$scope', 'schools', 'Tag', 'Item', '$stateParams', '$filter', 'AppText', 'followBoxModalFactory', 'School', '$location', 'ProfileBox', 'security', 'User', function( $scope, schools, Tag, Item, $stateParams, $filter, AppText, followBoxModalFactory, School, $location, ProfileBox, security, User ){
 
-  $scope.boxes = boxes.map( function( box ){
-    box.unfolded = true;
-    return box;
-  });
-  $scope.boxesRecommandations = boxesRecommandations;
+
+  $scope.loadBoxes = function(){
+    User.profileBoxes( security.currentUser.id ).then( function( response ){
+      $scope.boxes = response.map( function( box ){
+        box.unfolded = true;
+        return box;
+      });
+    });
+    ProfileBox.getRecommandations().then( function( response ){
+      $scope.boxesRecommandations = response;
+    });
+  };
+
+  if( security.isAuthenticated() ){
+    $scope.loadBoxes();
+  }
+
   School.index().then( function( schools ){
     $scope.schools = schools.schools;
   });
 
   $location.search('state', null);
+  $scope.security = security;
   $scope.$location = $location;
   $scope.alerts = [];
   $scope.AppText = AppText;
@@ -68,15 +73,11 @@ angular.module( 'shapter.cursus', [
 
 
   $scope.$on('InternshipCreated', function(){
-    ProfileBox.getRecommandations().then( function( response ){
-      $scope.boxesRecommandations = boxesRecommandations;
-    });
-    User.profileBoxes( security.currentUser.id ).then( function( boxes ){
-      $scope.boxes = boxes.map( function( box ){
-        box.unfolded = true;
-        return box;
-      });
-    });
+    $scope.loadBoxes();
+  });
+
+  $scope.$on('login success', function(){
+    $scope.loadBoxes();
   });
 
   $scope.addTagsFromBox = function( box ){

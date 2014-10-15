@@ -1507,6 +1507,10 @@ angular.module( 'services.appText', [])
       }
     },
     cursus: {
+      account_needed: {
+        en: 'Want to have a fancy profile on Shapter ? Just signup and build your profile !',
+        fr: 'Tu veux avoir un profil sur Shapter ? Crée-toi simplement un compte !'
+      },
       cancel_reco: {
         en: 'Cancel recommendation',
         fr: 'Annuler la recommandation'

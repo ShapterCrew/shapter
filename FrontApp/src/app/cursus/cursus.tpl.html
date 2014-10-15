@@ -1,5 +1,16 @@
 <sh-header></sh-header>
-<div class="container" style="margin-bottom: 100px">
+<div class="container" ng-hide="security.isAuthenticated()">
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2">
+      <div class="padding-well">
+        <p class="">{{ AppText.cursus.account_needed | language }}</p>
+        <button class="btn btn-info" ng-click="security.showLogin()">{{ AppText.security.signin | language }}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container" style="margin-bottom: 100px" ng-show="security.isAuthenticated()">
 
   <!-- add courses box -->
   <div ng-show="$location.search().state == 'addingBox'" ng-include="'cursus/addBox.tpl.html'"></div>
