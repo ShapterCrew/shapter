@@ -1,4 +1,4 @@
-ProfileBox.destroy_all
+#ProfileBox.destroy_all
 
 #{{{ import!
 def import!
