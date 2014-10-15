@@ -192,6 +192,10 @@ angular.module( 'services.appText', [])
       }
     },
     security: {
+      email_signup: {
+        en: 'Signup with email',
+        fr: 'Inscription par email'
+      },
       auth_but_not_confirmed: {
         en: 'Your account has been created but not confirmed. Click on the confirmation email you recieved at ',
         fr: 'Tu dois confirmer ton email : clique sur l\'email de confirmation que tu as reçu à l\'adresse '
@@ -240,6 +244,10 @@ angular.module( 'services.appText', [])
         en: 'Facebook Connect',
         fr: 'Connexion avec Facebook'
       },
+      facebook_signup: {
+        en: 'Facebook Signup',
+        fr: 'Inscription avec Facebook'
+      },
       signup: {
         en: 'Signup',
         fr: 'Inscription'
@@ -249,12 +257,12 @@ angular.module( 'services.appText', [])
         fr: 'Connexion'
       },
       first_name: {
-        en: 'First name: ',
-        fr: 'Prénom : '
+        en: 'First name',
+        fr: 'Prénom'
       },
       last_name: {
-        en: 'Last name: ',
-        fr: 'Nom : '
+        en: 'Last name',
+        fr: 'Nom'
       },
       email: {
         en: 'Email',
@@ -265,8 +273,8 @@ angular.module( 'services.appText', [])
         fr: 'Email invalide'
       },
       password: {
-        en: 'Password: ',
-        ft: 'Mot de passe : '
+        en: 'Password',
+        fr: 'Mot de passe'
       },
       forgot_password: {
         en: 'Forgot password',
