@@ -64,4 +64,67 @@ describe ProfileBoxItem do
   end
   #}}}
 
+  #{{{ autodestroy
+  describe :autodestroy do 
+    it "should destroy itself when emptied" do 
+      @pb.add_item!(@i1)
+      @pb.save
+      @pb.reload
+      #byebug
+      expect(@pb.valid?).to be true
+      @pb.remove_item!(@i1) 
+      expect{ @pb.save }.to change{ProfileBoxItem.count}.by(-1)
+    end
+  end
+  #}}}
+
+  #{{{ user_items_callbacks
+  describe :user_items_callbacks do 
+    it "adds and removes items to user.items when saved" do 
+      expect{
+      @pb.add_items!([@i1,@i2])
+      @pb.save
+      }.to change{@u.item_ids}.from([]).to([@i1.id,@i2.id])
+
+      expect{
+      @pb.remove_item!(@i1)
+      @pb.save
+      }.to change{@u.item_ids}.from([@i1.id,@i2.id]).to([@i2.id])
+    end
+    it "adds and removes items to item.subscribers when saved" do 
+      expect{
+      @pb.add_items!([@i1,@i2])
+      @pb.save
+      @i1.reload
+      }.to change{@i1.subscriber_ids}.from([]).to([@u.id])
+
+      expect{
+      @pb.remove_item!(@i1)
+      @pb.save
+      @i1.reload
+      }.to change{@i1.subscriber_ids}.from([@u.id]).to([])
+    end
+
+    it "removes items from user.items when destroyed" do 
+      @pb.add_item!(@i1)
+      @pb.save
+      @u.reload
+      expect{
+        @pb.destroy
+      }.to change{@u.item_ids}.from([@i1.id]).to([])
+    end
+
+    it "removes user from items.users when destroyed" do 
+      @pb.add_item!(@i1)
+      @pb.save
+      @i1.reload
+      expect{
+        @pb.destroy
+        @i1.reload
+      }.to change{@i1.subscriber_ids}.from([@u.id]).to([])
+    end
+
+  end
+  #}}}
+
 end

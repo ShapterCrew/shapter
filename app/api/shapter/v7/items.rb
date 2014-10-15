@@ -97,38 +97,43 @@ module Shapter
           end
           #}}}
 
-          #{{{ subscribe
-          desc "subscribe to the item"
-          post :subscribe do 
-            check_confirmed_student!
-            error!("user is no verified student of this school",401) unless @item.user_can_comment?(current_user)
-            do_not_track = ( current_user.items.include?(@item))
-            @item.subscribers << current_user
-            if @item.save
-              present @item, with: Shapter::Entities::Item, entity_options: entity_options
-              Behave.delay.track(current_user.pretty_id, "subscribe item", item: @item.pretty_id ) unless do_not_track
-              current_user.touch unless do_not_track
-              current_user.touch unless do_not_track
-            else
-              error!(@item.errors.messages)
-            end
-          end
-          #}}}
+         # #{{{ subscribe (deactivated)
+         # desc "subscribe to the item"
+         # post :subscribe do 
+         #   check_confirmed_student!
+         #   error!("user is no verified student of this school",401) unless @item.user_can_comment?(current_user)
+         #   do_not_track = ( current_user.items.include?(@item))
+         #   @item.subscribers << current_user
+         #   if @item.save
+         #     present @item, with: Shapter::Entities::Item, entity_options: entity_options
+         #     Behave.delay.track(current_user.pretty_id, "subscribe item", item: @item.pretty_id ) unless do_not_track
+         #     current_user.touch unless do_not_track
+         #     current_user.touch unless do_not_track
+         #   else
+         #     error!(@item.errors.messages)
+         #   end
+         # end
+         # #}}}
 
           #{{{ unsubscribe
           desc "unsubscribe to the item"
           post :unsubscribe do 
             check_confirmed_student!
             error!("user is no verified student of this school",401) unless @item.user_can_comment?(current_user)
-            do_not_track = !(current_user.items.include?(@item))
-            @item.subscribers.delete(current_user)
-            if @item.save
+            saves = (pbs = current_user.profile_boxes.where(item_ids: @item.id)).map do |pb|
+              pb.remove_item!(@item)
+              pb.save
+            end.reduce(:&)
+
+            saves &= (current_user.items.delete(@item) ; current_user.save)
+
+            if saves
+              current_user.touch unless pbs.empty?
               present @item, with: Shapter::Entities::Item, entity_options: entity_options
-              Behave.delay.track(current_user.pretty_id, "unsubscribe item", item: @item.pretty_id ) unless do_not_track
-              current_user.touch unless do_not_track
             else
-              error!(@item.errors.messages)
+              error!((pbs + [current_user]).map(&:errors).map(&:messages).map(&:to_s).join(" "))
             end
+
           end
           #}}}
 
@@ -245,7 +250,7 @@ module Shapter
             if current_user.reco_score_item!(@item, params[:score])
               present @item, with: Shapter::Entities::Item, entity_options: entity_options
             else
-              error!(current_user.errors + @item.errors)
+              error!(@item.errors)
             end
           end
           #}}}

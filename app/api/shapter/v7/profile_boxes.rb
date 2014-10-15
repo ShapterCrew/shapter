@@ -96,6 +96,38 @@ module Shapter
           end
           #}}}
 
+          #{{{ add_items
+          desc "add items to a profile box" do 
+          end
+          params do 
+            requires :item_ids, desc: "ids of the items to remove from the box"
+          end
+          post "add_items" do 
+            @pb.add_items!(params[:item_ids])
+            if @pb.save
+              present @pb, with: Shapter::Entities::ProfileBox, entity_options: entity_options
+            else
+              error!(@pb.errors.messages)
+            end
+          end
+          #}}}
+
+          #{{{ remove_items
+          desc "remove items from a profile box" do 
+          end
+          params do 
+            requires :item_ids, desc: "ids of the items to remove from the box"
+          end
+          post "remove_items" do 
+            @pb.remove_items!(params[:item_ids])
+            if @pb.save
+              present @pb, with: Shapter::Entities::ProfileBox, entity_options: entity_options
+            else
+              error!(@pb.errors.messages)
+            end
+          end
+          #}}}
+
           #{{{ delete
           desc "delete a profile box"
           delete do 
