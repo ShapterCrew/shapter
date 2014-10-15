@@ -11,6 +11,7 @@ describe Shapter::V7::ProfileBoxes do
     @i1 = FactoryGirl.create(:item)
     @i2 = FactoryGirl.create(:item)
     @i3 = FactoryGirl.create(:item)
+    @i4 = FactoryGirl.create(:item)
   end
 
   #{{{ create
@@ -40,6 +41,7 @@ describe Shapter::V7::ProfileBoxes do
     it "deletes profil box" do 
       @pb = FactoryGirl.build(:profile_box_item)
       @pb.users = [@user]
+      @pb.add_item!(FactoryGirl.create(:item))
       @pb.save
       expect(ProfileBox.count).to eq 1
       expect{delete "profile_boxes/#{@pb.id}"}.to change{ProfileBox.count}.by(-1)
@@ -102,6 +104,32 @@ describe Shapter::V7::ProfileBoxes do
       put "/profile_boxes/#{@pb.id}", @p2 
       @pb.reload
       expect(@pb.items).to match_array([@i3])
+    end
+
+  end
+  #}}}
+
+  #{{{ add and remove items
+  describe "add_and_remove_items" do 
+    before do 
+      @pb = FactoryGirl.build(:profile_box_item)
+      @pb.users = [@user]
+      @pb.add_items!([@i1,@i2])
+      @pb.save
+    end
+
+    it "add_items add items" do 
+      expect{
+        post "profile_boxes/#{@pb.id}/add_items", item_ids: [@i1,@i3,@i4].map(&:id).map(&:to_s)
+        @pb.reload
+      }.to change{@pb.item_ids}.from([@i1,@i2].map(&:id).sort).to([@i1,@i2,@i3,@i4].map(&:id).sort)
+    end
+
+    it "remove_items remove items" do 
+      expect{
+        post "profile_boxes/#{@pb.id}/remove_items", item_ids: [@i1,@i3].map(&:id).map(&:to_s)
+        @pb.reload
+      }.to change{@pb.item_ids}.from([@i1,@i2].map(&:id).sort).to([@i2].map(&:id).sort)
     end
 
   end
