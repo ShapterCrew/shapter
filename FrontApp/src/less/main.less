@@ -129,6 +129,7 @@
  * TODO: In a later version of this boilerplate, I'd like to automate this.
  */
 
+@import '../../src/common/security/emailLogin/emailLogin.less';
 @import '../../src/app/cursus/cursus.less';
 @import '../../src/app/map/map.less';
 @import '../../src/common/directives/comment/comment.less';
@@ -297,7 +298,8 @@ background-color: #1abc9c;
 
 .form-control {
   border-radius: 0px !important;
-  border: 1px solid darken(@blue-clouds, 20%);
+  background-color: @clouds;
+  border: 0px solid darken(@blue-clouds, 20%);
 }
 
 .badge {
@@ -485,6 +487,10 @@ background-color: #1abc9c;
 
 .btn-pink {
   .button-variant(@btn-default-color, @pink, @pink, @pink);
+}
+
+.btn-asphalt {
+  .button-variant(@btn-default-color, @wet-asphalt, lighten(@wet-asphalt, 8%), @wet-asphalt);
 }
 
 .btn-emerald {
@@ -1032,14 +1038,12 @@ ul.dropdown-menu[datepicker-popup-wrap] {
   background-color: @blue-clouds;
 }
 
+.blue-hover:hover {
+  color: @blue-pastel;
+}
 /* all */
-@placeholder-color: lighten(@wet-asphalt, 40%);
+@placeholder-color: @silver;
 ::-webkit-input-placeholder { color: @placeholder-color !important; }
 ::-moz-placeholder { color: @placeholder-color; } /* firefox 19+ */
 :-ms-input-placeholder { color: @placeholder-color; } /* ie */
 input:-moz-placeholder { color: @placeholder-color; }
-
-
-.blue-hover:hover {
-  color: @blue-pastel;
-}
