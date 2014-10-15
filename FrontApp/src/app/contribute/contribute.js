@@ -103,10 +103,6 @@ angular.module( 'shapter.contribute', [
     $scope.next();
   });
 
-  $scope.test = function(){
-    console.log( 'haha' );
-  };
-
   $scope.$on('login success', function(){
     $scope.batchIndex = -1;
     $scope.fullyLoaded = false;
@@ -154,7 +150,7 @@ angular.module( 'shapter.contribute', [
     Analytics.contributeNav('previous');
   };
 
-  $scope.next();
+//  $scope.next();
 
   /*
      $scope.batchSize = 3;

@@ -596,6 +596,18 @@ angular.module( 'services.appText', [])
     },
 
     contribute: {
+      manage_my_classes: {
+        en: 'Go manage my classes',
+        fr: 'Gérer mes cours'
+      },
+      you_did_id: {
+        en: 'Yeah ! You advised every single class you took. Did you take new ones ?',
+        fr: 'Bravo ! Tu as recommandé tous les cours que tu as suivis ! Est-ce que tu en as suivis des nouveaux ?'
+      },
+      take_classes: {
+        en: 'Subscribe on Shapter to the classes you took as a student and come back here to give your feedback !',
+        fr: 'Inscris-toi sur Shapter aux cours que tu as suivis et reviens ici pour les recommander !'
+      },
       unadvised: {
         en: 'Unadvised',
         fr: 'Déconseillé'

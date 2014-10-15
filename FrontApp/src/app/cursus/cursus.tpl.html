@@ -34,7 +34,7 @@
         <div class="alert" ng-class="{'alert-info': alert.type == 'info'}" ng-repeat="alert in alerts">{{ alert.msg }} <small class="glyphicon glyphicon-remove pull-right" ng-click="alerts.splice( $index, 1)"></small></div>
         <div class="box">
           <div class="h6 bold text-orange">
-            <span ng-bind="AppText.cursus.add_step | language"></span> <span ng-bind="boxes[ 0 ].name"></span><span ng-bind="AppText.system.question_mark | language"></span>
+            <span ng-bind="AppText.cursus.add_step | language"></span> <span ng-bind="( boxes | orderBy: 'start_date': true )[ 0 ].name"></span><span ng-bind="AppText.system.question_mark | language"></span>
           </div>
         </div>
         <div class="add-box">

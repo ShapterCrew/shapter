@@ -184,20 +184,6 @@ angular.module( 'shapter.cursus', [
     $scope.newBox.typedTag = null;
   };
 
-  $scope.internshipsSuggestions = [{
-    name: 'Stage ouvrier',
-    type: 'Stage ouvrier',
-    tags: ['54101eab4d61631e55b61600']
-  }, {
-    name: 'Stage d\'application',
-    type: 'internship',
-    tags: ['54101eab4d61631e55b61600']
-  }, {
-    name: 'Travail de fin d\'études',
-    type: 'internship',
-    tags: ['54101eab4d61631e55b61600']
-  }];
-
 }])
 
 .filter('formatBoxToPost', [function(){
