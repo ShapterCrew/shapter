@@ -1519,6 +1519,26 @@ angular.module( 'services.appText', [])
       }
     },
     cursus: {
+      class_name: {
+        en: 'What is the name of the class?',
+        fr: 'Quel est le nom du cours ?'
+      },
+      didnt_take_the_class: {
+        en: 'I didn\'nt take this class',
+        fr: 'Je n\'ai pas suivi ce cours'
+      },
+      edit_box: {
+        en: 'Edit this step',
+        fr: 'Editer cette étape'
+      },
+      remove_step: {
+        en: 'Remove this step form my profile',
+        fr: 'Retirer cette étape de mon cursus'
+      },
+      sure_remove_step: {
+        en: 'Do you really want to remove this step from your profile?',
+        fr: 'Veux tu vraiment retirer cette étape de ton parcours ?'
+      },
       account_needed: {
         en: 'Want to have a fancy profile on Shapter ? Just signup and build your profile !',
         fr: 'Tu veux avoir un profil sur Shapter ? Crée-toi simplement un compte !'

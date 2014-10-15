@@ -37,6 +37,8 @@ angular.module( 'shapter.cursus', [
 
 .controller('CursusBoxCtrl', ['$scope', 'AppText', function( $scope, AppText ){
   $scope.AppText = AppText;
+  $scope.remove = function(){
+  };
 }])
 
 .controller('CursusCtrl', ['$scope', 'schools', 'Tag', 'Item', '$stateParams', '$filter', 'AppText', 'followBoxModalFactory', 'School', '$location', 'ProfileBox', 'security', 'User', function( $scope, schools, Tag, Item, $stateParams, $filter, AppText, followBoxModalFactory, School, $location, ProfileBox, security, User ){
@@ -51,6 +53,18 @@ angular.module( 'shapter.cursus', [
     });
     ProfileBox.getRecommandations().then( function( response ){
       $scope.boxesRecommandations = response;
+    });
+  };
+
+  $scope.removeBox = function( box ){
+    box.remove().then( function(){
+      $scope.boxes.splice( $scope.boxes.indexOf( box ), 1);
+    });
+  };
+
+  $scope.removeItemFromBox = function( box, item ){
+    box.removeItem( [item.id] ).then( function(){
+      box.items.splice( box.items.indexOf( item ), 1 );
     });
   };
 
@@ -76,7 +90,18 @@ angular.module( 'shapter.cursus', [
     $scope.loadBoxes();
   });
 
+  $scope.getClassesTypeahead = function( string ){
+    return Tag.typeahead( string, [ $stateParams.schoolId ], 'item', 30, 'item_name' ).then( function( response ){
+      console.log( response );
+      return response.tags;
+    });
+  };
+
+  $scope.addClassFromTag = function( box ){
+  };
+
   $scope.$on('login success', function(){
+    console.log( 'login success detected' );
     $scope.loadBoxes();
   });
 
@@ -172,7 +197,7 @@ angular.module( 'shapter.cursus', [
   };
 
   $scope.getTypeahead = function( string ){
-    var tag_ids = [ $scope.newBox.school.id ];
+    var tag_ids = $scope.newBox ? [ $scope.newBox.school.id ] : [];
     return Tag.typeahead( string, tag_ids, 'item', 30, null ).then( function( response ){
       return response.tags;
     });

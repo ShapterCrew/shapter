@@ -4,6 +4,25 @@ angular.module('resources.profileBox', [
 ])
 
 .factory('ProfileBox', ['Restangular', '$filter', function( Restangular, $filter ){
+
+  var removeItem = function( item_ids ){
+    var box = this;
+    var params = {
+      item_ids: item_ids
+    };
+    return Restangular.one('profile_boxes', box.id).customPOST( params, 'add_items' );
+  };
+
+  var extendProfileBox = function(profile_box) {
+    return angular.extend(profile_box, {
+      removeItem: removeItem
+    });
+  };
+
+  Restangular.extendModel('profile_boxes', function (profile_box) {
+    return extendProfileBox(profile_box);
+  });
+
   var ProfileBox = {
     create: function( box ){
       var entities = {
