@@ -64,19 +64,19 @@ describe ProfileBoxItem do
   end
   #}}}
 
-  #{{{ autodestroy
-  describe :autodestroy do 
-    it "should destroy itself when emptied" do 
-      @pb.add_item!(@i1)
-      @pb.save
-      @pb.reload
-      #byebug
-      expect(@pb.valid?).to be true
-      @pb.remove_item!(@i1) 
-      expect{ @pb.save }.to change{ProfileBoxItem.count}.by(-1)
-    end
-  end
-  #}}}
+  ##{{{ autodestroy (disabled)
+  #describe :autodestroy do 
+  #  it "should destroy itself when emptied" do 
+  #    @pb.add_item!(@i1)
+  #    @pb.save
+  #    @pb.reload
+  #    #byebug
+  #    expect(@pb.valid?).to be true
+  #    @pb.remove_item!(@i1) 
+  #    expect{ @pb.save }.to change{ProfileBoxItem.count}.by(-1)
+  #  end
+  #end
+  ##}}}
 
   #{{{ user_items_callbacks
   describe :user_items_callbacks do 

@@ -1,7 +1,7 @@
 class ProfileBoxItem < ProfileBox
 
   field :item_ids, type: Array
-  after_save :destroy_if_empty!
+  #after_save :destroy_if_empty! #auto destroy disabled
 
   after_save :update_user_items!
   before_destroy :delete_user_items!
@@ -81,6 +81,5 @@ class ProfileBoxItem < ProfileBox
       user.save
     end
   end
-
 
 end
