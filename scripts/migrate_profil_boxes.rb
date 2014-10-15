@@ -1,60 +1,285 @@
-# /!\  /!\  /!\  /!\  /!\  /!\  /!\  /!\  /!\  /!\  /!\ 
-#
-#    DO NOT USE THIS SCRIPT IN PRODUCTION !!
-#
-# /!\  /!\  /!\  /!\  /!\  /!\  /!\  /!\  /!\  /!\  /!\ 
-exit if Rails.env.production?
+#{{{ import!
+def import!
+  puts "---------------"
+  puts @school.name
+  @school.students.each do |user|
 
-#Tag.schools.each do |school|
-Tag.schools.where(name: "Centrale Lyon").each do |school|
-  funnel = school.constructor_funnel || school.signup_funnel || next
-  school.students.each do |user|
-
-    funnel.each_with_index do |step,i|
-      step_name = step["name"]
-      step_tags = step["tag_ids"]
-
-      start_date = [
-        Date.new(2012,9,1),
-        Date.new(2013,2,1),
-        Date.new(2013,9,1),
-        Date.new(2014,2,1),
-        Date.new(2014,1,1),
-        Date.new(2014,2,1),
-        Date.new(2013,9,1),
-      ][i]
-
-      end_date = [
-        Date.new(2013,1,28),
-        Date.new(2013,5,28),
-        Date.new(2013,12,28),
-        Date.new(2014,2,28),
-        Date.new(2014,2,28),
-        Date.new(2014,5,28),
-        Date.new(2014,2,28),
-      ][i]
-
-      course_ids = user.items.all_in('tag_ids' => step_tags).only(:id).map(&:id)
-
-      if course_ids.any?
-
-        pb = ProfileBoxItem.new(
-          users: [user],
-          name: step_name,
-          start_date: start_date,
-          end_date:  end_date,
-          item_ids: course_ids,
-        )
-
-        if pb.save
-          puts "#{user.name}\t#{pb.name}" 
-        else
-          puts pb.errors.messages
-        end
-
+    user.internships.each do |internship|
+      print "[Internship]\t#{user.name}'s internship\t"
+      p = ProfileBoxInternship.new(internship: internship)
+      if p.save
+        print "ok\n"
+      else
+        print "ERROR!!! #{p.errors.messages}\n"
       end
-
     end
 
+    @tags.each_with_index do |tag_list,i|
+      is = user.items.all_in(tag_ids: tag_list.map(&:id))
+      if is.any?
+        p = ProfileBoxItem.new(
+          users: [user],
+          name: @steps[i],
+          start_date: @begin_dates[i],
+          end_date: @end_dates[i],
+          item_ids: is.map(&:id),
+        )
+        print "[Item]\t#{p.name} for #{user.name}\t"
+        if p.save
+          print "ok\n"
+        else
+          print "ERROR!!! #{p.errors.messages}\n"
+        end
+      end
+    end
+
+    user.order_profile!
   end
 end
+#}}}
+
+#{{{ Eurecom
+puts "Eurecom"
+@school = Tag.schools.find_by(name: "Eurecom")
+@steps = [
+  "General Fall",
+  "Technique Fall",
+  "Genral Spring",
+  "Technique Spring",
+]
+
+@tags = [
+  (["General"  , "Fall"  ].map{|tname| Tag.find_by(name: tname)} << @school),
+  (["Technique", "Fall"  ].map{|tname| Tag.find_by(name: tname)} << @school),
+  (["General"  , "Spring"].map{|tname| Tag.find_by(name: tname)} << @school),
+  (["Technique", "Spring"].map{|tname| Tag.find_by(name: tname)} << @school),
+]
+
+@begin_dates = [
+  Date.new(2013,9,1),
+  Date.new(2013,9,1),
+  Date.new(2014,1,1),
+  Date.new(2014,1,1),
+]
+
+@end_dates = [
+  Date.new(2014,1,1),
+  Date.new(2014,1,1),
+  Date.new(2014,6,1),
+  Date.new(2014,6,1),
+]
+
+import!
+#}}}
+
+#{{{ Telecom ParisTech
+puts "Telecom ParisTech"
+@school = Tag.schools.find_by(name: "Telecom ParisTech")
+@steps = [
+  "Culture Générale",
+  "Formation Humaine",
+  "Langues",
+  "P1",
+  "P2",
+  "P3",
+  "P4",
+]
+
+@tags = [
+  (["Culture Générale"].map{|tname| Tag.find_by(name: tname)} << @school),
+  (["Formation Humaine"].map{|tname| Tag.find_by(name: tname)} << @school),
+  (["Langues"].map{|tname| Tag.find_by(name: tname)} << @school),
+  (["Sciences & Techniques", "P1"].map{|tname| Tag.find_by(name: tname)} << @school),
+  (["Sciences & Techniques", "P2"].map{|tname| Tag.find_by(name: tname)} << @school),
+  (["Sciences & Techniques", "P3"].map{|tname| Tag.find_by(name: tname)} << @school),
+  (["Sciences & Techniques", "P4"].map{|tname| Tag.find_by(name: tname)} << @school),
+]
+
+@begin_dates = [
+  Date.new(2013,9,1),
+  Date.new(2013,9,1),
+  Date.new(2013,9,1),
+  Date.new(2013,9,1),
+  Date.new(2013,11,1),
+  Date.new(2014,1,1),
+  Date.new(2014,3,1),
+]
+
+@end_dates = [
+  Date.new(2014,6, 1),
+  Date.new(2014,6, 1),
+  Date.new(2014,6, 1),
+  Date.new(2013,11,1),
+  Date.new(2014,1, 1),
+  Date.new(2014,3, 1),
+  Date.new(2014,6, 1),
+]
+
+import!
+#}}}
+
+#{{{ ENSMA
+puts "ENSMA"
+@school = Tag.schools.find_by(name: "ENSMA")
+@steps = [
+  "Semestre 1",
+  "Semestre 2",
+  "Semestre 3",
+  "Semestre 4",
+]
+
+@tags = [
+  (["SHES", "S1"].map{|tname| Tag.find_by(name: tname)} << @school),
+  (["SHES", "S2"].map{|tname| Tag.find_by(name: tname)} << @school),
+  (["SHES", "S3"].map{|tname| Tag.find_by(name: tname)} << @school),
+  (["SHES", "S4"].map{|tname| Tag.find_by(name: tname)} << @school),
+]
+
+@begin_dates = [
+  Date.new(2012,9,1),
+  Date.new(2013,1,1),
+  Date.new(2013,9,1),
+  Date.new(2014,1,1),
+]
+
+@end_dates = [
+  Date.new(2013,1,1),
+  Date.new(2013,6,1),
+  Date.new(2014,1,1),
+  Date.new(2015,6,1),
+]
+
+import!
+#}}}
+
+#{{{ ESCP Europe
+puts "ESCP Europe"
+@school = Tag.schools.find_by(name: "ESCP Europe")
+@steps = [
+  "Semestre 1",
+  "Semestre 2",
+]
+
+@tags = [
+  (["SSH", "S1"].map{|tname| Tag.find_by(name: tname)} << @school),
+  (["SSH", "S2"].map{|tname| Tag.find_by(name: tname)} << @school),
+]
+
+@begin_dates = [
+  Date.new(2013,9,1),
+  Date.new(2014,1,1),
+]
+
+@end_dates = [
+  Date.new(2014,1,1),
+  Date.new(2014,6,1),
+]
+
+import!
+#}}}
+
+#{{{ ULM
+puts "ULM"
+@school = Tag.schools.find_by(name: "ULM")
+@steps = [
+  "L3",
+  "M1",
+  "M2",
+]
+
+@tags = [
+  (["L3"].map{|tname| Tag.find_by(name: tname)} << @school),
+  (["M1"].map{|tname| Tag.find_by(name: tname)} << @school),
+  (["M2"].map{|tname| Tag.find_by(name: tname)} << @school),
+]
+
+@begin_dates = [
+  Date.new(2011,9,1),
+  Date.new(2012,9,1),
+  Date.new(2013,9,1),
+]
+
+@end_dates = [
+  Date.new(2012,6,1),
+  Date.new(2013,6,1),
+  Date.new(2014,6,1),
+]
+
+import!
+#}}}
+
+#{{{ Dauphine
+puts "Dauphine"
+@school = Tag.schools.find_by(name: "Dauphine")
+@steps = [
+  "Semestre 7",
+  "Semestre 8",
+]
+
+@tags = [
+  (["Semestre 7"].map{|tname| Tag.find_by(name: tname)} << @school),
+  (["Semestre 8"].map{|tname| Tag.find_by(name: tname)} << @school),
+]
+
+@begin_dates = [
+  Date.new(2013,9,1),
+  Date.new(2014,1,1),
+]
+
+@end_dates = [
+  Date.new(2014,1,1),
+  Date.new(2014,6,1),
+]
+
+import!
+#}}}
+
+#{{{ Supélec
+puts "Supélec"
+@school = Tag.schools.find_by(name: "Supélec")
+@steps = [
+  "Séquence 1",
+  "Séquence 2",
+  "Séquence 3",
+  "Séquence 4",
+  "Séquence 5",
+  "Séquence 6",
+  "Séquence 7",
+  "Séquence 8",
+]
+
+@tags = [
+  (["Séquence 1"].map{|tname| Tag.find_by(name: tname)} << @school),
+  (["Séquence 2"].map{|tname| Tag.find_by(name: tname)} << @school),
+  (["Séquence 3"].map{|tname| Tag.find_by(name: tname)} << @school),
+  (["Séquence 4"].map{|tname| Tag.find_by(name: tname)} << @school),
+  (["Séquence 5"].map{|tname| Tag.find_by(name: tname)} << @school),
+  (["Séquence 6"].map{|tname| Tag.find_by(name: tname)} << @school),
+  (["Séquence 7"].map{|tname| Tag.find_by(name: tname)} << @school),
+  (["Séquence 8"].map{|tname| Tag.find_by(name: tname)} << @school),
+]
+
+@begin_dates = [
+  Date.new(2012,9,1),
+  Date.new(2012,11,1),
+  Date.new(2013,1,1),
+  Date.new(2013,3,1),
+  Date.new(2013,9,1),
+  Date.new(2013,11,1),
+  Date.new(2014,1,1),
+  Date.new(2014,3,1),
+]
+
+@end_dates = [
+  Date.new(2012,11,1),
+  Date.new(2013,1,1),
+  Date.new(2013,3,1),
+  Date.new(2013,6,1),
+  Date.new(2013,11,1),
+  Date.new(2014,1,1),
+  Date.new(2014,3,1),
+  Date.new(2014,6,1),
+]
+
+import!
+#}}}
