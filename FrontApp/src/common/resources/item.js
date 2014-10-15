@@ -9,7 +9,6 @@ angular.module('resources.item', [
 
   //********* Adding instance methods *************//
 
-
   var getComments = function( cb ){
     return Restangular.one('items', this.id).all('comments').post();
   };
@@ -636,8 +635,6 @@ angular.module('resources.item', [
   Item.removeTags = function( item_ids, tags ){
     return Restangular.all('items').all('tags').customPOST({ item_ids: item_ids, tags: tags }, 'delete');
   };
-
-
 
   return Item;
 }]);

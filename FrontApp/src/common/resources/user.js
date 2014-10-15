@@ -1,7 +1,8 @@
 angular.module( 'resources.user', [
   'restangular',
   'resources.item',
-  'resources.comment'
+  'resources.comment',
+  'resources.profileBox'
 ])
 
 .factory( 'User', ['Restangular', 'Item', '$location', 'security', 'Comment', function( Restangular, Item, $location, security, Comment ){
@@ -294,7 +295,8 @@ angular.module( 'resources.user', [
         }
       };
       return Restangular.one( 'users', userId ).customPOST( params, 'profile_boxes' ).then( function( response ){
-        return response.map( function( box ){
+        var boxes = Restangular.restangularizeCollection( null, response, 'profile_boxes');
+        return boxes.map( function( box ){
           box.items = box.items ? Restangular.restangularizeCollection( null, box.items, 'items'): null;
           return box;
         });
