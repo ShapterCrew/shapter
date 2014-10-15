@@ -24,45 +24,14 @@
             <button class="btn btn-hg btn-orange" ng-click="navSf()">{{ AppText.contribute.fill_in_your_cursus | language }}</button>
           </div>
         </div>
-        <div class="col-md-2 col-sm-2 col-lg-2 col-lg-offset-1 hidden-xs">
-          <div class="contribute-caret" ng-click="previous()" style="margin-top: 20px">
-            <div style="display: inline-block; position: relative; vertical-align: middle;">
-              <span class="fa fa-caret-left fa-2x"></span>
-            </div>
-            &nbsp;
-            <div class="h6 hidden-xs hidden-sm" style="display: inline-block; position: relative; vertical-align: middle; margin: 0">{{ AppText.system.previous | language }}</div>
-          </div>
-        </div>
-        <div class="col-sm-8 col-md-8 col-lg-6">
-          <div class="row visible-xs">
-            <div class="col-xs-6" style="text-align: left">
-              <div style="padding-left: 20px" ng-click="previous()" class="contribute-caret">
-                <div style="display: inline-block; position: relative; vertical-align: middle">
-                  <span class="fa fa-2x fa-caret-left"></span>
-                </div>
-                <div style="display: inline-block; position: relative; vertical-align: middle">
-                  {{ AppText.system.previous | language }}
-                </div>
-              </div>
-            </div>
-            <div class="col-xs-6" style="text-align: right">
-              <div style="padding-right: 20px" ng-click="next()" class="contribute-caret">
-                <div style="display: inline-block; position: relative; vertical-align: middle">
-                  {{ AppText.system.next | language }}
-                </div>
-                <div style="display: inline-block; position: relative; vertical-align: middle">
-                  <span class="fa fa-2x fa-caret-right"></span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div  style="margin-bottom: 30px; padding-top: 20px; margin-bottom: 170px">
-            <div ng-repeat="item in [ activeItem ]">
-              <div class="contribute-item-well" ng-hide="transitionning">
+        <div class="col-sm-8 col-md-8 col-lg-6 col-sm-offset-2 col-md-offset-2 col-lg-offset-3">
+          <div  style="margin-bottom: 30px; padding-top: 20px;">
+            <div ng-repeat="item in commentPipe.commentable_items | filter: {id: activeItem.id}" class="contribute-item-well" ng-class="{'previous': animationState == 'previous', 'next': animationState == 'next'}" style="width: 100%; position: absolute; margin-bottom: 200px">
+              <div>
                 <div class="padding-well">
                   <div class="row">
                     <div class="col-md-12">
-                      <span class="pull-right">
+                      <span class="pull-right" ng-show="item.current_user_comments_count">
                         <span class="badge badge-grapefruit" ng-show="item.current_user_reco_score == 1">
                           <span class="fa fa-exclamation-circle"></span> {{ AppText.contribute.unadvised | language }}
                         </span>
@@ -73,21 +42,34 @@
                           <span class="fa fa-check-circle"></span> {{ AppText.contribute.recommended | language }}
                         </span>
                       </span>
-                      <div class="h4 text-blue" style="margin: 15px 0px 20px 0px;">{{ item.name }}</div> 
+                      <div class="h4 text-blue" style="margin: 15px 0px 0px 0px;">{{ item.name }}</div> 
                     </div>
                   </div>
                   <sh-item-contribute next="next()" previous="previous()" item="item"></sh-item-contribute>
                 </div>
               </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-2 col-sm-2 col-lg-2 hidden-xs">
-          <div class="contribute-caret" ng-click="next()" style="margin-top: 20px; text-align: right">
-            <div class="h6 hidden-xs hidden-sm" style="display: inline-block; position: relative; vertical-align: middle; margin: 0">Suivant</div>
-            &nbsp;
-            <div style="display: inline-block; position: relative; vertical-align: middle;">
-              <span class="fa fa-caret-right fa-2x"></span>
+              <div class="row" style="margin-top: 10px">
+                <div class="col-xs-6" style="text-align: left">
+                  <div style="padding-left: 20px" ng-click="previous()" class="contribute-caret" ng-show="commentPipe.commentable_items.indexOf( activeItem ) > 0">
+                    <div style="display: inline-block; position: relative; vertical-align: middle">
+                      <span class="fa fa-2x fa-caret-left"></span>
+                    </div>
+                    <div style="display: inline-block; position: relative; vertical-align: middle">
+                      {{ AppText.system.previous | language }}
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xs-6" style="text-align: right">
+                  <div style="padding-right: 20px" ng-click="next()" class="contribute-caret">
+                    <div style="display: inline-block; position: relative; vertical-align: middle">
+                      {{ AppText.system.next | language }}
+                    </div>
+                    <div style="display: inline-block; position: relative; vertical-align: middle">
+                      <span class="fa fa-2x fa-caret-right"></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>

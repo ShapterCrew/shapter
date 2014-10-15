@@ -71,7 +71,7 @@
     <ul class="nav navbar-nav navbar-center">
       <li ng-class="{'active': $state.$current =='school'}" ng-click="home()"><a>{{ AppText.header.home | language }}</a></li>
       <li ng-class="{'active': $state.$current =='cursus'}" ng-click="cursusNav()"><a>{{ AppText.header.my_classes | language }}</a></li>
-      <li ng-class="{'active': $state.$current =='schoolContribute'}" ng-click="contributeNav()"><a>{{ AppText.school.contribute | language }}</a></li>
+      <li ng-class="{'active': $state.$current =='schoolContribute'}" ng-click="contributeNav()"><a>{{ AppText.header.contribute | language }}</a></li>
       <li ng-class="{'active': $state.$current =='browse'}" ng-click="browseNav()"><a>{{ AppText.header.classes | language }}</a></li>
       <li ng-show="$stateParams.schoolId" ng-class="{'active': $state.$current =='Internships'}"><a ng-href="#/schools/{{ $stateParams.schoolId }}/internships">{{ AppText.header.internships | language }}</a></li>
       <!--

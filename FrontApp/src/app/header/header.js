@@ -45,7 +45,6 @@ angular.module('shapter.header', ['directives.confirmAlert', 'directives.behaveA
       };
 
       scope.campusAuthorizationNav = function(){
-        console.log( 'lol' );
         $location.path("/campusAuthentication");
       };
 

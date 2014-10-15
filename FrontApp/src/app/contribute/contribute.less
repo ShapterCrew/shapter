@@ -8,12 +8,180 @@
 }
 
 .contribute-item-well {
+  opacity: 1;
 }
 
-.reco-buttons {
-  //max-width: 300px;
-  //margin: auto;
+.contribute-item-well.ng-enter.previous {
+  -webkit-animation: 0.2s  enter_by_left;
+  -moz-animation: 0.2s  enter_by_left;
+  -o-animation: 0.2s  enter_by_left;
+  animation: 0.2s  enter_by_left;
+  -webkit-animation-timing-function: ease-out; /* Chrome, Safari, Opera */
+  animation-timing-function: ease-out;
+  position: absolute;
+  width: 100%;
+}
+
+.contribute-item-well.ng-leave.previous {
+  -webkit-animation: 0.2s  leave_by_right;
+  -moz-animation: 0.2s  leave_by_right;
+  -o-animation: 0.2s  leave_by_right;
+  animation: 0.2s  leave_by_right;
+  -webkit-animation-timing-function: ease-out; /* Chrome, Safari, Opera */
+  animation-timing-function: ease-out;
+  position: absolute;
+  width: 100%;
+}
+
+.contribute-item-well.ng-enter.next {
+  -webkit-animation: 0.2s  enter_by_right;
+  -moz-animation: 0.2s  enter_by_right;
+  -o-animation: 0.2s  enter_by_right;
+  animation: 0.2s  enter_by_right;
+  -webkit-animation-timing-function: ease-out; /* Chrome, Safari, Opera */
+  animation-timing-function: ease-out;
+  position: absolute;
+  width: 100%;
+}
+
+.contribute-item-well.ng-leave.next {
+  -webkit-animation: 0.2s  leave_by_left;
+  -moz-animation: 0.2s  leave_by_left;
+  -o-animation: 0.2s  leave_by_left;
+  animation: 0.2s  leave_by_left;
+  -webkit-animation-timing-function: ease-out; /* Chrome, Safari, Opera */
+  animation-timing-function: ease-out;
+  position: absolute;
+  width: 100%;
+}
+
+@keyframes enter_by_left {
+  from { right: 200%; }
+  to { right: 0; }
+}
+@-webkit-keyframes enter_by_left {
+  from { right: 200%; }
+  to { right: 0; }
+}
+@-moz-keyframes enter_by_left {
+  from { right: 200%; }
+  to { right: 0; }
+}
+@-o-keyframes enter_by_left {
+  from { right: 200%; }
+  to { right: 0; }
+}
+
+@keyframes enter_by_right {
+  from { left: 200%; }
+  to { left: 0; }
+}
+@-webkit-keyframes enter_by_right {
+  from { left: 200%; }
+  to { left: 0; }
+}
+@-moz-keyframes enter_by_right {
+  from { left: 200%; }
+  to { left: 0; }
+}
+@-o-keyframes enter_by_right {
+  from { left: 200%; }
+  to { left: 0; }
+}
+
+@keyframes leave_by_right {
+  from { left: 0; }
+  to { left: 200%; }
+}
+@-webkit-keyframes leave_by_right {
+  from { left: 0; }
+  to { left: 200%; }
+}
+@-moz-keyframes leave_by_right {
+  from { left: 0; }
+  to { left: 200%; }
+}
+@-o-keyframes leave_by_right {
+  from { left: 0; }
+  to { left: 200%; }
+}
+
+@keyframes leave_by_left {
+  from { right: 0; }
+  to { right: 200%; }
+}
+@-webkit-keyframes leave_by_left {
+  from { right: 0; }
+  to { right: 200%; }
+}
+@-moz-keyframes leave_by_left {
+  from { right: 0; }
+  to { right: 200%; }
+}
+@-o-keyframes leave_by_left {
+  from { right: 0; }
+  to { right: 200%; }
+}
+
+.reco-buttons,
+.reco-buttons.ng-show {
   &:extend( .btn-group, .btn-group-justified );
+  opacity: 1;
+}
+
+.reco-buttons.ng-hide {
+  opacity: 0;
+}
+
+.reco-buttons.ng-hide-add {
+}
+
+.reco-buttons.ng-hide-remove {
+}
+
+.when-reco.ng-hide {
+  opacity: 0;
+}
+
+.when-reco.ng-hide-remove {
+  -webkit-animation: 0.4s fade_in;
+  -moz-animation: 0.4s fade_in;
+  -o-animation: 0.4s fade_in;
+  animation: 0.4s fade_in;
+}
+
+@keyframes fade_in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@-webkit-keyframes fade_in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@-moz-keyframes fade_in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@-o-keyframes fade_in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes fade_in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@-webkit-keyframes fade_out {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+@-moz-keyframes fade_out {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+@-o-keyframes fade_out {
+  from { opacity: 1; }
+  to { opacity: 0; }
 }
 
 .emerald-bordered {

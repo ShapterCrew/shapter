@@ -1,7 +1,9 @@
 <sh-header></sh-header>
 <div class="container" style="margin-bottom: 100px">
+
   <!-- add courses box -->
   <div ng-show="$location.search().state == 'addingBox'" ng-include="'cursus/addBox.tpl.html'"></div>
+
   <!-- add internship -->
   <div ng-show="$location.search().state == 'addingInternship'">
     <div class="row">
@@ -82,7 +84,7 @@
                   <span class="badge badge-emerald" ng-bind="(box.start_date | date: 'MM/yy') + ' -> ' + (box.end_date | date : 'MM/yy')"></span> 
                 </div>
                 <div class="col-md-10">
-                  <span class="badge badge-asphalt" ng-show="box.type == 'internship'">{{ AppText.cursus.internship | language}} 1 mois</span>
+                  <span ng-repeat="tag in box.tags | filter: {category: 'type'}" class="badge badge-success" ng-show="box.type == 'internship'">{{ tag.name }}</span>
                   <!--<span class="badge badge-lavander pull-right" ng-show="box.type == 'items' && box.items.length"> {{ box.items.length }} {{ AppText.cursus.classes | language }}</span>-->
                   <span class="badge badge-bluejeans pull-right" ng-show="box.type == 'common'"> 18 cours obligatoires </span>
                   <span class="text-turquoise bold" ng-bind="box.name" ng-click="box.unfolded = !box.unfolded"></span>

@@ -21,9 +21,7 @@ angular.module( 'directives.comment', [
       $scope.remove();
     });
   };
-  $scope.comment = $scope.comment || {
-  content: 'lol'
-  };
+  $scope.comment = $scope.comment || {};
 }])
 
 .directive( 'shComment', ['Comment', 'security', function( Comment, security){

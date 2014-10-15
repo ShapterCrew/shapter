@@ -109,7 +109,7 @@ angular.module( 'shapter.cursus', [
         angular.forEach( response.comments, function( comment ){
           if( comment.author.id == security.currentUser.id ){
             item.current_user_comment = comment;
-            item.current_user_has_comment = true;
+            item.current_comments_count += 1;
           }
         });
       });

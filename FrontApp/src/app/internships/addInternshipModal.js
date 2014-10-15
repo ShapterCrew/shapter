@@ -148,6 +148,11 @@ angular.module( 'directives.addInternshipModal', [
     }
   };
 
+  $scope.closeModule = function(){
+    $scope.toStepOne();
+    $scope.close();
+  };
+
   facebookData = {
     permalink: '#/' + $stateParams.schoolId + '/internships',
     type: "internship",

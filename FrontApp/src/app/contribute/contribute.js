@@ -75,12 +75,13 @@ angular.module( 'shapter.contribute', [
   };
 }])
 
-.controller('ItemConributeModuleCtrl', ['$scope', 'AppText', 'security', function( $scope, AppText, security ){
+.controller('ItemConributeModuleCtrl', ['$scope', 'AppText', 'security', 'Analytics', function( $scope, AppText, security, Analytics ){
   $scope.security = security;
   $scope.AppText = AppText;
   $scope.reco = function( item, score ){
     item.current_user_reco_score = score;
     item.reco_score( score );
+    Analytics.reco( item, score );
   };
 }])
 
@@ -102,6 +103,10 @@ angular.module( 'shapter.contribute', [
     $scope.next();
   });
 
+  $scope.test = function(){
+    console.log( 'haha' );
+  };
+
   $scope.$on('login success', function(){
     $scope.batchIndex = -1;
     $scope.fullyLoaded = false;
@@ -117,34 +122,36 @@ angular.module( 'shapter.contribute', [
   };
 
   $scope.next = function(){
-    var idx = $scope.commentPipe.commentable_items.indexOf( $scope.activeItem );
-    if( idx < $scope.commentPipe.commentable_items.length - 1 ){
-      $scope.activeItem = $scope.commentPipe.commentable_items[ idx + 1 ];
-    }
-    else {
-      $scope.transitionning = true;
-      User.commentPipe( $scope.commentPipe.commentable_items.length, 1, $stateParams.schoolId ).then( function( response ){
-        $scope.transitionning = false;
-        if( response.commentable_items.length ){
-          $scope.commentPipe.commentable_items.push( response.commentable_items[0]);
-          $scope.activeItem = $scope.commentPipe.commentable_items[ $scope.commentPipe.commentable_items.length - 1 ];
-        }
-        else {
-          $scope.activeItem = $scope.commentPipe.commentable_items[ 0 ];
-        }
-      });
-    }
+    $scope.animationState = 'next';
+    $timeout( function(){
+      var idx = $scope.commentPipe.commentable_items.indexOf( $scope.activeItem );
+      if( idx < $scope.commentPipe.commentable_items.length - 1 ){
+        $scope.activeItem = $scope.commentPipe.commentable_items[ idx + 1 ];
+      }
+      else {
+        User.commentPipe( $scope.commentPipe.commentable_items.length, 1, $stateParams.schoolId ).then( function( response ){
+          if( response.commentable_items.length ){
+            $scope.commentPipe.commentable_items.push( response.commentable_items[0]);
+            $scope.activeItem = $scope.commentPipe.commentable_items[ $scope.commentPipe.commentable_items.length - 1 ];
+          }
+          else {
+            $scope.activeItem = $scope.commentPipe.commentable_items[ 0 ];
+          }
+        });
+      }
+    });
+    Analytics.contributeNav('next');
   };
 
   $scope.previous = function(){
-    var idx = $scope.commentPipe.commentable_items.indexOf( $scope.activeItem );
-    if( idx > 0 ){
-      $scope.transitionning = true;
-      $scope.activeItem = $scope.commentPipe.commentable_items[ idx - 1 ];
-      $timeout( function(){
-        $scope.transitionning = false;
-      }, 200);
-    }
+    $scope.animationState = 'previous';
+    $timeout( function(){
+      var idx = $scope.commentPipe.commentable_items.indexOf( $scope.activeItem );
+      if( idx > 0 ){
+        $scope.activeItem = $scope.commentPipe.commentable_items[ idx - 1 ];
+      }
+    });
+    Analytics.contributeNav('previous');
   };
 
   $scope.next();

@@ -242,7 +242,7 @@ angular.module( 'shapter.internships', [
     };
 
     angular.forEach( input, function( cat ){
-      if( cat == 'skill' || cat == 'geo' || cat == 'company' || cat == 'domain'){
+      if( cat == 'skill' || cat == 'geo' || cat == 'company' || cat == 'domain' || cat == 'type'){
         out.display.push( cat );
       }
       else if ( cat != 'school' && cat != 'internship_name'){

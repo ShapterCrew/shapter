@@ -1459,6 +1459,10 @@ angular.module( 'services.appText', [])
         en: 'Position',
         fr: 'Poste'
       },
+      type: {
+        en: 'type',
+        fr: 'type'
+      },
       domain: {
         en: 'Domain',
         fr: 'Domaine'

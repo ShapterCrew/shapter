@@ -117,7 +117,7 @@ angular.module( 'resources.user', [
         }
       };
       return Restangular.one( 'users', 'me' ).customPOST({entities: entities, n_start : n_start, n: n, school_id: id}, 'comment-pipe').then( function( response ){
-        response.commentable_items = Restangular.restangularizeCollection( {}, response.commentable_items, 'items', {});
+        response.commentable_items = Restangular.restangularizeCollection( null, response.commentable_items, 'items');
 
         angular.forEach( response.commentable_items, function( item ){
 
@@ -275,7 +275,7 @@ angular.module( 'resources.user', [
           item: {
             "name": true,
             "this_user_has_comment": true,
-            "current_user_has_comment": true,
+            "current_user_comments_count": true,
             "current_user_reco_score": true
           },
           internship: {
@@ -295,7 +295,7 @@ angular.module( 'resources.user', [
       };
       return Restangular.one( 'users', userId ).customPOST( params, 'profile_boxes' ).then( function( response ){
         return response.map( function( box ){
-          box.items = box.items ? Restangular.restangularizeCollection( {}, box.items, 'items'): null;
+          box.items = box.items ? Restangular.restangularizeCollection( null, box.items, 'items'): null;
           return box;
         });
       });
