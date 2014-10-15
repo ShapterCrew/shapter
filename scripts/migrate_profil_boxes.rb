@@ -283,3 +283,49 @@ puts "Supélec"
 
 import!
 #}}}
+
+#{{{ Centrale Lyon
+puts "Centrale Lyon"
+@school = Tag.schools.find_by(name: "Centrale Lyon")
+@steps = [
+  "Électifs Semestre 7",
+  "Électifs Semestre 8",
+  "Modules Ouverts Disciplinaires",
+  "Modules Ouverts Métier",
+  "Modules Ouvers Sectoriels",
+  "Option 3A",
+  "Métier 3A",
+]
+
+@tags = [
+  (["Électifs Semestre 7"].map{|tname| Tag.find_by(name: tname)} << @school),
+  (["Électifs Semestre 8"].map{|tname| Tag.find_by(name: tname)} << @school),
+  (["Modules Ouverts Disciplinaires"].map{|tname| Tag.find_by(name: tname)} << @school),
+  (["Modules Ouverts Metier"].map{|tname| Tag.find_by(name: tname)} << @school),
+  (["Modules Ouvers Sectoriels"].map{|tname| Tag.find_by(name: tname)} << @school),
+  (["Option 3A"].map{|tname| Tag.find_by(name: tname)} << @school),
+  (["Métier 3A"].map{|tname| Tag.find_by(name: tname)} << @school),
+]
+
+@begin_dates = [
+  Date.new(2012,9,1),
+  Date.new(2013,3,1),
+  Date.new(2013,10,1),
+  Date.new(2014,2,1),
+  Date.new(2014,2,1),
+  Date.new(2014,2,1),
+  Date.new(2013,9,1),
+]
+
+@end_dates = [
+  Date.new(2013,2,28),
+  Date.new(2013,5,30),
+  Date.new(2014,1,30),
+  Date.new(2014,2,28),
+  Date.new(2014,2,28),
+  Date.new(2014,4,30),
+  Date.new(2014,2,28),
+]
+
+import!
+#}}}
