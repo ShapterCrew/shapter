@@ -245,7 +245,7 @@ module Shapter
             if current_user.reco_score_item!(@item, params[:score])
               present @item, with: Shapter::Entities::Item, entity_options: entity_options
             else
-              error!(current_user.errors + @item.errors)
+              error!(@item.errors)
             end
           end
           #}}}
