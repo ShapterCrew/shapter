@@ -12,6 +12,28 @@ module Shapter
 
       namespace :items do 
 
+        #{{{ typeahead
+        desc "typeahead for items"
+        params do 
+          requires :search_string, desc: "search string"
+          optional :tag_ids, desc: "tags to filter results with"
+          optional :limit, type: Integer, desc: "limit nb of results (default 30)", default: 30
+        end
+        post :typeahead do 
+          error!("please pass at least 3 characters") unless params[:search_string].length > 2
+          limit = params[:limit] || 30
+          is = if params[:tag_ids].any?
+                 Item.all_in(tag_ids: params[:tag_ids])
+               else
+                 Item
+               end
+
+          fetch  = is.where(autocomplete: /#{Autocomplete.normalize(params[:search_string])}/).asc(:name).take(limit)
+
+          present :items, fetch, with: Shapter::Entities::Item, entity_options: entity_options
+        end
+        #}}}
+
         #{{{ tag filter
         desc "search for an item using a list of tags"
         params do 
@@ -97,23 +119,23 @@ module Shapter
           end
           #}}}
 
-         # #{{{ subscribe (deactivated)
-         # desc "subscribe to the item"
-         # post :subscribe do 
-         #   check_confirmed_student!
-         #   error!("user is no verified student of this school",401) unless @item.user_can_comment?(current_user)
-         #   do_not_track = ( current_user.items.include?(@item))
-         #   @item.subscribers << current_user
-         #   if @item.save
-         #     present @item, with: Shapter::Entities::Item, entity_options: entity_options
-         #     Behave.delay.track(current_user.pretty_id, "subscribe item", item: @item.pretty_id ) unless do_not_track
-         #     current_user.touch unless do_not_track
-         #     current_user.touch unless do_not_track
-         #   else
-         #     error!(@item.errors.messages)
-         #   end
-         # end
-         # #}}}
+          # #{{{ subscribe (deactivated)
+          # desc "subscribe to the item"
+          # post :subscribe do 
+          #   check_confirmed_student!
+          #   error!("user is no verified student of this school",401) unless @item.user_can_comment?(current_user)
+          #   do_not_track = ( current_user.items.include?(@item))
+          #   @item.subscribers << current_user
+          #   if @item.save
+          #     present @item, with: Shapter::Entities::Item, entity_options: entity_options
+          #     Behave.delay.track(current_user.pretty_id, "subscribe item", item: @item.pretty_id ) unless do_not_track
+          #     current_user.touch unless do_not_track
+          #     current_user.touch unless do_not_track
+          #   else
+          #     error!(@item.errors.messages)
+          #   end
+          # end
+          # #}}}
 
           #{{{ unsubscribe
           desc "unsubscribe to the item"
