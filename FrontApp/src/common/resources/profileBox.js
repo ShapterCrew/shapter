@@ -10,7 +10,7 @@ angular.module('resources.profileBox', [
     var params = {
       item_ids: item_ids
     };
-    return Restangular.one('profile_boxes', box.id).customPOST( params, 'add_items' );
+    return Restangular.one('profile_boxes', box.id).customPOST( params, 'remove_items' );
   };
 
   var extendProfileBox = function(profile_box) {

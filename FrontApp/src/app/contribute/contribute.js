@@ -126,6 +126,7 @@ angular.module( 'shapter.contribute', [
       }
       else {
         User.commentPipe( $scope.commentPipe.commentable_items.length, 1, $stateParams.schoolId ).then( function( response ){
+    $scope.nexted = true;
           if( response.commentable_items.length ){
             $scope.commentPipe.commentable_items.push( response.commentable_items[0]);
             $scope.activeItem = $scope.commentPipe.commentable_items[ $scope.commentPipe.commentable_items.length - 1 ];
@@ -150,7 +151,7 @@ angular.module( 'shapter.contribute', [
     Analytics.contributeNav('previous');
   };
 
-//  $scope.next();
+  $scope.next();
 
   /*
      $scope.batchSize = 3;

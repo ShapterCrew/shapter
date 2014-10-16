@@ -206,21 +206,21 @@
     border-color: @silver;
     & .btn {
       .button-variant(@btn-default-color, @emerald-pastel-d1, @emerald-pastel-c1, @emerald-pastel-d1);
-      &:extend( .btn-hg );
+      &:extend( .btn-lg );
     }
   }
   &.btn-special-norecommend {
     border-color: @silver;
     & .btn {
       .button-variant(@btn-default-color, @sun-pastel, @sun-pastel, @sun-pastel);
-      &:extend( .btn-hg );
+      &:extend( .btn-lg );
     }
   }
   &.btn-special-unrecommend {
     @unrecommend-button-color: @grapefruit; 
     border-color: @silver;
     & .btn {
-      &:extend( .btn-hg );
+      &:extend( .btn-lg );
       .button-variant(@btn-default-color, @unrecommend-button-color, lighten( @unrecommend-button-color, 8% ), @unrecommend-button-color);
     }
   }

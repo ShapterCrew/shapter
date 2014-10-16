@@ -11,7 +11,6 @@
 </div>
 
 <div class="container" style="margin-bottom: 100px" ng-show="security.isAuthenticated()">
-
   <!-- add courses box -->
   <div ng-show="$location.search().state == 'addingBox'" ng-include="'cursus/addBox.tpl.html'"></div>
 
@@ -64,7 +63,7 @@
         <div class="box" style="padding-top: 11px; padding-bottom: 12px">
           <div class="row">
             <div class="col-sm-8">
-              <div class="box-suggestion box-suggestion-other" ng-click="">
+              <div class="box-suggestion box-suggestion-other" ng-click="displayCreateBox()">
                 <span class="fa fa-stack" style="text-align: center">
                   <span class="fa fa-circle fa-stack-2x"></span>
                   <span class="fa fa-plus fa-stack fa-inverse"></span>
@@ -76,6 +75,28 @@
             </div>
           </div>
         </div>
+        <div class="box" ng-show="createBoxMode">
+          <div class="form-group">
+            <input ng-model="boxToCreate.name" class="form-control" type="text">
+          </div>
+          <div style="display: inline-block; position: relativ; margin: 5px;">
+            <p class="input-group">
+              <label>{{ AppText.cursus.start_date | language }} 
+              </label>
+              <input class="form-control" name="fstart" type="text" show-weeks="false" show-button-bar="false" datepicker-popup="dd/MM/yyyy" ng-model="boxToCreate.start_date" is-open="openedBegin" ng-required="true" close-text="Close" editable="false" required/>
+            </p>
+          </div>
+
+          <div style="display: inline-block; position: relative; margin: 5px;">
+            <p class="input-group">
+              <label>{{ AppText.cursus.end_date | language }}</label>
+              <input class="form-control" name="fend" type="text" show-weeks="false" show-button-bar="false" datepicker-popup="dd/MM/yyyy" ng-model="boxToCreate.end_date" is-open="openedEnd" ng-required="true" close-text="Close" editable="false" required/>
+            </p>
+          </div>
+          <div class="form-group">
+            <button class="btn btn-sun" ng-click="cancelCreateBox( box )">Annuler</button> &nbsp; <button class="btn btn-success" ng-click="createBox( box )">Valider</button>
+          </div>
+        </div><!-- create box mode -->
       </div>
       <div class="col-md-8 col-md-offset-2">
         <div><!-- wrapper to use first-child selecotr on first first-of-a-school -->
@@ -95,49 +116,73 @@
                   <span class="badge badge-emerald" ng-bind="(box.start_date | date: 'MM/yy') + ' -> ' + (box.end_date | date : 'MM/yy')"></span> 
                 </div>
                 <div class="col-md-10">
-                  <div class="dropdown pull-right" ng-hide="box.items.length">
+                  <span class="dropdown pull-right">
                     <small class="fa fa-chevron-down text-muted dropdown-toggle"></small>
                     <ul class="dropdown-menu">
-                      <li ng-confirm-click="{{ AppText.cursus.sure_want_to_delete_it | language }}" confirmed-click="removeBox( box )"><a><span class="fa fa-ban"></span> {{ AppText.cursus.remove_step | language }}</a></li>
+                      <li ng-click="displayEditBox( box )"><a>Editer</a></li>
+                      <li title="{{ AppText.cursus.cant_remove_full_box | language }}"  ng-class="{'disabled': box.items.length}" ng-confirm-click="{{ AppText.cursus.sure_want_to_delete_it | language }}" confirmed-click="removeBox( box )"><a><span class="fa fa-ban"></span> {{ AppText.cursus.remove_step | language }}</a></li>
                     </ul>
-                  </small>
-                </div>
-                <span ng-repeat="tag in box.tags | filter: {category: 'type'}" class="badge badge-success" ng-show="box.type == 'internship'">{{ tag.name }}</span>
-                <!--<span class="badge badge-lavander pull-right" ng-show="box.type == 'items' && box.items.length"> {{ box.items.length }} {{ AppText.cursus.classes | language }}</span>-->
-                <span class="text-turquoise bold" ng-bind="box.name" ng-click="box.unfolded = !box.unfolded"></span>
-                <div class="box-unfolded" ng-show="box.unfolded">
-                  <div class="box-tags">
-                    <span ng-repeat="tag in box.tags | filter: {category: '!school'}" class="bold text-emerald" >{{ tag.name }}<span ng-hide="$last">, </span></span>
-                  </div><!-- box-tags -->
-                  <div ng-show="box.type=='items'" class="box-classes">
-                    <div ng-repeat="item in box.items" class="item-in-box">
-                      <span class="pull-right" ng-show="item.current_user_comments_count > 0">
-                        <span class="badge badge-info">
-                          <span class="fa fa-comment"></span>
+                  </span>
+                  <span ng-repeat="tag in box.tags | filter: {category: 'type'}" class="badge badge-success" ng-show="box.type == 'internship'">{{ tag.name }}</span>
+                  <!--<span class="badge badge-lavander pull-right" ng-show="box.type == 'items' && box.items.length"> {{ box.items.length }} {{ AppText.cursus.classes | language }}</span>-->
+                  <span class="text-turquoise lead bold" ng-bind="box.name" ng-click="box.unfolded = !box.unfolded" ng-hide="box.editMode"></span>
+
+                  <div ng-show="box.editMode">
+                    <div class="form-group">
+                      <input ng-model="box.new_name" class="form-control" type="text">
+                    </div>
+                    <div style="display: inline-block; position: relativ; margin: 5px;">
+                      <p class="input-group">
+                        <label>{{ AppText.cursus.start_date | language }} 
+                        </label>
+                        <input class="form-control" name="fstart" type="text" show-weeks="false" show-button-bar="false" datepicker-popup="dd/MM/yyyy" ng-model="box.new_start_date" is-open="openedBegin" ng-required="true" close-text="Close" editable="false" required/>
+                      </p>
+                    </div>
+
+                    <div style="display: inline-block; position: relative; margin: 5px;">
+                      <p class="input-group">
+                        <label>{{ AppText.cursus.end_date | language }}</label>
+                        <input class="form-control" name="fend" type="text" show-weeks="false" show-button-bar="false" datepicker-popup="dd/MM/yyyy" ng-model="box.new_end_date" is-open="openedEnd" ng-required="true" close-text="Close" editable="false" required/>
+                      </p>
+                    </div>
+                    <div class="form-group">
+                      <button class="btn btn-sun" ng-click="cancelEditBox( box )">Annuler</button> &nbsp; <button class="btn btn-success" ng-click="editBox( box )">Valider</button>
+                    </div>
+                  </div><!-- edit mode -->
+
+                  <div class="box-unfolded" ng-show="box.unfolded">
+                    <div class="box-tags">
+                      <span ng-repeat="tag in box.tags | filter: {category: '!school'}" class="bold text-emerald" >{{ tag.name }}<span ng-hide="$last">, </span></span>
+                    </div><!-- box-tags -->
+                    <div ng-show="box.type=='items'" class="box-classes">
+                      <div ng-repeat="item in box.items" class="item-in-box">
+                        <span class="pull-right" ng-show="item.current_user_comments_count > 0">
+                          <span class="badge badge-info">
+                            <span class="fa fa-comment"></span>
+                          </span>
                         </span>
-                      </span>
-                      <span class="blue-hover" ng-class="{'text-blue': item.displayRecos}" ng-click="toggleDisplayRecos( item )">{{ item.name }}</span>
-                      <div ng-show="item.displayRecos" class="padding-well" sh-item-contribute item="item" next="hideRecos( item )" previous="hideRecos( item )"></div>
-                      <div class="clearfix" ng-hide="!!item.current_user_reco_score || !item.displayRecos" style="margin-top: 5px">
-                        <small class="pull-right" ng-click="removeItemFromBox( box, item )" style="text-align: left"><span class="glyphicon glyphicon-remove"></span>{{ AppText.cursus.didnt_take_the_class | language }}</small>
+                        <span class="blue-hover" ng-class="{'text-blue': item.displayRecos}" ng-click="toggleDisplayRecos( item )">{{ item.name }}</span>
+                        <div ng-show="item.displayRecos" class="padding-well" sh-item-contribute item="item" next="hideRecos( item )" previous="hideRecos( item )"></div>
+                        <div class="clearfix" ng-hide="!!item.current_user_reco_score || !item.displayRecos" style="margin-top: 5px">
+                          <small class="pull-right" ng-click="removeItemFromBox( box, item )" style="text-align: left"><span class="glyphicon glyphicon-remove"></span>{{ AppText.cursus.didnt_take_the_class | language }}</small>
+                        </div>
+                      </div><!-- repeat items -->
+                      <div class="item-in-box">
+                        <div class="text-muted" ng-click="box.displayAddNewClass = !box.displayAddNewClass" style="margin-top: 20px">
+                          <small class="fa fa-plus"></small> Ajouter un cours à cette étape
+                        </div>
+                        <div ng-show="box.displayAddNewClass" class="form-group">
+                          <input ng-model="box.typedItem" class="form-control" placeholder="{{ AppText.cursus.class_name | language }}" typeahead-editable="false" typeahead="tag as tag.name for tag in getClassesTypeahead( $viewValue )" typeahead-on-select="addClassFromTag( box )" typeahead-min-length="3">
+                        </div><!-- display add new class -->
                       </div>
-                    </div><!-- repeat items -->
-                    <div class="item-in-box">
-                      <div class="text-muted" ng-click="box.displayAddNewClass = !box.displayAddNewClass" style="margin-top: 20px">
-                        <small class="fa fa-plus"></small> Ajouter un cours à cette étape
                     </div>
-                    <div ng-show="box.displayAddNewClass" class="form-group">
-                      <input ng-model="box.typedItem" class="form-control" placeholder="{{ AppText.cursus.class_name | language }}" typeahead-editable="false" typeahead="tag as tag.name for tag in getClassesTypeahead( $viewValue )" typeahead-on-select="addClassFromTag( box )" typeahead-min-length="3">
-                    </div><!-- display add new class -->
-                    </div>
-                  </div>
-                </div><!-- bow-unfolded -->
-              </div>
-            </div>
-          </div><!-- col -->
-        </div><!-- repeat in boxes -->
-      </div><!-- wrapper -->
-    </div><!-- col -->
-  </div><!-- row -->
-</div><!-- default state -->
+                  </div><!-- bow-unfolded -->
+                </div>
+              </div><!-- box -->
+            </div><!-- col -->
+          </div><!-- repeat in boxes -->
+        </div><!-- wrapper -->
+      </div><!-- col -->
+    </div><!-- row -->
+  </div><!-- default state -->
 </div><!-- container -->

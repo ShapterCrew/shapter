@@ -18,6 +18,9 @@ angular.module( 'shapter.cursus', [
     resolve: {
       schools: ['School', function( School ){
         return School.index();
+      }],
+      currentUser: ['security', function( security ){
+        return security.requestCurrentUser();
       }]
     }
   });
@@ -65,6 +68,21 @@ angular.module( 'shapter.cursus', [
   $scope.removeItemFromBox = function( box, item ){
     box.removeItem( [item.id] ).then( function(){
       box.items.splice( box.items.indexOf( item ), 1 );
+    });
+  };
+
+  $scope.displayCreateBox = function(){
+    $scope.createBoxMode = true;
+    $scope.boxToCreate = {};
+  };
+
+  $scope.cancelCreateBox = function(){
+    $scope.createBoxMode = false;
+  };
+
+  $scope.createBox = function(){
+    ProfileBox.create( $scope.boxToCreate).then( function(){
+      $scope.loadBoxes();
     });
   };
 
@@ -170,6 +188,26 @@ angular.module( 'shapter.cursus', [
     });
   };
 
+  $scope.displayEditBox = function( box ){
+    box.editMode = true;
+    box.new_name = box.name;
+    box.new_start_date = box.start_date;
+    box.new_end_date = box.end_date;
+  };
+
+  $scope.cancelEditBox = function( box ){
+    box.editMode = false;
+  };
+
+  $scope.editBox = function( box ){
+    box.name = box.new_name;
+    box.end_date = box.new_end_date;
+    box.start_date = box.new_start_date;
+    box.put().then( function(){
+      $scope.cancelEditBox( box );
+    });
+  };
+
   $scope.cancelAddBox = function(){
     $location.search('state', null);
     delete $scope.newBox;
@@ -177,11 +215,7 @@ angular.module( 'shapter.cursus', [
 
   $scope.addBox = function(){
     ProfileBox.create( $filter( 'formatBoxToPost' )( $scope.newBox ) ).then( function( box ){
-      ProfileBox.getRecommandations().then( function( response ){
-        $scope.boxesRecommandations = boxesRecommandations;
-      });
-      box.unfolded = true;
-      $scope.boxes.push( box );
+      $scope.loadBoxes();
       $scope.alerts.push({
         type: 'info',
         msg: 'L\'étape a bien été ajoutée à ton parcours !'

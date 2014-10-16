@@ -625,16 +625,16 @@ angular.module( 'services.appText', [])
         fr: 'Recommandes-tu ce cours ?'
       },
       explain_unadvise: {
-        en: 'Explain with tact why do you unadvise taking this class:',
-        fr: 'Explique avec tact pourquoi tu déconseilles ce cours :'
+        en: 'Explain with tact why do you unadvise taking this class',
+        fr: 'Explique avec tact pourquoi tu déconseilles ce cours'
       },
       explain_it_depends: {
-        en: 'Explain why choose or not choose this class:',
-        fr: 'Explique pourquoi choisir ou ne pas choisir ce cours :'
+        en: 'Explain why choose or not choose this class',
+        fr: 'Explique pourquoi choisir ou ne pas choisir ce cours'
       },
       explan_reco: {
-        en: 'Explain why do you recommend taking this class:',
-        fr: 'Explique pourquoi tu recommandes de prendre ce cours :'
+        en: 'Explain why do you recommend taking this class',
+        fr: 'Explique pourquoi tu recommandes de prendre ce cours'
       },
       contribute_not_student: {
         en: 'You need to be identified as a student from one of our partner schools to contribute on Shapter!',
@@ -1519,6 +1519,10 @@ angular.module( 'services.appText', [])
       }
     },
     cursus: {
+      cant_remove_full_box: {
+        en: 'You can only remove an empty step',
+        fr: 'L\'étape doit être vide pour être retirée'
+      },
       class_name: {
         en: 'What is the name of the class?',
         fr: 'Quel est le nom du cours ?'
