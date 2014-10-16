@@ -26,10 +26,10 @@ module Profile
     if profile.any?
       last_ts = profile.last.tag_ids
       next_pb_ids = ProfileBoxItem.all_in(tag_ids: last_ts).where(:tag_ids.with_size => last_ts.size).only(:next_1_id).flat_map(&:next_1_id).compact.uniq
-      box_tag_ids = ProfileBoxItem.only(:tag_ids).find(next_pb_ids)
+      box_tag_ids = ProfileBoxItem.not.where(tag_ids: nil).only(:tag_ids).find(next_pb_ids)
     else
       prom_bud_ids = schools.only(:student_ids).flat_map(&:student_ids)
-      box_tag_ids = ProfileBoxItem.any_in(user_ids: prom_bud_ids).where(prev_1_id: nil).only(:tag_ids)
+      box_tag_ids = ProfileBoxItem.not.where(tag_ids: nil).any_in(user_ids: prom_bud_ids).where(prev_1_id: nil).only(:tag_ids)
     end
 
     popular_ids = box_tag_ids.group_by(&:tag_ids)
