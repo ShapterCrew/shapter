@@ -28,7 +28,7 @@ class ProfileBoxItem < ProfileBox
   end
 
   def add_items!(items)
-    items.each{|it| add_item!(it)}
+    items.each{|it| add_item!(it)} unless items.empty?
   end
 
   def remove_item!(item)
