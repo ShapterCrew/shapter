@@ -23,7 +23,7 @@ module Profile
   end
 
   def profile_box_recommandation(n=10)
-    if (not_empty = profile.not.where(tag_ids: nil).any?)
+    if (not_empty = profile.not.where(tag_ids: nil)).any?
       last_ts = not_empty.last.tag_ids
       next_pb_ids = ProfileBoxItem.all_in(tag_ids: last_ts).where(:tag_ids.with_size => last_ts.size).only(:next_1_id).flat_map(&:next_1_id).compact.uniq
       box_tag_ids = ProfileBoxItem.not.where(tag_ids: nil).only(:tag_ids).find(next_pb_ids)
