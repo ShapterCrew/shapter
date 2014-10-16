@@ -57,7 +57,7 @@ module Shapter
             end_date: params[:end_date],
           )
 
-          pb.add_items!(params[:item_ids]) unless params[:item_ids].empty?
+          pb.add_items!(params[:item_ids]) unless params[:item_ids].blank?
 
           if pb.save
             present pb, with: Shapter::Entities::ProfileBox, entity_options: entity_options
