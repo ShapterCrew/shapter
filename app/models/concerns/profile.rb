@@ -32,7 +32,11 @@ module Profile
       box_tag_ids = ProfileBoxItem.not.where(tag_ids: nil).any_in(user_ids: prom_bud_ids).where(prev_1_id: nil).only(:tag_ids)
     end
 
-    popular_ids = box_tag_ids.group_by(&:tag_ids)
+    already_boxed = profile_boxes.only(:tag_ids).map(&:tag_ids).uniq.compact.sort
+
+    popular_ids = box_tag_ids
+    .reject{|ts| ts.sort == already_boxed.sort}
+    .group_by(&:tag_ids)
     .map{|k,v| [k,v.size]}
     .sort_by(&:last).reverse
     .map(&:first)
