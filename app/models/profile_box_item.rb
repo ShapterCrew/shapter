@@ -63,12 +63,14 @@ class ProfileBoxItem < ProfileBox
       old_ids = item_ids_was || []
       new_ids = item_ids || []
 
-      missing_ids = old_ids - new_ids
+      missing_ids = (old_ids - new_ids) 
+      dont_remove = ProfileBoxItem.where(user_ids: user_ids).not.where(id: id).only(:item_ids).flat_map(&:item_ids).uniq
+      to_remove = missing_ids - dont_remove
       new_ids     = new_ids - old_ids
 
       u = user
       u.item_ids ||= []
-      u.item_ids -= missing_ids
+      u.item_ids -= to_remove
       u.item_ids += new_ids
       u.save
     end

@@ -3,6 +3,7 @@ class Item
   include Mongoid::Timestamps
 
   include Recommendable
+  include Autocomplete
 
   field :name                  , type: String
   field :syllabus              , type: String

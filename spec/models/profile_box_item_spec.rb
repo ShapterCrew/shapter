@@ -91,6 +91,22 @@ describe ProfileBoxItem do
       @pb.save
       }.to change{@u.item_ids}.from([@i1.id,@i2.id]).to([@i2.id])
     end
+
+    it "doesn't unsubscribe if the item is in another box" do 
+      @pb.add_items!([@i1,@i2])
+      @pb.save
+
+      @pb2 = @pb.dup
+      @pb2.save
+      expect(@pb2.valid?).to be true
+
+      expect{
+      @pb.remove_item!(@i1)
+      @pb.save
+      }.not_to change{@u.item_ids}
+      
+    end
+
     it "adds and removes items to item.subscribers when saved" do 
       expect{
       @pb.add_items!([@i1,@i2])
