@@ -40,6 +40,7 @@ class ProfileBox
     #{{{ name_for
     # select the most popular name amongst an array of profile boxes, or simply take a random name if no name is popular
     def name_for(ary_of_tag_ids)
+      return "" if ary_of_tag_ids.blank?
       ary_of_pbs = all_in(tag_ids: ary_of_tag_ids).where(:tag_ids.with_size => ary_of_tag_ids.size).only(:name)
 
       return Tag.only(:name).find(ary_of_tag_ids).map(&:name).join(" ; ") if ary_of_pbs.empty?
