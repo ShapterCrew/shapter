@@ -50,18 +50,25 @@ angular.module( 'shapter.cursus', [
   $scope.loadBoxes = function(){
     User.profileBoxes( security.currentUser.id ).then( function( response ){
       $scope.boxes = response.map( function( box ){
+        if( !box.tags.length ){
+          box.tags = [{
+            category: 'school',
+            name: 'Other'
+          }];
+        }
         box.unfolded = true;
         return box;
       });
     });
-    ProfileBox.getRecommandations().then( function( response ){
-      $scope.boxesRecommandations = response;
+    ProfileBox.getRecommendations().then( function( response ){
+      $scope.boxesRecommendations = response;
     });
   };
 
   $scope.removeBox = function( box ){
     box.remove().then( function(){
       $scope.boxes.splice( $scope.boxes.indexOf( box ), 1);
+      $scope.loadBoxes();
     });
   };
 
@@ -83,6 +90,7 @@ angular.module( 'shapter.cursus', [
   $scope.createBox = function(){
     ProfileBox.create( $scope.boxToCreate).then( function(){
       $scope.loadBoxes();
+      $scope.cancelCreateBox();
     });
   };
 
@@ -108,18 +116,19 @@ angular.module( 'shapter.cursus', [
     $scope.loadBoxes();
   });
 
-  $scope.getClassesTypeahead = function( string ){
-    return Tag.typeahead( string, [ $stateParams.schoolId ], 'item', 30, 'item_name' ).then( function( response ){
-      console.log( response );
-      return response.tags;
+  $scope.getItemsTypeahead = function( string ){
+    return Item.typeahead( string, [ $stateParams.schoolId ], 20 ).then( function( response ){
+      return response.items;
     });
   };
 
   $scope.addClassFromTag = function( box ){
+    box.addItems( [ box.typedItem.id ] ).then( function(){
+      $scope.loadBoxes();
+    });
   };
 
   $scope.$on('login success', function(){
-    console.log( 'login success detected' );
     $scope.loadBoxes();
   });
 
@@ -213,19 +222,24 @@ angular.module( 'shapter.cursus', [
     delete $scope.newBox;
   };
 
+  $scope.toRecommendations = function(){
+    $location.search('state', 'boxesRecommendations');
+    delete $scope.newBox;
+  };
+
   $scope.addBox = function(){
     ProfileBox.create( $filter( 'formatBoxToPost' )( $scope.newBox ) ).then( function( box ){
       $scope.loadBoxes();
-      $scope.alerts.push({
+      $scope.alerts = [{
         type: 'info',
         msg: 'L\'étape a bien été ajoutée à ton parcours !'
-      });
-      $scope.cancelAddBox();
+      }];
+      $scope.toRecommendations();
     }, function(){
-      $scope.alerts.push({
+      $scope.alerts = [{
         type: 'danger',
         msg: 'Il y a eu une erreur'
-      });
+      }];
       $scope.cancelAddBox();
     });
   };

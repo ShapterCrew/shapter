@@ -1519,6 +1519,10 @@ angular.module( 'services.appText', [])
       }
     },
     cursus: {
+      step_title: {
+        en: 'How would you name this step of your profile?',
+        fr: 'Comment nommes-tu cette étape de ton parcours ?'
+      }, 
       cant_remove_full_box: {
         en: 'You can only remove an empty step',
         fr: 'L\'étape doit être vide pour être retirée'

@@ -632,6 +632,22 @@ angular.module('resources.item', [
     return Restangular.all('items').all('tags').customPOST({ item_ids: item_ids, tags: tags }, 'add');
   };
 
+  Item.typeahead = function( string, optTagIds, optLimit ){
+    console.log( string );
+    limit = optLimit || 20;
+    tag_ids = optTagIds;
+    var params = {
+      search_string: string,
+      tag_ids: tag_ids,
+      entities: {
+        item: {
+          'name': true
+        }
+      }
+    };
+    return Restangular.all('items').customPOST( params, 'typeahead' );
+  };
+
   Item.removeTags = function( item_ids, tags ){
     return Restangular.all('items').all('tags').customPOST({ item_ids: item_ids, tags: tags }, 'delete');
   };

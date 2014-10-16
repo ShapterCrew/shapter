@@ -26,6 +26,22 @@
       </div>
     </div>
   </div>
+
+  <!-- reco -->
+  <div ng-show="$location.search().state == 'boxesRecommendations'">
+    <div class="row">
+      <div class="col-md-8 col-md-offset-2">
+        <div class="padding-well">
+          <div class="list-group">
+            <div class="list-group-item" ng-repeat="box in boxesRecommendations" ng-click="displayAddSuggestion( box )">
+              {{ box.name }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div><!-- row -->
+  </div>
+
   <!-- default view -->
   <div ng-hide="$location.search().state">
     <div class="row">
@@ -40,7 +56,7 @@
           <div class="row">
             <!-- add courses -->
             <div class="col-sm-6">
-              <div ng-repeat="suggestion in boxesRecommandations" class="box-suggestion box-suggestion-blue" ng-click="displayAddSuggestion( suggestion )">
+              <div ng-repeat="suggestion in boxesRecommendations" class="box-suggestion box-suggestion-blue" ng-click="displayAddSuggestion( suggestion )">
                 <span class="fa fa-stack" style="text-align: center">
                   <span class="fa fa-circle fa-stack-2x"></span>
                   <span class="fa fa-plus fa-stack fa-inverse"></span>
@@ -75,8 +91,10 @@
             </div>
           </div>
         </div>
-        <div class="box" ng-show="createBoxMode">
+
+        <div class="box" ng-show="createBoxMode" style="margin-top: 20px">
           <div class="form-group">
+            <label>{{ AppText.cursus.step_title | language }}</label>
             <input ng-model="boxToCreate.name" class="form-control" type="text">
           </div>
           <div style="display: inline-block; position: relativ; margin: 5px;">
@@ -97,6 +115,7 @@
             <button class="btn btn-sun" ng-click="cancelCreateBox( box )">Annuler</button> &nbsp; <button class="btn btn-success" ng-click="createBox( box )">Valider</button>
           </div>
         </div><!-- create box mode -->
+
       </div>
       <div class="col-md-8 col-md-offset-2">
         <div><!-- wrapper to use first-child selecotr on first first-of-a-school -->
@@ -172,7 +191,7 @@
                           <small class="fa fa-plus"></small> Ajouter un cours à cette étape
                         </div>
                         <div ng-show="box.displayAddNewClass" class="form-group">
-                          <input ng-model="box.typedItem" class="form-control" placeholder="{{ AppText.cursus.class_name | language }}" typeahead-editable="false" typeahead="tag as tag.name for tag in getClassesTypeahead( $viewValue )" typeahead-on-select="addClassFromTag( box )" typeahead-min-length="3">
+                          <input ng-model="box.typedItem" class="form-control" placeholder="{{ AppText.cursus.class_name | language }}" typeahead-editable="false" typeahead="item as item.name for item in getItemsTypeahead( $viewValue )" typeahead-on-select="addClassFromTag( box )" typeahead-min-length="3">
                         </div><!-- display add new class -->
                       </div>
                     </div>

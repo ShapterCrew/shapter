@@ -13,9 +13,18 @@ angular.module('resources.profileBox', [
     return Restangular.one('profile_boxes', box.id).customPOST( params, 'remove_items' );
   };
 
+  var addItems = function( item_ids ){
+    var box = this;
+    var params = {
+      item_ids: item_ids
+    };
+    return Restangular.one('profile_boxes', box.id).customPOST( params, 'add_items' );
+  };
+
   var extendProfileBox = function(profile_box) {
     return angular.extend(profile_box, {
-      removeItem: removeItem
+      removeItem: removeItem,
+      addItems: addItems
     });
   };
 
@@ -53,7 +62,7 @@ angular.module('resources.profileBox', [
       return Restangular.one('profile_boxes', box.id).customPUT( box );
     },
 
-    getRecommandations: function(){
+    getRecommendations: function(){
       var params = {
         entities: {
           profile_box: {
@@ -72,14 +81,14 @@ angular.module('resources.profileBox', [
         }
       };
       return Restangular.all( 'profile_boxes' ).customPOST( params, 'recommand' ).then( function( response ){
-        return $filter( 'formatBoxesRecommandations' )( response.reco );
+        return $filter( 'formatBoxesRecommendations' )( response.reco );
       });
     }
   };
   return ProfileBox;
 }])
 
-.filter('formatBoxesRecommandations', [function(){
+.filter('formatBoxesRecommendations', [function(){
   return function( recos ){
     var mapped = recos.reduce( function( oldVal, newVal ){
       oldVal[ newVal.name ] = oldVal[ newVal.name ] || [];
