@@ -34,8 +34,7 @@ module Profile
 
     already_boxed = profile_boxes.only(:tag_ids).map(&:tag_ids).uniq.compact.sort
 
-    popular_ids = box_tag_ids
-    .reject{|ts| ts.tag_ids.sort == already_boxed.sort}
+    popular_ids = box_tag_ids.reject{|ts| ts.tag_ids.sort == already_boxed.sort}
     .group_by(&:tag_ids)
     .map{|k,v| [k,v.size]}
     .sort_by(&:last).reverse
