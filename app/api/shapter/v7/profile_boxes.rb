@@ -44,9 +44,9 @@ module Shapter
         desc "create a profile box to store items"
         params do 
           requires :name
-          optional :start_date, type: Date,desc: "starting date"
-          optional :end_date, type: Date, desc: "end date"
-          requires :item_ids, type: Array, desc: "item_ids"
+          requires :start_date, type: Date,desc: "starting date"
+          requires :end_date, type: Date, desc: "end date"
+          optional :item_ids, type: Array, desc: "item_ids"
         end
         post :create do 
           check_confirmed_account!
