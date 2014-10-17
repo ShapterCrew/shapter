@@ -66,7 +66,7 @@ angular.module( 'shapter.campusAuthentication', [
         security.currentUser.schools.push( $scope.newAuthorization.school );
         security.currentUser.confirmed = true;
         security.currentUser.confirmed_student = true;
-        $location.path('/schools/' + $scope.newAuthorization.school.id);
+        $location.path( '/schools/' + $scope.newAuthorization.school.id + '/cursus' ).search( 'filter', null ).search( 'categories', null).search( 'state', 'boxesRecommendations');
       }, function( err ){
         console.log( err );
       });
