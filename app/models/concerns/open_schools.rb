@@ -6,6 +6,7 @@ module OpenSchools
     [
       "ENSMA",
       "Dauphine",
+      "ESSEC",
     ].include?(name)
   end
 
