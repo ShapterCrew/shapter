@@ -53,7 +53,7 @@ class ProfileBoxItem < ProfileBox
     if a.blank?
       return nil
     else
-      return a.reject{|tag_id| Tag.find(tag_id).category == "item_name"}
+      return a.reject{|tag_id| Tag.find(tag_id).category.to_s == "item_name"}
     end
   end
 
