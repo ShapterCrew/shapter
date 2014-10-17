@@ -214,11 +214,13 @@ angular.module( 'shapter.browse', [
     if( $scope.tagsSuggestions[ category ] === undefined ){
       $scope.tagsSuggestions[ category ] = 'loading';
       var array = [];
+      /*
       angular.forEach( toArray( $location.search().filter ), function( id ){
         if( !!id ){
           array.push( id );
         }
       });
+      */
       array.push( $stateParams.schoolId );
 
       Tag.getSuggestedTags( array, 'item', 200, category ).then( function( response ){
