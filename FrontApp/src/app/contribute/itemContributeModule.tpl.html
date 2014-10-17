@@ -1,10 +1,10 @@
 <div class="row">
   <div class="col-md-12">
-    <div style="margin-bottom: 20px" ng-hide="item.current_user_reco_score" class="text-asphalt">{{ AppText.contribute.do_you_recommend | language }}</div>
+    <div ng-hide="item.current_user_reco_score" class="text-asphalt">{{ AppText.contribute.do_you_recommend | language }}</div>
     <div>
       <span ng-show="item.current_user_reco_score && !item.current_user_comments_count" class="text-asphalt" ng-click="reco(item, 0)"><small class="glyphicon glyphicon-remove"></small> {{ AppText.cursus.cancel_reco | language }}</span>
     </div>
-    <div class="h6 bold when-reco" style="margin-bottom: 10px; margin-top: 20px" ng-show="item.current_user_reco_score && !item.current_user_comments_count">
+    <div class="h6 bold when-reco" style="margin-bottom: 10px; margin-top: 20" ng-show="item.current_user_reco_score && !item.current_user_comments_count">
       <span class="text-grapefruit" ng-show="item.current_user_reco_score == 1">
         {{ AppText.contribute.explain_unadvise | language }}
       </span>

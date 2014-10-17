@@ -1345,6 +1345,10 @@ angular.module( 'services.appText', [])
       }
     },
     system: {
+      there_was_an_error: {
+        en: 'There was an error',
+        fr: 'Il y a eu une erreur'
+      },
       back: {
         en: 'back',
         fr: 'retour'
@@ -1527,6 +1531,10 @@ angular.module( 'services.appText', [])
       }
     },
     cursus: {
+      pick_the_dates: {
+        en: 'Please select start date and end date (approx)',
+        fr: 'Séléctionne une date de début et une date de fin (approximatives)'
+      },
       create_a_step: {
         en: 'Add a step to your profile!',
         fr: 'Ajoute une étape à ton parcours !'
