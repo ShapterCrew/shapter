@@ -120,7 +120,7 @@ angular.module('shapter.header', ['directives.confirmAlert', 'directives.behaveA
       scope.sfNav = function(){
         var schoolId = $stateParams.schoolId ? $stateParams.schoolId : ( security.isConfirmedStudent() ? security.currentUser.schools[ 0 ].id : null );
         if( schoolId ){
-          nav("/schools/" + schoolId + "/signupFunnel");
+          $location.path( '/schools/' + schoolId + '/cursus' ).search( 'filter', null ).search( 'categories', null).search( 'state', 'boxesRecommendations');
         }
       };
 
