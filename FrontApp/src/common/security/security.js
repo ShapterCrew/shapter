@@ -521,7 +521,7 @@ angular.module('security.service', [
           return oldVal || newVal;
         }, false);
       };
-      var list = [ 'ENSMA', 'Dauphine' ];
+      var list = [ 'ENSMA', 'Dauphine', 'ESSEC' ];
       return list.map( function( school ){
         return nameInSchools( school );
       }).reduce( function( oldVal, newVal ){

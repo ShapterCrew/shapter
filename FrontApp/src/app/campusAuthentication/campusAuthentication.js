@@ -51,7 +51,7 @@ angular.module( 'shapter.campusAuthentication', [
   });
 
   $scope.selectCampus = function(){
-    if( $scope.newAuthorization.school.name == 'Dauphine' || $scope.newAuthorization.school.name == 'ENSMA' ){
+    if( $scope.newAuthorization.school.name == 'Dauphine' || $scope.newAuthorization.school.name == 'ENSMA' || $scope.newAuthorization.school.name == 'ESSEC' ){
       $scope.hideEmail = true;
     }
   };
