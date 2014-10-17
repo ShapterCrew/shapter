@@ -19,16 +19,16 @@
       </span>
     </div>
     <div class="reco-buttons" ng-hide="item.current_user_reco_score">
-      <div class="btn-special btn-special-love">
+      <div class="btn-special btn-special-love" title="{{ AppText.contribute.love | language }}">
         <div class="btn" ng-click="item.reco_score(4)"><span class="fa fa-heart"></span></div>
       </div>
-      <div class="btn-special btn-special-recommend">
+      <div class="btn-special btn-special-recommend" title="{{ AppText.contribute.recommended | language }}">
         <div class="btn" ng-click="item.reco_score(3)"><span class="fa fa-check"></span></div>
       </div>
-      <div class="btn-special btn-special-unrecommend">
+      <div class="btn-special btn-special-unrecommend" title="{{ AppText.contribute.unadvised | language }}">
         <div class="btn" ng-click="item.reco_score(1)"><span class="fa fa-exclamation"></span></div>
       </div>
-      <div class="btn-special btn-special-norecommend">
+      <div class="btn-special btn-special-norecommend" title="{{ AppText.contribute.it_depends | language }}">
         <div class="btn" ng-click="item.reco_score(2)"><span class="fa fa-question"></span></div>
       </div>
     </div>
