@@ -102,7 +102,6 @@ angular.module( 'shapter.cursus', [
     $scope.schools = schools.schools;
   });
 
-  $location.search('state', null);
   $scope.security = security;
   $scope.$location = $location;
   $scope.alerts = [];

@@ -12,10 +12,16 @@
         {{ AppText.contribute.explain_it_depends | language }}
       </span>
       <span class="text-emerald" ng-show="item.current_user_reco_score == 3">
-        {{ AppText.contribute.explan_reco | language }}
+        {{ AppText.contribute.explain_reco | language }}
+      </span>
+      <span class="text-pinkrose" ng-show="item.current_user_reco_score == 4">
+        {{ AppText.contribute.explain_love | language }}
       </span>
     </div>
     <div class="reco-buttons" ng-hide="item.current_user_reco_score">
+      <div class="btn-special btn-special-love">
+        <div class="btn" ng-click="item.reco_score(4)"><span class="fa fa-heart"></span></div>
+      </div>
       <div class="btn-special btn-special-recommend">
         <div class="btn" ng-click="item.reco_score(3)"><span class="fa fa-check"></span></div>
       </div>
@@ -38,6 +44,9 @@
           </span>
           <span class="badge badge-emerald" ng-show="item.current_user_reco_score == 3">
             <span class="fa fa-check-circle"></span> {{ AppText.contribute.recommended | language }}
+          </span>
+          <span class="badge badge-pinkrose" ng-show="item.current_user_reco_score == 4">
+            <span class="fa fa-heart"></span> {{ AppText.contribute.love | language }}
           </span>
         </span>
         <span ng-show="item.current_user_comments_count" sh-comment-light remove="item.current_user_comment = null; item.current_user_comments_count = 0" comment="item.current_user_comment"></span>

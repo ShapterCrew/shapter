@@ -216,6 +216,13 @@
       &:extend( .btn-lg );
     }
   }
+  &.btn-special-love {
+    border-color: @silver;
+    & .btn {
+      .button-variant(@btn-default-color, @pinkrose, lighten(@pinkrose, 10%), @pinkrose);
+      &:extend( .btn-lg );
+    }
+  }
   &.btn-special-unrecommend {
     @unrecommend-button-color: @grapefruit; 
     border-color: @silver;

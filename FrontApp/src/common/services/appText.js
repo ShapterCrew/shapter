@@ -596,6 +596,10 @@ angular.module( 'services.appText', [])
     },
 
     contribute: {
+      love: {
+        en: 'favorite',
+        fr: 'Coup de coeur'
+      },
       manage_my_classes: {
         en: 'Go manage my classes',
         fr: 'Gérer mes cours'
@@ -632,9 +636,13 @@ angular.module( 'services.appText', [])
         en: 'Explain why choose or not choose this class',
         fr: 'Explique pourquoi choisir ou ne pas choisir ce cours'
       },
-      explan_reco: {
+      explain_reco: {
         en: 'Explain why do you recommend taking this class',
         fr: 'Explique pourquoi tu recommandes de prendre ce cours'
+      },
+      explain_love: {
+        en: 'Explain why this class is awesome',
+        fr: 'Explique pourquoi tu adores ce cours'
       },
       contribute_not_student: {
         en: 'You need to be identified as a student from one of our partner schools to contribute on Shapter!',
@@ -1519,9 +1527,13 @@ angular.module( 'services.appText', [])
       }
     },
     cursus: {
+      create_a_step: {
+        en: 'Add a step to your profile!',
+        fr: 'Ajoute une étape à ton parcours !'
+      },
       step_title: {
-        en: 'How would you name this step of your profile?',
-        fr: 'Comment nommes-tu cette étape de ton parcours ?'
+        en: 'How would you name this step?',
+        fr: 'Comment nommes-tu cette étape ?'
       }, 
       cant_remove_full_box: {
         en: 'You can only remove an empty step',

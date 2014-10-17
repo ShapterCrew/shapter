@@ -7,7 +7,7 @@ angular.module('shapter.header', ['directives.confirmAlert', 'directives.behaveA
     link: function(scope, element, attr){
 
       var nav = function( path ){
-        $location.path( path ).search( 'filter', null ).search( 'categories', null);
+        $location.path( path ).search( 'filter', null ).search( 'categories', null).search( 'state', null );
       };
 
       scope.$stateParams = $stateParams;
@@ -59,6 +59,10 @@ angular.module('shapter.header', ['directives.confirmAlert', 'directives.behaveA
 
       scope.profileNav = function(){
         nav("/student/" + scope.security.currentUser.id);
+      };
+
+      scope.cursusAddNav = function(){
+        $location.path( '/schools/' + $stateParams.schoolId + '/cursus' ).search( 'filter', null ).search( 'categories', null).search( 'state', 'boxesRecommendations');
       };
 
       scope.cursusNav = function(){
