@@ -11,6 +11,7 @@ class Item
   field :requires_comment_score, type: Integer
   field :requires_diagram_score, type: Integer
   field :requires_skill_score  , type: Integer
+  field :lovers_count          , type: Integer
 
   embeds_many :comments
   embeds_many :diagrams
@@ -23,6 +24,14 @@ class Item
   has_and_belongs_to_many :subscribers      , class_name: "User", inverse_of: :items
   has_and_belongs_to_many :interested_users , class_name: "User", inverse_of: :cart_items
   has_and_belongs_to_many :constructor_users, class_name: "User", inverse_of: :constructor_users
+
+  after_destroy :class_touch
+
+  before_save :set_requires_comment_score
+  before_save :set_requires_diagram_score
+  before_save :set_requires_skill_score
+  before_destroy :custom_destroy_callbacks
+  before_save :count_lovers
 
   class << self
     def touch
@@ -87,8 +96,6 @@ class Item
     tags.skills
   end
 
-  before_destroy :custom_destroy_callbacks
-  after_destroy :class_touch
   def class_touch
     Item.touch
   end
@@ -198,11 +205,12 @@ class Item
     end
   end
 
-  before_save :set_requires_comment_score
-  before_save :set_requires_diagram_score
-  before_save :set_requires_skill_score
 
   private
+
+  def count_lovers
+    self.lovers_count = lover_ids.size
+  end
 
   def custom_destroy_callbacks
 

@@ -108,20 +108,30 @@ class FormationPage
   end
 
   def best_comments(n=5)
-    Rails.cache.fetch("bestCmmt|#{cache_id}|#{items.max(:updated_at).try(:utc).try(:to_s, :number)}", expires_in: 3.hours) do 
-      self.items
-      .select{|i| [i.comments.map(&:author_id) & i.diagrams.map(&:author_id)].any?}
-      .select{|i| i.diagrams.count > 1}
-      .select{|i| i.avg_diag.values[6] > 50}
-      .sort_by{|i| i.avg_diag.values[6]}.reverse
+    Rails.cache.fetch("ltstCmmt|#{cache_id}|#{items.max(:updated_at).try(:utc).try(:to_s, :number)}", expires_in: 3.hours) do 
+      self.items.desc(:lovers_count)
       .take(n)
       .map do |item|
         item.comments
-        .sort_by{|c| c.likers_count*(item.diagrams.where(author_id: c.author_id).last.values[6] || 0 rescue 0) }
+        .sort_by{|c| c.likers_count*(item.lovers_count) }
         .last
       end
       .compact
     end
+    #Rails.cache.fetch("bestCmmt|#{cache_id}|#{items.max(:updated_at).try(:utc).try(:to_s, :number)}", expires_in: 3.hours) do 
+    #  self.items
+    #  .select{|i| [i.comments.map(&:author_id) & i.diagrams.map(&:author_id)].any?}
+    #  .select{|i| i.diagrams.count > 1}
+    #  .select{|i| i.avg_diag.values[6] > 50}
+    #  .sort_by{|i| i.avg_diag.values[6]}.reverse
+    #  .take(n)
+    #  .map do |item|
+    #    item.comments
+    #    .sort_by{|c| c.likers_count*(item.diagrams.where(author_id: c.author_id).last.values[6] || 0 rescue 0) }
+    #    .last
+    #  end
+    #  .compact
+    #end
   end
 
 
