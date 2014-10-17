@@ -20,7 +20,8 @@ angular.module('security.service', [
       var schoolId = service.currentUser.schools[0].id;
       // if first connexion
       if( ( service.currentUser.provider == 'facebook' && service.currentUser.sign_in_count < 2 ) || ( service.currentUser.provider != 'facebook' && service.currentUser.sign_in_count < 3) ){
-        string = "/schools/" + schoolId + '/signupFunnel';
+        $location.path( '/schools/' + schoolId + '/cursus' ).search( 'filter', null ).search( 'categories', null).search( 'state', 'boxesRecommendations');
+        return;
       }
       // else
       else{
