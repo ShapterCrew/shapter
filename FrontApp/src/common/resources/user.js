@@ -1,7 +1,8 @@
 angular.module( 'resources.user', [
   'restangular',
   'resources.item',
-  'resources.comment'
+  'resources.comment',
+  'resources.profileBox'
 ])
 
 .factory( 'User', ['Restangular', 'Item', '$location', 'security', 'Comment', function( Restangular, Item, $location, security, Comment ){
@@ -109,14 +110,15 @@ angular.module( 'resources.user', [
           current_user_comments_count: true,
           current_user_diagram: true,
           requires_comment_score: true,
-          current_user_has_diagram: true
+          current_user_has_diagram: true,
+          current_user_reco_score: true
         },
         diagram: {
           front_values: true
         }
       };
       return Restangular.one( 'users', 'me' ).customPOST({entities: entities, n_start : n_start, n: n, school_id: id}, 'comment-pipe').then( function( response ){
-        response.commentable_items = Restangular.restangularizeCollection( {}, response.commentable_items, 'items', {});
+        response.commentable_items = Restangular.restangularizeCollection( null, response.commentable_items, 'items');
 
         angular.forEach( response.commentable_items, function( item ){
 
@@ -253,6 +255,52 @@ angular.module( 'resources.user', [
         }
       };
       return Restangular.all('users').customPOST( {email: email, entities: entities}, 'schools_for' );
+    },
+
+    profileBoxes: function( userId ){
+      var params = {
+        entities: {
+          profile_box: {
+            "end_date": true,
+            "internship": true,
+            "items": true,
+            "name": true,
+            "start_date": true,
+            "tags": true,
+            "type": true
+          },
+          tag: {
+            "category": true,
+            "name": true
+          },
+          item: {
+            "name": true,
+            "this_user_has_comment": true,
+            "current_user_comments_count": true,
+            "current_user_reco_score": true
+          },
+          internship: {
+            "address": true,
+            "description": true,
+            "duration": true,
+            "end_date": true,
+            "in_progress": true,
+            "lat": true,
+            "lng": true,
+            "start_date": true,
+            "tags": true,
+            "title": true,
+            "trainee": false
+          }
+        }
+      };
+      return Restangular.one( 'users', userId ).customPOST( params, 'profile_boxes' ).then( function( response ){
+        var boxes = Restangular.restangularizeCollection( null, response, 'profile_boxes');
+        return boxes.map( function( box ){
+          box.items = box.items ? Restangular.restangularizeCollection( null, box.items, 'items'): null;
+          return box;
+        });
+      });
     },
 
     openSchoolAuth: function( school ){

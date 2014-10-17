@@ -10,6 +10,19 @@ angular.module( 'shapter.editDiagram', [])
     controller: 'EditDiagramCtrl'
   };
 }])
+
+.directive( 'shEditDiagramLight', [function(){
+  return {
+    restrict: 'A',
+    scope: {
+      item: '=',
+      cb: '&'
+    },
+    templateUrl: 'directives/editDiagramLight.tpl.html',
+    controller: 'EditDiagramCtrl'
+  };
+}])
+
 .controller( 'EditDiagramCtrl', ['$scope', 'Analytics', 'Item', 'AppText', function( $scope, Analytics, Item, AppText ){
 
   $scope.AppText = AppText;

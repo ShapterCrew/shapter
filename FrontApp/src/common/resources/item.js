@@ -9,7 +9,6 @@ angular.module('resources.item', [
 
   //********* Adding instance methods *************//
 
-
   var getComments = function( cb ){
     return Restangular.one('items', this.id).all('comments').post();
   };
@@ -145,6 +144,8 @@ angular.module('resources.item', [
       }
 
       return item;
+    }, function( err ){
+      item.loading = false;
     });
   };
 
@@ -266,6 +267,12 @@ angular.module('resources.item', [
     });
   };
 
+  var reco_score = function( val ){
+    var item = this;
+    return Restangular.one( 'items', item.id ).customPUT({ score: val }, 'reco_score').then( function( response ){
+      item.current_user_reco_score = val;
+    });
+  };
 
   var subscribe = function() {
     if( this.current_user_subscribed === false ){
@@ -322,6 +329,14 @@ angular.module('resources.item', [
     }
   };
 
+  var toggleSubscribe = function(){
+    if( this.current_user_subscribed ){
+      this.unsubscribe();
+    }
+    else{
+      this.subscribe();
+    }
+  };
   var cart = function(){
     this.current_user_has_in_cart = true;
     return Restangular.one( 'items', this.id ).customPOST({}, 'cart').then( function( response ){
@@ -416,6 +431,7 @@ angular.module('resources.item', [
   // adding custom behavior
   var extendItem = function(item) {
     return angular.extend(item, {
+      reco_score: reco_score,
       editDiagram: editDiagram,
       getComments: getComments,
       subscribe: subscribe,
@@ -434,6 +450,7 @@ angular.module('resources.item', [
       removeDoc: removeDoc,
       loadComments: loadComments,
       toggleCart: toggleCart,
+      toggleSubscribe: toggleSubscribe,
       loadUserDiagram: loadUserDiagram,
       loadDiagram: loadDiagram,
       loadSyllabus: loadSyllabus, 
@@ -463,6 +480,7 @@ angular.module('resources.item', [
   };
 
   Item.createTaggedItems = createTaggedItems;
+
   Item.getListFromTags = function( tags, total, batchSize, index, quality_filter, cart_only ) {
     var entities = {
       item: {
@@ -614,11 +632,25 @@ angular.module('resources.item', [
     return Restangular.all('items').all('tags').customPOST({ item_ids: item_ids, tags: tags }, 'add');
   };
 
+  Item.typeahead = function( string, optTagIds, optLimit ){
+    console.log( string );
+    limit = optLimit || 20;
+    tag_ids = optTagIds;
+    var params = {
+      search_string: string,
+      tag_ids: tag_ids,
+      entities: {
+        item: {
+          'name': true
+        }
+      }
+    };
+    return Restangular.all('items').customPOST( params, 'typeahead' );
+  };
+
   Item.removeTags = function( item_ids, tags ){
     return Restangular.all('items').all('tags').customPOST({ item_ids: item_ids, tags: tags }, 'delete');
   };
-
-
 
   return Item;
 }]);

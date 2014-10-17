@@ -20,6 +20,10 @@ angular.module( 'services.appText', [])
       return $filter( 'language' )( $parse( code )( AppText.categories ));
     },
     internships: {
+      type: {
+        en: 'Internship type:',
+        fr: 'Type de stage :'
+      },
       internship_created: {
         en: 'Great, your internship has been created!',
         fr: 'Super, ton stage a bien été créé !'
@@ -188,6 +192,10 @@ angular.module( 'services.appText', [])
       }
     },
     security: {
+      email_signup: {
+        en: 'Signup with email',
+        fr: 'Inscription par email'
+      },
       auth_but_not_confirmed: {
         en: 'Your account has been created but not confirmed. Click on the confirmation email you recieved at ',
         fr: 'Tu dois confirmer ton email : clique sur l\'email de confirmation que tu as reçu à l\'adresse '
@@ -236,6 +244,10 @@ angular.module( 'services.appText', [])
         en: 'Facebook Connect',
         fr: 'Connexion avec Facebook'
       },
+      facebook_signup: {
+        en: 'Facebook Signup',
+        fr: 'Inscription avec Facebook'
+      },
       signup: {
         en: 'Signup',
         fr: 'Inscription'
@@ -245,12 +257,12 @@ angular.module( 'services.appText', [])
         fr: 'Connexion'
       },
       first_name: {
-        en: 'First name: ',
-        fr: 'Prénom : '
+        en: 'First name',
+        fr: 'Prénom'
       },
       last_name: {
-        en: 'Last name: ',
-        fr: 'Nom : '
+        en: 'Last name',
+        fr: 'Nom'
       },
       email: {
         en: 'Email',
@@ -261,8 +273,8 @@ angular.module( 'services.appText', [])
         fr: 'Email invalide'
       },
       password: {
-        en: 'Password: ',
-        ft: 'Mot de passe : '
+        en: 'Password',
+        fr: 'Mot de passe'
       },
       forgot_password: {
         en: 'Forgot password',
@@ -333,8 +345,8 @@ angular.module( 'services.appText', [])
         fr: 'Valide ton commentaire'
       },
       your_comment_here: {
-        en: 'How was that class ? Share your position !',
-        fr: 'Comment était ce cours ? Partage ton point de vue !'
+        en: 'What is this class ? Who should take it and why ?',
+        fr: 'Qu\'est-ce que ce cours ? Qui devrait le prendre et pourquoi ?'
       }
     },
     diagram: {
@@ -584,6 +596,54 @@ angular.module( 'services.appText', [])
     },
 
     contribute: {
+      love: {
+        en: 'favorite',
+        fr: 'Coup de coeur'
+      },
+      manage_my_classes: {
+        en: 'Go manage my classes',
+        fr: 'Gérer mes cours'
+      },
+      you_did_id: {
+        en: 'Yeah ! You advised every single class you took. Did you take new ones ?',
+        fr: 'Bravo ! Tu as recommandé tous les cours que tu as suivis ! Est-ce que tu en as suivis des nouveaux ?'
+      },
+      take_classes: {
+        en: 'Subscribe on Shapter to the classes you took as a student and come back here to give your feedback !',
+        fr: 'Inscris-toi sur Shapter aux cours que tu as suivis et reviens ici pour les recommander !'
+      },
+      unadvised: {
+        en: 'Unadvised',
+        fr: 'Déconseillé'
+      },
+      it_depends: {
+        en: 'Id depends', 
+        fr: 'Ça dépend'
+      },
+      recommended: {
+        en: 'Recommended',
+        fr: 'Recommandé'
+      },
+      do_you_recommend: {
+        en: 'Do you recommend this class?',
+        fr: 'Recommandes-tu ce cours ?'
+      },
+      explain_unadvise: {
+        en: 'Explain with tact why do you unadvise taking this class',
+        fr: 'Explique avec tact pourquoi tu déconseilles ce cours'
+      },
+      explain_it_depends: {
+        en: 'Explain why choose or not choose this class',
+        fr: 'Explique pourquoi choisir ou ne pas choisir ce cours'
+      },
+      explain_reco: {
+        en: 'Explain why do you recommend taking this class',
+        fr: 'Explique pourquoi tu recommandes de prendre ce cours'
+      },
+      explain_love: {
+        en: 'Explain why this class is awesome',
+        fr: 'Explique pourquoi tu adores ce cours'
+      },
       contribute_not_student: {
         en: 'You need to be identified as a student from one of our partner schools to contribute on Shapter!',
         fr: 'Tu dois être identifié comme étudiant de l\'un de nos établissements partenaires pour contribuer sur Shapter !'
@@ -745,8 +805,8 @@ angular.module( 'services.appText', [])
     },
     item: {
       want_more_comments: {
-        en: 'Want more comments? Ask your friends!',
-        fr: 'Tu veux plus de commentaires ? Demande autour de toi !'
+        en: 'The more feedbacks we have the better : help the community by asking around yourself!',
+        fr: 'Plus on a de commentaires mieux c\'est : aide la communauté en demandant autour de toi !'
       },
       ask_for_comments: {
         en: 'Ask for comments',
@@ -1214,8 +1274,8 @@ angular.module( 'services.appText', [])
         fr: 'Quelques étudiants de'
       },
       they_love_it: {
-        en: 'The five best courses: ',
-        fr: 'Les cinq meilleurs cours :'
+        en: 'Five courses they love: ',
+        fr: 'Cinq cours que les étudiants adorent :'
       },
       browse_all_courses: {
         en: 'All courses in',
@@ -1285,6 +1345,18 @@ angular.module( 'services.appText', [])
       }
     },
     system: {
+      back: {
+        en: 'back',
+        fr: 'retour'
+      },
+      display: {
+        en: 'Display',
+        fr: 'Afficher'
+      },
+      terminate: {
+        en: 'Terminate',
+        fr: 'Terminer'
+      },
       or: {
         en: 'or',
         fr: 'ou'
@@ -1343,6 +1415,14 @@ angular.module( 'services.appText', [])
       }
     },
     categories: {
+      internship: {
+        en: 'Internship',
+        fr: 'Stage'
+      },
+      classes: {
+        en: 'Classes',
+        fr: 'Cours'
+      },
       school: {
         en: 'School',
         fr: 'Établissement'
@@ -1407,6 +1487,10 @@ angular.module( 'services.appText', [])
         en: 'Position',
         fr: 'Poste'
       },
+      type: {
+        en: 'type',
+        fr: 'type'
+      },
       domain: {
         en: 'Domain',
         fr: 'Domaine'
@@ -1440,6 +1524,136 @@ angular.module( 'services.appText', [])
       check_spam: {
         en: 'If you don\'t recieve the email, check your spam folder',
         fr: 'Si tu ne reçois rien, vérifie ton dossier de spams'
+      }
+    },
+    cursus: {
+      create_a_step: {
+        en: 'Add a step to your profile!',
+        fr: 'Ajoute une étape à ton parcours !'
+      },
+      step_title: {
+        en: 'How would you name this step?',
+        fr: 'Comment nommes-tu cette étape ?'
+      }, 
+      cant_remove_full_box: {
+        en: 'You can only remove an empty step',
+        fr: 'L\'étape doit être vide pour être retirée'
+      },
+      class_name: {
+        en: 'What is the name of the class?',
+        fr: 'Quel est le nom du cours ?'
+      },
+      didnt_take_the_class: {
+        en: 'I didn\'nt take this class',
+        fr: 'Je n\'ai pas suivi ce cours'
+      },
+      edit_box: {
+        en: 'Edit this step',
+        fr: 'Editer cette étape'
+      },
+      remove_step: {
+        en: 'Remove this step form my profile',
+        fr: 'Retirer cette étape de mon cursus'
+      },
+      sure_remove_step: {
+        en: 'Do you really want to remove this step from your profile?',
+        fr: 'Veux tu vraiment retirer cette étape de ton parcours ?'
+      },
+      account_needed: {
+        en: 'Want to have a fancy profile on Shapter ? Just signup and build your profile !',
+        fr: 'Tu veux avoir un profil sur Shapter ? Crée-toi simplement un compte !'
+      },
+      cancel_reco: {
+        en: 'Cancel recommendation',
+        fr: 'Annuler la recommandation'
+      },
+      an_internship: {
+        en: 'An internship',
+        fr: 'Un stage'
+      },
+      classes: {
+        en: 'classes',
+        fr: 'cours'
+      },
+      select_classes: {
+        en: 'Select the classes you took: ',
+        fr: 'Sélectionne les cours que tu as suivis :'
+      },
+      step_name: {
+        en: 'Step name',
+        fr: 'Nom de l\'étape: '
+      },
+      courses_referenced_with_those_keywords: {
+        en: 'Those courses are referenced on Shapter with the following keywords: ',
+        fr: 'Les cours sont référencés sur Shapter avec les mots-clefs suivants :'
+      },
+      show_details: {
+        en: 'Show details',
+        fr: 'Voir les détails'
+      },
+      hide_details: {
+        en: 'Hide details',
+        fr: 'Masquer les détails'
+      },
+      give_the_dates: {
+        en: 'When did you take those classes ? (Approximative dates are OK)',
+        fr: 'Quand as-tu suivi ces cours ? (A peu près)'
+      },
+      load_more_suggestions: {
+        en: 'Load more suggestions',
+        fr: 'Voir plus de suggestions'
+      },
+      my_course: {
+        en: 'Your profile:',
+        fr: 'Ton cursus :'
+      },
+      electives: {
+        en: 'Elective classes',
+        fr: 'Cours à choisir'
+      },
+      common_classes: {
+        en: 'Core classes',
+        fr: 'Tronc commun'
+      },
+      start_date: {
+        en: 'Start date',
+        fr: 'Date de début'
+      },
+      end_date: {
+        en: 'End date',
+        fr: 'Date de fin'
+      },
+      something_else: {
+        en: 'I did something else!',
+        fr: 'J\'ai fait quelque chose d\'autre !'
+      },
+      another_internship: {
+        en: 'Another kind of internship',
+        fr: 'Un autre type de stage'
+      },
+      internship: {
+        en: 'Internship',
+        fr: 'Stage'
+      },
+      add_step: {
+        en: 'What did you do after',
+        fr: 'Qu\'est-ce que tu as fait après'
+      },
+      add_internship: {
+        en: 'Add an internship',
+        fr: 'Ajoute un stage'
+      },
+      courses: {
+        en: 'Add some courses',
+        fr: 'Ajoute des cours'
+      },
+      comment: {
+        en: 'comment',
+        fr: 'commentaire'
+      },
+      diagram: {
+        en: 'diagram',
+        fr: 'diagramme'
       }
     }
   };

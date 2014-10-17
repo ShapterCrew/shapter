@@ -7,7 +7,7 @@ angular.module('shapter.header', ['directives.confirmAlert', 'directives.behaveA
     link: function(scope, element, attr){
 
       var nav = function( path ){
-        $location.path( path ).search( 'filter', null ).search( 'categories', null);
+        $location.path( path ).search( 'filter', null ).search( 'categories', null).search( 'state', null );
       };
 
       scope.$stateParams = $stateParams;
@@ -45,7 +45,6 @@ angular.module('shapter.header', ['directives.confirmAlert', 'directives.behaveA
       };
 
       scope.campusAuthorizationNav = function(){
-        console.log( 'lol' );
         $location.path("/campusAuthentication");
       };
 
@@ -60,6 +59,17 @@ angular.module('shapter.header', ['directives.confirmAlert', 'directives.behaveA
 
       scope.profileNav = function(){
         nav("/student/" + scope.security.currentUser.id);
+      };
+
+      scope.cursusAddNav = function(){
+        $location.path( '/schools/' + $stateParams.schoolId + '/cursus' ).search( 'filter', null ).search( 'categories', null).search( 'state', 'boxesRecommendations');
+      };
+
+      scope.cursusNav = function(){
+        var schoolId = $stateParams.schoolId ? $stateParams.schoolId : ( security.currentUser.isConfirmedStudent() ? security.currentUser.schools[0].id : null);
+        if( schoolId ){
+          nav("/schools/" + schoolId + "/cursus");
+        }
       };
 
       scope.campusAuthenticationNav = function(){

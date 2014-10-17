@@ -160,7 +160,7 @@ module Shapter
               requires :tag_category, desc: "tag category"
             end
           end
-          put :tags do
+          put :add_tags do
             check_user_login!
             error!("forbidden",401) unless (current_user.shapter_admin or @internship.trainee == current_user)
 
@@ -176,7 +176,7 @@ module Shapter
 
             tags = (new_tags + old_tags).uniq
 
-            @internship.tags << tags
+            @internship.tags += tags
 
             if @internship.save
               present @internship, with: Shapter::Entities::Internship, entity_options: entity_options

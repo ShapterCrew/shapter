@@ -14,6 +14,8 @@ class Internship
   has_and_belongs_to_many :tags
   has_and_belongs_to_many :trainees, class_name: "User", inverse_of: :internships # This allows queries such as User.not.where(internship_ids: nil) to find user with internships
 
+  has_one :profile_box_internship
+
   #{{{ validations
   validates_presence_of :start_date, :end_date, :trainee_ids, :title, :location
   validate :dates_validation
@@ -76,6 +78,7 @@ class Internship
         "company_size",
         "domain",
         "position",
+        "type",
       ]
     end
   end
@@ -83,7 +86,20 @@ class Internship
   after_save :tags_touch
   after_save :user_touch
 
+  after_create :create_profile_box
+  after_destroy :delete_profile_box
+
   private
+
+  def create_profile_box
+    p = ProfileBoxInternship.new(internship: self)
+    p.save
+  end
+
+  def delete_profile_box
+    profile_box_internship.destroy if profile_box_internship
+  end
+
   def tags_touch
     tags.each(&:touch) if tags.any?
   end

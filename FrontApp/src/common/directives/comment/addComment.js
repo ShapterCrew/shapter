@@ -11,7 +11,7 @@ angular.module( 'directives.addComment', [])
   };
 }])
 
-.controller( 'AddCommentCtrl', ['$scope', 'Comment', 'AppText', '$filter', 'security', function($scope, Comment, AppText, $filter, security ){
+.controller( 'AddCommentCtrl', ['$scope', 'Comment', 'AppText', '$filter', 'security', '$rootScope', function($scope, Comment, AppText, $filter, security, $rootScope ){
 
   $scope.security = security;
   $scope.AppText = AppText;
@@ -24,7 +24,11 @@ angular.module( 'directives.addComment', [])
 
   $scope.addNewComment = function() {
     Comment.newComment($scope.item.id, $scope.item.newComment).then(function(response){
+      $rootScope.$broadcast('Comment Added');
       $scope.item.comments.push(response);
+      console.log( response );
+      $scope.item.current_user_comment = response;
+      $scope.item.this_user_has_comment = true;
       $scope.item.current_user_comments_count = $scope.item.current_user_comments_count ? $scope.item.current_user_comments_count + 1 : 1;
       $scope.item.newComment.content = '';
       $scope.item.current_user_subscribed = true;

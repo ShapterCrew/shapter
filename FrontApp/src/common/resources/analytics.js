@@ -421,6 +421,19 @@ angular.module('resources.analytics', [])
 
     newConfirmationEmailRequest: function(){
       mixpanel.track('New Confirmation Email Request');
+    },
+
+    reco: function(item, score){
+      mixpanel.track('Item Recommendation', {
+        item: item.id,
+        score: score
+      });
+    },
+    
+    contributeNav: function( attr ){
+      mixpanel.track('Contribute Prev or Next', {
+        direction: attr
+      });
     }
 
   };

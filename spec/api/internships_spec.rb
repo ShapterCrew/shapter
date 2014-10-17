@@ -169,7 +169,7 @@ describe Shapter::V7::SchoolsDiagDims do
         tags_by_ids: [@new_t.id.to_s],
       }
 
-      put "internships/#{@intern.id}/tags", @p
+      put "internships/#{@intern.id}/add_tags", @p
       @intern.reload
       expect(@intern.tags.include?(@new_t)).to be true
       expect(@intern.tags.map(&:name).include?("new_tag1")).to be true

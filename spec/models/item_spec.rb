@@ -122,4 +122,33 @@ describe Item do
   end
   #}}}
 
+  #{{{ user_reco_score
+  describe :user_recommandations do 
+
+    it "should default to 0 " do 
+      expect(@item.user_reco_score(@user)).to eq 0
+    end
+
+    it "scores 1 when unrecommand" do 
+      @item.unrecommenders << @user
+      expect(@item.user_reco_score(@user)).to eq 1
+    end
+    
+    it "scores 2 when norecommand" do 
+      @item.norecommenders << @user
+      expect(@item.user_reco_score(@user)).to eq 2
+    end
+
+    it "scores 3 when recommands" do 
+      @item.recommenders << @user
+      expect(@item.user_reco_score(@user)).to eq 3
+    end
+
+    it "scores 4 when loves" do 
+      @item.lovers << @user
+      expect(@item.user_reco_score(@user)).to eq 4
+    end
+  end
+  #}}}
+
 end

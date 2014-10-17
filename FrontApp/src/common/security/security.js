@@ -481,6 +481,7 @@ angular.module('security.service', [
         };
 
         return Restangular.all('users').customPOST(params, 'me' ).then(function(response) {
+          $rootScope.$broadcast('login success');
           try {
             behave.identify(response.id, {name: response.firstname + " " + response.lastname});
           }

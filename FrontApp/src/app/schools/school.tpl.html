@@ -1,53 +1,5 @@
 <sh-header></sh-header>
 
-<!--
-<div class="container">
-  <div class="row">
-    <div class="col-md-12">
-      <h2 class="" style="margin-bottom: 0px">
-        <img class="media-object thumbnail" src="{{ formation.logo_url }}" style="float: left; width: 80px" ng-show="formation.logo_url">
-        <span ng-click="schoolNav()" class="text-dark-blue"> {{ school.name }}</span>
-        <small ng-show="secondFormationId()" class="text-orange">
-          <small class="glyphicon glyphicon-chevron-right"></small> {{ formation.name }} <small class="text-orange glyphicon glyphicon-remove" ng-click="schoolNav()"></small> 
-        </small>
-      </h2>
-
-      <div>
-        <a href="#/schools" class="link-muted">
-          <small class="glyphicon glyphicon-chevron-left"></small> {{ AppText.school.all_schools | language }}
-        </a>
-      </div>
-    </div>
-  </div>
-</div>
--->
-
-<!--
-<div class="turquoise-infos">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-12">
-        <ul class="list-inline stats-list" style="margin-bottom: 0px">
-          <li>
-            <span class="fa fa-user"></span>
-            {{ formation.students_count }} {{ AppText.school.contributors | language }}
-          </li>
-          <li>
-            <span class="fa fa-comment"></span>
-            {{ formation.comments_count }} {{ AppText.school.comments | language }}
-          </li>
-          <li>
-            <span class="icomoon-diagram"></span>
-            {{ formation.diagrams_count }} {{ AppText.school.diagrams | language }} 
-          </li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</div>
--->
-
-
 <div class="container">
   <div class="row">
     <div class="col-md-12">
@@ -57,9 +9,8 @@
         </div>
         <div class="col-md-8">
 
-          <div class="shapter-well">
-            <div class="lead bold text-dark-blue" style="margin: 30px 0px 5px 0px">
-              {{ AppText.school.they_love_it | language }}
+          <div>
+            <div class="lead bold text-dark-blue padding-well">
 
               <!-- facebook output -->
               <ul ng-social-buttons 
@@ -79,12 +30,15 @@
                 </li>
               </ul>
 
+              {{ AppText.school.they_love_it | language }}
+
             </div>
-            <div class="campus-comment" sh-comment hide-likes="false" close="" comment="comment" display-course-name="true" current-user="security.currentUser" comments='comments' ng-repeat="comment in formation.best_comments | limitTo: 6" display-satisfaction="true"></div>
+            <div class="padding-well" sh-comment hide-likes="false" close="" comment="comment" display-course-name="true" current-user="security.currentUser" comments='comments' ng-repeat="comment in formation.best_comments | limitTo: 6" display-satisfaction="true"></div>
             <a ng-click="browseNavFromFormation()" class="text-info">{{ AppText.school.browse_all_courses | language }} {{ formation.name }} <small class="fa fa-arrow-right"></small></a>
           </div>
-          <div class="shapter-well">
-            <div class="lead bold text-dark-blue" style="margin: 30px 0px 5px 0px">{{ AppText.school.where_do_they_internship | language }}</div>
+
+          <div class="padding-well" style="margin-top: 25px">
+            <div class="lead bold text-dark-blue" style="margin-bottom: 0">{{ AppText.school.where_do_they_internship | language }}</div>
             <sh-map on-new="shAddInternshipModalFactory.open()" internships-list="internshipsList"></sh-map>
             <p style="margin-top: 5px"><a class="text-info" href="#/schools/{{ school.id }}/internships">{{ AppText.school.browse_internships_by_keywords | language }} <small class="fa fa-arrow-right"></small></a></p>
           </div>

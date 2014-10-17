@@ -10,6 +10,8 @@ angular.module('security.emailLogin', [
   $scope.loginUser = {};
   $scope.signupUser = {};
   $scope.reasonAlerts = [];
+  $scope.initialMode = true;
+  $scope.emailSignupMode = false;
 
   if( reason ){
     $scope.reasonAlerts.push({
@@ -71,7 +73,7 @@ angular.module('security.emailLogin', [
 
   $scope.signup = function(){
     $scope.pendingRequest = true;
-    security.signup($scope.loginUser.email, $scope.loginUser.password, $scope.loginUser.firstname, $scope.loginUser.lastname).then(function(data){
+    security.signup($scope.signupUser.email, $scope.signupUser.password, $scope.signupUser.firstname, $scope.signupUser.lastname).then(function(data){
       $scope.pendingRequest = false;
     });
   };

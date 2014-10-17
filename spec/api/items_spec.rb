@@ -192,32 +192,32 @@ describe Shapter::V7::Items do
   end
   #}}}
 
-  #{{{ subscribe
-  describe :subscribe do 
-    context "when logged off" do 
-      it "should deny access" do 
-        post "items/#{@item.id}/subscribe"
-        access_denied(response).should be true
-      end
-    end
+  ##{{{ subscribe (deactivated)
+  #describe :subscribe do 
+  #  context "when logged off" do 
+  #    it "should deny access" do 
+  #      post "items/#{@item.id}/subscribe"
+  #      access_denied(response).should be true
+  #    end
+  #  end
 
-    context "when logged in" do 
-      before do 
-        login(@user)
-      end
-      it "should add to subscribers list" do 
-        User.any_instance.stub(:schools).and_return(@item.tags)
-        post "items/#{@item.id}/subscribe"
-        JSON.parse(response.body)["id"].should == @item.id.to_s
+  #  context "when logged in" do 
+  #    before do 
+  #      login(@user)
+  #    end
+  #    it "should add to subscribers list" do 
+  #      User.any_instance.stub(:schools).and_return(@item.tags)
+  #      post "items/#{@item.id}/subscribe"
+  #      JSON.parse(response.body)["id"].should == @item.id.to_s
 
-        @item.reload
-        @user.reload
-        @user.items.include?(@item).should be true
-        @item.subscribers.include?(@user).should be true
-      end
-    end
-  end
-  #}}}
+  #      @item.reload
+  #      @user.reload
+  #      @user.items.include?(@item).should be true
+  #      @item.subscribers.include?(@user).should be true
+  #    end
+  #  end
+  #end
+  ##}}}
 
   #{{{ unsubscribe
   describe :unsubscribe do 
@@ -391,6 +391,17 @@ describe Shapter::V7::Items do
       login(@user)
       post "items/#{@item.id}/avgDiag"
       (@response.body).should == @item.front_avg_diag.to_json
+    end
+  end
+  #}}}
+
+  #{{{ reco_score
+  describe :reco_score do
+    it "recommends item" do 
+      login(@user)
+      expect{put "/items/#{@item.id}/reco_score", score: 3 ; @item.reload}.to change{@item.user_reco_score(@user)}.from(0).to(3)
+      expect{put "/items/#{@item.id}/reco_score", score: 4 ; @item.reload}.to change{@item.user_reco_score(@user)}.from(3).to(4)
+
     end
   end
   #}}}

@@ -88,7 +88,7 @@ angular.module('resources.internship', [
   };
 
   Internship.addTags = function( id, tag_ids, tags_by_name_cat ){
-    return Restangular.one( 'internships', id ).customPUT({ tag_by_ids: tag_ids, tags_by_name_cat: tags_by_name_cat }, 'tags');
+    return Restangular.one( 'internships', id ).customPUT({ tag_by_ids: tag_ids, tags_by_name_cat: tags_by_name_cat }, 'add_tags');
   };
 
   return Internship;

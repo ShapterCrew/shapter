@@ -1,0 +1,103 @@
+<div class="row" ng-click="close()">
+  <div class="col-md-6 col-md-offset-3" ng-click="$event.stopPropagation()">
+    <div class="modal-content">
+      <div class="modal-body">
+        <span class="glyphicon glyphicon-remove pull-right" ng-click="close()"></span>
+
+        <span class="lead bold text-asphalt" ng-bind="AppText.security.connect | language"></span>
+
+        <div style="margin-top: 20px; margin-bottom: 20px">
+          <alert class="alert" ng-repeat="alert in reasonAlerts" type="alert.type" ng-show="alert.msg" style="margin-bottom: 0px">
+          {{ alert.msg | language }}
+          </alert>
+        </div>
+
+        <div style="margin-bottom: 20px">
+          <alert class="alert" ng-repeat="alert in alerts" type="alert.type" ng-show="alert.msg" style="margin-bottom: 0px">
+          {{ alert.msg | language }}
+          </alert>
+        </div>
+
+
+
+        <div class="form-group" style="margin-top: 20px">
+          <a class="btn btn-facebook" ng-click="facebookConnect()" style="width: 100%">
+            <span class="fa-stack">
+              <i class="fa fa-square fa-stack-2x"></i>
+              <i class="fa fa-facebook fa-stack-1x text-facebook"></i>
+            </span>
+            {{ AppText.security.facebook_connect | language }}
+          </a>
+        </div>
+
+        <div style="text-align: center; width: 100%">
+          <div class="row">
+            <div class="col-xs-5">
+              <hr class="grey-hr" style="margin-top: 15px">
+            </div>
+
+            <div class="col-xs-2">
+              {{ AppText.system.or | language }}
+            </div>
+
+            <div class="col-xs-5">
+              <hr class="grey-hr" style="margin-top: 15px">
+            </div>
+          </div>
+        </div>
+
+
+        <form name="loginForm" class="css-form" novalidate>
+          <div class="form-group">
+            <div style="margin-bottom: 0px"><small>{{ AppText.security.email | language }}</small></div>
+            <div ng-show="signupState"><small class="text-info">{{ AppText.security.prefer_school_email | language }}</small></div>
+            <input type="email" name="email" ng-model="loginUser.email" class="form-control">
+            <p class="text-danger" ng-show="(loginForm.loginEmail.$invalid || loginUser.email == '') && !loginForm.loginEmail.hasFocus && !loginForm.loginEmail.$pristine">{{ AppText.security.invalid_email | language }}</p>
+          </div>
+
+          <div class="form-group">
+            <label>{{ AppText.security.password | language }} </label>
+            <input type="password" ng-model="loginUser.password" class="form-control">
+          </div>
+
+
+          <div ng-show="signupState">
+
+            <div class="form-group">
+              <label>{{ AppText.security.first_name | language }}</label>
+              <input name="fname" type="text" ng-model="loginUser.firstname" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+              <label>{{ AppText.security.last_name | language }}</label>
+              <input type="text" name="lname" ng-model="loginUser.lastname" class="form-control" required>
+            </div>
+          </div><!-- signupState -->
+
+
+          <div class="form-group clearfix" style="margin-bottom: 0px;" ng-show="signupState">
+            <a target=_blank href="#/cgu" class="pull-right" style="margin-top: 10px; margin-bottom: 0px;"><small class="text-asphalt">{{ AppText.security.accept_cgu | language }}</small></a>
+          </div>
+
+          <div class="form-group clearfix">
+            <span class="pull-right">
+              <span class="text-success bold" ng-click="signupState = true" ng-hide="signupState">
+                {{ AppText.security.create_account | language }}
+              </span>
+              <span class="text-success bold" ng-click="signupState = false" ng-show="signupState">
+                {{ AppText.security.back | language }}
+              </span>
+              <button class="btn btn-success" ng-hide="signupState" ng-click="login()">{{ AppText.security.signin | language }}</button>
+              <button class="btn btn-success" ng-show="signupState" ng-click="signup()">{{ AppText.security.signup | language }}</button>
+            </span>
+          </div>
+
+          <div class="form-group clearfix" style="margin-bottom: 0px;" ng-hide="signupState">
+            <p class="pull-right" style="margin-top: 10px; margin-bottom: 0px;" ng-click="showForgotPassword()"><small>{{ AppText.security.forgot_password | language }}</small></p>
+          </div>
+        </form>
+      </div><!-- modal-body -->
+
+    </div><!-- modal-content -->
+  </div><!-- col -->
+</div><!-- row -->

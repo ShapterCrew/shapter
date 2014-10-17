@@ -33,9 +33,12 @@ describe('AddInternshipModal Test', function() {
         };
       });
       $provide.provider('Tag', function () { 
-        this.$get = function () {
+        this.$get = function ( $q ) {
           return {
             typeahead: function(){
+            },
+            getSuggestedTags: function(){
+              return $q.when({});
             }
           };
         };
@@ -84,7 +87,8 @@ describe('AddInternshipModal Test', function() {
         tag_category: 'skill'
       }],
       tags: {
-        company_name: 'Shapter'
+        company_name: 'Shapter',
+        type: 'Stage ouvrier'
       },
       address: {
         formatted_address: "35 Rue de Turbigo, 75003 Paris, France",
@@ -174,6 +178,10 @@ describe('AddInternshipModal Test', function() {
         tag_category: 'company_name'
       },
       {
+        tag_name: 'Stage ouvrier',
+        tag_category: 'type'
+      },
+      {
         tag_category: 'geo',
         tag_name: 'Paris'
       },
@@ -185,7 +193,7 @@ describe('AddInternshipModal Test', function() {
     }));
   });
 
-  describe('AddInternshipModalController', function(){
+  describe('AddInternshipController', function(){
     var $stateParams;
     beforeEach( inject (function( $injector ){
       $stateParams = $injector.get( '$stateParams' );
@@ -194,7 +202,7 @@ describe('AddInternshipModal Test', function() {
     /* --------------------------------- */
     it('should have an user and an addInternship function in the scope', inject(function($rootScope, $controller) {
       var scope = $rootScope.$new();
-      var ctrl = $controller('AddInternshipModalCtrl', {$scope: scope});
+      var ctrl = $controller('AddInternshipCtrl', {$scope: scope});
       expect(angular.isFunction(scope.addInternship)).toBe(true);
     }));
 
