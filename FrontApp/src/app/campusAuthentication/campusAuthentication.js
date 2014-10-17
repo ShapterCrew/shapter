@@ -51,19 +51,22 @@ angular.module( 'shapter.campusAuthentication', [
   });
 
   $scope.selectCampus = function(){
-    if( $scope.newAuthorization.school.name == 'Dauphine' || $scope.newAuthorization.school.name == 'ENSMA' ){
+    if( $scope.newAuthorization.school.name == 'Dauphine' || $scope.newAuthorization.school.name == 'ENSMA' || $scope.newAuthorization.school.name == 'ESSEC' ){
       $scope.hideEmail = true;
+    }
+    else {
+      $scope.hideEmail = false;
     }
   };
 
 
   $scope.submitAuthorization = function(){
-    if( $scope.newAuthorization.school.name == 'Dauphine' || $scope.newAuthorization.school.name == 'ENSMA' ){
+    if( $scope.newAuthorization.school.name == 'Dauphine' || $scope.newAuthorization.school.name == 'ENSMA' || $scope.newAuthorization.school.name == 'ESSEC' ){
       User.openSchoolAuth( $scope.newAuthorization.school ).then( function( response ){
         security.currentUser.schools.push( $scope.newAuthorization.school );
         security.currentUser.confirmed = true;
         security.currentUser.confirmed_student = true;
-        $location.path('/schools/' + $scope.newAuthorization.school.id);
+        $location.path( '/schools/' + $scope.newAuthorization.school.id + '/cursus' ).search( 'filter', null ).search( 'categories', null).search( 'state', 'boxesRecommendations');
       }, function( err ){
         console.log( err );
       });
