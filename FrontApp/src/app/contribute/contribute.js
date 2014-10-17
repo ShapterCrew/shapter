@@ -15,6 +15,11 @@ angular.module( 'shapter.contribute', [
         templateUrl: 'contribute/contribute.tpl.html'
       }
     },
+    resolve: {
+      currentUser: ['security', function( security ){
+        return security.requestCurrentUser();
+      }]
+    },
     data:{ pageTitle: 'Contribuer' }
   }).state( 'contribute', {
     url: '/contribute',
@@ -125,8 +130,8 @@ angular.module( 'shapter.contribute', [
         $scope.activeItem = $scope.commentPipe.commentable_items[ idx + 1 ];
       }
       else {
-        User.commentPipe( $scope.commentPipe.commentable_items.length, 1, $stateParams.schoolId ).then( function( response ){
-    $scope.nexted = true;
+        User.commentPipe( $scope.commentPipe.commentable_items.length, 1, security.currentUser.schools[0].id ).then( function( response ){
+          $scope.nexted = true;
           if( response.commentable_items.length ){
             $scope.commentPipe.commentable_items.push( response.commentable_items[0]);
             $scope.activeItem = $scope.commentPipe.commentable_items[ $scope.commentPipe.commentable_items.length - 1 ];
@@ -151,7 +156,9 @@ angular.module( 'shapter.contribute', [
     Analytics.contributeNav('previous');
   };
 
-  $scope.next();
+  if( security.isConfirmedStudent() ){
+    $scope.next();
+  }
 
   /*
      $scope.batchSize = 3;

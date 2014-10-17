@@ -53,7 +53,8 @@ angular.module( 'shapter.cursus', [
         if( !box.tags.length ){
           box.tags = [{
             category: 'school',
-            name: 'Other'
+            id: security.currentUser.schools[0].id,
+            name: ''
           }];
         }
         box.unfolded = true;
@@ -116,7 +117,7 @@ angular.module( 'shapter.cursus', [
   });
 
   $scope.getItemsTypeahead = function( string ){
-    return Item.typeahead( string, [ $stateParams.schoolId ], 20 ).then( function( response ){
+    return Item.typeahead( string, [ security.currentUser.schools[0].id ], 20 ).then( function( response ){
       return response.items;
     });
   };
