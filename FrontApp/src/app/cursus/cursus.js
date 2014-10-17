@@ -66,6 +66,10 @@ angular.module( 'shapter.cursus', [
     });
   };
 
+  if( $location.search().state == 'addingBox' && !$scope.newBox ){
+    $location.search( 'state', null );
+  }
+
   $scope.removeBox = function( box ){
     box.remove().then( function(){
       $scope.boxes.splice( $scope.boxes.indexOf( box ), 1);
@@ -209,11 +213,8 @@ angular.module( 'shapter.cursus', [
   };
 
   $scope.editBox = function( box ){
-    box.name = box.new_name;
-    box.end_date = box.new_end_date;
-    box.start_date = box.new_start_date;
     box.put().then( function(){
-      $scope.cancelEditBox( box );
+      $scope.loadBoxes();
     });
   };
 
@@ -230,17 +231,20 @@ angular.module( 'shapter.cursus', [
   $scope.addBox = function(){
     ProfileBox.create( $filter( 'formatBoxToPost' )( $scope.newBox ) ).then( function( box ){
       $scope.loadBoxes();
-      $scope.alerts = [{
-        type: 'info',
-        msg: 'L\'étape a bien été ajoutée à ton parcours !'
-      }];
       $scope.toRecommendations();
-    }, function(){
-      $scope.alerts = [{
-        type: 'danger',
-        msg: 'Il y a eu une erreur'
-      }];
-      $scope.cancelAddBox();
+    }, function( err ){
+      if( err.data.error == 'start_date is missing, end_date is missing' || err.data.error == 'start_date is missing' || err.data.error == 'end_date is missing' ){
+        $scope.alerts = [{
+          type: 'danger',
+          msg: AppText.cursus.pick_the_dates
+        }];
+      }
+      else {
+        $scope.alerts = [{
+          type: 'danger',
+          msg: AppText.system.there_was_an_error
+        }];
+      }
     });
   };
 

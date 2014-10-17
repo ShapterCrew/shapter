@@ -205,7 +205,7 @@
                           </span>
                         </span>
                         <span class="blue-hover" ng-class="{'text-blue': item.displayRecos}" ng-click="toggleDisplayRecos( item )">{{ item.name }}</span>
-                        <div ng-show="item.displayRecos" class="padding-well" sh-item-contribute item="item" next="hideRecos( item )" previous="hideRecos( item )"></div>
+                        <div ng-show="item.displayRecos" class="padding-well" sh-item-contribute item="item" next="hideRecos( item )" previous="hideRecos( item )" style="padding-left: 0"></div>
                         <div class="clearfix" ng-hide="!!item.current_user_reco_score || !item.displayRecos" style="margin-top: 5px">
                           <small class="pull-right" ng-click="removeItemFromBox( box, item )" style="text-align: left"><span class="glyphicon glyphicon-remove"></span>{{ AppText.cursus.didnt_take_the_class | language }}</small>
                         </div>

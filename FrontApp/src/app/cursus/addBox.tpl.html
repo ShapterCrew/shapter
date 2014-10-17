@@ -55,6 +55,9 @@
           <input class="form-control" name="fend" type="text" show-weeks="false" show-button-bar="false" datepicker-popup="dd/MM/yyyy" ng-model="newBox.end_date" is-open="openedEnd" ng-required="true" close-text="Close" editable="false" required/>
         </p>
       </div>
+      <div class="form-group">
+        <alert class="alert" type="alert.type" ng-repeat="alert in alerts">{{ alert.msg | language }} <small class="glyphicon glyphicon-remove pull-right" ng-click="alerts.splice( $index, 1)"></small></alert>
+      </div>
       <div class="clearfix form-group" ng-hide="newBox.itemsLoading || newBox.items.length === 0 || (newBox.tags.length + newBox.commonTags.length ) === 0">
         <div class="pull-right">
           <button class="btn btn-warning" ng-click="cancelAddBox()">{{ AppText.system.cancel | language }}</button>

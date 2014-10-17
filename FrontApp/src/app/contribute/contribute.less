@@ -209,13 +209,15 @@
       &:extend( .btn-lg );
     }
   }
+
   &.btn-special-norecommend {
     border-color: @silver;
     & .btn {
-      .button-variant(@btn-default-color, @sun-pastel, @sun-pastel, @sun-pastel);
+      .button-variant(@btn-default-color, @sun-pastel, lighten(@sun-pastel, 10%), @sun-pastel);
       &:extend( .btn-lg );
     }
   }
+
   &.btn-special-love {
     border-color: @silver;
     & .btn {
@@ -223,6 +225,7 @@
       &:extend( .btn-lg );
     }
   }
+
   &.btn-special-unrecommend {
     @unrecommend-button-color: @grapefruit; 
     border-color: @silver;
@@ -231,6 +234,7 @@
       .button-variant(@btn-default-color, @unrecommend-button-color, lighten( @unrecommend-button-color, 8% ), @unrecommend-button-color);
     }
   }
+
 }
 
 .contribute-caret {
