@@ -49,7 +49,7 @@ class ProfileBoxItem < ProfileBox
   end
 
   def compute_tag_ids
-    items.map(&:tag_ids).reduce(:&)
+    items.map(&:tag_ids).reduce(:&).reject{|tag_id| Tag.find(tag_id).category == "item_name"}
   end
 
   private
