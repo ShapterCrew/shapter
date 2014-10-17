@@ -16,5 +16,5 @@ Item.all.flat_map(&:diagrams).each do |diag|
         4
       end
   puts "#{diag.author.name} voted #{s} on #{diag.item.name}"
-  diag.author.reco_score_item!(diag.item,3)
+  diag.author.reco_score_item!(diag.item,s)
 end

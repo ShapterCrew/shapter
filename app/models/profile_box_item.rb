@@ -50,10 +50,10 @@ class ProfileBoxItem < ProfileBox
 
   def compute_tag_ids
     a = items.map(&:tag_ids).reduce(:&)
-    if a.any?
-      a.reject{|tag_id| Tag.find(tag_id).category == "item_name"}
+    if a.blank?
+      return nil
     else
-      []
+      return a.reject{|tag_id| Tag.find(tag_id).category == "item_name"}
     end
   end
 
