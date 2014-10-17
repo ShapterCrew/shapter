@@ -49,7 +49,7 @@ module Shapter
           optional :item_ids, type: Array, desc: "item_ids"
         end
         post :create do 
-          check_confirmed_account!
+          check_confirmed_student!
           pb = ProfileBoxItem.new(
             name: params[:name],
             user_ids: [current_user.id],
@@ -85,7 +85,7 @@ module Shapter
             optional :item_ids, type: Array, desc: "item_ids"
           end
           put do 
-            check_confirmed_account!
+            check_confirmed_student!
             error!("forbidden",403) unless @pb.user unless @pb.user == current_user or current_user.shapter_admin
             clean_p = permit_params(params, [:name, :start_date,  :end_date, :item_ids])
             if @pb.update_attributes(clean_p)
@@ -103,6 +103,7 @@ module Shapter
             requires :item_ids, desc: "ids of the items to remove from the box"
           end
           post "add_items" do 
+            check_confirmed_student!
             @pb.add_items!(params[:item_ids])
             if @pb.save
               present @pb, with: Shapter::Entities::ProfileBox, entity_options: entity_options
@@ -119,6 +120,7 @@ module Shapter
             requires :item_ids, desc: "ids of the items to remove from the box"
           end
           post "remove_items" do 
+            check_confirmed_student!
             @pb.remove_items!(params[:item_ids])
             if @pb.save
               present @pb, with: Shapter::Entities::ProfileBox, entity_options: entity_options
@@ -131,7 +133,7 @@ module Shapter
           #{{{ delete
           desc "delete a profile box"
           delete do 
-            check_confirmed_account!
+            check_confirmed_student!
             error!("forbidden",403) unless @pb.user unless @pb.user == current_user or current_user.shapter_admin
 
             @pb.destroy
