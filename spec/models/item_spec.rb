@@ -143,6 +143,11 @@ describe Item do
       @item.recommenders << @user
       expect(@item.user_reco_score(@user)).to eq 3
     end
+
+    it "scores 4 when loves" do 
+      @item.lovers << @user
+      expect(@item.user_reco_score(@user)).to eq 4
+    end
   end
   #}}}
 

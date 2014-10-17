@@ -260,7 +260,8 @@ module Shapter
                                                               - score = 0 => delete score
                                                               - score = 1 => unrecommand item (do not recommend)
                                                               - score = 2 => norecommand item (could recommend, it depends)
-                                                              - score = 3 => unrecommand item (does recommend)
+                                                              - score = 3 => recommand item (does recommend)
+                                                              - score = 4 => love item (highly recommend)
                                                               - score = anything_else => raise exception 
                                                              NOTE
           }
