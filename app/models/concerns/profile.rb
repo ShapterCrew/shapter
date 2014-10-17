@@ -26,11 +26,16 @@ module Profile
     if (not_empty = profile.not.where(tag_ids: nil)).any?
       last_ts = not_empty.last.tag_ids
       next_pb_ids = ProfileBoxItem.all_in(tag_ids: last_ts).where(:tag_ids.with_size => last_ts.size).only(:next_1_id).flat_map(&:next_1_id).compact.uniq
-      box_tag_ids = ProfileBoxItem.not.where(tag_ids: nil).only(:tag_ids).find(next_pb_ids)
+
+      enhance_next_ids = ProfileBoxItem.not.where(next_1_id: nil).any_in(tag_ids: school_ids).where(name: /#{profile.last.name}/).only(:next_1_id).flat_map(&:next_1_id).compact
+      next_ids = (next_pb_ids + enhance_next_ids).uniq.compact
+
+      box_tag_ids = ProfileBoxItem.not.where(tag_ids: nil).only(:tag_ids).find(next_ids)
     else
       prom_bud_ids = schools.only(:student_ids).flat_map(&:student_ids)
       box_tag_ids = ProfileBoxItem.not.where(tag_ids: nil).any_in(user_ids: prom_bud_ids).where(prev_1_id: nil).only(:tag_ids)
     end
+
 
     already_boxed = profile_boxes.not.where(tag_ids: nil).only(:tag_ids).map(&:tag_ids).map(&:sort).uniq.compact || []
 
@@ -40,6 +45,7 @@ module Profile
     .sort_by(&:last).reverse
     .map(&:first)
     .take(n)
+
 
     suggested_boxes = popular_ids.map do |ids|
       ProfileBox.new(
