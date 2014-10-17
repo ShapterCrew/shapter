@@ -1,4 +1,3 @@
-Item.where(name: nil).destroy_all
 Item.all.flat_map(&:diagrams).each do |diag|
   unless (diag.author and diag.item)
     diag.destroy
@@ -16,5 +15,5 @@ Item.all.flat_map(&:diagrams).each do |diag|
         4
       end
   puts "#{diag.author.name} voted #{s} on #{diag.item.name}"
-  diag.author.reco_score_item!(diag.item,s)
+  puts diag.author.reco_score_item!(diag.item,s)
 end
