@@ -209,4 +209,13 @@ describe Shapter::V7::Users do
   end
   #}}}
 
+  #{{{ lang
+  describe :lang do 
+    it "sets the lang for a user" do 
+      login(@user)
+      expect{put '/users/me/lang', lang: "en" ; @user.reload}.to change{@user.lang}.from(nil).to('en')
+    end
+  end
+  #}}}
+
 end

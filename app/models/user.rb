@@ -11,6 +11,7 @@ class User
   field :firstname, type: String
   field :lastname,  type: String
   field :shapter_admin, type: Boolean
+  field :lang
 
   has_and_belongs_to_many :internships, class_name: "Internship", inverse_of: :trainee
 

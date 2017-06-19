@@ -2,6 +2,7 @@ module Shapter
   module Entities
     class User < Grape::Entity
       expose :pretty_id                       , as: :id
+      expose :lang, if: lambda{|u,o| o[:entity_options]["user"][:lang]}
       expose :email , if: lambda {|u,o| o[:entity_options]["user"][:email] } do |u,o|
         u.public_email(o[:entity_options][:current_user])
       end
